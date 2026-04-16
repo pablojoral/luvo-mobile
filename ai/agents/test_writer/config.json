@@ -1,0 +1,7 @@
+{
+  "framework": "jest",
+  "testing_library": "react-native-testing-library",
+  "max_test_cases": 12,
+  "prefer_behavior_tests": true,
+  "avoid_snapshots": true
+}

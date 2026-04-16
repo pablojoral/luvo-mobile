@@ -1,0 +1,15 @@
+{
+  "native": true,
+  "typescript": true,
+  "icon": true,
+  "expandProps": "end",
+  "replaceAttrValues": {
+    "#000": "{props.color || 'currentColor'}",
+    "#000000": "{props.color || 'currentColor'}",
+    "#585B61": "{props.color || 'currentColor'}"
+  },
+  "svgProps": {
+    "width": "{props.width ?? 24}",
+    "height": "{props.height ?? 24}"
+  }
+}

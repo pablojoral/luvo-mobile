@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333933437173",
+    "project_id": "luvo-dev-b95e3",
+    "storage_bucket": "luvo-dev-b95e3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333933437173:android:e043ba42cc28091e7fe5bc",
+        "android_client_info": {
+          "package_name": "com.luvomobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKws1v2DtQjMgn_zQw0oqoryS6lHl_8ZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
