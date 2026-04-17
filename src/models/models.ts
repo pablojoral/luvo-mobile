@@ -95,6 +95,24 @@ export type NewMachine = Omit<Machine, 'id' | 'createdAt' | 'status'> & {
 export type NewMaintainerOrganization = MaintainerOrganization;
 export type NewPublicLaundryAccess = PublicLaundryAccess;
 
+// ---------- My Laundries ----------
+
+/** Single entry in the user's saved laundry list */
+export interface MyLaundry {
+  id: number;
+  name: string;
+  visibility: LaundryVisibility;
+  isMain: boolean;
+  addedAt: string; // ISO datetime
+  location: Location;
+  machines: Machine[];
+}
+
+export interface MyLaundriesResponse {
+  laundries: MyLaundry[];
+  mainLaundryId: number | null;
+}
+
 // ---------- ID aliases ----------
 export type UserId = User['id'];
 export type OrganizationId = Organization['id'];

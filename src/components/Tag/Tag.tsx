@@ -3,6 +3,8 @@ import { StyleProp, View, ViewStyle } from 'react-native';
 import { BorderColor, SurfaceColor } from 'theme/types/Theme';
 
 import { useTagTheme } from './theme/useTagTheme';
+import { IconName } from 'components/SvgIcon/types';
+import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 
 interface TagProps extends TextProps {
   surfaceColor?: SurfaceColor;
@@ -10,6 +12,7 @@ interface TagProps extends TextProps {
   style?: StyleProp<ViewStyle>;
   fullWidth?: boolean;
   disabled?: boolean;
+  iconName?: IconName;
 }
 
 export const Tag = ({
@@ -18,6 +21,7 @@ export const Tag = ({
   borderColor = 'border-transparent',
   fullWidth = false,
   disabled = false,
+  iconName,
   ...props
 }: TagProps) => {
   const { containerStyle } = useTagTheme({
@@ -29,7 +33,8 @@ export const Tag = ({
 
   return (
     <View style={[containerStyle, style]}>
-      <Text {...props} />
+      {iconName ? <SvgIcon name={iconName} size={props.fontSize} color={props.color} /> : null}
+      {props.children ? <Text {...props} /> : null}
     </View>
   );
 };

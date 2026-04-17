@@ -11,6 +11,8 @@ export const useScreenHeaderTheme = () => {
       alignItems: 'center',
       paddingVertical: theme.spacing['spacing-md'],
       paddingHorizontal: theme.spacing['spacing-md'],
+      borderBottomWidth: 1,
+      borderBottomColor: theme.borderColor['border-secondary'],
     },
     backButton: {
       padding: theme.spacing['spacing-xs'],

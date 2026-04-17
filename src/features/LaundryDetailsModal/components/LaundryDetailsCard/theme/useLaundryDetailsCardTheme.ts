@@ -27,6 +27,11 @@ export const useLaundryDetailsCardTheme = () => {
       paddingBottom: theme.spacing['spacing-sm'],
       gap: theme.spacing['spacing-md'],
     },
+    tagsContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: theme.spacing['spacing-xs'],
+    },
     infoContainer: {
       flex: 1,
       flexShrink: 1,

@@ -16,14 +16,9 @@ export const LaundryDetailsModal: React.FC = () => {
 
   const { selectedLaundryId, clearSelectedLaundry } = useSelectedLaundry();
 
-  const laundry = useLaundriesStore(
-    s => s.laundries.find(l => l.id === selectedLaundryId) ?? null,
-  );
+  const laundry = useLaundriesStore(s => s.laundries.find(l => l.id === selectedLaundryId) ?? null);
 
-  const { pan, tapHeader, containerAStyle, listAStyle } = useAnimations(
-    !!laundry,
-    clearSelectedLaundry,
-  );
+  const { pan, toggle, containerAStyle, listAStyle } = useAnimations(!!laundry, clearSelectedLaundry);
 
   return (
     <GestureDetector gesture={pan}>
@@ -31,11 +26,7 @@ export const LaundryDetailsModal: React.FC = () => {
         <View style={styles.backgroundImage}>
           <SvgImage name={'wave-laundry-card'} width={width} height={157} />
         </View>
-        <GestureDetector gesture={tapHeader}>
-          <View collapsable={false}>
-            <LaundryDetailsCard laundry={laundry} />
-          </View>
-        </GestureDetector>
+        <LaundryDetailsCard laundry={laundry} onToggle={toggle} />
 
         <Animated.View style={[styles.listContainer, listAStyle]}>
           <MachinesList laundry={laundry} />
