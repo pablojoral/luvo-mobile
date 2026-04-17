@@ -83,16 +83,7 @@ export const useAnimations = (visible: boolean, onDismiss: () => void) => {
       });
   }, [SNAP_COLLAPSED, SNAP_EXPANDED, startH, sheetH, vis, onDismiss]);
 
-  const tapHeader = useMemo(() => {
-    const tap = Gesture.Tap()
-      .maxDistance(6)
-      .maxDuration(220)
-      .onEnd(() => runOnJS(toggle)());
-    tap.requireExternalGestureToFail(pan);
-    return tap;
-  }, [pan, toggle]);
-
-  const containerAStyle = useAnimatedStyle(() => ({
+const containerAStyle = useAnimatedStyle(() => ({
     height:  vis.value * sheetH.value,
     opacity: vis.value,
   }));
@@ -104,5 +95,5 @@ export const useAnimations = (visible: boolean, onDismiss: () => void) => {
     return { height: h, opacity: withTiming(listOpacity, { duration: FADE_MS }) };
   });
 
-  return { pan, tapHeader, containerAStyle, listAStyle, SNAP_COLLAPSED, SNAP_EXPANDED };
+  return { pan, toggle, containerAStyle, listAStyle, SNAP_COLLAPSED, SNAP_EXPANDED };
 };

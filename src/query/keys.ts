@@ -13,4 +13,8 @@ export const qk = {
     list: (filter?: { search?: string }) => ['laundries', 'list', filter ?? {}] as const,
     infinite: (filter?: { search?: string }) => ['laundries', 'infinite', filter ?? {}] as const,
   },
+  myLaundries: {
+    root: ['myLaundries'] as const,
+    list: () => ['myLaundries', 'list'] as const,
+  },
 };

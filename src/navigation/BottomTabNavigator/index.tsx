@@ -1,8 +1,8 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { IconName } from 'components/SvgIcon/types';
 import { Laundries } from 'features/Laundries/Laundries';
-import { Profile } from 'features/Profile/Profile';
 import { Scan } from 'features/Scan/Scan';
+import { ProfileStackNavigator } from 'navigation/ProfileStackNavigator';
 import { useTheme } from 'theme/hooks/useTheme';
 import { FontColor } from 'theme/types/Theme';
 
@@ -18,7 +18,6 @@ type TabRouteName = keyof TabParamList;
 
 const LaundryScreen = () => <Laundries />;
 const ScanScreen = () => <Scan />;
-const ProfileScreen = () => <Profile />;
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -54,6 +53,12 @@ export const BottomTabNavigator = () => {
           height: theme.navBarHeight,
           paddingTop: theme.spacing['spacing-sm'],
           borderTopWidth: 0,
+          // Shadow
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -4 },
+          shadowOpacity: 0.08,
+          shadowRadius: 12,
+          elevation: 12,
         },
         tabBarIconStyle: {
           marginBottom: theme.spacing['spacing-xs'],
@@ -74,7 +79,7 @@ export const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStackNavigator}
         options={{ title: 'Perfil', tabBarButtonTestID: 'tab-profile' }}
       />
     </Tab.Navigator>

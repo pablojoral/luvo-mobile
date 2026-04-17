@@ -4,7 +4,7 @@ import { FontColor, FontSize, FontWeight, LineHeight } from 'theme/types/Theme';
 import { useTextTheme } from './theme/useTextTheme';
 
 export interface TextProps extends RNTextProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   fontSize?: FontSize;
   color?: FontColor;
   lineHeight?: LineHeight;
