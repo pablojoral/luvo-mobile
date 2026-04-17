@@ -1,5 +1,6 @@
 import { Auth } from 'features/Auth/Auth';
 import { LaundryDetailsModal } from 'features/LaundryDetailsModal/LaundryDetailsModal';
+import { MessagesModal } from 'features/Messages/MessagesModal';
 import { Payment } from 'features/Payment/Payment';
 import { BottomTabNavigator } from 'navigation/BottomTabNavigator';
 import { StyleSheet, View } from 'react-native';
@@ -27,6 +28,7 @@ const TabsScreen = () => {
     <View style={styles.fill}>
       <BottomTabNavigator />
       <LaundryDetailsModal />
+      <MessagesModal />
     </View>
   );
 };
