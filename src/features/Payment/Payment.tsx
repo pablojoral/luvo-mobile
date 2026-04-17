@@ -13,7 +13,7 @@ import { AvailabilityTag } from 'components/AvailabilityTag/AvailabilityTag';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { RootStackParamList } from 'navigation/RootStackNavigator';
@@ -22,53 +22,33 @@ import { usePayment } from './hooks/usePayment';
 import { PaymentMethodCard } from './components/PaymentMethodCard/PaymentMethodCard';
 import { usePaymentTheme } from './theme/usePaymentTheme';
 import { Colors } from 'theme/constants/colors';
+import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Payment'>;
 
 export const Payment = ({ route, navigation }: Props) => {
   const { machineId } = route.params;
-  const { styles, theme } = usePaymentTheme();
+  const { styles } = usePaymentTheme();
 
   // Derive machine + laundry from live store
-  const machine = useLaundriesStore(s =>
-    s.laundries.flatMap(l => l.machines ?? []).find(m => m.id === machineId) ?? null,
+  const machine = useLaundriesStore(
+    s => s.laundries.flatMap(l => l.machines ?? []).find(m => m.id === machineId) ?? null,
   );
-  const laundry = useLaundriesStore(s =>
-    s.laundries.find(l => l.machines?.some(m => m.id === machineId)) ?? null,
-  );
+  const laundry = useLaundriesStore(s => s.laundries.find(l => l.machines?.some(m => m.id === machineId)) ?? null);
 
-  const {
-    strategies,
-    selectedStrategy,
-    setSelectedStrategy,
-    paymentState,
-    progressMsg,
-    result,
-    execute,
-    reset,
-  } = usePayment(machineId);
+  const { strategies, selectedStrategy, setSelectedStrategy, paymentState, progressMsg, result, execute, reset } =
+    usePayment(machineId);
 
   const isLoading = paymentState === 'loading';
   const isSuccess = paymentState === 'success';
-  const isError   = paymentState === 'error';
+  const isError = paymentState === 'error';
 
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={12}>
-          <SvgIcon name={'ArrowLeftCircle'} size={'font-size-xxxl'} color={'font-primary'} />
-        </TouchableOpacity>
-        <Text fontSize={'font-size-xl'} fontWeight={'semibold'}>
-          Pagar
-        </Text>
-        <View style={{ width: 32 }} />
-      </View>
+      <ScreenHeader title="Pagar máquina" onBack={() => navigation.goBack()} />
 
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Machine info card */}
         {machine ? (
           <View style={styles.machineCard}>
@@ -96,11 +76,7 @@ export const Payment = ({ route, navigation }: Props) => {
         {/* ── Idle / method picker ───────────────────────────────────────── */}
         {paymentState === 'idle' && (
           <Animated.View entering={FadeIn} exiting={FadeOut}>
-            <Text
-              fontSize={'font-size-md'}
-              fontWeight={'semibold'}
-              style={styles.sectionTitle}
-            >
+            <Text fontSize={'font-size-md'} fontWeight={'semibold'} style={styles.sectionTitle}>
               Método de pago
             </Text>
 
@@ -179,13 +155,7 @@ export const Payment = ({ route, navigation }: Props) => {
               style={styles.actionButton}
               onPress={reset}
             />
-            <Button
-              label="Cancelar"
-              variant="tertiary"
-              size="md"
-              fullWidth
-              onPress={() => navigation.goBack()}
-            />
+            <Button label="Cancelar" variant="tertiary" size="md" fullWidth onPress={() => navigation.goBack()} />
           </Animated.View>
         )}
       </ScrollView>

@@ -1,10 +1,15 @@
-import auth from '@react-native-firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
+} from '@react-native-firebase/auth';
 // import { GoogleSignin } from '@react-native-google-signin/google-signin';
 // import appleAuth from '@invertase/react-native-apple-authentication';
 
 // Email/Password
 export async function signUpWithEmail(email: string, password: string) {
-  const cred = await auth().createUserWithEmailAndPassword(email, password);
+  const cred = await createUserWithEmailAndPassword(getAuth(), email, password);
   // optionally update profile:
   // await cred.user.updateProfile({ displayName: '...' });
   return cred.user;
@@ -12,19 +17,15 @@ export async function signUpWithEmail(email: string, password: string) {
 
 export async function signInWithEmail(email: string, password: string) {
   try {
-    console.log('Signing in with email:', email);
-
-    const cred = await auth().signInWithEmailAndPassword(email, password);
-    console.log('User signed in:', cred.user);
+    const cred = await signInWithEmailAndPassword(getAuth(), email, password);
     return cred.user;
   } catch (error) {
-    console.error('Error signing in:', error);
     throw error;
   }
 }
 
 export function signOut() {
-  return auth().signOut();
+  return firebaseSignOut(getAuth());
 }
 
 export async function signInWithGoogle() {
@@ -49,7 +50,7 @@ export async function signInWithApple() {
 
 // Get fresh Firebase ID token (to call your Fastify API)
 export async function getIdToken(forceRefresh = false) {
-  const current = auth().currentUser;
+  const current = getAuth().currentUser;
   if (!current) return null;
   return current.getIdToken(forceRefresh);
 }

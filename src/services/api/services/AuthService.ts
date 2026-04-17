@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth';
+import { getAuth, signOut as firebaseSignOut } from '@react-native-firebase/auth';
 
 import { BaseService } from '../BaseService';
 import { AuthUser } from '../../../models/models';
@@ -16,7 +16,7 @@ class AuthService extends BaseService {
   }
 
   async logout(): Promise<void> {
-    await auth().signOut();
+    await firebaseSignOut(getAuth());
   }
 }
 
