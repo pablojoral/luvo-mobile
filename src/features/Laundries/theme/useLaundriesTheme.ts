@@ -20,7 +20,14 @@ export const useLaundriesTheme = () => {
       top: theme.topInset + theme.spacing['spacing-sm'],
       right: theme.spacing['spacing-md'],
     },
+    scanFab: {
+      position: 'absolute',
+      right: theme.spacing['spacing-xl'],
+    },
   });
 
-  return { styles, theme };
+  const fabBaseBottom = theme.navBarHeight + theme.spacing['spacing-xl'];
+  const cardBottom = theme.navBarHeight + theme.spacing['spacing-md'];
+
+  return { styles, theme, fabBaseBottom, cardBottom };
 };

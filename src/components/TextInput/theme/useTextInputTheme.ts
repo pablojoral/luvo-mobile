@@ -20,6 +20,10 @@ export const useTextInputTheme = ({
       width: '100%',
       gap: theme.spacing['spacing-xxs'],
     },
+    footer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
     input: {
       width: '100%',
       height: theme.spacing['spacing-xxxxl'],

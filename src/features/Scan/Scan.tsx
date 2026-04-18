@@ -21,7 +21,7 @@ export const Scan = () => {
   const [selectedOption, setSelectedOption] = useState<string>('qr');
   const isQrSelected = selectedOption === 'qr';
 
-  const { hasPermission, codeScanner } = useCameraScanner();
+  const { hasPermission, codeScanner } = useCameraScanner(() => {});
 
   const noAccessMessage =
     'No has habilitado el acceso a la cámara. Por favor, habilítalo en la configuración de tu dispositivo.';

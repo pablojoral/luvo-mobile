@@ -11,8 +11,9 @@ export interface TextInputProps extends RNTextInputProps {
   placeholderColor?: FontColor;
 }
 
-export const TextInput = ({ label, error, color, placeholderColor, style, ...rest }: TextInputProps) => {
+export const TextInput = ({ label, error, color, placeholderColor, style, maxLength, value, ...rest }: TextInputProps) => {
   const { styles, placeholderTextColor } = useTextInputTheme({ error: !!error, color, placeholderColor });
+  const remaining = maxLength !== undefined ? maxLength - (value?.length ?? 0) : undefined;
 
   return (
     <View style={styles.container}>
@@ -21,12 +22,25 @@ export const TextInput = ({ label, error, color, placeholderColor, style, ...res
           {label}
         </Text>
       )}
-      <RNTextInput style={[styles.input, style]} placeholderTextColor={placeholderTextColor} {...rest} />
-      {error && (
-        <Text fontSize="font-size-xs" color="font-error">
-          {error}
-        </Text>
-      )}
+      <RNTextInput
+        style={[styles.input, style]}
+        placeholderTextColor={placeholderTextColor}
+        maxLength={maxLength}
+        value={value}
+        {...rest}
+      />
+      <View style={styles.footer}>
+        {error && (
+          <Text fontSize="font-size-xs" color="font-error" style={{ flex: 1 }}>
+            {error}
+          </Text>
+        )}
+        {remaining !== undefined && (
+          <Text fontSize="font-size-xs" color="font-placeholder">
+            {remaining}
+          </Text>
+        )}
+      </View>
     </View>
   );
 };

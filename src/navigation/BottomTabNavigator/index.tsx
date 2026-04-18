@@ -1,8 +1,8 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { IconName } from 'components/SvgIcon/types';
 import { Laundries } from 'features/Laundries/Laundries';
-import { Scan } from 'features/Scan/Scan';
-import { ProfileStackNavigator } from 'navigation/ProfileStackNavigator';
+import { MyLaundries } from 'features/MyLaundries/MyLaundries';
+import { Profile } from 'features/Profile/Profile';
 import { useTheme } from 'theme/hooks/useTheme';
 import { FontColor } from 'theme/types/Theme';
 
@@ -10,20 +10,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 type TabParamList = {
   Laundry: undefined;
-  QrScanner: undefined;
+  MyLaundries: undefined;
   Profile: undefined;
 };
 
 type TabRouteName = keyof TabParamList;
 
 const LaundryScreen = () => <Laundries />;
-const ScanScreen = () => <Scan />;
+const MyLaundriesScreen = () => <MyLaundries />;
+const ProfileScreen = () => <Profile />;
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const iconMap: Record<TabRouteName, IconName> = {
   Laundry: 'MapPin',
-  QrScanner: 'QrCode',
+  MyLaundries: 'Star',
   Profile: 'Profile',
 };
 
@@ -73,13 +74,13 @@ export const BottomTabNavigator = () => {
         options={{ title: 'Locales', tabBarButtonTestID: 'tab-laundry' }}
       />
       <Tab.Screen
-        name="QrScanner"
-        component={ScanScreen}
-        options={{ title: 'Escanear', tabBarButtonTestID: 'tab-scan' }}
+        name="MyLaundries"
+        component={MyLaundriesScreen}
+        options={{ title: 'Mis lavanderías', tabBarButtonTestID: 'tab-my-laundries' }}
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileStackNavigator}
+        component={ProfileScreen}
         options={{ title: 'Perfil', tabBarButtonTestID: 'tab-profile' }}
       />
     </Tab.Navigator>

@@ -6,25 +6,12 @@ export const useLaundryDetailsCardTheme = () => {
   const theme = useTheme();
 
   const styles = StyleSheet.create({
-    dragIndicatorContainer: {
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingTop: theme.spacing['spacing-xs'],
-      paddingBottom: theme.spacing['spacing-xs'],
-    },
-    dragIndicator: {
-      width: 50,
-      borderRadius: theme.cornerRad['corner-rad-full'],
-      borderTopColor: theme.borderColor['border-secondary'],
-      borderTopWidth: theme.borderWidth['border-width-md'],
-    },
     contentContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: theme.spacing['spacing-md'],
-      paddingBottom: theme.spacing['spacing-sm'],
+      paddingVertical: theme.spacing['spacing-sm'],
       gap: theme.spacing['spacing-md'],
     },
     tagsContainer: {
@@ -57,5 +44,14 @@ export const useLaundryDetailsCardTheme = () => {
     },
   });
 
-  return { styles, theme };
+  const wave = StyleSheet.create({
+    container: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+    },
+  });
+
+  return { styles, wave, theme };
 };

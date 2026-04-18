@@ -1,25 +1,28 @@
 import { useFirebaseAuthState, useMe, useSignOut } from 'query/Auth/useAuth';
 import { SettingsMenuItem } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
-import { useProfileStackNavigation } from 'navigation/ProfileStackNavigator/hooks/useProfileStackNavigation';
 import { useMessagesStore } from 'stores/useMessagesStore';
+import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
 export const useProfile = () => {
   const { data: firebaseUser } = useFirebaseAuthState();
-  const { data: user } = useMe();
+  const { data: user, isLoading: isLoadingMe } = useMe();
   const { mutate: signOut, isPending: signingOut } = useSignOut();
-  const navigation = useProfileStackNavigation();
+  const rootNavigation = useRootStackNavigation();
   const { addMessage } = useMessagesStore();
   const handleInfo = () => {
     addMessage({ title: 'Aviso', body: 'Tu lavandería abrirá a las 8am mañana.' });
     addMessage({ body: 'Recuerda retirar tu ropa antes de las 10am.' });
   };
 
+  const handleReport = () => {
+    rootNavigation.navigate('Report');
+  };
+
   const profileItems: SettingsMenuItem[] = [
-    { label: 'Mis lavanderías', iconName: 'Star', onPress: () => navigation.navigate('MyLaundries') },
     { label: 'Cuenta', iconName: 'User', onPress: () => {} },
     { label: 'Notificaciones', iconName: 'Bell', onPress: () => {} },
     { label: 'Información', iconName: 'Info', onPress: handleInfo },
-    { label: 'Reportar', iconName: 'AlertTriangle', onPress: () => {} },
+    { label: 'Reportar', iconName: 'AlertTriangle', onPress: handleReport },
   ];
 
   const bottomItems: SettingsMenuItem[] = [
@@ -30,5 +33,5 @@ export const useProfile = () => {
     },
   ];
 
-  return { firebaseUser, user, profileItems, bottomItems };
+  return { firebaseUser, user, profileItems, bottomItems, isLoading: isLoadingMe };
 };

@@ -8,6 +8,12 @@ export const useProfileTheme = () => {
     container: {
       flex: 1,
       backgroundColor: theme.surfaceColor['surface-primary'],
+      paddingTop: theme.topInset,
+    },
+    loadingContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     contentContainer: {
       flex: 1,

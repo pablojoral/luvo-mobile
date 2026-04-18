@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useCameraPermission, useCodeScanner } from 'react-native-vision-camera';
 
-export const useCameraScanner = () => {
+export const useCameraScanner = (onCodeScanned: (code: string) => void) => {
   const { hasPermission, requestPermission } = useCameraPermission();
 
   useEffect(() => {
@@ -13,7 +13,8 @@ export const useCameraScanner = () => {
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
-      console.log(`Scanned ${codes.length} codes!`);
+      const value = codes[0]?.value;
+      if (value) onCodeScanned(value);
     },
   });
 

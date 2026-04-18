@@ -7,8 +7,8 @@ export const useMyLaundriesTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: theme.topInset,
       backgroundColor: theme.surfaceColor['surface-primary'],
+      paddingTop: theme.topInset,
     },
     listContent: {
       paddingTop: theme.spacing['spacing-lg'],
@@ -63,6 +63,25 @@ export const useMyLaundriesTheme = () => {
     },
     itemChevron: {
       alignSelf: 'center',
+    },
+    itemCodeRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: theme.spacing['spacing-xxs'],
+    },
+    actionRemove: {
+      backgroundColor: theme.surfaceColor['surface-error'],
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 80,
+      gap: theme.spacing['spacing-xxs'],
+    },
+    actionQR: {
+      backgroundColor: theme.surfaceColor['surface-invert'],
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 80,
+      gap: theme.spacing['spacing-xxs'],
     },
   });
 

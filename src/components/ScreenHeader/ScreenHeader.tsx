@@ -8,10 +8,11 @@ import { useScreenHeaderTheme } from './theme/useScreenHeaderTheme';
 
 interface ScreenHeaderProps {
   title: string;
+  hideBack?: boolean;
   onBack?: () => void;
 }
 
-export const ScreenHeader = ({ title, onBack }: ScreenHeaderProps) => {
+export const ScreenHeader = ({ title, hideBack, onBack }: ScreenHeaderProps) => {
   const navigation = useNavigation();
   const { styles } = useScreenHeaderTheme();
 
@@ -19,13 +20,15 @@ export const ScreenHeader = ({ title, onBack }: ScreenHeaderProps) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={handleBack} accessibilityLabel="Volver">
-        <SvgIcon name="ArrowLeftCircle" size="font-size-xxl" />
-      </TouchableOpacity>
+      {!hideBack ? (
+        <TouchableOpacity style={styles.backButton} onPress={handleBack} accessibilityLabel="Volver">
+          <SvgIcon name="ArrowLeftCircle" size="font-size-xxl" />
+        </TouchableOpacity>
+      ) : null}
       <Text fontSize="font-size-lg" fontWeight="semibold" style={styles.title}>
         {title}
       </Text>
-      <View style={styles.spacer} />
+      {!hideBack ? <View style={styles.spacer} /> : null}
     </View>
   );
 };

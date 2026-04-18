@@ -75,11 +75,6 @@ export interface MaintainerOrganization {
   organizationId: number;
 }
 
-export interface PublicLaundryAccess {
-  userId: number;
-  laundryId: number;
-}
-
 // ---------- Insert shapes ----------
 export type NewUser = Omit<User, 'id' | 'createdAt'> & { createdAt?: Date };
 export type NewOrganization = Omit<Organization, 'id' | 'createdAt'> & { createdAt?: Date };
@@ -93,7 +88,6 @@ export type NewMachine = Omit<Machine, 'id' | 'createdAt' | 'status'> & {
   createdAt?: Date;
 };
 export type NewMaintainerOrganization = MaintainerOrganization;
-export type NewPublicLaundryAccess = PublicLaundryAccess;
 
 // ---------- My Laundries ----------
 
@@ -104,6 +98,8 @@ export interface MyLaundry {
   visibility: LaundryVisibility;
   isMain: boolean;
   addedAt: string; // ISO datetime
+  /** Present when visibility === 'private' and the user registered with a code */
+  accessCode: string | null;
   location: Location;
   machines: Machine[];
 }
@@ -111,6 +107,24 @@ export interface MyLaundry {
 export interface MyLaundriesResponse {
   laundries: MyLaundry[];
   mainLaundryId: number | null;
+}
+
+// ---------- Reports ----------
+export interface Report {
+  id: number;
+  userId: number;
+  laundryId: number | null;
+  machineId: number | null;
+  subject: string;
+  description: string;
+  createdAt: string;
+}
+
+export interface CreateReport {
+  subject: string;
+  description: string;
+  laundryId?: number;
+  machineId?: number;
 }
 
 // ---------- ID aliases ----------

@@ -15,6 +15,10 @@ export const qk = {
   },
   myLaundries: {
     root: ['myLaundries'] as const,
-    list: () => ['myLaundries', 'list'] as const,
+    list: (uid: string | null) => ['myLaundries', 'list', uid] as const,
+  },
+  accessCodes: {
+    root: ['accessCodes'] as const,
+    list: (laundryId: number) => ['accessCodes', laundryId, 'list'] as const,
   },
 };
