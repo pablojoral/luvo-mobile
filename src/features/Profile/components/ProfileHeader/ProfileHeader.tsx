@@ -1,25 +1,24 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { SvgImage } from 'components/SvgImage/SvgImage';
 import { Text } from 'components/Text/Text';
 import { View } from 'react-native';
+import { Avatar } from 'features/Account/components/Avatar/Avatar';
 
 import { useProfileHeaderTheme } from './theme/useProfileHeaderTheme';
 
 interface ProfileHeaderProps {
   name: string;
+  avatarId?: number | null;
 }
 
-export const ProfileHeader = ({ name }: ProfileHeaderProps) => {
-  const { styles } = useProfileHeaderTheme();
-
-  const title = 'Hola,';
+export const ProfileHeader = ({ name, avatarId }: ProfileHeaderProps) => {
+  const { styles, AVATAR_SIZE } = useProfileHeaderTheme();
 
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <SvgImage name={'profile-placeholder'} height={86} width={86} />
+        <Avatar avatarId={avatarId} size={AVATAR_SIZE} />
         <View style={styles.textContainer}>
-          <Text fontSize={'font-size-xxl'}>{title}</Text>
+          <Text fontSize={'font-size-xxl'}>Hola,</Text>
           <Text fontSize={'font-size-xxl'} fontWeight={'semibold'}>
             {name}
           </Text>

@@ -32,6 +32,7 @@ export type AuthUser = {
   id: number;
   email: string;
   name?: string;
+  avatarId?: number | null;
 };
 
 export interface User {

@@ -21,7 +21,7 @@ export const Profile = () => {
         </View>
       ) : (
         <View style={styles.contentContainer}>
-          <ProfileHeader name={user?.name ?? user?.email ?? ''} />
+          <ProfileHeader name={user?.name ?? user?.email ?? ''} avatarId={user?.avatarId} />
           <View style={styles.menusContainer}>
             <SettingsMenu items={profileItems} />
             <SettingsMenu items={bottomItems} />

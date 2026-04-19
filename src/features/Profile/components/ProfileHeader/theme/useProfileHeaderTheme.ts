@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
+const AVATAR_SIZE = 86;
+
 export const useProfileHeaderTheme = () => {
   const theme = useTheme();
 
@@ -24,5 +26,5 @@ export const useProfileHeaderTheme = () => {
     iconContainer: {},
   });
 
-  return { styles };
+  return { styles, AVATAR_SIZE };
 };

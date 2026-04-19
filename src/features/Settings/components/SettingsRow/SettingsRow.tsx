@@ -9,6 +9,7 @@ type SettingsRowProps = {
   icon: IconName;
   label: string;
   description?: string;
+  readonly?: boolean;
 } & (
   | { type: 'toggle'; value: boolean; onToggle: (value: boolean) => void }
   | { type: 'value'; value: string; onPress: () => void }
@@ -17,7 +18,7 @@ type SettingsRowProps = {
 export const SettingsRow = (props: SettingsRowProps) => {
   const { styles } = useSettingsTheme();
   const theme = useTheme();
-  const { icon, label, description } = props;
+  const { icon, label, description, readonly } = props;
 
   const inner = (
     <>
@@ -26,7 +27,7 @@ export const SettingsRow = (props: SettingsRowProps) => {
       </View>
 
       <View style={styles.rowContent}>
-        <Text fontSize="font-size-md" fontWeight="medium">
+        <Text fontSize="font-size-md" fontWeight="semibold">
           {label}
         </Text>
         {description ? (
@@ -51,7 +52,9 @@ export const SettingsRow = (props: SettingsRowProps) => {
             <Text fontSize="font-size-sm" color="font-placeholder">
               {props.value}
             </Text>
-            <SvgIcon name="ChevronRight" size="font-size-lg" color="font-light" />
+            {!readonly ? (
+              <SvgIcon name="ChevronRight" size="font-size-lg" color="font-light" />
+            ) : null}
           </>
         )}
       </View>
@@ -59,6 +62,10 @@ export const SettingsRow = (props: SettingsRowProps) => {
   );
 
   if (props.type === 'toggle') {
+    return <View style={styles.row}>{inner}</View>;
+  }
+
+  if (readonly) {
     return <View style={styles.row}>{inner}</View>;
   }
 

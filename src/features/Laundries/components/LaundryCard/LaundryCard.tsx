@@ -1,4 +1,4 @@
-import { LaundryDetailsCard } from 'features/LaundryDetailsModal/components/LaundryDetailsCard/LaundryDetailsCard';
+import { LaundryDetailsCard } from 'features/LaundryDetails/components/LaundryDetailsCard/LaundryDetailsCard';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useRef } from 'react';
 import { LayoutChangeEvent } from 'react-native';

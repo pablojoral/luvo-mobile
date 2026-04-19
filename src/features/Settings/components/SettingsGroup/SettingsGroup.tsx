@@ -12,14 +12,16 @@ export const SettingsGroup = ({ title, children }: SettingsGroupProps) => {
 
   return (
     <View style={styles.group}>
-      <Text
-        fontSize="font-size-sm"
-        fontWeight="semibold"
-        color="font-placeholder"
-        style={styles.groupTitle}
-      >
-        {title.toUpperCase()}
-      </Text>
+      {title ? (
+        <Text
+          fontSize="font-size-xs"
+          fontWeight="semibold"
+          color="font-placeholder"
+          style={styles.groupTitle}
+        >
+          {title.toUpperCase()}
+        </Text>
+      ) : null}
       <View style={styles.groupCard}>{children}</View>
     </View>
   );

@@ -1,6 +1,6 @@
 import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
-import { LaundryDetailsCard } from 'features/LaundryDetailsModal/components/LaundryDetailsCard/LaundryDetailsCard';
-import { MachinesList } from 'features/LaundryDetailsModal/components/MachinesList/MachineList';
+import { LaundryDetailsCard } from 'features/LaundryDetails/components/LaundryDetailsCard/LaundryDetailsCard';
+import { MachinesList } from 'features/LaundryDetails/components/MachinesList/MachineList';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { View } from 'react-native';

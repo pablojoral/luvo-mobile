@@ -43,6 +43,7 @@ export const Settings = () => {
             description="Idioma de la interfaz"
             value={s?.language ?? 'es'}
             onPress={() => {}}
+            readonly
           />
         </SettingsGroup>
 

@@ -1,3 +1,4 @@
+import { Account } from 'features/Account/Account';
 import { Auth } from 'features/Auth/Auth';
 import { LaundryDetails } from 'features/LaundryDetails/LaundryDetails';
 import { Settings } from 'features/Settings/Settings';
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   MachineDetails: { machineId: number };
   LaundryDetails: { laundryId: number };
   Settings: undefined;
+  Account: undefined;
 };
 
 const TabsScreen = () => {
@@ -52,6 +54,7 @@ export const RootStackNavigator = () => {
         <RootStack.Screen name="MachineDetails" component={MachineDetails} options={{ presentation: 'modal' }} />
         <RootStack.Screen name="LaundryDetails" component={LaundryDetails} options={{ presentation: 'modal' }} />
         <RootStack.Screen name="Settings" component={Settings} />
+        <RootStack.Screen name="Account" component={Account} />
       </RootStack.Navigator>
       <QRScanner />
       <MessagesModal />
