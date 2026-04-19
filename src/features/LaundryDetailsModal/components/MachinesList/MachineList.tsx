@@ -10,7 +10,7 @@ import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useR
 import { useMachinesListTheme } from './theme/useMachinesListTheme';
 
 const options: SelectorOption[] = [
-  { label: 'Todas',     value: 'all' },
+  { label: 'Todas', value: 'all' },
   { label: 'Lavadoras', value: 'washing_machine' },
   { label: 'Secadoras', value: 'dryer' },
 ];
@@ -39,7 +39,7 @@ export const MachinesList = ({ laundry }: MachinesListProps) => {
             machine={item}
             onPress={
               item.status === 'available'
-                ? () => navigation.navigate('Payment', { machineId: item.id })
+                ? () => navigation.navigate('MachineDetails', { machineId: item.id })
                 : undefined
             }
           />

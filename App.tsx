@@ -2,6 +2,7 @@ import 'react-native-reanimated';
 
 import { Navigator } from 'navigation';
 import { QueryProvider } from 'query/provider';
+import { useNotifications } from 'services/firebase/hooks/useNotifications';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -25,6 +26,7 @@ function App() {
 }
 
 function AppContent() {
+  useNotifications();
   return (
     <View style={styles.container}>
       <Navigator />

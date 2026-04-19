@@ -1,5 +1,6 @@
 import { Auth } from 'features/Auth/Auth';
 import { LaundryDetails } from 'features/LaundryDetails/LaundryDetails';
+import { Settings } from 'features/Settings/Settings';
 import { LaundryQR } from 'features/LaundryQR/LaundryQR';
 import { LaundryRegistration } from 'features/LaundryRegistration/LaundryRegistration';
 import { MachineDetails } from 'features/MachineDetails/MachineDetails';
@@ -22,6 +23,7 @@ export type RootStackParamList = {
   RegisterLaundry: { code: string };
   MachineDetails: { machineId: number };
   LaundryDetails: { laundryId: number };
+  Settings: undefined;
 };
 
 const TabsScreen = () => {
@@ -29,8 +31,6 @@ const TabsScreen = () => {
   return (
     <View style={styles.fill}>
       <BottomTabNavigator />
-      <MessagesModal />
-      <QRScanner />
     </View>
   );
 };
@@ -41,43 +41,20 @@ export const RootStackNavigator = () => {
   const RootStack = createNativeStackNavigator<RootStackParamList>();
 
   return (
-    <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      <RootStack.Screen name="Tabs" component={TabsScreen} />
-      <RootStack.Screen
-        name="Auth"
-        component={Auth}
-        options={{ presentation: 'modal', headerShown: false }}
-      />
-      <RootStack.Screen
-        name="Payment"
-        component={Payment}
-        options={{ presentation: 'modal' }}
-      />
-      <RootStack.Screen
-        name="Report"
-        component={Report}
-        options={{ presentation: 'modal' }}
-      />
-      <RootStack.Screen
-        name="LaundryQR"
-        component={LaundryQR}
-        options={{ presentation: 'modal' }}
-      />
-      <RootStack.Screen
-        name="RegisterLaundry"
-        component={LaundryRegistration}
-        options={{ presentation: 'modal' }}
-      />
-      <RootStack.Screen
-        name="MachineDetails"
-        component={MachineDetails}
-        options={{ presentation: 'modal' }}
-      />
-      <RootStack.Screen
-        name="LaundryDetails"
-        component={LaundryDetails}
-        options={{ presentation: 'modal' }}
-      />
-    </RootStack.Navigator>
+    <View style={styles.fill}>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        <RootStack.Screen name="Tabs" component={TabsScreen} />
+        <RootStack.Screen name="Auth" component={Auth} options={{ presentation: 'modal', headerShown: false }} />
+        <RootStack.Screen name="Payment" component={Payment} options={{ presentation: 'modal' }} />
+        <RootStack.Screen name="Report" component={Report} options={{ presentation: 'modal' }} />
+        <RootStack.Screen name="LaundryQR" component={LaundryQR} options={{ presentation: 'modal' }} />
+        <RootStack.Screen name="RegisterLaundry" component={LaundryRegistration} options={{ presentation: 'modal' }} />
+        <RootStack.Screen name="MachineDetails" component={MachineDetails} options={{ presentation: 'modal' }} />
+        <RootStack.Screen name="LaundryDetails" component={LaundryDetails} options={{ presentation: 'modal' }} />
+        <RootStack.Screen name="Settings" component={Settings} />
+      </RootStack.Navigator>
+      <QRScanner />
+      <MessagesModal />
+    </View>
   );
 };

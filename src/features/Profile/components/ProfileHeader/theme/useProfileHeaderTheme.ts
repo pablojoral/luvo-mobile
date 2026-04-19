@@ -11,6 +11,7 @@ export const useProfileHeaderTheme = () => {
       backgroundColor: theme.surfaceColor['surface-primary'],
       paddingHorizontal: theme.spacing['spacing-xl'],
       paddingVertical: theme.spacing['spacing-md'],
+      paddingTop: theme.topInset + theme.spacing['spacing-xl'],
     },
     contentContainer: {
       flexDirection: 'row',

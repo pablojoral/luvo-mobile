@@ -1,3 +1,14 @@
+// ---------- User Settings ----------
+export interface UserSettings {
+  ownerMode:         boolean;
+  language:          string;
+  notifyEndOfCycle:  boolean;
+  notifyPromotions:  boolean;
+  notifyMaintenance: boolean;
+  updatedAt:         string;
+}
+export type PatchUserSettings = Partial<Pick<UserSettings, 'ownerMode' | 'language' | 'notifyEndOfCycle' | 'notifyPromotions' | 'notifyMaintenance'>>;
+
 // ---------- Enums as unions ----------
 export type UserRole = 'superadmin' | 'admin' | 'maintainer' | 'public';
 export type LaundryVisibility = 'public' | 'private';

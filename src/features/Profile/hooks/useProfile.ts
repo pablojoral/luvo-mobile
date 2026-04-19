@@ -20,7 +20,7 @@ export const useProfile = () => {
 
   const profileItems: SettingsMenuItem[] = [
     { label: 'Cuenta', iconName: 'User', onPress: () => {} },
-    { label: 'Notificaciones', iconName: 'Bell', onPress: () => {} },
+    { label: 'Configuración', iconName: 'Settings', onPress: () => rootNavigation.navigate('Settings') },
     { label: 'Información', iconName: 'Info', onPress: handleInfo },
     { label: 'Reportar', iconName: 'AlertTriangle', onPress: handleReport },
   ];

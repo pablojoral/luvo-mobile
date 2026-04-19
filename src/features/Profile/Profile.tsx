@@ -6,7 +6,6 @@ import { ProfileHeader } from './components/ProfileHeader/ProfileHeader';
 import { useProfile } from './hooks/useProfile';
 import { useProfileTheme } from './theme/useProfileTheme';
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
 
 export const Profile = () => {
   const { firebaseUser, user, profileItems, bottomItems, isLoading } = useProfile();
@@ -14,7 +13,6 @@ export const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Perfil" hideBack={true} />
       {!firebaseUser ? (
         <AuthRequiredScreen subtitle="Inicia sesión para ver tu perfil y gestionar tu cuenta." />
       ) : isLoading ? (

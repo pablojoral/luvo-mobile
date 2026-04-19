@@ -21,4 +21,8 @@ export const qk = {
     root: ['accessCodes'] as const,
     list: (laundryId: number) => ['accessCodes', laundryId, 'list'] as const,
   },
+  settings: {
+    root: ['settings'] as const,
+    me:   () => ['settings', 'me'] as const,
+  },
 };
