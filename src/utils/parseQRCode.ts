@@ -60,23 +60,18 @@ const getQueryParam = (query: string, key: string): string | null => {
  *   <non-luvo string>                   → unknown
  */
 export const parseQRCode = (raw: string): QRCodeResult => {
-  console.log('[parseQRCode] raw:', raw);
-
   if (!raw.startsWith(SCHEME)) {
     const result: QRCodeResult = { type: 'unknown' };
-    console.log('[parseQRCode] not a luvo URL →', result);
     return result;
   }
 
   const { host, path, query } = parseLuvoURL(raw);
-  console.log('[parseQRCode] host:', host, '| path:', path, '| query:', query);
 
   // 'register' kept for backward compatibility with QR codes generated before the rename
   if (host === 'register-access' || host === 'register') {
     const code = getQueryParam(query, 'code');
     if (code) {
       const result: QRCodeResult = { type: 'access_code', code };
-      console.log('[parseQRCode]', result);
       return result;
     }
   }
@@ -85,7 +80,6 @@ export const parseQRCode = (raw: string): QRCodeResult => {
     const id = parseInt(path.replace(/^\//, ''), 10);
     if (!isNaN(id)) {
       const result: QRCodeResult = { type: 'laundry', laundryId: id };
-      console.log('[parseQRCode]', result);
       return result;
     }
   }
@@ -94,12 +88,10 @@ export const parseQRCode = (raw: string): QRCodeResult => {
     const id = parseInt(path.replace(/^\//, ''), 10);
     if (!isNaN(id)) {
       const result: QRCodeResult = { type: 'machine', machineId: id, url: raw };
-      console.log('[parseQRCode]', result);
       return result;
     }
   }
 
   const result: QRCodeResult = { type: 'other_deeplink', url: raw };
-  console.log('[parseQRCode]', result);
   return result;
 };

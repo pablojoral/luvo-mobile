@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { getAuth, onAuthStateChanged, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { authService } from 'services/api/services/AuthService';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ export function useFirebaseAuthState() {
 
   // Keep cache in sync after the first emit
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(user => {
+    const unsubscribe = onAuthStateChanged(getAuth(), user => {
       qc.setQueryData(qk.auth.firebaseUser(), user);
     });
     return unsubscribe;
@@ -24,7 +24,7 @@ export function useFirebaseAuthState() {
     // its initial value (and driving the isLoading state).
     queryFn: () =>
       new Promise<FirebaseAuthTypes.User | null>(resolve => {
-        const unsubscribe = auth().onAuthStateChanged(user => {
+        const unsubscribe = onAuthStateChanged(getAuth(), user => {
           resolve(user);
           unsubscribe();
         });

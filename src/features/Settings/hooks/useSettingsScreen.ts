@@ -8,15 +8,14 @@ export function useSettingsScreen() {
   const { data: settings } = useSettings();
   const { mutate: update } = useUpdateSettings();
 
-  const darkMode    = useDarkModeStore(st => st.darkMode);
+  const darkMode = useDarkModeStore(st => st.darkMode);
   const setDarkMode = useDarkModeStore(st => st.setDarkMode);
-  const addMessage  = useMessagesStore(st => st.addMessage);
+  const addMessage = useMessagesStore(st => st.addMessage);
 
   const handleNotificationToggle = async (field: PatchUserSettings, value: boolean) => {
     update(field);
     if (!value) return;
     const status = await checkNotificationPermission();
-    console.log('[Settings]', status);
     if (status !== 'granted') {
       addMessage({
         title: 'Notificaciones desactivadas',
