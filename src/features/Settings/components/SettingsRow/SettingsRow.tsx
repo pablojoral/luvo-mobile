@@ -13,6 +13,7 @@ type SettingsRowProps = {
 } & (
   | { type: 'toggle'; value: boolean; onToggle: (value: boolean) => void }
   | { type: 'value'; value: string; onPress: () => void }
+  | { type: 'navigate'; onPress: () => void }
 );
 
 export const SettingsRow = (props: SettingsRowProps) => {
@@ -47,6 +48,8 @@ export const SettingsRow = (props: SettingsRowProps) => {
               true: theme.surfaceColor['surface-invert'],
             }}
           />
+        ) : props.type === 'navigate' ? (
+          <SvgIcon name="ChevronRight" size="font-size-lg" color="font-light" />
         ) : (
           <>
             <Text fontSize="font-size-sm" color="font-placeholder">
@@ -65,7 +68,7 @@ export const SettingsRow = (props: SettingsRowProps) => {
     return <View style={styles.row}>{inner}</View>;
   }
 
-  if (readonly) {
+  if (props.type === 'value' && readonly) {
     return <View style={styles.row}>{inner}</View>;
   }
 

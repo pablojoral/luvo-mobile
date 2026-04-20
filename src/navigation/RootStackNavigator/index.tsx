@@ -9,6 +9,10 @@ import { MessagesModal } from 'features/Messages/MessagesModal';
 import { QRScanner } from 'features/QRScanner/QRScanner';
 import { Payment } from 'features/Payment/Payment';
 import { Report } from 'features/Report/Report';
+import { Info } from 'features/Info/Info';
+import { Terms } from 'features/Info/Terms';
+import { FAQ } from 'features/Info/FAQ';
+import { About } from 'features/Info/About';
 import { BottomTabNavigator } from 'navigation/BottomTabNavigator';
 import { StyleSheet, View } from 'react-native';
 import { useLaundriesSocket } from 'services/ws/useLaundriesSocket';
@@ -26,6 +30,10 @@ export type RootStackParamList = {
   LaundryDetails: { laundryId: number };
   Settings: undefined;
   Account: undefined;
+  Info: undefined;
+  Terms: undefined;
+  FAQ: undefined;
+  About: undefined;
 };
 
 const TabsScreen = () => {
@@ -55,6 +63,10 @@ export const RootStackNavigator = () => {
         <RootStack.Screen name="LaundryDetails" component={LaundryDetails} options={{ presentation: 'modal' }} />
         <RootStack.Screen name="Settings" component={Settings} />
         <RootStack.Screen name="Account" component={Account} />
+        <RootStack.Screen name="Info" component={Info} />
+        <RootStack.Screen name="Terms" component={Terms} />
+        <RootStack.Screen name="FAQ" component={FAQ} />
+        <RootStack.Screen name="About" component={About} />
       </RootStack.Navigator>
       <QRScanner />
       <MessagesModal />

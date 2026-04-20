@@ -75,6 +75,7 @@ export const Settings = () => {
             onToggle={v => handleNotificationToggle({ notifyMaintenance: v }, v)}
           />
         </SettingsGroup>
+
       </ScrollView>
     </View>
   );

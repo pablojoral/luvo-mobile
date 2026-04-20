@@ -25,4 +25,12 @@ export const qk = {
     root: ['settings'] as const,
     me:   () => ['settings', 'me'] as const,
   },
+  content: {
+    root:   ['content'] as const,
+    byKey:  (key: string) => ['content', key] as const,
+  },
+  faq: {
+    root: ['faq'] as const,
+    list: () => ['faq', 'list'] as const,
+  },
 };

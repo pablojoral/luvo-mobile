@@ -1,6 +1,5 @@
 import { useFirebaseAuthState, useMe, useSignOut } from 'query/Auth/useAuth';
 import { SettingsMenuItem } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
-import { useMessagesStore } from 'stores/useMessagesStore';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
 export const useProfile = () => {
@@ -8,11 +7,7 @@ export const useProfile = () => {
   const { data: user, isLoading: isLoadingMe } = useMe();
   const { mutate: signOut, isPending: signingOut } = useSignOut();
   const rootNavigation = useRootStackNavigation();
-  const { addMessage } = useMessagesStore();
-  const handleInfo = () => {
-    addMessage({ title: 'Aviso', body: 'Tu lavandería abrirá a las 8am mañana.' });
-    addMessage({ body: 'Recuerda retirar tu ropa antes de las 10am.' });
-  };
+  const handleInfo = () => rootNavigation.navigate('Info');
 
   const handleReport = () => {
     rootNavigation.navigate('Report');
