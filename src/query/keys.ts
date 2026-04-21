@@ -33,4 +33,9 @@ export const qk = {
     root: ['faq'] as const,
     list: () => ['faq', 'list'] as const,
   },
+  history: {
+    root:  ['history'] as const,
+    list:  () => ['history', 'list'] as const,
+    stats: () => ['history', 'stats'] as const,
+  },
 };

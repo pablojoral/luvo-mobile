@@ -9,6 +9,7 @@ import { MessagesModal } from 'features/Messages/MessagesModal';
 import { QRScanner } from 'features/QRScanner/QRScanner';
 import { Payment } from 'features/Payment/Payment';
 import { Report } from 'features/Report/Report';
+import { History } from 'features/History/History';
 import { Info } from 'features/Info/Info';
 import { Terms } from 'features/Info/Terms';
 import { FAQ } from 'features/Info/FAQ';
@@ -30,6 +31,7 @@ export type RootStackParamList = {
   LaundryDetails: { laundryId: number };
   Settings: undefined;
   Account: undefined;
+  History: undefined;
   Info: undefined;
   Terms: undefined;
   FAQ: undefined;
@@ -63,6 +65,7 @@ export const RootStackNavigator = () => {
         <RootStack.Screen name="LaundryDetails" component={LaundryDetails} options={{ presentation: 'modal' }} />
         <RootStack.Screen name="Settings" component={Settings} />
         <RootStack.Screen name="Account" component={Account} />
+        <RootStack.Screen name="History" component={History} />
         <RootStack.Screen name="Info" component={Info} />
         <RootStack.Screen name="Terms" component={Terms} />
         <RootStack.Screen name="FAQ" component={FAQ} />
