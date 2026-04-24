@@ -13,10 +13,9 @@ export const useHistoryScreen = () => {
     if (hasNextPage) fetchNextPage();
   }, [hasNextPage, fetchNextPage]);
 
-  const renderItem = useCallback<ListRenderItem<HistoryItem>>(
-    ({ item }) => <CycleCard item={item} />,
-    [],
-  );
+  const renderItem = useCallback<ListRenderItem<HistoryItem>>(({ item }) => {
+    return <CycleCard item={item} />;
+  }, []);
 
   const keyExtractor = useCallback((item: HistoryItem) => item.id, []);
 
