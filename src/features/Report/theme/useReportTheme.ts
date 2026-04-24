@@ -18,6 +18,8 @@ export const useReportTheme = () => {
       gap: theme.spacing['spacing-lg'],
     },
     sectionLabel: {
+      // marginBottom intentional: tightens space between label and its field,
+      // differentiating it from the larger parent gap between sections.
       marginBottom: theme.spacing['spacing-xs'],
     },
     scanButton: {
@@ -65,6 +67,8 @@ export const useReportTheme = () => {
       textAlignVertical: 'top',
     },
     fieldError: {
+      // marginTop intentional: asymmetric offset to separate the error message
+      // from the input above it. No sibling container provides gap here.
       marginTop: theme.spacing['spacing-xxs'],
     },
     errorText: {

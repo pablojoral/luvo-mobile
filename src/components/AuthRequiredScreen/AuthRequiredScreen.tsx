@@ -1,18 +1,18 @@
 import { Button } from 'components/Button/Button';
 import { SvgImage } from 'components/SvgImage/SvgImage';
 import { Text } from 'components/Text/Text';
-import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { View } from 'react-native';
 
+import { useAuthRequiredScreen } from './hooks/useAuthRequiredScreen';
 import { useAuthRequiredScreenTheme } from './theme/useAuthRequiredScreenTheme';
 
-type Props = {
+interface AuthRequiredScreenProps {
   subtitle?: string;
-};
+}
 
-export const AuthRequiredScreen = ({ subtitle = 'Inicia sesión para continuar.' }: Props) => {
-  const navigation = useRootStackNavigation();
+export const AuthRequiredScreen = ({ subtitle = 'Inicia sesión para continuar.' }: AuthRequiredScreenProps) => {
   const { styles } = useAuthRequiredScreenTheme();
+  const { handleSignIn } = useAuthRequiredScreen();
 
   return (
     <View style={styles.container}>
@@ -25,7 +25,7 @@ export const AuthRequiredScreen = ({ subtitle = 'Inicia sesión para continuar.'
           {subtitle}
         </Text>
       </View>
-      <Button label="Iniciar Sesión" onPress={() => navigation.navigate('Auth')} />
+      <Button label="Iniciar Sesión" onPress={handleSignIn} />
     </View>
   );
 };

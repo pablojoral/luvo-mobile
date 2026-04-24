@@ -3,10 +3,9 @@ import { Tag } from 'components/Tag/Tag';
 import { TagButton } from 'components/TagButton/TagButton';
 import { Text } from 'components/Text/Text';
 import { Laundry } from 'models/models';
-import { useMyLaundriesButton } from 'query/MyLaundries/useMyLaundriesButton';
-import { Pressable, View, ViewProps, useWindowDimensions } from 'react-native';
+import { Pressable, View, ViewProps } from 'react-native';
 
-import { useLabels } from './hooks/useLabels';
+import { useLaundryDetailsCard } from './hooks/useLaundryDetailsCard';
 import { useLaundryDetailsCardTheme } from './theme/useLaundryDetailsCardTheme';
 
 interface LaundryDetailsCardProps extends ViewProps {
@@ -14,15 +13,9 @@ interface LaundryDetailsCardProps extends ViewProps {
   onToggle?: () => void;
 }
 
-export const LaundryDetailsCard: React.FC<LaundryDetailsCardProps> = ({
-  laundry,
-  onToggle,
-  ...props
-}: LaundryDetailsCardProps) => {
+export const LaundryDetailsCard = ({ laundry, onToggle, ...props }: LaundryDetailsCardProps) => {
   const { styles, wave } = useLaundryDetailsCardTheme();
-  const { width } = useWindowDimensions();
-  const { title, location, availabilityLabel } = useLabels(laundry);
-  const myLaundriesButton = useMyLaundriesButton(laundry?.id ?? 0);
+  const { width, title, location, availabilityLabel, myLaundriesButton } = useLaundryDetailsCard({ laundry });
 
   if (!laundry) {
     return null;

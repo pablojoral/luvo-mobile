@@ -3,26 +3,13 @@ import { Text } from 'components/Text/Text';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { useHistoryTheme } from '../theme/useHistoryTheme';
 import type { HistoryItem } from 'services/api/services/HistoryService';
+import { formatAmount, formatDate } from 'utils/History/formatHistoryItem';
 
-function formatAmount(amount: number | null, currency: string | null): string {
-  if (amount === null || currency === null) return 'Gratis';
-  try {
-    return new Intl.NumberFormat('es-UY', {
-      style: 'currency',
-      currency,
-      minimumFractionDigits: 0,
-    }).format(amount);
-  } catch {
-    return `$${amount} ${currency}`;
-  }
+interface CycleCardProps {
+  item: HistoryItem;
 }
 
-function formatDate(iso: string): string {
-  const date = new Date(iso);
-  return date.toLocaleDateString('es-UY', { day: 'numeric', month: 'short' });
-}
-
-export const CycleCard = ({ item }: { item: HistoryItem }) => {
+export const CycleCard = ({ item }: CycleCardProps) => {
   const { styles } = useHistoryTheme();
   const icon = item.machineType === 'washing_machine' ? 'Droplet' : 'Wind';
 

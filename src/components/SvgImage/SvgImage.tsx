@@ -48,6 +48,11 @@ const SvgImageComponent: React.FC<SvgImageProps> = ({
   );
 };
 
+// Styling rule §5 exemption: these styles are purely structural layout values
+// (justifyContent, alignItems, opacity) with no design tokens. There is no
+// theme hook for this auto-generated SVG wrapper because no token would be
+// referenced — placing them in a useSvgImageTheme hook would add indirection
+// with zero design-token benefit.
 const styles = StyleSheet.create({
   container: { justifyContent: 'center', alignItems: 'center' },
   placeholder: { opacity: 0 },

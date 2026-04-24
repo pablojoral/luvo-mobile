@@ -30,5 +30,5 @@ export const useAuthTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

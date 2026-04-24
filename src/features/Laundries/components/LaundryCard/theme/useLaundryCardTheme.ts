@@ -17,5 +17,5 @@ export const useLaundryCardTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

@@ -1,4 +1,3 @@
-import { apiClient } from '../apiClient';
 import { BaseService } from '../BaseService';
 
 export interface Content {

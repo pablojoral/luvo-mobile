@@ -24,6 +24,9 @@ export const useTextInputTheme = ({
       flexDirection: 'row',
       justifyContent: 'flex-end',
     },
+    errorText: {
+      flex: 1,
+    },
     input: {
       width: '100%',
       height: theme.spacing['spacing-xxxxl'],

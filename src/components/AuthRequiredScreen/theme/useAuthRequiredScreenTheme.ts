@@ -24,5 +24,5 @@ export const useAuthRequiredScreenTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

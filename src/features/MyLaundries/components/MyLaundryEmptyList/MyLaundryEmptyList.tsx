@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { useMyLaundryEmptyListTheme } from './theme/useMyLaundryEmptyListTheme';
 
 export const MyLaundryEmptyList = () => {
-  const styles = useMyLaundryEmptyListTheme();
+  const { styles } = useMyLaundryEmptyListTheme();
 
   return (
     <View style={styles.container}>

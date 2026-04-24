@@ -15,27 +15,29 @@ export const useHistoryTheme = () => {
     },
     listContent: {
       paddingHorizontal: theme.spacing['spacing-xl'],
+      paddingTop: theme.spacing['spacing-lg'],
       paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
     },
     // Stats card
     statsCard: {
       backgroundColor: theme.surfaceColor['surface-invert'],
-      borderRadius: 16,
+      borderRadius: theme.cornerRad['corner-rad-xl'],
       padding: theme.spacing['spacing-xl'],
+      // marginBottom intentional: asymmetric offset between the FlatList header
+      // component and the first list item — cannot be expressed as gap since
+      // header and list items are not siblings in a single flex container.
       marginBottom: theme.spacing['spacing-xl'],
-      marginTop: theme.spacing['spacing-lg'],
+      gap: theme.spacing['spacing-xs'],
     },
     statsLabel: {
       fontSize: theme.fontSize['font-size-sm'],
       color: theme.fontColor['font-invert'],
       opacity: 0.7,
-      marginBottom: theme.spacing['spacing-xs'],
     },
     statsAmount: {
-      fontSize: 32,
-      fontWeight: '700',
+      fontSize: theme.fontSize['font-size-xxxxl'],
+      fontWeight: theme.fontWeight.semibold,
       color: theme.fontColor['font-invert'],
-      marginBottom: theme.spacing['spacing-xs'],
     },
     statsCycles: {
       fontSize: theme.fontSize['font-size-sm'],
@@ -52,15 +54,16 @@ export const useHistoryTheme = () => {
       gap: theme.spacing['spacing-md'],
     },
     cycleIconBox: {
-      width: 40,
-      height: 40,
-      borderRadius: 10,
+      width: theme.spacing['spacing-xxxl'],
+      height: theme.spacing['spacing-xxxl'],
+      borderRadius: theme.cornerRad['corner-rad-lg'],
       backgroundColor: theme.surfaceColor['surface-secondary'],
       justifyContent: 'center',
       alignItems: 'center',
     },
     cycleInfo: {
       flex: 1,
+      gap: theme.spacing['spacing-xxxs'],
     },
     cycleMachine: {
       fontSize: theme.fontSize['font-size-md'],
@@ -70,10 +73,10 @@ export const useHistoryTheme = () => {
     cycleLaundry: {
       fontSize: theme.fontSize['font-size-sm'],
       color: theme.fontColor['font-secondary'],
-      marginTop: 2,
     },
     cycleRight: {
       alignItems: 'flex-end',
+      gap: theme.spacing['spacing-xxxs'],
     },
     cycleAmount: {
       fontSize: theme.fontSize['font-size-md'],
@@ -83,12 +86,10 @@ export const useHistoryTheme = () => {
     cycleDate: {
       fontSize: theme.fontSize['font-size-xs'],
       color: theme.fontColor['font-placeholder'],
-      marginTop: 2,
     },
     sharedBadge: {
       fontSize: theme.fontSize['font-size-xs'],
       color: theme.fontColor['font-secondary'],
-      marginTop: 2,
     },
     empty: {
       flex: 1,

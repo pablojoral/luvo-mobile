@@ -5,6 +5,7 @@ import { ScrollView, View } from 'react-native';
 import { useSettingsScreen } from './hooks/useSettingsScreen';
 import { SettingsGroup } from './components/SettingsGroup/SettingsGroup';
 import { SettingsRow } from './components/SettingsRow/SettingsRow';
+import { SettingsSeparator } from './components/SettingsSeparator/SettingsSeparator';
 import { useSettingsTheme } from './theme/useSettingsTheme';
 
 export const Settings = () => {
@@ -26,7 +27,7 @@ export const Settings = () => {
             value={darkMode}
             onToggle={setDarkMode}
           />
-          <Separator />
+          <SettingsSeparator />
           <SettingsRow
             type="toggle"
             icon="MapPin"
@@ -35,7 +36,7 @@ export const Settings = () => {
             value={s?.ownerMode ?? false}
             onToggle={v => update({ ownerMode: v })}
           />
-          <Separator />
+          <SettingsSeparator />
           <SettingsRow
             type="value"
             icon="Map"
@@ -56,7 +57,7 @@ export const Settings = () => {
             value={s?.notifyEndOfCycle ?? true}
             onToggle={v => handleNotificationToggle({ notifyEndOfCycle: v }, v)}
           />
-          <Separator />
+          <SettingsSeparator />
           <SettingsRow
             type="toggle"
             icon="Gift"
@@ -65,7 +66,7 @@ export const Settings = () => {
             value={s?.notifyPromotions ?? false}
             onToggle={v => handleNotificationToggle({ notifyPromotions: v }, v)}
           />
-          <Separator />
+          <SettingsSeparator />
           <SettingsRow
             type="toggle"
             icon="AlertCircle"
@@ -79,9 +80,4 @@ export const Settings = () => {
       </ScrollView>
     </View>
   );
-};
-
-const Separator = () => {
-  const { styles } = useSettingsTheme();
-  return <View style={styles.rowSeparator} />;
 };

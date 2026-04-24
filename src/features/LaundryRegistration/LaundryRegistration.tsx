@@ -31,7 +31,7 @@ export const LaundryRegistration = () => {
       <View style={styles.container}>
         <ScreenHeader title="Agregar lavandería" onBack={() => navigation.goBack()} />
         <View style={styles.guestContainer}>
-          <Text fontSize="font-size-md" color="font-secondary" style={{ textAlign: 'center' }}>
+          <Text fontSize="font-size-md" color="font-secondary" style={styles.guestText}>
             Inicia sesión para agregar esta lavandería a tu lista
           </Text>
           <Button

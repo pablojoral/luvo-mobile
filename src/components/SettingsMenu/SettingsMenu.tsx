@@ -1,19 +1,14 @@
-import { StyleSheet, View } from 'react-native';
-import { SettingsMenuItem } from './components/SettingsMenuItem/SettingsMenuItem';
-import { useTheme } from 'theme/hooks/useTheme';
+import { View } from 'react-native';
+import { SettingsMenuItem, type SettingsMenuItemData } from './components/SettingsMenuItem/SettingsMenuItem';
+import { useSettingsMenuTheme } from './theme/useSettingsMenuTheme';
 
 interface SettingsMenuProps {
-  items: SettingsMenuItem[];
+  items: SettingsMenuItemData[];
 }
 
 export const SettingsMenu = ({ items }: SettingsMenuProps) => {
-  const theme = useTheme();
+  const { styles } = useSettingsMenuTheme();
 
-  const styles = StyleSheet.create({
-    container: {
-      gap: theme.spacing['spacing-md'],
-    },
-  });
   return (
     <View style={styles.container}>
       {items.map(item => (

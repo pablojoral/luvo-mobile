@@ -1,27 +1,23 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { IconName } from 'components/SvgIcon/types';
 import { Text } from 'components/Text/Text';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme } from 'theme/hooks/useTheme';
+import { TouchableOpacity } from 'react-native';
+import { useSettingsMenuItemTheme } from './theme/useSettingsMenuItemTheme';
 
-export interface SettingsMenuItem {
+export interface SettingsMenuItemData {
   label: string;
   iconName: IconName;
   onPress: () => void;
 }
 
-export const SettingsMenuItem = ({ label, iconName, onPress }: SettingsMenuItem) => {
-  const theme = useTheme();
+interface SettingsMenuItemProps {
+  label: string;
+  iconName: IconName;
+  onPress: () => void;
+}
 
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: theme.spacing['spacing-md'],
-      paddingVertical: theme.spacing['spacing-xs'],
-      paddingHorizontal: theme.spacing['spacing-sm'],
-    },
-  });
+export const SettingsMenuItem = ({ label, iconName, onPress }: SettingsMenuItemProps) => {
+  const { styles } = useSettingsMenuItemTheme();
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>

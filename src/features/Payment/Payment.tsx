@@ -12,8 +12,9 @@ import { Button } from 'components/Button/Button';
 import { AvailabilityTag } from 'components/AvailabilityTag/AvailabilityTag';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
+import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ActivityIndicator, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { RootStackParamList } from 'navigation/RootStackNavigator';
@@ -21,7 +22,6 @@ import { useLaundriesStore } from 'stores/useLaundriesStore';
 import { usePayment } from './hooks/usePayment';
 import { PaymentMethodCard } from './components/PaymentMethodCard/PaymentMethodCard';
 import { usePaymentTheme } from './theme/usePaymentTheme';
-import { Colors } from 'theme/constants/colors';
 import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Payment'>;
@@ -75,8 +75,8 @@ export const Payment = ({ route, navigation }: Props) => {
 
         {/* ── Idle / method picker ───────────────────────────────────────── */}
         {paymentState === 'idle' && (
-          <Animated.View entering={FadeIn} exiting={FadeOut}>
-            <Text fontSize={'font-size-md'} fontWeight={'semibold'} style={styles.sectionTitle}>
+          <Animated.View style={styles.idleContent} entering={FadeIn} exiting={FadeOut}>
+            <Text fontSize={'font-size-md'} fontWeight={'semibold'}>
               Método de pago
             </Text>
 
@@ -105,7 +105,7 @@ export const Payment = ({ route, navigation }: Props) => {
         {/* ── Loading ────────────────────────────────────────────────────── */}
         {isLoading && (
           <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
-            <ActivityIndicator size="large" color={Colors['colors-lavender-500']} />
+            <ActivityIndicator size="large" />
             <Text fontSize={'font-size-md'} color={'font-secondary'} style={styles.statusMsg}>
               {progressMsg || 'Procesando pago…'}
             </Text>
@@ -115,7 +115,7 @@ export const Payment = ({ route, navigation }: Props) => {
         {/* ── Success ───────────────────────────────────────────────────── */}
         {isSuccess && (
           <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
-            <View style={[styles.resultIcon, { backgroundColor: Colors['colors-green-50'] }]}>
+            <View style={[styles.resultIcon, styles.resultIconSuccess]}>
               <SvgIcon name={'Star'} size={'font-size-xxxxl'} color={'font-success'} />
             </View>
             <Text fontSize={'font-size-xl'} fontWeight={'semibold'} style={styles.statusMsg}>
@@ -138,7 +138,7 @@ export const Payment = ({ route, navigation }: Props) => {
         {/* ── Error ─────────────────────────────────────────────────────── */}
         {isError && (
           <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
-            <View style={[styles.resultIcon, { backgroundColor: Colors['colors-red-100'] }]}>
+            <View style={[styles.resultIcon, styles.resultIconError]}>
               <SvgIcon name={'AlertCircle'} size={'font-size-xxxxl'} color={'font-error'} />
             </View>
             <Text fontSize={'font-size-xl'} fontWeight={'semibold'} style={styles.statusMsg}>

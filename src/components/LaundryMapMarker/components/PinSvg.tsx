@@ -48,6 +48,10 @@ export const PinSvg = ({ ratio, size }: PinSvgProps) => {
   );
 };
 
+// Styling rule §5 exemption: these styles contain only structural/positional
+// values (position: 'absolute', alignItems, justifyContent) with no design
+// tokens. This is an auto-generated SVG wrapper component; a dedicated theme
+// hook would reference no useTheme() values, adding indirection for no benefit.
 const styles = StyleSheet.create({
   logo: {
     position: 'absolute',

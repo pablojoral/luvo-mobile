@@ -38,8 +38,8 @@ export const useMyLaundriesTheme = () => {
       gap: theme.spacing['spacing-xl'],
     },
     itemIcon: {
-      width: 40,
-      height: 40,
+      width: theme.spacing['spacing-xxxl'],
+      height: theme.spacing['spacing-xxxl'],
       borderRadius: theme.cornerRad['corner-rad-full'],
       backgroundColor: theme.surfaceColor['surface-background'],
       alignItems: 'center',
@@ -58,6 +58,9 @@ export const useMyLaundriesTheme = () => {
     itemTagsRow: {
       flexDirection: 'row',
       gap: theme.spacing['spacing-xxs'],
+      // marginTop intentional: adds asymmetric spacing between itemTitleRow and
+      // itemTagsRow, larger than the parent gap, to visually separate the title
+      // group from the tags group within the same flex column.
       marginTop: theme.spacing['spacing-xxs'],
       flexWrap: 'wrap',
     },
@@ -73,14 +76,14 @@ export const useMyLaundriesTheme = () => {
       backgroundColor: theme.surfaceColor['surface-error'],
       alignItems: 'center',
       justifyContent: 'center',
-      width: 80,
+      width: theme.spacing['spacing-xxxl'] * 2,
       gap: theme.spacing['spacing-xxs'],
     },
     actionQR: {
       backgroundColor: theme.surfaceColor['surface-invert'],
       alignItems: 'center',
       justifyContent: 'center',
-      width: 80,
+      width: theme.spacing['spacing-xxxl'] * 2,
       gap: theme.spacing['spacing-xxs'],
     },
   });

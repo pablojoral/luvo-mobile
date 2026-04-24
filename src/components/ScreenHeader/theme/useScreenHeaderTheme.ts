@@ -25,5 +25,5 @@ export const useScreenHeaderTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

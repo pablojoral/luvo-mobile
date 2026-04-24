@@ -12,8 +12,8 @@ export const useSocialAuth = () => {
     try {
       if (provider === 'google') await signInWithGoogle();
       else await signInWithApple();
-    } catch (err: any) {
-      setError(err?.message ?? 'Algo salió mal. Intenta nuevamente.');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Algo salió mal. Intenta nuevamente.');
     } finally {
       setIsSubmitting(false);
     }

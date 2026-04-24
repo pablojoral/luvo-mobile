@@ -17,6 +17,7 @@ export const useAvatarPickerTheme = () => {
       // paddingHorizontal: theme.spacing['spacing-lg'],
       paddingTop: theme.spacing['spacing-sm'],
       paddingBottom: theme.spacing['spacing-xxl'] + theme.spacing['spacing-xs'],
+      gap: theme.spacing['spacing-md'],
     },
     handle: {
       width: theme.spacing['spacing-xxxl'],
@@ -24,11 +25,9 @@ export const useAvatarPickerTheme = () => {
       borderRadius: theme.spacing['spacing-xxs'] / 2,
       backgroundColor: Colors['colors-grey-100'],
       alignSelf: 'center',
-      marginBottom: theme.spacing['spacing-md'],
     },
     title: {
       textAlign: 'center',
-      marginBottom: theme.spacing['spacing-lg'],
     },
     columnWrapper: {
       gap: theme.spacing['spacing-xs'],

@@ -14,12 +14,11 @@ export const usePillSelectorTheme = ({ backgroundColor, thumbColor }: PillSelect
     outerContainer: {
       borderRadius: theme.cornerRad['corner-rad-full'],
       backgroundColor: theme.surfaceColor[backgroundColor],
+      padding: theme.spacing['spacing-xxxs'],
     },
     container: {
       position: 'relative',
       justifyContent: 'center',
-
-      margin: theme.spacing['spacing-xxxs'],
     },
     contentContainer: {
       flexDirection: 'row',
@@ -44,5 +43,5 @@ export const usePillSelectorTheme = ({ backgroundColor, thumbColor }: PillSelect
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

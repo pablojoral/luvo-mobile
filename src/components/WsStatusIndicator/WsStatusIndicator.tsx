@@ -3,24 +3,15 @@ import React from 'react';
 import { View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { WsConnectionState } from 'stores/useLaundriesStore';
-import { Colors } from 'theme/constants/colors';
 
 import { useWsStatusIndicatorTheme } from './theme/useWsStatusIndicatorTheme';
 
-const colorMap: Record<WsConnectionState, string> = {
-  idle: Colors['colors-grey-300'],
-  connecting: Colors['colors-yellow-500'],
-  connected: Colors['colors-green-500'],
-  reconnecting: Colors['colors-yellow-500'],
-  error: Colors['colors-red-500'],
-};
-
-interface WsStatusDotProps {
+interface WsStatusIndicatorProps {
   state: WsConnectionState;
 }
 
-export const WsStatusIndicator = ({ state }: WsStatusDotProps) => {
-  const { styles } = useWsStatusIndicatorTheme();
+export const WsStatusIndicator = ({ state }: WsStatusIndicatorProps) => {
+  const { styles, dotColorStyle } = useWsStatusIndicatorTheme({ state });
 
   const pulse = useSharedValue(1);
 
@@ -36,7 +27,7 @@ export const WsStatusIndicator = ({ state }: WsStatusDotProps) => {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.dot, { backgroundColor: colorMap[state] }, animStyle]} />
+      <Animated.View style={[styles.dot, dotColorStyle, animStyle]} />
       <Text fontSize={'font-size-sm'} color={'font-primary'}>
         {state}
       </Text>

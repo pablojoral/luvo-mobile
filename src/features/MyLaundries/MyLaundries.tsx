@@ -1,36 +1,14 @@
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
 import { AuthRequiredScreen } from 'components/AuthRequiredScreen/AuthRequiredScreen';
 import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
-import { MyLaundry } from 'models/models';
-import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
-import { useFirebaseAuthState } from 'query/Auth/useAuth';
-import { useMyLaundries } from 'query/MyLaundries/useMyLaundries';
-import { useRemoveMyLaundry } from 'query/MyLaundries/useRemoveMyLaundry';
-import React from 'react';
 import { FlatList, View } from 'react-native';
 import { MyLaundryEmptyList } from './components/MyLaundryEmptyList/MyLaundryEmptyList';
-import { MyLaundryItem } from './components/MyLaundryItem/MyLaundryItem';
+import { useMyLaundriesScreen } from './hooks/useMyLaundriesScreen';
 import { useMyLaundriesTheme } from './theme/useMyLaundriesTheme';
 
 export const MyLaundries = () => {
   const { styles } = useMyLaundriesTheme();
-  const navigation = useRootStackNavigation();
-  const { data: firebaseUser } = useFirebaseAuthState();
-
-  const { data, isLoading } = useMyLaundries();
-  const { mutate: remove } = useRemoveMyLaundry();
-  const laundries = data?.laundries ?? [];
-
-  const handlePress = (laundry: MyLaundry) => {
-    navigation.navigate('LaundryDetails', { laundryId: laundry.id });
-  };
-
-  const handleShowQR = (laundry: MyLaundry) => {
-    navigation.navigate('LaundryQR', {
-      accessCode: laundry.accessCode ?? '',
-      laundryName: laundry.name,
-    });
-  };
+  const { firebaseUser, laundries, isLoading, renderItem, keyExtractor } = useMyLaundriesScreen();
 
   return (
     <View style={styles.container}>
@@ -45,15 +23,8 @@ export const MyLaundries = () => {
       ) : (
         <FlatList
           data={laundries}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => (
-            <MyLaundryItem
-              item={item}
-              onPress={() => handlePress(item)}
-              onRemove={() => remove(item.id)}
-              onShowQR={() => handleShowQR(item)}
-            />
-          )}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
           contentContainerStyle={laundries.length === 0 ? styles.emptyContainer : styles.listContent}
           ListEmptyComponent={<MyLaundryEmptyList />}
         />

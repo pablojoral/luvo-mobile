@@ -25,7 +25,7 @@ export const MachineCard = ({ machine, onPress }: MachineCardProps) => {
 
   const iconName: IconName = machine.type === 'dryer' ? 'Droplet' : 'Wind';
   const inUse = machine.status === 'in_use';
-  const cycleSeconds = (machine as any).cycleRemainingSeconds as number | undefined;
+  const cycleSeconds = machine.cycleRemainingSeconds;
   const remainingTime = cycleSeconds != null ? formatSeconds(cycleSeconds) : '--:--';
 
   return (

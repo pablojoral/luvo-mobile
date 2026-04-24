@@ -12,12 +12,12 @@ export const usePaymentTheme = () => {
     scrollContent: {
       padding: theme.spacing['spacing-md'],
       paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
+      gap: theme.spacing['spacing-lg'],
     },
     machineCard: {
       backgroundColor: theme.surfaceColor['surface-secondary'],
       borderRadius: theme.cornerRad['corner-rad-lg'],
       padding: theme.spacing['spacing-md'],
-      marginBottom: theme.spacing['spacing-lg'],
     },
     machineRow: {
       flexDirection: 'row',
@@ -28,11 +28,11 @@ export const usePaymentTheme = () => {
       flex: 1,
       gap: 2,
     },
-    sectionTitle: {
-      marginBottom: theme.spacing['spacing-xs'],
+    idleContent: {
+      gap: theme.spacing['spacing-xs'],
     },
     confirmWrap: {
-      marginTop: theme.spacing['spacing-xl'],
+      paddingTop: theme.spacing['spacing-xl'],
     },
     centeredState: {
       flex: 1,
@@ -41,15 +41,19 @@ export const usePaymentTheme = () => {
       gap: theme.spacing['spacing-sm'],
     },
     resultIcon: {
-      width: 72,
-      height: 72,
-      borderRadius: 36,
+      width: theme.spacing['spacing-xxxl'] + theme.spacing['spacing-xxl'],
+      height: theme.spacing['spacing-xxxl'] + theme.spacing['spacing-xxl'],
+      borderRadius: theme.cornerRad['corner-rad-full'],
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: theme.spacing['spacing-sm'],
+    },
+    resultIconSuccess: {
+      backgroundColor: theme.surfaceColor['surface-success'],
+    },
+    resultIconError: {
+      backgroundColor: theme.surfaceColor['surface-error'],
     },
     statusMsg: {
-      marginTop: theme.spacing['spacing-xs'],
       textAlign: 'center',
     },
     statusSub: {
@@ -57,6 +61,8 @@ export const usePaymentTheme = () => {
       paddingHorizontal: theme.spacing['spacing-xl'],
     },
     actionButton: {
+      // marginTop intentional: asymmetric spacing before the primary action,
+      // larger than the container gap to visually separate it from status text.
       marginTop: theme.spacing['spacing-lg'],
       width: '100%',
     },

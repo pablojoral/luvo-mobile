@@ -34,6 +34,9 @@ export const useLaundryRegistrationTheme = () => {
       gap: theme.spacing['spacing-lg'],
       paddingHorizontal: theme.spacing['spacing-xl'],
     },
+    guestText: {
+      textAlign: 'center',
+    },
   });
 
   return { styles, theme };

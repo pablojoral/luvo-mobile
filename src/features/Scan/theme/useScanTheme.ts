@@ -41,5 +41,5 @@ export const useScanTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

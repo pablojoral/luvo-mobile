@@ -1,48 +1,34 @@
 import { LaundryMapMarker } from 'components/LaundryMapMarker/LaundryMapMarker';
-import { useQRScanHandler } from 'features/QRScanner/hooks/useQRScanHandler';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import Config from 'react-native-config';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-import { useLaundriesStore } from 'stores/useLaundriesStore';
-import { useSelectedLaundry } from 'stores/useSelectedLaundry';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { Camera, MapView, setAccessToken } from '@rnmapbox/maps';
 
 import { WsStatusIndicator } from '../../components/WsStatusIndicator/WsStatusIndicator';
 import { LaundryCard } from './components/LaundryCard/LaundryCard';
 import { ScanFab } from './components/ScanFab/ScanFab';
+import { useLaundriesScreen } from './hooks/useLaundriesScreen';
 import { useLaundriesTheme } from './theme/useLaundriesTheme';
 
 setAccessToken(Config.MAPBOX_ACCESS_TOKEN || '');
 
-const SPRING = { damping: 18, stiffness: 180, mass: 0.9 };
-
 export const Laundries = () => {
-  const { styles, fabBaseBottom, cardBottom } = useLaundriesTheme();
-  const { selectedLaundryId, clearSelectedLaundry } = useSelectedLaundry();
-  const laundries = useLaundriesStore(s => s.laundries);
-  const connectionState = useLaundriesStore(s => s.connectionState);
-  const { handleScan } = useQRScanHandler();
-
-  const [cardHeight, setCardHeight] = useState(0);
-  const fabBottom = useSharedValue(fabBaseBottom);
+  const { styles } = useLaundriesTheme();
+  const {
+    laundries,
+    connectionState,
+    selectedLaundryId,
+    clearSelectedLaundry,
+    fabBottom,
+    handleScan,
+    handleCardLayout,
+  } = useLaundriesScreen();
 
   const fabAnimatedStyle = useAnimatedStyle(() => ({
     bottom: fabBottom.value,
   }));
-
-  useEffect(() => {
-    if (!selectedLaundryId) {
-      fabBottom.value = withSpring(fabBaseBottom, SPRING);
-      setCardHeight(0);
-    }
-  }, [selectedLaundryId]);
-
-  const handleCardLayout = (height: number) => {
-    setCardHeight(height);
-    fabBottom.value = withSpring(cardBottom + height + 8, SPRING);
-  };
 
   return (
     <View style={styles.container}>

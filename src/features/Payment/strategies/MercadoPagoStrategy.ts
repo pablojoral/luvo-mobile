@@ -101,8 +101,8 @@ export const mercadoPagoStrategy: PaymentStrategy = {
     let result: string;
     try {
       result = await deepLinkPromise;
-    } catch (e: any) {
-      return { success: false, error: e.message };
+    } catch (e: unknown) {
+      return { success: false, error: e instanceof Error ? e.message : 'Error desconocido' };
     }
 
     if (result === 'failure' || result === 'cancelled' || result === 'unknown') {

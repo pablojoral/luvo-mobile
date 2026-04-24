@@ -132,7 +132,29 @@ const styles = StyleSheet.create({ container: { flex: 1 } });
 
 ---
 
-## 6. Naming conventions
+## 6. Prefer `gap` and `padding` over `margin`
+
+Use `gap` on flex containers to space children. Use `padding` on parent containers to create insets. Avoid `margin` on children — it creates implicit dependencies between siblings and makes components harder to reuse.
+
+```ts
+// BAD
+const styles = StyleSheet.create({
+  card: { marginBottom: 12 },       // depends on siblings
+  title: { marginTop: 8, marginBottom: 4 }, // margin on both sides
+});
+
+// GOOD
+const styles = StyleSheet.create({
+  list: { gap: theme.spacing['spacing-sm'] },      // gap on the container
+  card: { padding: theme.spacing['spacing-md'] },  // padding for insets
+});
+```
+
+`margin` is permitted only for asymmetric offsets that cannot be expressed as `gap` or `padding` (e.g. `marginLeft` to indent a single item, or `marginTop` on a screen's first section to account for a header).
+
+---
+
+## 7. Naming conventions
 
 | What | Convention |
 |---|---|

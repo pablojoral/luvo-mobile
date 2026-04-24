@@ -24,5 +24,5 @@ export const useProfileGuestTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

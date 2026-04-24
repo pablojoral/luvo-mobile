@@ -27,5 +27,5 @@ export const useProfileTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };
