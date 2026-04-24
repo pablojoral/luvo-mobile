@@ -9,6 +9,11 @@ export const useProfileTheme = () => {
       flex: 1,
       backgroundColor: theme.surfaceColor['surface-primary'],
     },
+    loadingContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     contentContainer: {
       flex: 1,
       gap: theme.spacing['spacing-xxxxl'],

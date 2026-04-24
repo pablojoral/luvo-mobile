@@ -1,5 +1,0 @@
-{
-  "target_react_native_version": "0.82",
-  "check_native_modules": true,
-  "strict_mode": true
-}

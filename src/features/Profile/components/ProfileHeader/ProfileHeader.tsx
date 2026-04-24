@@ -1,46 +1,24 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { SvgImage } from 'components/SvgImage/SvgImage';
 import { Text } from 'components/Text/Text';
-import { StyleSheet, View } from 'react-native';
-import { useTheme } from 'theme/hooks/useTheme';
+import { View } from 'react-native';
+import { Avatar } from 'features/Account/components/Avatar/Avatar';
+
+import { useProfileHeaderTheme } from './theme/useProfileHeaderTheme';
 
 interface ProfileHeaderProps {
   name: string;
+  avatarId?: number | null;
 }
 
-export const ProfileHeader = ({ name }: ProfileHeaderProps) => {
-  const theme = useTheme();
-
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      backgroundColor: theme.surfaceColor['surface-primary'],
-      paddingHorizontal: theme.spacing['spacing-xl'],
-      paddingVertical: theme.spacing['spacing-md'],
-      paddingTop: theme.topInset + theme.spacing['spacing-xl'],
-    },
-    contentContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: theme.spacing['spacing-xl'],
-    },
-    textContainer: {
-      gap: theme.spacing['spacing-xs'],
-    },
-    iconContainer: {
-      // alignSelf: 'flex-end',
-    },
-  });
-
-  const title = 'Hola,';
+export const ProfileHeader = ({ name, avatarId }: ProfileHeaderProps) => {
+  const { styles, AVATAR_SIZE } = useProfileHeaderTheme();
 
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <SvgImage name={'profile-placeholder'} height={86} width={86} />
+        <Avatar avatarId={avatarId} size={AVATAR_SIZE} />
         <View style={styles.textContainer}>
-          <Text fontSize={'font-size-xxl'}>{title}</Text>
+          <Text fontSize={'font-size-xxl'}>Hola,</Text>
           <Text fontSize={'font-size-xxl'} fontWeight={'semibold'}>
             {name}
           </Text>

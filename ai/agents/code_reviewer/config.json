@@ -1,6 +1,0 @@
-{
-  "focus_on_diff": true,
-  "max_files_to_expand": 20,
-  "include_tests_review": true,
-  "severity_levels": ["Critical", "High", "Medium", "Low"]
-}

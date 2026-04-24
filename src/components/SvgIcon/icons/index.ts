@@ -1,7 +1,9 @@
 export { default as AlertCircle } from './AlertCircle';
 export { default as AlertTriangle } from './AlertTriangle';
 export { default as ArrowLeftCircle } from './ArrowLeftCircle';
+export { default as ArrowRightCircle } from './ArrowRightCircle';
 export { default as Bell } from './Bell';
+export { default as ChevronLeft } from './ChevronLeft';
 export { default as ChevronRight } from './ChevronRight';
 export { default as Clipboard } from './Clipboard';
 export { default as Clock } from './Clock';

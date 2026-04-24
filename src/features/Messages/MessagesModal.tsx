@@ -1,0 +1,58 @@
+import { Button } from 'components/Button/Button';
+import { StepIndicator } from 'components/StepIndicator/StepIndicator';
+import { Text } from 'components/Text/Text';
+import { View } from 'react-native';
+import Animated from 'react-native-reanimated';
+
+import { useMessagesModal } from './hooks/useMessagesModal';
+import { useMessagesModalTheme } from './theme/useMessagesModalTheme';
+import { useMessagesOverlayAnimation } from './theme/useMessagesOverlayAnimation';
+import { useMessageTransition } from './theme/useMessageTransition';
+
+export const MessagesModal = () => {
+  const { styles } = useMessagesModalTheme();
+  const { message, messages, currentIndex, visible, isFirst, isLast, next, prev, dismiss } = useMessagesModal();
+  const { overlayAnimStyle, handleDismiss } = useMessagesOverlayAnimation(visible, dismiss);
+  const { handleNext, handlePrev, contentAnimStyle } = useMessageTransition(next, prev);
+
+  return (
+    <Animated.View style={[styles.overlay, overlayAnimStyle]} pointerEvents={visible ? 'auto' : 'none'}>
+      <View style={styles.card}>
+        <View style={styles.transitionContent}>
+          <StepIndicator total={messages.length} current={currentIndex} />
+          <Animated.View style={[styles.textContainer, contentAnimStyle]}>
+            {message?.title ? (
+              <Text fontSize="font-size-lg" fontWeight="semibold" color="font-primary">
+                {message.title}
+              </Text>
+            ) : null}
+            <Text fontSize="font-size-md" color="font-placeholder">
+              {message?.body}
+            </Text>
+          </Animated.View>
+        </View>
+
+        <Animated.View style={[styles.actionsRow, contentAnimStyle]}>
+          {!isFirst && <Button label="Atrás" variant="primary" size="sm" onPress={handlePrev} />}
+          {isLast ? (
+            <Button
+              label="Entendido"
+              variant="primary"
+              size="sm"
+              onPress={handleDismiss}
+              style={isFirst ? styles.actionEnd : undefined}
+            />
+          ) : (
+            <Button
+              label="Siguiente"
+              variant="primary"
+              size="sm"
+              onPress={handleNext}
+              style={isFirst ? styles.actionEnd : undefined}
+            />
+          )}
+        </Animated.View>
+      </View>
+    </Animated.View>
+  );
+};

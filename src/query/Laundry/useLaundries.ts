@@ -12,7 +12,6 @@ export function useLaundriesList(filter?: { search?: string }) {
       // Todo: remove the .then() once backend provides coordinates
       laundryService.list().then((items: Laundry[]): Laundry[] => {
         // Simulate adding coordinates if missing (for demo purposes)
-        console.log('items', items);
         return items;
       }),
     select: items => items.sort((a, b) => a.name.localeCompare(b.name)), // example

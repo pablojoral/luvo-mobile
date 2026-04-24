@@ -15,6 +15,31 @@ export const qk = {
   },
   myLaundries: {
     root: ['myLaundries'] as const,
-    list: () => ['myLaundries', 'list'] as const,
+    list: (uid: string | null) => ['myLaundries', 'list', uid] as const,
+  },
+  accessCodes: {
+    root: ['accessCodes'] as const,
+    list: (laundryId: number) => ['accessCodes', laundryId, 'list'] as const,
+  },
+  settings: {
+    root: ['settings'] as const,
+    me:   () => ['settings', 'me'] as const,
+  },
+  content: {
+    root:   ['content'] as const,
+    byKey:  (key: string) => ['content', key] as const,
+  },
+  faq: {
+    root: ['faq'] as const,
+    list: () => ['faq', 'list'] as const,
+  },
+  history: {
+    root:  ['history'] as const,
+    list:  () => ['history', 'list'] as const,
+    stats: () => ['history', 'stats'] as const,
+  },
+  reportSubjects: {
+    root: ['reportSubjects'] as const,
+    list: () => ['reportSubjects', 'list'] as const,
   },
 };

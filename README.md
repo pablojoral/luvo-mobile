@@ -96,6 +96,105 @@ To learn more about React Native, take a look at the following resources:
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 
+# Adding SVG Icons
+
+Icons live in `src/assets/icons/` as plain `.svg` files and are converted to React Native components using [`@svgr/cli`](https://react-svgr.com/docs/cli/) with [`react-native-svg`](https://github.com/software-mansion/react-native-svg) as the renderer.
+
+## Packages involved
+
+| Package | Role |
+|---|---|
+| `react-native-svg` | SVG renderer for React Native (runtime dependency) |
+| `@svgr/cli` | Converts `.svg` files to `.tsx` React components (dev dependency, run via `npx`) |
+| `react-native-svg-transformer` | Allows importing `.svg` files directly as React components via Metro (dev dependency) |
+
+## Step-by-step: adding a new icon
+
+### 1. Add the SVG file
+
+Drop the `.svg` into `src/assets/icons/`. Example — `chevron-right.svg`:
+
+```svg
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 18L15 12L9 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+```
+
+> Use `stroke="black"` in the source file. The generated component replaces it with `props.color || 'currentColor'` so it can be tinted at runtime.
+
+### 2. Run the icon generator
+
+```sh
+npm run icons
+```
+
+This runs:
+
+```sh
+npx @svgr/cli ./src/assets/icons --out-dir ./src/components/SvgIcon/icons --native --typescript --icon
+```
+
+It reads every `.svg` in `src/assets/icons/` and writes a `.tsx` component to `src/components/SvgIcon/icons/`. For `chevron-right.svg` the output is `ChevronRight.tsx`:
+
+```tsx
+import * as React from 'react';
+import Svg, { Path } from 'react-native-svg';
+import type { SvgProps } from 'react-native-svg';
+
+const SvgChevronRight = (props: SvgProps) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.width ?? 24}
+    height={props.height ?? 24}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <Path
+      stroke={props.color || 'currentColor'}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="m9 18 6-6-6-6"
+    />
+  </Svg>
+);
+
+export default SvgChevronRight;
+```
+
+### 3. Register the icon
+
+Open `src/components/SvgIcon/types.ts` and add the new component to both the import and the `icons` map:
+
+```ts
+import {
+  // ...existing imports...
+  ChevronRight,  // add this
+} from './icons/index';
+
+export const icons = {
+  // ...existing entries...
+  ChevronRight,  // add this
+};
+
+export type IconName = keyof typeof icons;
+```
+
+> `IconName` is derived from the map keys, so adding an entry here automatically makes the name available as a valid `IconName` value across the codebase.
+
+### 4. Use it
+
+```tsx
+import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+
+<SvgIcon name="ChevronRight" color="#000" size={20} />
+```
+
+Or via the `Icon` component / any prop that accepts `IconName`.
+
+---
+
 # Mapbox
 machine api.mapbox.com
   login mapbox

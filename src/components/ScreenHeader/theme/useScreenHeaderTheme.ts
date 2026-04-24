@@ -9,10 +9,9 @@ export const useScreenHeaderTheme = () => {
       width: '100%',
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: theme.spacing['spacing-md'],
+      paddingVertical: theme.spacing['spacing-lg'],
       paddingHorizontal: theme.spacing['spacing-md'],
-      borderBottomWidth: 1,
-      borderBottomColor: theme.borderColor['border-secondary'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
     },
     backButton: {
       padding: theme.spacing['spacing-xs'],
@@ -21,7 +20,6 @@ export const useScreenHeaderTheme = () => {
       flex: 1,
       textAlign: 'center',
     },
-    // Mirrors the back button width so the title stays visually centred
     spacer: {
       width: theme.fontSize['font-size-xxl'] + theme.spacing['spacing-xs'] * 2,
     },

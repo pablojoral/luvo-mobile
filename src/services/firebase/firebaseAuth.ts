@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
 } from '@react-native-firebase/auth';
@@ -46,6 +47,20 @@ export async function signInWithApple() {
   //   appleAuthResponse.nonce,
   // );
   // return auth().signInWithCredential(credential);
+}
+
+export async function sendPasswordReset(email: string): Promise<void> {
+  await sendPasswordResetEmail(getAuth(), email);
+}
+
+export async function deleteCurrentUser(): Promise<void> {
+  const user = getAuth().currentUser;
+  if (!user) throw new Error('No authenticated user');
+  await user.delete();
+}
+
+export function getLinkedProviders(): string[] {
+  return getAuth().currentUser?.providerData.map(p => p.providerId) ?? [];
 }
 
 // Get fresh Firebase ID token (to call your Fastify API)

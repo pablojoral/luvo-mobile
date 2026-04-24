@@ -1,0 +1,145 @@
+import { SelectorOption } from 'components/PillSelector/PillSelector';
+import { CreateReport, Laundry, Machine } from 'models/models';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useReportSubjects } from 'query/ReportSubject/useReportSubjects';
+import { useSubmitReport } from 'query/Report/useSubmitReport';
+import { useQRScanner } from 'stores/useQRScanner';
+import { useLaundriesStore } from 'stores/useLaundriesStore';
+import { useMessagesStore } from 'stores/useMessagesStore';
+import { parseQRCode } from 'utils/parseQRCode';
+
+export type SelectedEntity =
+  | { type: 'laundry'; laundry: Laundry }
+  | { type: 'machine'; machine: Machine; laundry: Laundry };
+
+export interface ReportFormValues {
+  subject: string;
+  description: string;
+}
+
+interface Options {
+  laundryId?: number;
+  machineId?: number;
+  onSuccess: () => void;
+}
+
+export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
+  const { mutateAsync } = useSubmitReport();
+  const { open: openScanner } = useQRScanner();
+  const { addMessage } = useMessagesStore();
+  const laundries = useLaundriesStore(s => s.laundries);
+  const laundriesRef = useRef(laundries);
+  useEffect(() => { laundriesRef.current = laundries; }, [laundries]);
+
+  const { data: subjects } = useReportSubjects();
+
+  const [selectedEntity, setSelectedEntity] = useState<SelectedEntity | null>(null);
+  const initializedRef = useRef(false);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+    setValue,
+  } = useForm<ReportFormValues>({
+    defaultValues: { subject: '', description: '' },
+  });
+
+  // Initialize entity from route params once the laundries store is populated
+  useEffect(() => {
+    if (initializedRef.current) return;
+    if (machineId === undefined && laundryId === undefined) {
+      initializedRef.current = true;
+      return;
+    }
+    if (laundries.length === 0) return;
+
+    initializedRef.current = true;
+
+    if (machineId !== undefined) {
+      for (const l of laundries) {
+        const m = l.machines?.find(machine => machine.id === machineId);
+        if (m) {
+          setSelectedEntity({ type: 'machine', machine: m, laundry: l });
+          return;
+        }
+      }
+    } else if (laundryId !== undefined) {
+      const l = laundries.find(l => l.id === laundryId);
+      if (l) setSelectedEntity({ type: 'laundry', laundry: l });
+    }
+  }, [laundries, machineId, laundryId]);
+
+  const entityCategory =
+    selectedEntity === null ? 'general' :
+    selectedEntity.type === 'laundry' ? 'laundry' :
+    selectedEntity.machine.type;
+
+  const subjectOptions: SelectorOption[] = (subjects ?? [])
+    .filter(s => s.category === entityCategory)
+    .map(s => ({ label: s.label, value: s.label }));
+
+  const onScanForEntity = useCallback(() => {
+    openScanner(raw => {
+      const currentLaundries = laundriesRef.current;
+      const result = parseQRCode(raw);
+
+      if (result.type === 'laundry') {
+        const laundry = currentLaundries.find(l => l.id === result.laundryId);
+        if (laundry) {
+          setSelectedEntity({ type: 'laundry', laundry });
+          setValue('subject', '');
+        } else {
+          addMessage({ title: 'Lavandería no encontrada', body: 'No se encontró información para esta lavandería.' });
+        }
+      } else if (result.type === 'machine') {
+        for (const l of currentLaundries) {
+          const m = l.machines?.find(machine => machine.id === result.machineId);
+          if (m) {
+            setSelectedEntity({ type: 'machine', machine: m, laundry: l });
+            setValue('subject', '');
+            return;
+          }
+        }
+        addMessage({ title: 'Máquina no encontrada', body: 'No se encontró información para esta máquina.' });
+      } else {
+        addMessage({ title: 'QR no reconocido', body: 'Escanea el QR de una lavandería o máquina.' });
+      }
+    });
+  }, [openScanner, addMessage, setValue]);
+
+  const onClearEntity = useCallback(() => {
+    setSelectedEntity(null);
+    setValue('subject', '');
+  }, [setValue]);
+
+  const onSubmit = handleSubmit(async ({ subject, description }) => {
+    try {
+      const body: CreateReport = { subject, description };
+      if (selectedEntity?.type === 'laundry') {
+        body.laundryId = selectedEntity.laundry.id;
+      } else if (selectedEntity?.type === 'machine') {
+        body.machineId = selectedEntity.machine.id;
+        body.laundryId = selectedEntity.laundry.id;
+      }
+      await mutateAsync(body);
+      onSuccess();
+    } catch {
+      setError('root', { message: 'No se pudo enviar el reporte. Intenta nuevamente.' });
+    }
+  });
+
+  return {
+    control,
+    errors,
+    isSubmitting,
+    onSubmit,
+    setValue,
+    selectedEntity,
+    subjectOptions,
+    onScanForEntity,
+    onClearEntity,
+  };
+};

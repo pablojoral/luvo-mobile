@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { getAuth, onAuthStateChanged, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { authService } from 'services/api/services/AuthService';
+import { userService } from 'services/api/services/UserService';
+import { deleteCurrentUser } from 'services/firebase/firebaseAuth';
+import { AuthUser } from 'models/models';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -12,7 +15,7 @@ export function useFirebaseAuthState() {
 
   // Keep cache in sync after the first emit
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(user => {
+    const unsubscribe = onAuthStateChanged(getAuth(), user => {
       qc.setQueryData(qk.auth.firebaseUser(), user);
     });
     return unsubscribe;
@@ -24,7 +27,7 @@ export function useFirebaseAuthState() {
     // its initial value (and driving the isLoading state).
     queryFn: () =>
       new Promise<FirebaseAuthTypes.User | null>(resolve => {
-        const unsubscribe = auth().onAuthStateChanged(user => {
+        const unsubscribe = onAuthStateChanged(getAuth(), user => {
           resolve(user);
           unsubscribe();
         });
@@ -57,6 +60,37 @@ export function useSignOut() {
     mutationFn: () => authService.logout(),
     onSuccess: () => {
       qc.removeQueries({ queryKey: qk.auth.me() });
+    },
+  });
+}
+
+export function useUpdateProfile() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { name?: string; avatarId?: number | null }) =>
+      userService.updateProfile(data),
+    onMutate: async variables => {
+      await qc.cancelQueries({ queryKey: qk.auth.me() });
+      const previous = qc.getQueryData<AuthUser>(qk.auth.me());
+      qc.setQueryData<AuthUser>(qk.auth.me(), old => (old ? { ...old, ...variables } : old));
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) qc.setQueryData(qk.auth.me(), context.previous);
+    },
+    onSettled: () => qc.invalidateQueries({ queryKey: qk.auth.me() }),
+  });
+}
+
+export function useDeleteAccount() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async () => {
+      await userService.deleteAccount();
+      await deleteCurrentUser();
+    },
+    onSuccess: () => {
+      qc.clear();
     },
   });
 }

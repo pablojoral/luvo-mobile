@@ -1,19 +1,24 @@
 import { useFirebaseAuthState, useMe, useSignOut } from 'query/Auth/useAuth';
 import { SettingsMenuItem } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
-import { useProfileStackNavigation } from 'navigation/ProfileStackNavigator/hooks/useProfileStackNavigation';
+import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
 export const useProfile = () => {
   const { data: firebaseUser } = useFirebaseAuthState();
-  const { data: user } = useMe();
+  const { data: user, isLoading: isLoadingMe } = useMe();
   const { mutate: signOut, isPending: signingOut } = useSignOut();
-  const navigation = useProfileStackNavigation();
+  const rootNavigation = useRootStackNavigation();
+  const handleInfo = () => rootNavigation.navigate('Info');
+
+  const handleReport = () => {
+    rootNavigation.navigate('Report');
+  };
 
   const profileItems: SettingsMenuItem[] = [
-    { label: 'Mis lavanderías', iconName: 'Star', onPress: () => navigation.navigate('MyLaundries') },
-    { label: 'Cuenta', iconName: 'User', onPress: () => {} },
-    { label: 'Notificaciones', iconName: 'Bell', onPress: () => {} },
-    { label: 'Información', iconName: 'Info', onPress: () => {} },
-    { label: 'Reportar', iconName: 'AlertTriangle', onPress: () => {} },
+    { label: 'Cuenta', iconName: 'User', onPress: () => rootNavigation.navigate('Account') },
+    { label: 'Historial', iconName: 'Clock', onPress: () => rootNavigation.navigate('History') },
+    { label: 'Configuración', iconName: 'Settings', onPress: () => rootNavigation.navigate('Settings') },
+    { label: 'Información', iconName: 'Info', onPress: handleInfo },
+    { label: 'Reportar', iconName: 'AlertTriangle', onPress: handleReport },
   ];
 
   const bottomItems: SettingsMenuItem[] = [
@@ -24,5 +29,5 @@ export const useProfile = () => {
     },
   ];
 
-  return { firebaseUser, user, profileItems, bottomItems };
+  return { firebaseUser, user, profileItems, bottomItems, isLoading: isLoadingMe };
 };

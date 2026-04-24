@@ -1,4 +1,4 @@
-import { MyLaundriesResponse } from '../../../models/models';
+import { MyLaundry, MyLaundriesResponse } from '../../../models/models';
 import { BaseService } from '../BaseService';
 
 class MyLaundriesService extends BaseService {
@@ -13,6 +13,11 @@ class MyLaundriesService extends BaseService {
 
   async remove(laundryId: number): Promise<void> {
     await this.apiClient.delete(`/me/laundries/${laundryId}`);
+  }
+
+  async register(code: string): Promise<MyLaundry> {
+    const res = await this.apiClient.post<MyLaundry>('/me/laundries/register', { code });
+    return res.data;
   }
 }
 
