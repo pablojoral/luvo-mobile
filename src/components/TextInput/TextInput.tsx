@@ -31,7 +31,7 @@ export const TextInput = ({ label, error, color, placeholderColor, style, maxLen
       />
       <View style={styles.footer}>
         {error && (
-          <Text fontSize="font-size-xs" color="font-error" style={{ flex: 1 }}>
+          <Text fontSize="font-size-xs" color="font-error" style={styles.errorText}>
             {error}
           </Text>
         )}

@@ -67,6 +67,8 @@ export const useAccountTheme = () => {
     separator: {
       height: theme.borderWidth['border-width-xs'],
       backgroundColor: theme.borderColor['border-primary'],
+      // marginLeft intentional: computed indent to align the separator line
+      // flush with the row text (past icon + row gap). Cannot be gap/padding.
       marginLeft: theme.spacing['spacing-lg'] + ROW_ICON_SIZE + theme.spacing['spacing-md'],
     },
     providerRow: {

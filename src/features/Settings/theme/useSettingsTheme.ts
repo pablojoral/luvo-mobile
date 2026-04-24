@@ -44,6 +44,8 @@ export const useSettingsTheme = () => {
     rowSeparator: {
       height: theme.borderWidth['border-width-xs'],
       backgroundColor: theme.borderColor['border-primary'],
+      // marginLeft intentional: computed indent to align the separator flush
+      // with the row text (past icon + row gap). Cannot be expressed as gap/padding.
       marginLeft: theme.spacing['spacing-lg'] + ROW_ICON_SIZE + theme.spacing['spacing-md'],
     },
     rowIcon: {
@@ -67,5 +69,5 @@ export const useSettingsTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

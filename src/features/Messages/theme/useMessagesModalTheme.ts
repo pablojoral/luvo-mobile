@@ -33,6 +33,8 @@ export const useMessagesModalTheme = () => {
       gap: theme.spacing['spacing-sm'],
     },
     actionEnd: {
+      // marginLeft: 'auto' is a flex push to right-align a single action button;
+      // not a sibling-spacing pattern — cannot be expressed as gap or padding.
       marginLeft: 'auto',
     },
   });
