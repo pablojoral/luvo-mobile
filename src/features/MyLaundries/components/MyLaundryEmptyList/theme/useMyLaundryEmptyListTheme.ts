@@ -8,5 +8,5 @@ export const useMyLaundryEmptyListTheme = () => {
     container: { alignItems: 'center', gap: theme.spacing['spacing-md'] },
     emptyText: { textAlign: 'center' },
   });
-  return styles;
+  return { styles, theme };
 };

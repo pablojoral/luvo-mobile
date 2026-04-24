@@ -29,8 +29,8 @@ export function usePayment(machineId: number) {
       });
       setResult(res);
       setPaymentState(res.success ? 'success' : 'error');
-    } catch (err: any) {
-      setResult({ success: false, error: err?.message ?? 'Error desconocido' });
+    } catch (err: unknown) {
+      setResult({ success: false, error: err instanceof Error ? err.message : 'Error desconocido' });
       setPaymentState('error');
     }
   };

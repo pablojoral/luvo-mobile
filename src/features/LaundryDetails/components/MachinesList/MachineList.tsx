@@ -1,12 +1,10 @@
-import { MachineCard } from 'components/MachineCard/MachineCard';
 import { PillSelector, SelectorOption } from 'components/PillSelector/PillSelector';
 import { Separator } from 'components/Separator/Separator';
 import { Laundry } from 'models/models';
-import { useState } from 'react';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
+import { useMachinesList } from './hooks/useMachinesList';
 import { useMachinesListTheme } from './theme/useMachinesListTheme';
 
 const options: SelectorOption[] = [
@@ -21,11 +19,7 @@ interface MachinesListProps {
 
 export const MachinesList = ({ laundry }: MachinesListProps) => {
   const { styles } = useMachinesListTheme();
-  const navigation = useRootStackNavigation();
-  const [filter, setFilter] = useState('all');
-
-  const machines = laundry?.machines ?? [];
-  const filteredMachines = machines.filter(m => filter === 'all' || m.type === filter);
+  const { filter, setFilter, filteredMachines, renderItem, keyExtractor } = useMachinesList({ laundry });
 
   return (
     <View style={styles.containerStyle}>
@@ -34,17 +28,8 @@ export const MachinesList = ({ laundry }: MachinesListProps) => {
       </View>
       <Animated.FlatList
         data={filteredMachines}
-        renderItem={({ item }) => (
-          <MachineCard
-            machine={item}
-            onPress={
-              item.status === 'available'
-                ? () => navigation.navigate('MachineDetails', { machineId: item.id })
-                : undefined
-            }
-          />
-        )}
-        keyExtractor={item => item.id.toString()}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
         ItemSeparatorComponent={Separator}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContentContainerStyle}

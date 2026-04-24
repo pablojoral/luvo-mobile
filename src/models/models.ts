@@ -80,6 +80,8 @@ export interface Machine {
   status: MachineStatus;
   modelNumber: string | null;
   createdAt: Date;
+  /** Seconds remaining in the current cycle — present only when status === 'in_use' */
+  cycleRemainingSeconds?: number;
 }
 
 export interface MaintainerOrganization {

@@ -15,5 +15,5 @@ export const useLaundryDetailsTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

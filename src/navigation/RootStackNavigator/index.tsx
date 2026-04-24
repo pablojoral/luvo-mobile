@@ -14,11 +14,12 @@ import { Info } from 'features/Info/Info';
 import { Terms } from 'features/Info/Terms';
 import { FAQ } from 'features/Info/FAQ';
 import { About } from 'features/Info/About';
-import { BottomTabNavigator } from 'navigation/BottomTabNavigator';
-import { StyleSheet, View } from 'react-native';
-import { useLaundriesSocket } from 'services/ws/useLaundriesSocket';
+import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { TabsScreen } from './components/TabsScreen/TabsScreen';
+import { useRootStackNavigatorTheme } from './theme/useRootStackNavigatorTheme';
 
 export type RootStackParamList = {
   Tabs: undefined;
@@ -38,19 +39,10 @@ export type RootStackParamList = {
   About: undefined;
 };
 
-const TabsScreen = () => {
-  useLaundriesSocket();
-  return (
-    <View style={styles.fill}>
-      <BottomTabNavigator />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({ fill: { flex: 1 } });
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootStackNavigator = () => {
-  const RootStack = createNativeStackNavigator<RootStackParamList>();
+  const { styles } = useRootStackNavigatorTheme();
 
   return (
     <View style={styles.fill}>

@@ -11,5 +11,5 @@ export const useCodeSectionTheme = () => {
       gap: theme.spacing['spacing-md'],
     },
   });
-  return { styles };
+  return { styles, theme };
 };

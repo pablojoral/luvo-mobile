@@ -25,9 +25,9 @@ export const useAuthForm = (mode: AuthMode) => {
       } else {
         await signInWithEmail(email, password);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError('root', {
-        message: err?.message ?? 'Algo salió mal. Intenta nuevamente.',
+        message: err instanceof Error ? err.message : 'Algo salió mal. Intenta nuevamente.',
       });
     }
   });

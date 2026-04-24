@@ -1,12 +1,14 @@
-import React, { memo, useRef } from 'react';
+import React, { memo, useCallback } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import ReanimatedSwipeable, { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable';
+import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Tag } from 'components/Tag/Tag';
 import { Text } from 'components/Text/Text';
 import { MyLaundry } from 'models/models';
 import { useMyLaundriesTheme } from '../../theme/useMyLaundriesTheme';
+import { QRSwipeAction, RemoveSwipeAction } from './components/SwipeActions/SwipeActions';
+import { useMyLaundryItem } from './hooks/useMyLaundryItem';
 
 interface MyLaundryItemProps {
   item: MyLaundry;
@@ -17,54 +19,15 @@ interface MyLaundryItemProps {
 
 export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaundryItemProps) => {
   const { styles } = useMyLaundriesTheme();
-  const swipeableRef = useRef<SwipeableMethods>(null);
+  const { swipeableRef, location, machineLabel, handleQRPress, handleRemovePress } =
+    useMyLaundryItem({ item, onRemove, onShowQR });
 
-  const location = [item.location.address, item.location.city]
-    .filter(Boolean)
-    .join(', ');
-
-  const availableCount = item.machines.filter(m => m.status === 'available').length;
-  const totalCount = item.machines.length;
-  const machineLabel =
-    totalCount === 0
-      ? 'Sin máquinas'
-      : `${availableCount} de ${totalCount} disponibles`;
-
-  const renderRightActions = () => {
+  const renderRightActions = useCallback(() => {
     if (item.visibility === 'private') {
-      return (
-        <TouchableOpacity
-          style={styles.actionQR}
-          onPress={() => {
-            swipeableRef.current?.close();
-            onShowQR();
-          }}
-          activeOpacity={0.8}
-        >
-          <SvgIcon name="QrCode" size="font-size-xl" color="font-invert" />
-          <Text fontSize="font-size-xs" color="font-invert" fontWeight="semibold">
-            Ver QR
-          </Text>
-        </TouchableOpacity>
-      );
+      return <QRSwipeAction onPress={handleQRPress} />;
     }
-
-    return (
-      <TouchableOpacity
-        style={styles.actionRemove}
-        onPress={() => {
-          swipeableRef.current?.close();
-          onRemove();
-        }}
-        activeOpacity={0.8}
-      >
-        <SvgIcon name="AlertCircle" size="font-size-xl" color="font-invert" />
-        <Text fontSize="font-size-xs" color="font-invert" fontWeight="semibold">
-          Eliminar
-        </Text>
-      </TouchableOpacity>
-    );
-  };
+    return <RemoveSwipeAction onPress={handleRemovePress} />;
+  }, [item.visibility, handleQRPress, handleRemovePress]);
 
   return (
     <ReanimatedSwipeable

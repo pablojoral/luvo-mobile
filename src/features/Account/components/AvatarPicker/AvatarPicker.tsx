@@ -3,6 +3,7 @@ import { Text } from 'components/Text/Text';
 import { AVATARS } from '../../avatars';
 
 import { AvatarPickerItem } from './AvatarPickerItem';
+import { useAvatarPicker } from './hooks/useAvatarPicker';
 import { useAvatarPickerTheme } from './theme/useAvatarPickerTheme';
 
 interface AvatarPickerProps {
@@ -14,6 +15,7 @@ interface AvatarPickerProps {
 
 export const AvatarPicker = ({ visible, currentId, onSelect, onClose }: AvatarPickerProps) => {
   const { styles } = useAvatarPickerTheme();
+  const { renderItem, keyExtractor } = useAvatarPicker({ currentId, onSelect, onClose });
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -26,15 +28,9 @@ export const AvatarPicker = ({ visible, currentId, onSelect, onClose }: AvatarPi
         <FlatList
           data={AVATARS}
           numColumns={AVATARS.length}
-          keyExtractor={item => String(item.id)}
+          keyExtractor={keyExtractor}
           columnWrapperStyle={styles.columnWrapper}
-          renderItem={({ item }) => (
-            <AvatarPickerItem
-              avatarId={item.id}
-              selected={currentId === item.id}
-              onPress={() => { onSelect(item.id); onClose(); }}
-            />
-          )}
+          renderItem={renderItem}
         />
       </View>
     </Modal>

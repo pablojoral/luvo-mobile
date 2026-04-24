@@ -44,5 +44,5 @@ export const useQRScannerTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

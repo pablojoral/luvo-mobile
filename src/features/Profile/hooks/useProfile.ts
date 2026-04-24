@@ -1,5 +1,5 @@
 import { useFirebaseAuthState, useMe, useSignOut } from 'query/Auth/useAuth';
-import { SettingsMenuItem } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
+import type { SettingsMenuItemData } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
 export const useProfile = () => {
@@ -13,7 +13,7 @@ export const useProfile = () => {
     rootNavigation.navigate('Report');
   };
 
-  const profileItems: SettingsMenuItem[] = [
+  const profileItems: SettingsMenuItemData[] = [
     { label: 'Cuenta', iconName: 'User', onPress: () => rootNavigation.navigate('Account') },
     { label: 'Historial', iconName: 'Clock', onPress: () => rootNavigation.navigate('History') },
     { label: 'Configuración', iconName: 'Settings', onPress: () => rootNavigation.navigate('Settings') },
@@ -21,7 +21,7 @@ export const useProfile = () => {
     { label: 'Reportar', iconName: 'AlertTriangle', onPress: handleReport },
   ];
 
-  const bottomItems: SettingsMenuItem[] = [
+  const bottomItems: SettingsMenuItemData[] = [
     {
       label: signingOut ? 'Cerrando sesión...' : 'Cerrar Sesión',
       iconName: 'LogOut',

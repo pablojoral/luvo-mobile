@@ -1,11 +1,11 @@
 import { Laundry } from 'models/models';
-import { Pressable, StyleSheet } from 'react-native';
-import { useTheme } from 'theme/hooks/useTheme';
+import { Pressable } from 'react-native';
 
 import { MarkerView } from '@rnmapbox/maps';
 
 import { PinSvg } from './components/PinSvg';
 import { useLaundryMapMarker } from './hooks/useLaundryMapMarker';
+import { useLaundryMapMarkerTheme } from './theme/useLaundryMapMarkerTheme';
 
 interface LaundryMapMarkerProps {
   laundry: Laundry;
@@ -21,14 +21,14 @@ export const LaundryMapMarker = ({
   size = 40,
   showAvailability = false,
 }: LaundryMapMarkerProps) => {
-  const theme = useTheme();
+  const { wrapperStyle } = useLaundryMapMarkerTheme();
   const { ratio, coords, onPress, accessibilityLabel } = useLaundryMapMarker({ laundry, showAvailability });
 
   return (
     <MarkerView key={uniqueId} id={uniqueId} coordinate={coords}>
       <Pressable
         onPress={onPress}
-        style={[styles.wrapper, { padding: theme.spacing['spacing-sm'], ...theme.shadowBox }]}
+        style={wrapperStyle}
         accessible
         accessibilityLabel={accessibilityLabel}
       >
@@ -37,11 +37,3 @@ export const LaundryMapMarker = ({
     </MarkerView>
   );
 };
-
-const styles = StyleSheet.create({
-  wrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-  },
-});

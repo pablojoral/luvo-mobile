@@ -16,5 +16,5 @@ export const useScanFabTheme = () => {
     },
   });
 
-  return { styles };
+  return { styles, theme };
 };

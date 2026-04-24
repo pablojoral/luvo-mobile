@@ -25,5 +25,5 @@ export const useTextTheme = ({
       fontWeight: theme.fontWeight[fontWeight],
     },
   });
-  return { styles };
+  return { styles, theme };
 };

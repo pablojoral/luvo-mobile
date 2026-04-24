@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'theme/hooks/useTheme';
 
@@ -5,7 +6,7 @@ export const useMachinesListTheme = () => {
   const theme = useTheme();
   const { bottom } = useSafeAreaInsets();
 
-  const styles = {
+  const styles = StyleSheet.create({
     containerStyle: {
       backgroundColor: theme.surfaceColor['surface-invert'],
     },
@@ -18,7 +19,7 @@ export const useMachinesListTheme = () => {
       padding: theme.spacing['spacing-md'],
       paddingBottom: bottom + 2 * theme.spacing['spacing-xxxl'],
     },
-  };
+  });
 
-  return { styles };
+  return { styles, theme };
 };

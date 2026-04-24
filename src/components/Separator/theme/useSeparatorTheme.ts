@@ -9,5 +9,5 @@ export const useSeparatorTheme = () => {
     },
   };
 
-  return { styles };
+  return { styles, theme };
 };

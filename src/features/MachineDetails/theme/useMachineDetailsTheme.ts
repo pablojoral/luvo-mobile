@@ -37,6 +37,9 @@ export const useMachineDetailsTheme = () => {
       paddingHorizontal: theme.spacing['spacing-xl'],
       gap: theme.spacing['spacing-md'],
     },
+    notFoundText: {
+      textAlign: 'center',
+    },
   });
 
   return { styles, theme };
