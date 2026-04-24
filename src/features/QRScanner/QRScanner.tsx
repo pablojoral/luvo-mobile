@@ -1,7 +1,7 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { SvgImage } from 'components/SvgImage/SvgImage';
 import { useCameraScanner } from 'features/Scan/hooks/useCamera';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { Camera } from 'react-native-vision-camera';
@@ -50,7 +50,24 @@ const QRScannerContent: React.FC = () => {
   );
 };
 
-export const QRScanner: React.FC = () => {
+interface QRScannerProps {
+  /** When true, this instance suppresses the root-level QRScanner camera. */
+  override?: boolean;
+}
+
+export const QRScanner: React.FC<QRScannerProps> = ({ override }) => {
   const isOpen = useQRScanner(s => s.isOpen);
+  const hasOverridingScanner = useQRScanner(s => s.hasOverridingScanner);
+  const setHasOverridingScanner = useQRScanner(s => s.setHasOverridingScanner);
+
+  useEffect(() => {
+    if (!override) return;
+    setHasOverridingScanner(true);
+    return () => setHasOverridingScanner(false);
+  }, [override, setHasOverridingScanner]);
+
+  // Root instance: yield to a higher-priority scanner mounted inside a modal
+  if (!override && hasOverridingScanner) return null;
+
   return isOpen ? <QRScannerContent /> : null;
 };

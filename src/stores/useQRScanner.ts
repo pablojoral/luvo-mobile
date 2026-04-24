@@ -5,6 +5,8 @@ interface QRScannerState {
   onScan: ((code: string) => void) | null;
   open: (onScan: (code: string) => void) => void;
   close: () => void;
+  hasOverridingScanner: boolean;
+  setHasOverridingScanner: (val: boolean) => void;
 }
 
 export const useQRScanner = create<QRScannerState>(set => ({
@@ -12,4 +14,6 @@ export const useQRScanner = create<QRScannerState>(set => ({
   onScan: null,
   open: onScan => set({ isOpen: true, onScan }),
   close: () => set({ isOpen: false, onScan: null }),
+  hasOverridingScanner: false,
+  setHasOverridingScanner: val => set({ hasOverridingScanner: val }),
 }));
