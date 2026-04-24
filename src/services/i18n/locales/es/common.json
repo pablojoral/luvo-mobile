@@ -1,0 +1,14 @@
+{
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "close": "Cerrar"
+  },
+  "errors": {
+    "network": "Error de red. Por favor revisá tu conexión.",
+    "generic": "Algo salió mal. Por favor intentá de nuevo.",
+    "timeout": "La solicitud expiró. Por favor intentá de nuevo."
+  }
+}

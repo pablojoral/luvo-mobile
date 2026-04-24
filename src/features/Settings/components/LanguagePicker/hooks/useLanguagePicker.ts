@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { SupportedLanguage } from '../../../constants/languages';
+import type { SupportedLanguage } from 'services/i18n';
 
 interface UseLanguagePickerProps {
   onSelect: (lang: SupportedLanguage) => void;

@@ -1,0 +1,14 @@
+{
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "close": "Close"
+  },
+  "errors": {
+    "network": "Network error. Please check your connection.",
+    "generic": "Something went wrong. Please try again.",
+    "timeout": "The request timed out. Please try again."
+  }
+}

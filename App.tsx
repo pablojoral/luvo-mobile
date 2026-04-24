@@ -1,4 +1,5 @@
 import 'react-native-reanimated';
+import 'services/i18n';
 
 import { Navigator } from 'navigation';
 import { QueryProvider } from 'query/provider';
