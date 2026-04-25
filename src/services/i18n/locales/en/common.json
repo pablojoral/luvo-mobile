@@ -10,5 +10,291 @@
     "network": "Network error. Please check your connection.",
     "generic": "Something went wrong. Please try again.",
     "timeout": "The request timed out. Please try again."
+  },
+  "auth": {
+    "notSignedIn": "You're not signed in",
+    "defaultSubtitle": "Sign in to continue.",
+    "signIn": "Sign In",
+    "title": "Authentication",
+    "form": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Email",
+        "required": "Email is required",
+        "invalid": "Invalid email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Password",
+        "required": "Password is required",
+        "minLength": "Minimum 6 characters"
+      },
+      "submit": {
+        "login": "Sign In",
+        "register": "Register"
+      }
+    }
+  },
+  "messages": {
+    "next": "Next",
+    "understood": "Got it"
+  },
+  "profile": {
+    "header": {
+      "greeting": "Hello,"
+    },
+    "menu": {
+      "account": "Account",
+      "history": "History",
+      "settings": "Settings",
+      "info": "Info",
+      "report": "Report",
+      "signOut": "Sign Out",
+      "signingOut": "Signing out…"
+    }
+  },
+  "account": {
+    "title": "My account",
+    "profile": {
+      "sectionTitle": "Profile",
+      "namePlaceholder": "Your name",
+      "nameRequired": "Name is required"
+    },
+    "security": {
+      "sectionTitle": "Security",
+      "resetPassword": "Reset password"
+    },
+    "linkedAccounts": {
+      "sectionTitle": "Linked accounts",
+      "linkedBadge": "Linked"
+    },
+    "providers": {
+      "password": "Email",
+      "google": "Google",
+      "apple": "Apple",
+      "phone": "Phone"
+    },
+    "deleteAccount": {
+      "label": "Delete account",
+      "deleting": "Deleting account..."
+    },
+    "avatarPicker": {
+      "title": "Choose your avatar"
+    },
+    "alerts": {
+      "deleteConfirmTitle": "Delete account",
+      "deleteConfirmBody": "Are you sure? This action cannot be undone. All your data will be deleted.",
+      "deleteConfirmCancel": "Cancel",
+      "deleteConfirmDelete": "Delete"
+    },
+    "messages": {
+      "saveFailed": "Could not save profile. Please try again.",
+      "passwordResetSent": "Email sent",
+      "passwordResetSentBody": "We sent a link to reset your password to {{email}}.",
+      "passwordResetFailed": "Could not send the email. Please try again.",
+      "deleteFailed": "Could not delete the account. Please try again."
+    }
+  },
+  "machines": {
+    "title": "Machine",
+    "notFound": "No information found for this machine.",
+    "goBack": "Go back",
+    "model": "Model",
+    "startWash": "Start wash",
+    "reportProblem": "Report a problem",
+    "status": {
+      "available": "Available",
+      "in_use": "In use",
+      "out_of_order": "Out of service",
+      "maintenance": "Maintenance"
+    },
+    "type": {
+      "washing_machine": "Washer",
+      "dryer": "Dryer"
+    }
+  },
+  "laundry": {
+    "title": "Laundry",
+    "availability": "{{available}}/{{total}} Available",
+    "filters": {
+      "all": "All",
+      "washing_machine": "Washers",
+      "dryer": "Dryers"
+    }
+  },
+  "history": {
+    "title": "History",
+    "stats": {
+      "spentThisMonth": "Spent this month",
+      "cyclesCompleted": "{{count}} cycles completed"
+    },
+    "empty": "You have no cycles registered yet.",
+    "cycleCard": {
+      "sharedBilling": "Shared billing"
+    }
+  },
+  "payment": {
+    "title": "Pay machine",
+    "methodPicker": "Payment method",
+    "confirm": "Confirm payment",
+    "processing": "Processing payment…",
+    "success": {
+      "title": "Machine activated!",
+      "subtitle": "The machine will start shortly.",
+      "done": "Done"
+    },
+    "error": {
+      "title": "Payment failed",
+      "generic": "Something went wrong. Try again.",
+      "retry": "Retry",
+      "cancel": "Cancel"
+    },
+    "comingSoon": "Coming soon",
+    "strategies": {
+      "mercadopago": {
+        "label": "MercadoPago",
+        "description": "Pay with card, Mercado Crédito, or cash."
+      },
+      "mqtt_relay": {
+        "label": "Direct Payment",
+        "description": "The machine activates immediately after confirmation."
+      },
+      "stripe": {
+        "label": "Credit card",
+        "description": "Pay with Visa, Mastercard, or Amex."
+      }
+    }
+  },
+  "report": {
+    "title": "Report a problem",
+    "entitySection": {
+      "label": "What does the report refer to?",
+      "scan": "Scan laundry or machine QR"
+    },
+    "entityType": {
+      "laundry": "Laundry",
+      "machine": "Machine"
+    },
+    "subject": { "label": "Subject", "placeholder": "Select a subject..." },
+    "description": { "label": "Description", "placeholder": "Explain the problem in more detail" },
+    "submit": "Submit report",
+    "submitError": "Could not send the report. Try again.",
+    "errors": {
+      "subjectRequired": "Subject is required",
+      "descriptionRequired": "Description is required"
+    },
+    "messages": {
+      "laundryNotFound": { "title": "Laundry not found", "body": "No information found for this laundry." },
+      "machineNotFound": { "title": "Machine not found", "body": "No information found for this machine." },
+      "qrUnrecognized": { "title": "QR not recognized", "body": "Scan the QR of a laundry or machine." }
+    }
+  },
+  "myLaundries": {
+    "title": "My laundries",
+    "authSubtitle": "Sign in to see your laundries.",
+    "empty": {
+      "title": "No laundries",
+      "body": "Register a private laundry with your code or add a public one from the map."
+    },
+    "item": {
+      "noMachines": "No machines",
+      "available": "{{available}} of {{total}} available",
+      "tags": {
+        "private": "Private",
+        "main": "Main"
+      }
+    },
+    "swipe": {
+      "showQR": "Show QR",
+      "remove": "Remove"
+    }
+  },
+  "qr": {
+    "alreadyHasAccess": { "title": "Already has access", "body": "You are already associated with the private laundry of this code." },
+    "registered": { "title": "Done!", "body": "You have been successfully associated with the private laundry." },
+    "invalidCode": { "title": "Invalid code", "body": "The access code is invalid or has expired." },
+    "privateLaundry": { "title": "Private laundry", "body": "This laundry is private. You need an access code to add it. Ask the local administrator." },
+    "alreadyAdded": { "body": "This laundry is already in your list." },
+    "added": { "title": "Done!", "body": "The laundry has been added to your list." },
+    "addFailed": { "title": "Could not add", "body": "An error occurred while adding the laundry. Try again." },
+    "deeplink": { "unrecognized": { "title": "Unrecognized link", "body": "Could not open the link associated with this QR code." } },
+    "unknown": { "title": "QR not recognized", "body": "This QR code is not compatible with Luvo." }
+  },
+  "info": {
+    "title": "Information",
+    "about": { "title": "About" },
+    "faq": { "title": "FAQ" },
+    "terms": { "title": "Terms and conditions" },
+    "loading": "Loading...",
+    "loadError": "Could not load content. Try again.",
+    "menu": {
+      "terms": "Terms and conditions",
+      "faq": "FAQ",
+      "about": "About"
+    }
+  },
+  "tabs": {
+    "laundry": "Laundries",
+    "myLaundries": "My laundries",
+    "profile": "Profile"
+  },
+  "laundryRegistration": {
+    "title": "Add laundry",
+    "guestPrompt": "Sign in to add this laundry to your list",
+    "accessCodeLabel": "Access code",
+    "description": "Add this private laundry to your list to see its available machines",
+    "invalidCode": "Invalid or expired code. Check the code and try again.",
+    "addButton": "Add laundry"
+  },
+  "scan": {
+    "tabs": {
+      "qr": "Scan QR",
+      "code": "Code"
+    },
+    "noCamera": "You have not enabled camera access. Please enable it in your device settings.",
+    "codeSection": {
+      "title": "Enter the reference number",
+      "submit": "Submit"
+    }
+  },
+  "laundryQR": {
+    "shareHint": "Share this code with other residents"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": {
+      "title": "General"
+    },
+    "notifications": {
+      "title": "Notifications"
+    },
+    "darkMode": {
+      "label": "Dark mode",
+      "description": "Change the app appearance"
+    },
+    "ownerMode": {
+      "label": "Owner mode",
+      "description": "Enable laundry management screens"
+    },
+    "language": {
+      "label": "Language",
+      "description": "Interface language"
+    },
+    "endOfCycle": {
+      "label": "End of cycle",
+      "description": "Notify me when the wash cycle ends"
+    },
+    "promotions": {
+      "label": "News & promotions",
+      "description": "Get news about new features and offers"
+    },
+    "maintenance": {
+      "label": "Maintenance alerts",
+      "description": "Notifications when a machine is unavailable"
+    },
+    "notificationsDisabled": {
+      "title": "Notifications disabled",
+      "body": "To receive these notifications, enable permissions in your device settings."
+    }
   }
 }

@@ -27,11 +27,12 @@ export const Account = () => {
     handlePasswordReset,
     handleDeleteAccount,
     linkedProviders,
+    strings,
   } = useAccountScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Mi cuenta" onBack={() => navigation.goBack()} />
+      <ScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         <View style={styles.avatarSection}>
@@ -43,7 +44,7 @@ export const Account = () => {
           </TouchableOpacity>
         </View>
 
-        <SettingsGroup title="Perfil">
+        <SettingsGroup title={strings.profileSection}>
           <View style={styles.nameRow}>
             <View style={styles.rowIcon}>
               <SvgIcon name="User" size="font-size-xl" color="font-secondary" />
@@ -58,10 +59,10 @@ export const Account = () => {
                     value={value}
                     onChangeText={onChange}
                     onBlur={onBlur}
-                    placeholder="Tu nombre"
+                    placeholder={strings.namePlaceholder}
                     maxLength={50}
                     returnKeyType="done"
-                    error={errors.name ? 'Nombre requerido' : undefined}
+                    error={errors.name ? strings.nameRequired : undefined}
                     style={styles.nameInput}
                   />
                 )}
@@ -70,18 +71,18 @@ export const Account = () => {
           </View>
         </SettingsGroup>
 
-        <SettingsGroup title="Seguridad">
+        <SettingsGroup title={strings.securitySection}>
           <SettingsRow
             type="value"
             icon="Settings"
-            label="Restablecer contraseña"
+            label={strings.resetPassword}
             value=""
             onPress={handlePasswordReset}
           />
         </SettingsGroup>
 
         {linkedProviders.length > 0 ? (
-          <SettingsGroup title="Cuentas vinculadas">
+          <SettingsGroup title={strings.linkedSection}>
             {linkedProviders.map((p, i) => (
               <View key={p.id}>
                 {i > 0 ? <View style={styles.separator} /> : null}
@@ -94,7 +95,7 @@ export const Account = () => {
                   </Text>
                   <View style={styles.vinculadaBadge}>
                     <Text fontSize="font-size-xs" style={styles.vinculadaText}>
-                      Vinculada
+                      {strings.linkedBadge}
                     </Text>
                   </View>
                 </View>
@@ -113,7 +114,7 @@ export const Account = () => {
             <SvgIcon name="AlertTriangle" size="font-size-xl" color="font-error" />
           </View>
           <Text fontSize="font-size-md" color="font-error" fontWeight="semibold">
-            {isDeleting ? 'Eliminando cuenta...' : 'Eliminar cuenta'}
+            {isDeleting ? strings.deletingLabel : strings.deleteLabel}
           </Text>
         </TouchableOpacity>
       </ScrollView>

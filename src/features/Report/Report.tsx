@@ -11,15 +11,10 @@ import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View }
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { SelectedEntity, useReportForm } from './hooks/useReportForm';
+import { useReportForm } from './hooks/useReportForm';
 import { useReportTheme } from './theme/useReportTheme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Report'>;
-
-const ENTITY_TYPE_LABEL: Record<SelectedEntity['type'], string> = {
-  laundry: 'Lavandería',
-  machine: 'Máquina',
-};
 
 export const Report = ({ route, navigation }: Props) => {
   const { laundryId, machineId } = route.params ?? {};
@@ -33,6 +28,7 @@ export const Report = ({ route, navigation }: Props) => {
     subjectOptions,
     onScanForEntity,
     onClearEntity,
+    strings,
   } = useReportForm({
     laundryId,
     machineId,
@@ -54,7 +50,7 @@ export const Report = ({ route, navigation }: Props) => {
   return (
     <View style={styles.container}>
       <QRScanner override />
-      <ScreenHeader title="Reportar problema" onBack={() => navigation.goBack()} />
+      <ScreenHeader title={strings.title} onBack={() => navigation.goBack()} />
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView bounces={false} keyboardShouldPersistTaps="handled">
           <Pressable onPress={Keyboard.dismiss} style={styles.content}>
@@ -62,13 +58,13 @@ export const Report = ({ route, navigation }: Props) => {
             {/* Entity selection */}
             <View>
               <Text fontSize="font-size-sm" color="font-secondary" style={styles.sectionLabel}>
-                ¿A qué se refiere el reporte?
+                {strings.entitySectionLabel}
               </Text>
               {selectedEntity === null ? (
                 <Pressable style={styles.scanButton} onPress={onScanForEntity}>
                   <SvgIcon name="QrCode" size="font-size-xl" color="font-secondary" />
                   <Text fontSize="font-size-sm" color="font-secondary">
-                    Escanear QR de lavandería o máquina
+                    {strings.entitySectionScan}
                   </Text>
                 </Pressable>
               ) : (
@@ -76,7 +72,7 @@ export const Report = ({ route, navigation }: Props) => {
                   <SvgIcon name={entityIconName} size="font-size-lg" color="font-secondary" />
                   <View style={styles.entityCardInfo}>
                     <Text fontSize="font-size-xs" color="font-secondary">
-                      {ENTITY_TYPE_LABEL[selectedEntity.type]}
+                      {strings.entityTypeLabel(selectedEntity.type)}
                     </Text>
                     <Text fontSize="font-size-sm" fontWeight="semibold">
                       {entityName}
@@ -93,11 +89,11 @@ export const Report = ({ route, navigation }: Props) => {
             <Controller
               control={control}
               name="subject"
-              rules={{ required: 'El asunto es obligatorio' }}
+              rules={{ required: strings.subjectRequired }}
               render={({ field: { onChange, value } }) => (
                 <SelectInput
-                  label="Asunto"
-                  placeholder="Seleccionar asunto..."
+                  label={strings.subjectLabel}
+                  placeholder={strings.subjectPlaceholder}
                   value={value}
                   options={subjectOptions}
                   onChange={onChange}
@@ -110,11 +106,11 @@ export const Report = ({ route, navigation }: Props) => {
             <Controller
               control={control}
               name="description"
-              rules={{ required: 'La descripción es obligatoria' }}
+              rules={{ required: strings.descriptionRequired }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  label="Descripción"
-                  placeholder="Explica el problema con más detalle"
+                  label={strings.descriptionLabel}
+                  placeholder={strings.descriptionPlaceholder}
                   multiline
                   maxLength={2000}
                   onBlur={onBlur}
@@ -134,7 +130,7 @@ export const Report = ({ route, navigation }: Props) => {
           </Pressable>
         </ScrollView>
         <View style={styles.footer}>
-          <Button fullWidth label="Enviar reporte" onPress={onSubmit} disabled={isSubmitting} />
+          <Button fullWidth label={strings.submit} onPress={onSubmit} disabled={isSubmitting} />
         </View>
       </KeyboardAvoidingView>
     </View>

@@ -2,6 +2,7 @@ import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
 import { TouchableOpacity } from 'react-native';
 import { useMyLaundriesTheme } from '../../../../theme/useMyLaundriesTheme';
+import { useSwipeActions } from './hooks/useSwipeActions';
 
 interface QRActionProps {
   onPress: () => void;
@@ -9,11 +10,12 @@ interface QRActionProps {
 
 export const QRSwipeAction = ({ onPress }: QRActionProps) => {
   const { styles } = useMyLaundriesTheme();
+  const { showQRLabel } = useSwipeActions();
   return (
     <TouchableOpacity style={styles.actionQR} onPress={onPress} activeOpacity={0.8}>
       <SvgIcon name="QrCode" size="font-size-xl" color="font-invert" />
       <Text fontSize="font-size-xs" color="font-invert" fontWeight="semibold">
-        Ver QR
+        {showQRLabel}
       </Text>
     </TouchableOpacity>
   );
@@ -25,11 +27,12 @@ interface RemoveActionProps {
 
 export const RemoveSwipeAction = ({ onPress }: RemoveActionProps) => {
   const { styles } = useMyLaundriesTheme();
+  const { removeLabel } = useSwipeActions();
   return (
     <TouchableOpacity style={styles.actionRemove} onPress={onPress} activeOpacity={0.8}>
       <SvgIcon name="AlertCircle" size="font-size-xl" color="font-invert" />
       <Text fontSize="font-size-xs" color="font-invert" fontWeight="semibold">
-        Eliminar
+        {removeLabel}
       </Text>
     </TouchableOpacity>
   );

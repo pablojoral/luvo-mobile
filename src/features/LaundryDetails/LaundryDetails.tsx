@@ -8,11 +8,11 @@ import { useLaundryDetailsTheme } from './theme/useLaundryDetailsTheme';
 
 export const LaundryDetails = () => {
   const { styles } = useLaundryDetailsTheme();
-  const { laundry, handleGoBack } = useLaundryDetailsScreen();
+  const { laundry, screenTitle, handleGoBack } = useLaundryDetailsScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={'Lavandería'} onBack={handleGoBack} />
+      <ScreenHeader title={screenTitle} onBack={handleGoBack} />
       <View style={styles.content}>
         <LaundryDetailsCard laundry={laundry} />
         <MachinesList laundry={laundry} />

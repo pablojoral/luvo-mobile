@@ -1,18 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { useMe, useUpdateProfile, useDeleteAccount } from 'query/Auth/useAuth';
 import { sendPasswordReset, getLinkedProviders } from 'services/firebase/firebaseAuth';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
-
-const PROVIDER_LABELS: Record<string, string> = {
-  password:     'Correo electrónico',
-  'google.com': 'Google',
-  'apple.com':  'Apple',
-  phone:        'Teléfono',
-};
 
 export type AccountFormValues = {
   name: string;
@@ -20,12 +14,20 @@ export type AccountFormValues = {
 };
 
 export function useAccountScreen() {
+  const { t } = useTranslation('common');
   const { data: user } = useMe();
-  const { mutateAsync: updateProfile, isPending: isSaving } = useUpdateProfile();
+  const { mutateAsync: updateProfile } = useUpdateProfile();
   const { mutate: deleteAccount, isPending: isDeleting } = useDeleteAccount();
   const addMessage = useMessagesStore(s => s.addMessage);
   const nav = useRootStackNavigation();
   const [pickerVisible, setPickerVisible] = useState(false);
+
+  const providerLabels: Record<string, string> = {
+    password:     t('account.providers.password'),
+    'google.com': t('account.providers.google'),
+    'apple.com':  t('account.providers.apple'),
+    phone:        t('account.providers.phone'),
+  };
 
   const { control, handleSubmit, reset, setValue, watch, formState: { isDirty, errors } } =
     useForm<AccountFormValues>({ defaultValues: { name: '', avatarId: 1 } });
@@ -53,7 +55,7 @@ export function useAccountScreen() {
           await updateProfile({ name: data.name.trim(), avatarId: data.avatarId });
           reset(data);
         } catch {
-          addMessage({ title: 'Error', body: 'No se pudo guardar el perfil. Intentá de nuevo.' });
+          addMessage({ title: t('errors.generic'), body: t('account.messages.saveFailed') });
         }
       })();
     }, 800);
@@ -71,28 +73,28 @@ export function useAccountScreen() {
     try {
       await sendPasswordReset(user.email);
       addMessage({
-        title: 'Correo enviado',
-        body: `Te enviamos un enlace para restablecer tu contraseña a ${user.email}.`,
+        title: t('account.messages.passwordResetSent'),
+        body: t('account.messages.passwordResetSentBody', { email: user.email }),
       });
     } catch {
-      addMessage({ title: 'Error', body: 'No se pudo enviar el correo. Intentá de nuevo.' });
+      addMessage({ title: t('errors.generic'), body: t('account.messages.passwordResetFailed') });
     }
   };
 
   const handleDeleteAccount = () => {
     Alert.alert(
-      'Eliminar cuenta',
-      '¿Estás seguro? Esta acción es irreversible. Se eliminarán todos tus datos.',
+      t('account.alerts.deleteConfirmTitle'),
+      t('account.alerts.deleteConfirmBody'),
       [
-        { text: 'Cancelar', style: 'cancel' },
+        { text: t('account.alerts.deleteConfirmCancel'), style: 'cancel' },
         {
-          text: 'Eliminar',
+          text: t('account.alerts.deleteConfirmDelete'),
           style: 'destructive',
           onPress: () =>
             deleteAccount(undefined, {
               onSuccess: () => nav.navigate('Tabs'),
               onError: () =>
-                addMessage({ title: 'Error', body: 'No se pudo eliminar la cuenta. Intentá de nuevo.' }),
+                addMessage({ title: t('errors.generic'), body: t('account.messages.deleteFailed') }),
             }),
         },
       ],
@@ -101,7 +103,7 @@ export function useAccountScreen() {
 
   const linkedProviders = getLinkedProviders().map(id => ({
     id,
-    label: PROVIDER_LABELS[id] ?? id,
+    label: providerLabels[id] ?? id,
   }));
 
   return {
@@ -115,5 +117,17 @@ export function useAccountScreen() {
     handlePasswordReset,
     handleDeleteAccount,
     linkedProviders,
+    strings: {
+      screenTitle:         t('account.title'),
+      profileSection:      t('account.profile.sectionTitle'),
+      namePlaceholder:     t('account.profile.namePlaceholder'),
+      nameRequired:        t('account.profile.nameRequired'),
+      securitySection:     t('account.security.sectionTitle'),
+      resetPassword:       t('account.security.resetPassword'),
+      linkedSection:       t('account.linkedAccounts.sectionTitle'),
+      linkedBadge:         t('account.linkedAccounts.linkedBadge'),
+      deleteLabel:         t('account.deleteAccount.label'),
+      deletingLabel:       t('account.deleteAccount.deleting'),
+    },
   };
 }

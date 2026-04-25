@@ -2,6 +2,7 @@ import { SelectorOption } from 'components/PillSelector/PillSelector';
 import { CreateReport, Laundry, Machine } from 'models/models';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useReportSubjects } from 'query/ReportSubject/useReportSubjects';
 import { useSubmitReport } from 'query/Report/useSubmitReport';
 import { useQRScanner } from 'stores/useQRScanner';
@@ -25,6 +26,7 @@ interface Options {
 }
 
 export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
+  const { t } = useTranslation('common');
   const { mutateAsync } = useSubmitReport();
   const { open: openScanner } = useQRScanner();
   const { addMessage } = useMessagesStore();
@@ -67,7 +69,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
         }
       }
     } else if (laundryId !== undefined) {
-      const l = laundries.find(l => l.id === laundryId);
+      const l = laundries.find(laundry => laundry.id === laundryId);
       if (l) setSelectedEntity({ type: 'laundry', laundry: l });
     }
   }, [laundries, machineId, laundryId]);
@@ -92,7 +94,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
           setSelectedEntity({ type: 'laundry', laundry });
           setValue('subject', '');
         } else {
-          addMessage({ title: 'Lavandería no encontrada', body: 'No se encontró información para esta lavandería.' });
+          addMessage({ title: t('report.messages.laundryNotFound.title'), body: t('report.messages.laundryNotFound.body') });
         }
       } else if (result.type === 'machine') {
         for (const l of currentLaundries) {
@@ -103,12 +105,12 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
             return;
           }
         }
-        addMessage({ title: 'Máquina no encontrada', body: 'No se encontró información para esta máquina.' });
+        addMessage({ title: t('report.messages.machineNotFound.title'), body: t('report.messages.machineNotFound.body') });
       } else {
-        addMessage({ title: 'QR no reconocido', body: 'Escanea el QR de una lavandería o máquina.' });
+        addMessage({ title: t('report.messages.qrUnrecognized.title'), body: t('report.messages.qrUnrecognized.body') });
       }
     });
-  }, [openScanner, addMessage, setValue]);
+  }, [openScanner, addMessage, setValue, t]);
 
   const onClearEntity = useCallback(() => {
     setSelectedEntity(null);
@@ -127,7 +129,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
       await mutateAsync(body);
       onSuccess();
     } catch {
-      setError('root', { message: 'No se pudo enviar el reporte. Intenta nuevamente.' });
+      setError('root', { message: t('report.submitError') });
     }
   });
 
@@ -141,5 +143,19 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
     subjectOptions,
     onScanForEntity,
     onClearEntity,
+    strings: {
+      title: t('report.title'),
+      entitySectionLabel: t('report.entitySection.label'),
+      entitySectionScan: t('report.entitySection.scan'),
+      entityTypeLabel: (type: SelectedEntity['type']) =>
+        type === 'laundry' ? t('report.entityType.laundry') : t('report.entityType.machine'),
+      subjectLabel: t('report.subject.label'),
+      subjectPlaceholder: t('report.subject.placeholder'),
+      subjectRequired: t('report.errors.subjectRequired'),
+      descriptionLabel: t('report.description.label'),
+      descriptionPlaceholder: t('report.description.placeholder'),
+      descriptionRequired: t('report.errors.descriptionRequired'),
+      submit: t('report.submit'),
+    },
   };
 };

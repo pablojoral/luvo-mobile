@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { Linking } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useAddMyLaundry } from 'query/MyLaundries/useAddMyLaundry';
@@ -11,6 +12,7 @@ import { useQRScanner } from 'stores/useQRScanner';
 import { parseQRCode } from 'utils/parseQRCode';
 
 export const useQRScanHandler = () => {
+  const { t } = useTranslation('common');
   const navigation = useRootStackNavigation();
   const { open: openScanner } = useQRScanner();
   const { addMessage } = useMessagesStore();
@@ -31,8 +33,8 @@ export const useQRScanHandler = () => {
 
           if (alreadyHasAccess) {
             addMessage({
-              title: 'Ya tienes acceso',
-              body: 'Ya estás asociado a la lavandería privada de este código.',
+              title: t('qr.alreadyHasAccess.title'),
+              body: t('qr.alreadyHasAccess.body'),
             });
             break;
           }
@@ -40,13 +42,13 @@ export const useQRScanHandler = () => {
           registerMyLaundry(result.code, {
             onSuccess: () =>
               addMessage({
-                title: '¡Listo!',
-                body: 'Has sido asociado a la lavandería privada exitosamente.',
+                title: t('qr.registered.title'),
+                body: t('qr.registered.body'),
               }),
             onError: () =>
               addMessage({
-                title: 'Código inválido',
-                body: 'El código de acceso no es válido o ha expirado.',
+                title: t('qr.invalidCode.title'),
+                body: t('qr.invalidCode.body'),
               }),
           });
           break;
@@ -57,28 +59,28 @@ export const useQRScanHandler = () => {
 
           if (!laundry || laundry.visibility === 'private') {
             addMessage({
-              title: 'Lavandería privada',
-              body: 'Esta lavandería es privada. Necesitas un código de acceso para agregarla. Pídelo al administrador del local.',
+              title: t('qr.privateLaundry.title'),
+              body: t('qr.privateLaundry.body'),
             });
             break;
           }
 
           const alreadyAdded = myLaundriesData?.laundries.some(l => l.id === result.laundryId);
           if (alreadyAdded) {
-            addMessage({ body: 'Esta lavandería ya está en tu lista.' });
+            addMessage({ body: t('qr.alreadyAdded.body') });
             break;
           }
 
           addMyLaundry(result.laundryId, {
             onSuccess: () =>
               addMessage({
-                title: '¡Listo!',
-                body: 'La lavandería se ha agregado a tu lista.',
+                title: t('qr.added.title'),
+                body: t('qr.added.body'),
               }),
             onError: () =>
               addMessage({
-                title: 'No se pudo agregar',
-                body: 'Ocurrió un error al agregar la lavandería. Inténtalo de nuevo.',
+                title: t('qr.addFailed.title'),
+                body: t('qr.addFailed.body'),
               }),
           });
           break;
@@ -92,8 +94,8 @@ export const useQRScanHandler = () => {
         case 'other_deeplink': {
           Linking.openURL(result.url).catch(() =>
             addMessage({
-              title: 'Enlace no reconocido',
-              body: 'No se pudo abrir el enlace asociado a este código QR.',
+              title: t('qr.deeplink.unrecognized.title'),
+              body: t('qr.deeplink.unrecognized.body'),
             }),
           );
           break;
@@ -101,14 +103,14 @@ export const useQRScanHandler = () => {
 
         case 'unknown': {
           addMessage({
-            title: 'QR no reconocido',
-            body: 'Este código QR no es compatible con Luvo.',
+            title: t('qr.unknown.title'),
+            body: t('qr.unknown.body'),
           });
           break;
         }
       }
     });
-  }, [navigation, openScanner, addMessage, laundries, myLaundriesData, addMyLaundry, registerMyLaundry]);
+  }, [t, navigation, openScanner, addMessage, laundries, myLaundriesData, addMyLaundry, registerMyLaundry]);
 
   return { handleScan };
 };

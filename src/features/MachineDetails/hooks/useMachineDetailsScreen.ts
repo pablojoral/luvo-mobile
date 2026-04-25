@@ -3,19 +3,9 @@ import { MachineStatus, MachineType } from 'models/models';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useLaundriesStore } from 'stores/useLaundriesStore';
+import type { IconName } from 'components/SvgIcon/types';
 import type { FontColor, SurfaceColor } from 'theme/types/Theme';
-
-const TYPE_LABEL: Record<MachineType, string> = {
-  washing_machine: 'Lavadora',
-  dryer: 'Secadora',
-};
-
-const STATUS_LABEL: Record<MachineStatus, string> = {
-  available: 'Disponible',
-  in_use: 'En uso',
-  out_of_order: 'Fuera de servicio',
-  maintenance: 'Mantenimiento',
-};
+import { useTranslation } from 'react-i18next';
 
 interface StatusColorEntry {
   color: FontColor;
@@ -30,6 +20,7 @@ const STATUS_COLOR: Record<MachineStatus, StatusColorEntry> = {
 };
 
 export const useMachineDetailsScreen = () => {
+  const { t } = useTranslation('common');
   const route = useRoute<RouteProp<RootStackParamList, 'MachineDetails'>>();
   const navigation = useRootStackNavigation();
   const { machineId } = route.params;
@@ -37,7 +28,7 @@ export const useMachineDetailsScreen = () => {
   const connectionState = useLaundriesStore(s => s.connectionState);
   const machine = useLaundriesStore(s => {
     for (const l of s.laundries) {
-      const m = l.machines?.find(m => m.id === machineId);
+      const m = l.machines?.find(item => item.id === machineId);
       if (m) return m;
     }
     return null;
@@ -46,12 +37,31 @@ export const useMachineDetailsScreen = () => {
     s.laundries.find(l => l.id === machine?.laundryId) ?? null,
   );
 
+  const typeLabels: Record<MachineType, string> = {
+    washing_machine: t('machines.type.washing_machine'),
+    dryer: t('machines.type.dryer'),
+  };
+
+  const statusLabels: Record<MachineStatus, string> = {
+    available: t('machines.status.available'),
+    in_use: t('machines.status.in_use'),
+    out_of_order: t('machines.status.out_of_order'),
+    maintenance: t('machines.status.maintenance'),
+  };
+
   const isConnecting = connectionState === 'idle' || connectionState === 'connecting';
   const statusStyle = machine ? STATUS_COLOR[machine.status] : null;
   const isAvailable = machine?.status === 'available';
-  const typeLabel = machine ? TYPE_LABEL[machine.type] : '';
-  const statusLabel = machine ? STATUS_LABEL[machine.status] : '';
-  const iconName = machine?.type === 'dryer' ? 'Wind' : 'Droplet';
+  const typeLabel = machine ? typeLabels[machine.type] : '';
+  const statusLabel = machine ? statusLabels[machine.status] : '';
+  const iconName: IconName = machine?.type === 'dryer' ? 'Wind' : 'Droplet';
+
+  const screenTitle = t('machines.title');
+  const notFoundText = t('machines.notFound');
+  const goBackLabel = t('machines.goBack');
+  const modelLabel = t('machines.model');
+  const startWashLabel = t('machines.startWash');
+  const reportProblemLabel = t('machines.reportProblem');
 
   const handleGoBack = () => navigation.goBack();
   const handleStartWash = () => {
@@ -72,6 +82,12 @@ export const useMachineDetailsScreen = () => {
     typeLabel,
     statusLabel,
     iconName,
+    screenTitle,
+    notFoundText,
+    goBackLabel,
+    modelLabel,
+    startWashLabel,
+    reportProblemLabel,
     handleGoBack,
     handleStartWash,
     handleReport,

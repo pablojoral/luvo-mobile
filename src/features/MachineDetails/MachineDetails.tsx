@@ -19,6 +19,12 @@ export const MachineDetails = () => {
     typeLabel,
     statusLabel,
     iconName,
+    screenTitle,
+    notFoundText,
+    goBackLabel,
+    modelLabel,
+    startWashLabel,
+    reportProblemLabel,
     handleGoBack,
     handleStartWash,
     handleReport,
@@ -28,7 +34,7 @@ export const MachineDetails = () => {
   if (!machine && isConnecting) {
     return (
       <View style={styles.container}>
-        <ScreenHeader title="Máquina" onBack={handleGoBack} />
+        <ScreenHeader title={screenTitle} onBack={handleGoBack} />
         <View style={styles.notFound}>
           <ActivityIndicator size="large" />
         </View>
@@ -39,12 +45,12 @@ export const MachineDetails = () => {
   if (!machine || !laundry) {
     return (
       <View style={styles.container}>
-        <ScreenHeader title="Máquina" onBack={handleGoBack} />
+        <ScreenHeader title={screenTitle} onBack={handleGoBack} />
         <View style={styles.notFound}>
           <Text fontSize="font-size-md" color="font-placeholder" style={styles.notFoundText}>
-            No se encontró información para esta máquina.
+            {notFoundText}
           </Text>
-          <Button label="Volver" onPress={handleGoBack} />
+          <Button label={goBackLabel} onPress={handleGoBack} />
         </View>
       </View>
     );
@@ -84,20 +90,20 @@ export const MachineDetails = () => {
 
           {machine.modelNumber ? (
             <Text fontSize="font-size-xs" color="font-placeholder">
-              Modelo: {machine.modelNumber}
+              {modelLabel}: {machine.modelNumber}
             </Text>
           ) : null}
         </View>
 
         <View style={styles.actions}>
           <Button
-            label="Iniciar lavado"
+            label={startWashLabel}
             fullWidth
             disabled={!isAvailable}
             onPress={handleStartWash}
           />
           <Button
-            label="Reportar problema"
+            label={reportProblemLabel}
             variant="tertiary"
             fullWidth
             onPress={handleReport}

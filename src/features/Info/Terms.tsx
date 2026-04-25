@@ -1,31 +1,25 @@
 import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
 import { Text } from 'components/Text/Text';
 import { ScrollView, View } from 'react-native';
-import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
-import { useContent } from 'query/Content/useContent';
 
+import { useTermsScreen } from './hooks/useTermsScreen';
 import { useInfoTheme } from './theme/useInfoTheme';
 
 export const Terms = () => {
-  const navigation = useRootStackNavigation();
   const { styles } = useInfoTheme();
-  const { data: content, isLoading, error } = useContent('terms');
+  const { title, loadingText, loadError, content, isLoading, error, handleGoBack } =
+    useTermsScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader
-        title="Términos y condiciones"
-        onBack={() => navigation.goBack()}
-      />
+      <ScreenHeader title={title} onBack={handleGoBack} />
       {isLoading ? (
         <View style={styles.loadingContainer}>
-          <Text>Cargando...</Text>
+          <Text>{loadingText}</Text>
         </View>
       ) : error ? (
         <View style={styles.errorContainer}>
-          <Text color="font-error">
-            No se pudo cargar el contenido. Intentá de nuevo.
-          </Text>
+          <Text color="font-error">{loadError}</Text>
         </View>
       ) : (
         <ScrollView
