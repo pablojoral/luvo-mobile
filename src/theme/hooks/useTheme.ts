@@ -1,6 +1,6 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDarkModeStore } from 'stores/useDarkModeStore';
 
-import { useDarkModeStore } from '../../../stores/useDarkModeStore';
 import { DarkThemeConstants } from '../themes/DarkTheme';
 import { DefaultThemeConstants } from '../themes/DefaultTheme';
 import { Theme } from '../types/Theme';

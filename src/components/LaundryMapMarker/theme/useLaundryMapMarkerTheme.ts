@@ -1,4 +1,5 @@
-import { StyleSheet, useMemo } from 'react-native';
+import { useMemo } from 'react';
+import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
 export const useLaundryMapMarkerTheme = () => {
