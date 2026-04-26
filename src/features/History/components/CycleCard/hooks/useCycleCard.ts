@@ -12,7 +12,11 @@ export const useCycleCard = ({ item }: UseCycleCardProps) => {
 
   const icon: IconName = item.machineType === 'washing_machine' ? 'Droplet' : 'Wind';
   const formattedAmount = formatAmount(item.amount, item.currency, i18n.language);
-  const formattedDate = formatDate(item.createdAt, i18n.language);
+  const formattedDate = formatDate(item.createdAt, i18n.language, {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
   const sharedBillingLabel = t('history.cycleCard.sharedBilling');
 
   return {

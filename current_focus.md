@@ -1,8 +1,46 @@
 # Current Focus — luvo-mobile
 
-**Active task:** Awaiting merge of PR #6 (code review passed, no blockers).
+**Active task:** Awaiting merge of PR #8 (code review passed, no blockers).
 
-**Status:** PR #6 is OPEN and MERGEABLE — rebase completed, all 7 commits replayed cleanly, code review passed with only a minor suggestion. Ready for human merge.
+**Status:** PR #8 is OPEN — refactor of `formatHistoryItem.ts` to extract locale param complete, 13 unit tests added, code review passed. Gated on design confirmation for CycleCard date format (year dropped).
+
+---
+
+## Completed (2026-04-26, Session 3: formatHistoryItem Locale Extraction)
+
+**Branch created:**
+- `refactor/format-history-item-locale-param` branched from updated `master` (after PR #6 merged)
+
+**formatHistoryItem.ts refactored to pure module:**
+- Removed i18n singleton import from the module
+- Added `locale?: string` param to `formatAmount(amount, currency, locale?)`
+- Added `locale?: string` param to `formatDate(date, locale?)`
+- All locale resolution moved to call sites (component hooks)
+- File is now pure: no side effects, no singleton dependencies
+- Module is testable without i18n mocking
+
+**Call sites updated:**
+- `useCycleCard.ts`: passes `i18n.language` explicitly to `formatDate()`
+- `useStatsHeader.ts`: passes `i18n.language` explicitly to `formatAmount()`
+
+**Unit tests added:**
+- New file: `src/utils/History/__tests__/formatHistoryItem.test.ts`
+- 13 test cases: pure function tests, no i18n mocking, no singletons
+- All tests passing
+
+**Code review completed:**
+- No blocking issues found
+- PR ready to merge
+
+**PR #8 created:**
+- URL: https://github.com/pablojoral/luvo-mobile/pull/8
+- Title: `refactor(i18n): extract locale param from formatHistoryItem, add pure unit tests`
+- Single commit: locale param extraction + unit tests
+
+**⚠️ Design confirmation needed:**
+- `useCycleCard.ts` date format changed from `{ day: '2-digit', month: 'short', year: 'numeric' }` to `{ day: 'numeric', month: 'short' }`
+- The **year is now dropped** from rendered CycleCard dates
+- Need design sign-off: does CycleCard need the year back? If yes, extend `formatDate` with an options param
 
 ---
 
@@ -19,31 +57,9 @@
 - One minor suggestion: comment on template-literal cast in `usePaymentScreen.ts:47`
 - Review passed
 
-**PR created (session 1):**
-- URL: https://github.com/pablojoral/luvo-mobile/pull/6
+**PR #6 merged to master (2026-04-26 ~20:00):**
 - Title: `refactor(swipe-actions): split QRSwipeAction + RemoveSwipeAction, extract theme hooks; i18n hook boundary (Phase 1–3)`
 - 7 commits: 2 SwipeActions refactor + 5 i18n Phase 1–3
-
-**i18n Phase 3 follow-up #5:**
-- `src/utils/History/formatHistoryItem.ts` — replaced `'es-UY'` hardcode with `i18n.language` singleton in `formatAmount` and `formatDate`
-- Committed: `445450f`
-
-**i18n Phase 3 follow-up #4:**
-- `src/components/AvailabilityTag/hooks/useAvailabilityTag.ts` — replaced dynamic `` t(`machines.status.${status}`) `` with `STATUS_LABEL_KEYS` const (`as const satisfies Record<MachineStatus, string>`)
-- Committed: `039a818`
-
-**i18n Phase 3 follow-up #2:**
-- `src/features/History/components/CycleCard/hooks/useCycleCard.ts` — locale-aware date formatting via `Intl.DateTimeFormat(i18n.language, ...)`
-- Committed: `e5f62c2`
-
-**i18n Phase 3 follow-up #1:**
-- `src/features/Payment/strategies/paymentCodes.ts` — payment code/error registry + 14 i18n keys in `en/common.json` and `es/common.json`; translation boundary at `usePaymentScreen`
-- ADR-004 recorded
-- Committed: `fd6b574`
-
-**SwipeActions refactor:**
-- `QRSwipeAction` and `RemoveSwipeAction` extracted into separate component files; per-component theme hooks added
-- Committed: `fe904a3`
 
 ---
 
@@ -54,29 +70,26 @@
 - Device language auto-detected on startup; picker overrides it
 - Component hooks call `useTranslation`; components themselves never do
 - ADR-004: For service/strategy i18n, return machine-readable codes from service, translate at React boundary (hook)
+- Formatting utilities (`formatHistoryItem`, etc.) accept locale as explicit parameter; no singleton imports
 
 ---
 
 ## Still open / deferred
 
-1. **`formatHistoryItem` testability** — imports i18n singleton directly; worth extracting locale as a parameter in a future pass. Non-blocking.
+1. **CycleCard date format year** — design sign-off needed on whether year should be reinstated. Blocking PR #8 merge.
 2. **`fr` / `pt` / `it` translation bundles** — purely additive; gate on product confirming locale priority.
 
 ---
 
 ## Next session goal (concrete first action)
 
-**Gated on PR #6 merging first.** Once PR #6 is merged to master:
+**Blocked on design confirmation for CycleCard date format:**
 
-1. Pull master: `git fetch origin master && git checkout master && git pull`
-2. Open `src/utils/History/formatHistoryItem.ts`
-3. Refactor `formatAmount(amount, currency)` to accept an optional third parameter: `locale?: string` (default `i18n.language`)
-4. Refactor `formatDate(date)` to accept an optional second parameter: `locale?: string` (default `i18n.language`)
-5. Remove the direct `i18n` singleton import from the module — all i18n calls move to the calling site (hooks)
-6. Update all call sites to pass `locale` explicitly (via `useTranslation().i18n.language`)
-7. Add unit tests in `__tests__/formatHistoryItem.test.ts` (now mockable without i18n mocking)
-8. Verify no import-order or lint regressions; commit when green
+1. Check Slack / design system for CycleCard date format requirements (is year necessary?)
+2. If yes: extend `formatDate(date, locale?, options?)` with options param in `src/utils/History/formatHistoryItem.ts`
+3. Update `useCycleCard.ts` to pass `{ day: '2-digit', month: 'short', year: 'numeric' }` via options
+4. Run `pnpm test` to verify no regressions
+5. If design confirms no year needed: merge PR #8 as-is
+6. Create a new branch `refactor/i18n-phase-4-*` with remaining locale-aware refactors (e.g., currency symbols, number formatting for large values)
 
-This removes the hard singleton dependency, making the formatting functions unit-testable and more reusable in non-React contexts (e.g., server components).
-
-**Last updated:** 2026-04-26 19:52
+**Last updated:** 2026-04-26 20:55

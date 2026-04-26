@@ -11,7 +11,16 @@ export function formatAmount(amount: number | null, currency: string | null, loc
   }
 }
 
-export function formatDate(iso: string, locale: string): string {
+export function formatDate(
+  iso: string,
+  locale: string,
+  options?: Intl.DateTimeFormatOptions,
+): string {
   const date = new Date(iso);
-  return date.toLocaleDateString(locale, { day: 'numeric', month: 'short' });
+  const resolvedOptions: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'short',
+    ...options,
+  };
+  return date.toLocaleDateString(locale, resolvedOptions);
 }

@@ -106,4 +106,29 @@ describe('formatDate', () => {
       expect(result).toBe('Invalid Date');
     });
   });
+
+  describe('explicit options override', () => {
+    it('includes the year when { year: "numeric" } is passed', () => {
+      const result = formatDate(isoString, 'en-US', { year: 'numeric' });
+      // The year 2024 must appear in the output.
+      expect(result).toMatch(/2024/);
+    });
+
+    it('does not include the year when no options are passed (default behaviour unchanged)', () => {
+      const result = formatDate(isoString, 'en-US');
+      expect(result).not.toMatch(/2024/);
+    });
+
+    it('overrides day style when { day: "2-digit", month: "short", year: "numeric" } is passed', () => {
+      // This mirrors the exact options used by useCycleCard — validates the real call site.
+      const result = formatDate(isoString, 'en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      });
+      expect(result).toMatch(/2024/);
+      expect(result).toMatch(/\d/);
+      expect(result).toMatch(/[A-Za-z]/);
+    });
+  });
 });
