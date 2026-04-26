@@ -1,15 +1,15 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
 import { TouchableOpacity } from 'react-native';
-import { useMyLaundriesTheme } from '../../../../../../theme/useMyLaundriesTheme';
 import { useSwipeActions } from '../../hooks/useSwipeActions';
+import { useQRSwipeActionTheme } from './theme/useQRSwipeActionTheme';
 
 interface QRSwipeActionProps {
   onPress: () => void;
 }
 
 export const QRSwipeAction = ({ onPress }: QRSwipeActionProps) => {
-  const { styles } = useMyLaundriesTheme();
+  const { styles } = useQRSwipeActionTheme();
   const { showQRLabel } = useSwipeActions();
   return (
     <TouchableOpacity style={styles.actionQR} onPress={onPress} activeOpacity={0.8}>
