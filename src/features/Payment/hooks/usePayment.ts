@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { getAllStrategies } from '../PaymentStrategyRegistry';
 import { PaymentResult, PaymentStrategy } from '../strategies/PaymentStrategy';
+import type { PaymentProgressCode } from '../strategies/paymentCodes';
 
 export type PaymentState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -12,32 +13,32 @@ export function usePayment(machineId: number) {
     () => strategies.find(s => s.isAvailable) ?? strategies[0]!,
   );
   const [paymentState,  setPaymentState]  = useState<PaymentState>('idle');
-  const [progressMsg,   setProgressMsg]   = useState<string>('');
+  const [progressCode,  setProgressCode]  = useState<PaymentProgressCode | null>(null);
   const [result,        setResult]        = useState<PaymentResult | null>(null);
 
   const execute = async () => {
     if (!selectedStrategy.isAvailable) return;
 
     setPaymentState('loading');
-    setProgressMsg('');
+    setProgressCode(null);
     setResult(null);
 
     try {
       const res = await selectedStrategy.execute({
         machineId,
-        onProgress: msg => setProgressMsg(msg),
+        onProgress: code => setProgressCode(code),
       });
       setResult(res);
       setPaymentState(res.success ? 'success' : 'error');
-    } catch (err: unknown) {
-      setResult({ success: false, error: err instanceof Error ? err.message : 'Error desconocido' });
+    } catch {
+      setResult({ success: false, error: 'unknown' });
       setPaymentState('error');
     }
   };
 
   const reset = () => {
     setPaymentState('idle');
-    setProgressMsg('');
+    setProgressCode(null);
     setResult(null);
   };
 
@@ -46,7 +47,7 @@ export function usePayment(machineId: number) {
     selectedStrategy,
     setSelectedStrategy,
     paymentState,
-    progressMsg,
+    progressCode,
     result,
     execute,
     reset,

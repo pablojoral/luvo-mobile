@@ -21,7 +21,7 @@ function waitForDeepLink(paymentId: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       subscription.remove();
-      reject(new Error('Tiempo de espera agotado esperando respuesta de MercadoPago.'));
+      reject(new Error('mp_deeplink_timeout'));
     }, DEEP_LINK_TIMEOUT_MS);
 
     const subscription = Linking.addEventListener('url', ({ url }) => {
@@ -53,11 +53,11 @@ async function pollUntilSettled(paymentId: string): Promise<PaymentResult> {
       return { success: true, paymentId: payment.paymentId };
     }
     if (payment.status === 'failed' || payment.status === 'cancelled') {
-      return { success: false, paymentId: payment.paymentId, error: 'El pago fue rechazado.' };
+      return { success: false, paymentId: payment.paymentId, error: 'rejected' };
     }
   }
 
-  return { success: false, error: 'Tiempo de espera agotado. Verifica el estado de la máquina.' };
+  return { success: false, error: 'timeout' };
 }
 
 export const mercadoPagoStrategy: PaymentStrategy = {
@@ -68,17 +68,17 @@ export const mercadoPagoStrategy: PaymentStrategy = {
   isAvailable: true,
 
   async execute({ machineId, onProgress }: PaymentContext): Promise<PaymentResult> {
-    onProgress?.('Creando preferencia de pago…');
+    onProgress?.('creating_preference');
 
     const payment = await paymentService.initiate(machineId, 'mercadopago');
     const { initPoint } = payment.clientData as { initPoint: string };
 
     const available = await InAppBrowser.isAvailable();
     if (!available) {
-      return { success: false, error: 'No se puede abrir el navegador en este dispositivo.' };
+      return { success: false, error: 'browser_unavailable' };
     }
 
-    onProgress?.('Abriendo MercadoPago…');
+    onProgress?.('opening_checkout');
 
     // Register listener BEFORE opening browser to avoid race condition
     const deepLinkPromise = waitForDeepLink(payment.paymentId);
@@ -102,15 +102,20 @@ export const mercadoPagoStrategy: PaymentStrategy = {
     try {
       result = await deepLinkPromise;
     } catch (e: unknown) {
-      return { success: false, error: e instanceof Error ? e.message : 'Error desconocido' };
+      // The reject path in waitForDeepLink always rejects with 'mp_deeplink_timeout' as the message.
+      // Any other unexpected throw maps to 'unknown'.
+      const code = e instanceof Error && e.message === 'mp_deeplink_timeout'
+        ? 'mp_deeplink_timeout' as const
+        : 'unknown' as const;
+      return { success: false, error: code };
     }
 
     if (result === 'failure' || result === 'cancelled' || result === 'unknown') {
-      return { success: false, error: 'El pago fue cancelado o rechazado.' };
+      return { success: false, error: 'cancelled_or_rejected' };
     }
 
     // result === 'success' or 'pending' — wait for backend IPN to confirm
-    onProgress?.('Verificando pago…');
+    onProgress?.('verifying_payment');
     return pollUntilSettled(payment.paymentId);
   },
 };

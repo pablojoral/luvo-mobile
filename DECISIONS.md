@@ -12,6 +12,7 @@
 | ADR-001 | 2026-04-26 | i18n library and architecture (i18next + react-i18next + react-native-localize) | Accepted |
 | ADR-002 | 2026-04-26 | Locale support tiers (en/es full, fr/pt/it picker-only with es fallback) | Accepted |
 | ADR-003 | 2026-04-26 | Translation boundary lives at the React layer; services and strategies stay i18n-agnostic | Accepted |
+| ADR-004 | 2026-04-26 | Cross-boundary user-facing strings emitted as codes, resolved via co-located registry at React boundary | Accepted |
 
 ## Entries
 

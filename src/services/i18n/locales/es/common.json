@@ -149,6 +149,24 @@
       "retry": "Reintentar",
       "cancel": "Cancelar"
     },
+    "progress": {
+      "sending_command":     "Enviando comando…",
+      "awaiting_controller": "Esperando confirmación del controlador…",
+      "creating_preference": "Creando preferencia de pago…",
+      "opening_checkout":    "Abriendo MercadoPago…",
+      "verifying_payment":   "Verificando pago…"
+    },
+    "errors": {
+      "relay_busy":            "La máquina está ocupada. Intenta nuevamente.",
+      "payment_failed":        "El pago falló. Intenta nuevamente.",
+      "timeout":               "Tiempo de espera agotado. Verificá el estado de la máquina.",
+      "rejected":              "El pago fue rechazado.",
+      "cancelled_or_rejected": "El pago fue cancelado o rechazado.",
+      "browser_unavailable":   "No se puede abrir el navegador en este dispositivo.",
+      "mp_deeplink_timeout":   "Tiempo de espera agotado esperando respuesta de MercadoPago.",
+      "stripe_not_configured": "Los pagos con tarjeta no están disponibles aún.",
+      "unknown":               "Algo salió mal. Intenta nuevamente."
+    },
     "comingSoon": "Próximamente",
     "strategies": {
       "mercadopago": {

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { useLaundriesStore } from 'stores/useLaundriesStore';
+import type { PaymentErrorCode, PaymentProgressCode } from '../strategies/paymentCodes';
 import { usePayment } from './usePayment';
 
 interface UsePaymentScreenParams {
@@ -17,7 +18,7 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
     s => s.laundries.find(l => l.machines?.some(m => m.id === machineId)) ?? null,
   );
 
-  const { strategies, selectedStrategy, setSelectedStrategy, paymentState, progressMsg, result, execute, reset } =
+  const { strategies, selectedStrategy, setSelectedStrategy, paymentState, progressCode, result, execute, reset } =
     usePayment(machineId);
 
   const isLoading = paymentState === 'loading';
@@ -38,6 +39,17 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
     cancel: t('payment.error.cancel'),
   };
 
+  // Translate at the React boundary — strategies emit codes, hooks resolve them.
+  // Map values are valid i18n keys but typed as `string`; template-literal form
+  // matches the existing codebase pattern (see useAvailabilityTag) and avoids
+  // fighting react-i18next's strict key union.
+  const progressMsg = progressCode
+    ? t(`payment.progress.${progressCode}` as `payment.progress.${PaymentProgressCode}`)
+    : '';
+  const errorMsg = result?.error
+    ? t(`payment.errors.${result.error}` as `payment.errors.${PaymentErrorCode}`)
+    : strings.errorGeneric;
+
   return {
     machine,
     laundry,
@@ -46,6 +58,7 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
     setSelectedStrategy,
     paymentState,
     progressMsg,
+    errorMsg,
     result,
     execute,
     reset,

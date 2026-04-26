@@ -21,6 +21,6 @@ export const stripeStrategy: PaymentStrategy = {
   isAvailable: false, // flip to true once Stripe SDK is integrated
 
   async execute(_ctx: PaymentContext): Promise<PaymentResult> {
-    throw new Error('Stripe no está configurado todavía.');
+    return { success: false, error: 'stripe_not_configured' };
   },
 };

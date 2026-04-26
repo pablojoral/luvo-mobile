@@ -37,7 +37,7 @@ export const Payment = ({ route, navigation }: Props) => {
     setSelectedStrategy,
     paymentState,
     progressMsg,
-    result,
+    errorMsg,
     execute,
     reset,
     isLoading,
@@ -148,7 +148,7 @@ export const Payment = ({ route, navigation }: Props) => {
               {strings.errorTitle}
             </Text>
             <Text fontSize={'font-size-sm'} color={'font-light'} style={styles.statusSub}>
-              {result?.error ?? strings.errorGeneric}
+              {errorMsg}
             </Text>
             <Button
               label={strings.retry}

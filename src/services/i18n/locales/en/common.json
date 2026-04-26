@@ -149,6 +149,24 @@
       "retry": "Retry",
       "cancel": "Cancel"
     },
+    "progress": {
+      "sending_command":     "Sending command…",
+      "awaiting_controller": "Waiting for controller confirmation…",
+      "creating_preference": "Creating payment preference…",
+      "opening_checkout":    "Opening checkout…",
+      "verifying_payment":   "Verifying payment…"
+    },
+    "errors": {
+      "relay_busy":            "The machine is busy. Please try again.",
+      "payment_failed":        "Payment failed. Please try again.",
+      "timeout":               "Request timed out. Check the machine status.",
+      "rejected":              "Payment was rejected.",
+      "cancelled_or_rejected": "Payment was cancelled or rejected.",
+      "browser_unavailable":   "Cannot open browser on this device.",
+      "mp_deeplink_timeout":   "Timed out waiting for MercadoPago response.",
+      "stripe_not_configured": "Card payments are not available yet.",
+      "unknown":               "Something went wrong. Please try again."
+    },
     "comingSoon": "Coming soon",
     "strategies": {
       "mercadopago": {
