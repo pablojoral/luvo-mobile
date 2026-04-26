@@ -15,7 +15,7 @@ type TabParamList = {
 const Tab = createBottomTabNavigator<TabParamList>();
 
 export const BottomTabNavigator = () => {
-  const { tabBarStyle, tabBarLabelStyle, tabBarIconStyle, theme, getTabBarIcon } =
+  const { tabBarStyle, tabBarLabelStyle, tabBarIconStyle, theme, getTabBarIcon, tabTitles } =
     useBottomTabNavigator();
 
   return (
@@ -35,17 +35,17 @@ export const BottomTabNavigator = () => {
       <Tab.Screen
         name="Laundry"
         component={Laundries}
-        options={{ title: 'Locales', tabBarButtonTestID: 'tab-laundry' }}
+        options={{ title: tabTitles.laundry, tabBarButtonTestID: 'tab-laundry' }}
       />
       <Tab.Screen
         name="MyLaundries"
         component={MyLaundries}
-        options={{ title: 'Mis lavanderías', tabBarButtonTestID: 'tab-my-laundries' }}
+        options={{ title: tabTitles.myLaundries, tabBarButtonTestID: 'tab-my-laundries' }}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
-        options={{ title: 'Perfil', tabBarButtonTestID: 'tab-profile' }}
+        options={{ title: tabTitles.profile, tabBarButtonTestID: 'tab-profile' }}
       />
     </Tab.Navigator>
   );

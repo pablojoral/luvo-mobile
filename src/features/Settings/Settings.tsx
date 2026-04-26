@@ -11,19 +11,19 @@ import { useSettingsTheme } from './theme/useSettingsTheme';
 export const Settings = () => {
   const navigation = useRootStackNavigation();
   const { styles } = useSettingsTheme();
-  const { settings: s, darkMode, setDarkMode, handleNotificationToggle, update } = useSettingsScreen();
+  const { settings: s, darkMode, setDarkMode, handleNotificationToggle, update, strings } = useSettingsScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Configuración" onBack={() => navigation.goBack()} />
+      <ScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-        <SettingsGroup title="General">
+        <SettingsGroup title={strings.generalTitle}>
           <SettingsRow
             type="toggle"
             icon="Settings"
-            label="Modo oscuro"
-            description="Cambia la apariencia de la app"
+            label={strings.darkModeLabel}
+            description={strings.darkModeDescription}
             value={darkMode}
             onToggle={setDarkMode}
           />
@@ -31,8 +31,8 @@ export const Settings = () => {
           <SettingsRow
             type="toggle"
             icon="MapPin"
-            label="Modo propietario"
-            description="Activa las pantallas de gestión de lavanderías"
+            label={strings.ownerModeLabel}
+            description={strings.ownerModeDescription}
             value={s?.ownerMode ?? false}
             onToggle={v => update({ ownerMode: v })}
           />
@@ -40,20 +40,20 @@ export const Settings = () => {
           <SettingsRow
             type="value"
             icon="Map"
-            label="Idioma"
-            description="Idioma de la interfaz"
+            label={strings.languageLabel}
+            description={strings.languageDescription}
             value={s?.language ?? 'es'}
             onPress={() => {}}
             readonly
           />
         </SettingsGroup>
 
-        <SettingsGroup title="Notificaciones">
+        <SettingsGroup title={strings.notificationsTitle}>
           <SettingsRow
             type="toggle"
             icon="Bell"
-            label="Fin de ciclo"
-            description="Avísame cuando termine el ciclo de lavado"
+            label={strings.endOfCycleLabel}
+            description={strings.endOfCycleDescription}
             value={s?.notifyEndOfCycle ?? true}
             onToggle={v => handleNotificationToggle({ notifyEndOfCycle: v }, v)}
           />
@@ -61,8 +61,8 @@ export const Settings = () => {
           <SettingsRow
             type="toggle"
             icon="Gift"
-            label="Novedades y promociones"
-            description="Recibí noticias sobre nuevas funciones y ofertas"
+            label={strings.promotionsLabel}
+            description={strings.promotionsDescription}
             value={s?.notifyPromotions ?? false}
             onToggle={v => handleNotificationToggle({ notifyPromotions: v }, v)}
           />
@@ -70,8 +70,8 @@ export const Settings = () => {
           <SettingsRow
             type="toggle"
             icon="AlertCircle"
-            label="Alertas de mantenimiento"
-            description="Notificaciones cuando una máquina no está disponible"
+            label={strings.maintenanceLabel}
+            description={strings.maintenanceDescription}
             value={s?.notifyMaintenance ?? true}
             onToggle={v => handleNotificationToggle({ notifyMaintenance: v }, v)}
           />

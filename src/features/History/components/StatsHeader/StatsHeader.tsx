@@ -1,22 +1,17 @@
 import { Text } from 'components/Text/Text';
-import { useHistoryStats } from 'query/History/useHistoryStats';
 import { View } from 'react-native';
 import { useHistoryTheme } from '../../theme/useHistoryTheme';
-import { formatAmount } from 'utils/History/formatHistoryItem';
+import { useStatsHeader } from './hooks/useStatsHeader';
 
 export const StatsHeader = () => {
   const { styles } = useHistoryTheme();
-  const { data: stats } = useHistoryStats();
+  const { spentThisMonthLabel, cyclesCompletedLabel, formattedAmount } = useStatsHeader();
 
   return (
     <View style={styles.statsCard}>
-      <Text style={styles.statsLabel}>Gastado este mes</Text>
-      <Text style={styles.statsAmount}>
-        {formatAmount(stats?.totalSpentThisMonth ?? null, stats?.currency ?? null)}
-      </Text>
-      <Text style={styles.statsCycles}>
-        {stats?.cyclesThisMonth ?? 0} ciclos completados
-      </Text>
+      <Text style={styles.statsLabel}>{spentThisMonthLabel}</Text>
+      <Text style={styles.statsAmount}>{formattedAmount}</Text>
+      <Text style={styles.statsCycles}>{cyclesCompletedLabel}</Text>
     </View>
   );
 };

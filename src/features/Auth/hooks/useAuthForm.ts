@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { signInWithEmail, signUpWithEmail } from 'services/firebase/firebaseAuth';
 
@@ -9,6 +10,8 @@ export interface AuthFormValues {
 }
 
 export const useAuthForm = (mode: AuthMode) => {
+  const { t } = useTranslation('common');
+
   const {
     control,
     handleSubmit,
@@ -17,6 +20,16 @@ export const useAuthForm = (mode: AuthMode) => {
   } = useForm<AuthFormValues>({
     defaultValues: { email: '', password: '' },
   });
+
+  const emailRules = {
+    required: t('auth.form.email.required'),
+    pattern: { value: /\S+@\S+\.\S+/, message: t('auth.form.email.invalid') },
+  };
+
+  const passwordRules = {
+    required: t('auth.form.password.required'),
+    minLength: { value: 6, message: t('auth.form.password.minLength') },
+  };
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
     try {
@@ -27,10 +40,10 @@ export const useAuthForm = (mode: AuthMode) => {
       }
     } catch (err: unknown) {
       setError('root', {
-        message: err instanceof Error ? err.message : 'Algo salió mal. Intenta nuevamente.',
+        message: err instanceof Error ? err.message : t('errors.generic'),
       });
     }
   });
 
-  return { control, errors, isSubmitting, onSubmit };
+  return { control, errors, isSubmitting, onSubmit, emailRules, passwordRules };
 };

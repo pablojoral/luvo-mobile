@@ -4,6 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 import { PaymentStrategy } from '../../strategies/PaymentStrategy';
 import { usePaymentMethodCardTheme } from './theme/usePaymentMethodCardTheme';
+import { usePaymentMethodCard } from './hooks/usePaymentMethodCard';
 
 interface PaymentMethodCardProps {
   strategy: PaymentStrategy;
@@ -16,6 +17,7 @@ export const PaymentMethodCard = ({ strategy, selected, onSelect }: PaymentMetho
     selected,
     isAvailable: strategy.isAvailable,
   });
+  const { label, description } = usePaymentMethodCard({ strategy });
 
   return (
     <TouchableOpacity
@@ -30,10 +32,10 @@ export const PaymentMethodCard = ({ strategy, selected, onSelect }: PaymentMetho
         </View>
         <View style={styles.textWrap}>
           <Text fontSize={'font-size-md'} fontWeight={'semibold'}>
-            {strategy.label}
+            {label}
           </Text>
           <Text fontSize={'font-size-sm'} color={'font-light'}>
-            {strategy.isAvailable ? strategy.description : 'Próximamente'}
+            {description}
           </Text>
         </View>
         {selected && strategy.isAvailable ? (

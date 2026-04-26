@@ -11,7 +11,7 @@ import { useMessageTransition } from './theme/useMessageTransition';
 
 export const MessagesModal = () => {
   const { styles } = useMessagesModalTheme();
-  const { message, messages, currentIndex, visible, isFirst, isLast, next, prev, dismiss } = useMessagesModal();
+  const { message, messages, currentIndex, visible, isFirst, isLast, next, prev, dismiss, backLabel, nextLabel, understoodLabel } = useMessagesModal();
   const { overlayAnimStyle, handleDismiss } = useMessagesOverlayAnimation(visible, dismiss);
   const { handleNext, handlePrev, contentAnimStyle } = useMessageTransition(next, prev);
 
@@ -33,10 +33,10 @@ export const MessagesModal = () => {
         </View>
 
         <Animated.View style={[styles.actionsRow, contentAnimStyle]}>
-          {!isFirst && <Button label="Atrás" variant="primary" size="sm" onPress={handlePrev} />}
+          {!isFirst && <Button label={backLabel} variant="primary" size="sm" onPress={handlePrev} />}
           {isLast ? (
             <Button
-              label="Entendido"
+              label={understoodLabel}
               variant="primary"
               size="sm"
               onPress={handleDismiss}
@@ -44,7 +44,7 @@ export const MessagesModal = () => {
             />
           ) : (
             <Button
-              label="Siguiente"
+              label={nextLabel}
               variant="primary"
               size="sm"
               onPress={handleNext}

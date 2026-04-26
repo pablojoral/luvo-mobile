@@ -2,7 +2,6 @@ import { FlatList, Modal, TouchableOpacity, View } from 'react-native';
 import { Text } from 'components/Text/Text';
 import { AVATARS } from '../../avatars';
 
-import { AvatarPickerItem } from './AvatarPickerItem';
 import { useAvatarPicker } from './hooks/useAvatarPicker';
 import { useAvatarPickerTheme } from './theme/useAvatarPickerTheme';
 
@@ -15,7 +14,7 @@ interface AvatarPickerProps {
 
 export const AvatarPicker = ({ visible, currentId, onSelect, onClose }: AvatarPickerProps) => {
   const { styles } = useAvatarPickerTheme();
-  const { renderItem, keyExtractor } = useAvatarPicker({ currentId, onSelect, onClose });
+  const { renderItem, keyExtractor, title } = useAvatarPicker({ currentId, onSelect, onClose });
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -23,7 +22,7 @@ export const AvatarPicker = ({ visible, currentId, onSelect, onClose }: AvatarPi
       <View style={styles.sheet}>
         <View style={styles.handle} />
         <Text fontSize="font-size-md" fontWeight="semibold" style={styles.title}>
-          Elegí tu avatar
+          {title}
         </Text>
         <FlatList
           data={AVATARS}

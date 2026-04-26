@@ -1,30 +1,25 @@
-import { PillSelector, SelectorOption } from 'components/PillSelector/PillSelector';
+import { PillSelector } from 'components/PillSelector/PillSelector';
 import { SvgImage } from 'components/SvgImage/SvgImage';
 import { Text } from 'components/Text/Text';
-import { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { Camera } from 'react-native-vision-camera';
 
 import { CodeSection } from './components/CodeSection/CodeSection';
-import { useCameraScanner } from './hooks/useCamera';
+import { useScanScreen } from './hooks/useScanScreen';
 import { useScanTheme } from './theme/useScanTheme';
-
-const options: SelectorOption[] = [
-  { label: 'Escanear QR', value: 'qr' },
-  { label: 'Código', value: 'code' },
-];
 
 export const Scan = () => {
   const { styles } = useScanTheme();
-
-  const [selectedOption, setSelectedOption] = useState<string>('qr');
-  const isQrSelected = selectedOption === 'qr';
-
-  const { hasPermission, codeScanner } = useCameraScanner(() => {});
-
-  const noAccessMessage =
-    'No has habilitado el acceso a la cámara. Por favor, habilítalo en la configuración de tu dispositivo.';
+  const {
+    options,
+    selectedOption,
+    setSelectedOption,
+    isQrSelected,
+    hasPermission,
+    codeScanner,
+    noAccessMessage,
+  } = useScanScreen();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

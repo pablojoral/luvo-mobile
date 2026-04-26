@@ -25,15 +25,13 @@ async function pollUntilSettled(paymentId: string): Promise<PaymentResult> {
       return {
         success:   false,
         paymentId: payment.paymentId,
-        error:     payment.status === 'relay_busy'
-          ? 'La máquina está ocupada. Intenta nuevamente.'
-          : 'El pago falló. Intenta nuevamente.',
+        error:     payment.status === 'relay_busy' ? 'relay_busy' : 'payment_failed',
       };
     }
     // status === 'pending' → keep polling
   }
 
-  return { success: false, error: 'Tiempo de espera agotado. Verifica el estado de la máquina.' };
+  return { success: false, error: 'timeout' };
 }
 
 export const mqttRelayStrategy: PaymentStrategy = {
@@ -44,10 +42,10 @@ export const mqttRelayStrategy: PaymentStrategy = {
   isAvailable: true,
 
   async execute({ machineId, onProgress }: PaymentContext): Promise<PaymentResult> {
-    onProgress?.('Enviando comando…');
+    onProgress?.('sending_command');
     const payment = await paymentService.initiate(machineId, 'mqtt_relay');
 
-    onProgress?.('Esperando confirmación del controlador…');
+    onProgress?.('awaiting_controller');
     return pollUntilSettled(payment.paymentId);
   },
 };

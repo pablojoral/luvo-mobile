@@ -10,22 +10,22 @@ interface AuthRequiredScreenProps {
   subtitle?: string;
 }
 
-export const AuthRequiredScreen = ({ subtitle = 'Inicia sesión para continuar.' }: AuthRequiredScreenProps) => {
+export const AuthRequiredScreen = ({ subtitle }: AuthRequiredScreenProps) => {
   const { styles } = useAuthRequiredScreenTheme();
-  const { handleSignIn } = useAuthRequiredScreen();
+  const { handleSignIn, title, defaultSubtitle, signInLabel } = useAuthRequiredScreen();
 
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <SvgImage name={'luvo-logo-pink'} height={128} width={128} />
         <Text fontSize="font-size-lg" fontWeight="semibold">
-          Aún no iniciaste sesión
+          {title}
         </Text>
         <Text color="font-light" fontSize="font-size-sm">
-          {subtitle}
+          {subtitle ?? defaultSubtitle}
         </Text>
       </View>
-      <Button label="Iniciar Sesión" onPress={handleSignIn} />
+      <Button label={signInLabel} onPress={handleSignIn} />
     </View>
   );
 };

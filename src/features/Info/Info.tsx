@@ -7,11 +7,11 @@ import { useInfoTheme } from './theme/useInfoTheme';
 
 export const Info = () => {
   const { styles } = useInfoTheme();
-  const { items, handleGoBack } = useInfoScreen();
+  const { title, items, handleGoBack } = useInfoScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Información" onBack={handleGoBack} />
+      <ScreenHeader title={title} onBack={handleGoBack} />
       <View style={styles.scrollContent}>
         <SettingsMenu items={items} />
       </View>

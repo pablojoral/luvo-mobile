@@ -1,7 +1,9 @@
+import i18n from 'services/i18n/i18n';
+
 export function formatAmount(amount: number | null, currency: string | null): string {
   if (amount === null || currency === null) return 'Gratis';
   try {
-    return new Intl.NumberFormat('es-UY', {
+    return new Intl.NumberFormat(i18n.language, {
       style: 'currency',
       currency,
       minimumFractionDigits: 0,
@@ -13,5 +15,5 @@ export function formatAmount(amount: number | null, currency: string | null): st
 
 export function formatDate(iso: string): string {
   const date = new Date(iso);
-  return date.toLocaleDateString('es-UY', { day: 'numeric', month: 'short' });
+  return date.toLocaleDateString(i18n.language, { day: 'numeric', month: 'short' });
 }
