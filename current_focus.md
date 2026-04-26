@@ -1,39 +1,93 @@
 # Current Focus — luvo-mobile
 
-**Active task:** None — i18n Phase 2 shipped. Next task: SwipeActions cleanup PR.
+**Active task:** Next session — refactor Phase 4: number formatting with explicit locale and currency params.
 
-**Status:** idle
+**Status:** PR #8 merged. Design confirmed Option B (restore year to CycleCard). Phase 3 complete; Phase 4 queued.
 
 ---
 
-## Completed (2026-04-25–2026-04-26)
+## Completed (2026-04-26, Session 4: Design Confirmation + CycleCard Date Format)
 
-**i18n Phase 2 shipped:**
-- All screens and component hooks now call `useTranslation('common')` from i18next
-- `en/common.json` + `es/common.json` fully populated; 0 remaining hardcoded UI strings
-- Runtime language switching wired end-to-end via `useLanguagePicker`
-- Smoke-tested in both `es` and `en` locales — all screens re-render correctly, no missing-key fallbacks
-- ADRs recorded in `DECISIONS.md` (ADR-001, ADR-002, ADR-003)
-- Committed with code review clean
+**Design confirmation received:**
+- Option B confirmed: restore year to CycleCard dates
+- `formatDate` extended with optional `options: Intl.DateTimeFormatOptions` param (backward-compatible)
+- `useCycleCard.ts` updated to pass `{ day: '2-digit', month: 'short', year: 'numeric' }`
+- All 16 unit tests in `src/utils/History/__tests__/formatHistoryItem.test.ts` pass (13 existing + 3 new)
+
+**Commit 46973d0 pushed:**
+- Branch: `refactor/format-history-item-locale-param`
+- PR #8 updated with design confirmation + tests
+
+**PR #8 status:**
+- Unblocked — ready to merge
+- All design gates cleared
+- Code review previously passed
+
+---
+
+## Completed (2026-04-26, Session 3: formatHistoryItem Locale Extraction)
+
+**Branch created:**
+- `refactor/format-history-item-locale-param` branched from updated `master` (after PR #6 merged)
+
+**formatHistoryItem.ts refactored to pure module:**
+- Removed i18n singleton import from the module
+- Added `locale?: string` param to `formatAmount(amount, currency, locale?)`
+- Added `locale?: string` param to `formatDate(date, locale?)`
+- All locale resolution moved to call sites (component hooks)
+- File is now pure: no side effects, no singleton dependencies
+- Module is testable without i18n mocking
+
+**Call sites updated:**
+- `useCycleCard.ts`: passes `i18n.language` explicitly to `formatDate()`
+- `useStatsHeader.ts`: passes `i18n.language` explicitly to `formatAmount()`
+
+**Unit tests added:**
+- New file: `src/utils/History/__tests__/formatHistoryItem.test.ts`
+- 13 test cases: pure function tests, no i18n mocking, no singletons
+- All tests passing
+
+---
+
+## Completed (2026-04-26, Session 2: Rebase + Code Review)
+
+**Rebase & merge conflict resolution (2026-04-26 19:30–19:55):**
+- `origin/master` had moved to `3fac8a9` (hook file renames: `.ts` → `.tsx`)
+- Rebased `refactor/swipe-actions-split` onto `origin/master`: all 7 commits replayed cleanly, no manual conflict fixes needed
+- Force-pushed with `--force-with-lease`: branch now at `f2fcb74`
+- PR #6 status: `mergeable: MERGEABLE`, `state: OPEN`
+
+**Code review completed:**
+- No blocking issues found
+- One minor suggestion: comment on template-literal cast in `usePaymentScreen.ts:47`
+- Review passed
+
+**PR #6 merged to master (2026-04-26 ~20:00):**
+- Title: `refactor(swipe-actions): split QRSwipeAction + RemoveSwipeAction, extract theme hooks; i18n hook boundary (Phase 1–3)`
+- 7 commits: 2 SwipeActions refactor + 5 i18n Phase 1–3
+
+---
 
 ## Architecture decisions in effect
 
 - `SupportedLanguage = 'es' | 'en' | 'fr' | 'pt' | 'it'` lives ONLY in `src/services/i18n/languages.ts`
 - Only `en` and `es` have JSON bundles — `fr`/`pt`/`it` fall back to `es` via i18next `fallbackLng`
-- Device language auto-detected on startup via `react-native-localize`; picker overrides it
+- Device language auto-detected on startup; picker overrides it
 - Component hooks call `useTranslation`; components themselves never do
+- ADR-004: For service/strategy i18n, return machine-readable codes from service, translate at React boundary (hook)
+- Formatting utilities (`formatHistoryItem`, etc.) accept locale as explicit parameter; no singleton imports
+- **ADR-005:** `formatDate` and `formatAmount` accept optional Intl format options params for UI flexibility (Phase 3–4 pattern)
 
-## Deferred follow-up (Phase 3 — not blockers)
+---
 
-1. **Payment strategy i18n** — `onProgress` strings and `result?.error` codes. Approach: return machine-readable error codes from strategy, translate at hook boundary (per ADR-003).
-2. **`formatDate` locale-awareness in `useCycleCard`** — switch to `Intl.DateTimeFormat(i18n.language, ...)`.
-3. **`fr` / `pt` / `it` translation bundles** — purely additive; gate on product confirming locale priority.
-4. **(Optional) Static-typed status keys in `useAvailabilityTag`** — replace dynamic `` t(`machines.status.${status}`) `` with `Record<MachineStatus, string>` lookup map for full type safety.
+## Still open / deferred
+
+1. **`fr` / `pt` / `it` translation bundles** — purely additive; gate on product confirming locale priority.
 
 ---
 
 ## Next session goal (concrete first action)
 
-Open `src/features/MyLaundries/components/MyLaundryItem/components/SwipeActions/SwipeActions.tsx`, split `QRSwipeAction` into `QRSwipeAction/QRSwipeAction.tsx` and `RemoveSwipeAction` into `RemoveSwipeAction/RemoveSwipeAction.tsx` (per components.md rule #1), update all import sites, run `yarn lint && yarn typecheck`, then hand to commit-agent on a new branch.
+After PR #8 merges, create branch `refactor/i18n-phase-4-number-formatting` and extend `formatAmount` in `src/utils/History/formatHistoryItem.ts` with explicit `currency` and `locale` params, then update `useStatsHeader.ts` to pass both explicitly — mirroring the Phase 3 pattern applied to `formatDate`.
 
-**Last updated:** 2026-04-26 13:46
+**Last updated:** 2026-04-26 21:10

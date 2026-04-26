@@ -94,3 +94,24 @@ Non-React modules (services, strategies, anything outside the React tree) do **n
 - Payment `onProgress` strings and `result?.error` values remain untranslated in this phase. This is intentional, not an oversight.
 - A follow-up phase must introduce an error-code/progress-code registry (codes → i18n keys) so the React layer can resolve them. Until that lands, those user-facing strings stay in their source language.
 - Any new service or strategy added going forward must follow this boundary; reviewers should reject PRs that thread `t` into non-React code.
+
+---
+
+### ADR-004: Cross-boundary user-facing strings from non-React modules are emitted as codes from a closed union and resolved at the React boundary via a co-located code→key registry
+**Date:** 2026-04-26
+**Status:** Accepted
+
+**Context:**
+ADR-003 established that services and strategies stay i18n-agnostic, but left the implementation pattern abstract. When the payment flow required surfacing progress beats and failure reasons to the UI, a concrete mechanism was needed. The registry pattern generalises ADR-003 from a prohibition into a prescription.
+
+**Decision:**
+Non-React modules (strategies, services) emit typed codes from a closed string-literal union (e.g. `PaymentProgressCode`, `PaymentErrorCode`). A co-located registry file (`paymentCodes.ts`) maps each code to an i18n key using `as const satisfies Record<UnionType, string>` for build-time exhaustiveness. Translation happens at the React boundary — the component hook calls `t(REGISTRY[code])`. The code union and registry live next to the interface that produces them (e.g. `src/features/Payment/strategies/paymentCodes.ts`).
+
+**Rejected alternatives:**
+- Emit i18n keys directly from strategies — stable domain codes are more durable than translation-layer key names; logs and analytics benefit from machine-readable codes.
+- Inject `t` into strategy constructors — ruled out by ADR-003 (React concerns must not leak into service/strategy code).
+
+**Consequences:**
+- Any new strategy or service that needs to surface user-facing copy must follow this pattern: code union + registry + React-boundary resolution. Reviewers should reject PRs that thread `t` into non-React code or return pre-translated strings.
+- Adding a code without a registry entry is a build error (`satisfies` constraint).
+- The pattern is the canonical implementation of ADR-003.
