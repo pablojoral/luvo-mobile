@@ -1,11 +1,18 @@
-export function formatAmount(amount: number | null, currency: string | null, locale: string): string {
+export function formatAmount(
+  amount: number | null,
+  currency: string | null,
+  locale: string,
+  options?: Intl.NumberFormatOptions,
+): string {
   if (amount === null || currency === null) return 'Gratis';
   try {
-    return new Intl.NumberFormat(locale, {
+    const resolvedOptions: Intl.NumberFormatOptions = {
       style: 'currency',
       currency,
       minimumFractionDigits: 0,
-    }).format(amount);
+      ...options,
+    };
+    return new Intl.NumberFormat(locale, resolvedOptions).format(amount);
   } catch {
     return `$${amount} ${currency}`;
   }

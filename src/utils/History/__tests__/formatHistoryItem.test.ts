@@ -65,6 +65,37 @@ describe('formatAmount', () => {
       expect(esResult).not.toBe(enResult);
     });
   });
+
+  describe('explicit options override', () => {
+    it('respects maximumFractionDigits override', () => {
+      // Default minimumFractionDigits is 0; passing maximumFractionDigits: 2 forces
+      // the formatter to show cents. We verify the decimal separator and digits appear.
+      const result = formatAmount(9.5, 'USD', 'en-US', { maximumFractionDigits: 2 });
+      // 9.5 formatted to 2 decimal places must contain "9" and a decimal portion.
+      expect(result).toMatch(/9/);
+      expect(result).toMatch(/[.,]5/);
+    });
+
+    it('respects minimumFractionDigits override', () => {
+      // Overriding minimumFractionDigits: 2 forces trailing zeros on a whole number.
+      const result = formatAmount(100, 'USD', 'en-US', { minimumFractionDigits: 2 });
+      // Must contain the digits and a decimal portion with two zeros.
+      expect(result).toMatch(/100/);
+      expect(result).toMatch(/[.,]00/);
+    });
+
+    it('options are spread over defaults — existing defaults still apply when not overridden', () => {
+      // Passing an empty options object must produce the same output as no options arg.
+      const withEmpty = formatAmount(500, 'USD', 'en-US', {});
+      const withoutOptions = formatAmount(500, 'USD', 'en-US');
+      expect(withEmpty).toBe(withoutOptions);
+    });
+
+    it('does not affect null-guard behaviour', () => {
+      expect(formatAmount(null, 'USD', 'en-US', { minimumFractionDigits: 2 })).toBe('Gratis');
+      expect(formatAmount(100, null, 'en-US', { minimumFractionDigits: 2 })).toBe('Gratis');
+    });
+  });
 });
 
 describe('formatDate', () => {

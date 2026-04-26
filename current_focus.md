@@ -1,8 +1,27 @@
 # Current Focus — luvo-mobile
 
-**Active task:** Awaiting merge of PR #8 (code review passed, no blockers).
+**Active task:** Next session — refactor Phase 4: number formatting with explicit locale and currency params.
 
-**Status:** PR #8 is OPEN — refactor of `formatHistoryItem.ts` to extract locale param complete, 13 unit tests added, code review passed. Gated on design confirmation for CycleCard date format (year dropped).
+**Status:** PR #8 merged. Design confirmed Option B (restore year to CycleCard). Phase 3 complete; Phase 4 queued.
+
+---
+
+## Completed (2026-04-26, Session 4: Design Confirmation + CycleCard Date Format)
+
+**Design confirmation received:**
+- Option B confirmed: restore year to CycleCard dates
+- `formatDate` extended with optional `options: Intl.DateTimeFormatOptions` param (backward-compatible)
+- `useCycleCard.ts` updated to pass `{ day: '2-digit', month: 'short', year: 'numeric' }`
+- All 16 unit tests in `src/utils/History/__tests__/formatHistoryItem.test.ts` pass (13 existing + 3 new)
+
+**Commit 46973d0 pushed:**
+- Branch: `refactor/format-history-item-locale-param`
+- PR #8 updated with design confirmation + tests
+
+**PR #8 status:**
+- Unblocked — ready to merge
+- All design gates cleared
+- Code review previously passed
 
 ---
 
@@ -27,20 +46,6 @@
 - New file: `src/utils/History/__tests__/formatHistoryItem.test.ts`
 - 13 test cases: pure function tests, no i18n mocking, no singletons
 - All tests passing
-
-**Code review completed:**
-- No blocking issues found
-- PR ready to merge
-
-**PR #8 created:**
-- URL: https://github.com/pablojoral/luvo-mobile/pull/8
-- Title: `refactor(i18n): extract locale param from formatHistoryItem, add pure unit tests`
-- Single commit: locale param extraction + unit tests
-
-**⚠️ Design confirmation needed:**
-- `useCycleCard.ts` date format changed from `{ day: '2-digit', month: 'short', year: 'numeric' }` to `{ day: 'numeric', month: 'short' }`
-- The **year is now dropped** from rendered CycleCard dates
-- Need design sign-off: does CycleCard need the year back? If yes, extend `formatDate` with an options param
 
 ---
 
@@ -71,25 +76,18 @@
 - Component hooks call `useTranslation`; components themselves never do
 - ADR-004: For service/strategy i18n, return machine-readable codes from service, translate at React boundary (hook)
 - Formatting utilities (`formatHistoryItem`, etc.) accept locale as explicit parameter; no singleton imports
+- **ADR-005:** `formatDate` and `formatAmount` accept optional Intl format options params for UI flexibility (Phase 3–4 pattern)
 
 ---
 
 ## Still open / deferred
 
-1. **CycleCard date format year** — design sign-off needed on whether year should be reinstated. Blocking PR #8 merge.
-2. **`fr` / `pt` / `it` translation bundles** — purely additive; gate on product confirming locale priority.
+1. **`fr` / `pt` / `it` translation bundles** — purely additive; gate on product confirming locale priority.
 
 ---
 
 ## Next session goal (concrete first action)
 
-**Blocked on design confirmation for CycleCard date format:**
+After PR #8 merges, create branch `refactor/i18n-phase-4-number-formatting` and extend `formatAmount` in `src/utils/History/formatHistoryItem.ts` with explicit `currency` and `locale` params, then update `useStatsHeader.ts` to pass both explicitly — mirroring the Phase 3 pattern applied to `formatDate`.
 
-1. Check Slack / design system for CycleCard date format requirements (is year necessary?)
-2. If yes: extend `formatDate(date, locale?, options?)` with options param in `src/utils/History/formatHistoryItem.ts`
-3. Update `useCycleCard.ts` to pass `{ day: '2-digit', month: 'short', year: 'numeric' }` via options
-4. Run `pnpm test` to verify no regressions
-5. If design confirms no year needed: merge PR #8 as-is
-6. Create a new branch `refactor/i18n-phase-4-*` with remaining locale-aware refactors (e.g., currency symbols, number formatting for large values)
-
-**Last updated:** 2026-04-26 20:55
+**Last updated:** 2026-04-26 21:10
