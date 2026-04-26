@@ -16,6 +16,13 @@ const backgroundColorMap: Record<MachineStatus, SurfaceColor> = {
   maintenance: 'surface-warning',
 };
 
+const STATUS_LABEL_KEYS = {
+  available: 'machines.status.available',
+  in_use: 'machines.status.in_use',
+  out_of_order: 'machines.status.out_of_order',
+  maintenance: 'machines.status.maintenance',
+} as const satisfies Record<MachineStatus, string>;
+
 interface UseAvailabilityTagProps {
   status: MachineStatus;
 }
@@ -23,7 +30,7 @@ interface UseAvailabilityTagProps {
 export const useAvailabilityTag = ({ status }: UseAvailabilityTagProps) => {
   const { t } = useTranslation('common');
 
-  const label = t(`machines.status.${status}`);
+  const label = t(STATUS_LABEL_KEYS[status]);
   const color = fontColorMap[status];
   const surfaceColor = backgroundColorMap[status];
 
