@@ -12,11 +12,7 @@ export const useBottomTabNavigatorTheme = () => {
       height: theme.navBarHeight,
       paddingTop: theme.spacing['spacing-sm'],
       borderTopWidth: 0,
-      shadowColor: theme.shadowBox.shadowColor,
-      shadowOffset: { width: 0, height: -4 },
-      shadowOpacity: theme.shadowBox.shadowOpacity,
-      shadowRadius: theme.shadowBox.shadowRadius,
-      elevation: theme.shadowBox.elevation,
+      ...theme.shadowBottomNav,
     }),
     [theme],
   );

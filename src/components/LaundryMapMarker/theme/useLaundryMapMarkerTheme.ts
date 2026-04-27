@@ -14,7 +14,7 @@ export const useLaundryMapMarkerTheme = () => {
   });
 
   const wrapperStyle = useMemo(
-    () => [styles.wrapper, { padding: theme.spacing['spacing-sm'], ...theme.shadowBox }],
+    () => [styles.wrapper, { padding: theme.spacing['spacing-sm'], ...theme.shadowFloating }],
     [styles.wrapper, theme],
   );
 

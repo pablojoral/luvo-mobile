@@ -32,7 +32,7 @@ export const useSettingsTheme = () => {
       borderRadius: theme.cornerRad['corner-rad-xxl'],
       backgroundColor: Colors['colors-white'],
       overflow: 'hidden',
-      ...theme.shadowBox,
+      ...theme.shadowCard,
     },
     row: {
       flexDirection: 'row',

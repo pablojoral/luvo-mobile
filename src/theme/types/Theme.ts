@@ -1,5 +1,3 @@
-import { TextStyle } from 'react-native';
-
 // Surface themes
 export interface SpacingTheme {
   'spacing-none': number;
@@ -41,10 +39,17 @@ export interface ShadowBoxTheme {
   elevation: number;
 }
 
+export type ShadowCardTheme = ShadowBoxTheme;
+export type ShadowFloatingTheme = ShadowBoxTheme;
+export type ShadowBottomNavTheme = ShadowBoxTheme;
+
+export interface FontFamilyTheme {
+  poppins: string;
+}
+
 // Border themes
 export interface BorderWidthTheme {
   'border-width-none': number;
-  'border-width-xxs': number;
   'border-width-xs': number;
   'border-width-sm': number;
   'border-width-md': number;
@@ -88,9 +93,12 @@ export interface FontSizeTheme {
 }
 
 export interface FontWeightTheme {
-  light: TextStyle['fontWeight'];
-  regular: TextStyle['fontWeight'];
-  semibold: TextStyle['fontWeight'];
+  light: '300' | '400' | '500' | '600' | '700' | '800';
+  regular: '300' | '400' | '500' | '600' | '700' | '800';
+  medium: '300' | '400' | '500' | '600' | '700' | '800';
+  semibold: '300' | '400' | '500' | '600' | '700' | '800';
+  bold: '300' | '400' | '500' | '600' | '700' | '800';
+  extrabold: '300' | '400' | '500' | '600' | '700' | '800';
 }
 
 export interface LineHeightTheme {
@@ -121,7 +129,11 @@ export interface ThemeConstants {
   spacing: SpacingTheme;
   surfaceColor: SurfaceColorTheme;
   shadowBox: ShadowBoxTheme;
+  shadowCard: ShadowCardTheme;
+  shadowFloating: ShadowFloatingTheme;
+  shadowBottomNav: ShadowBottomNavTheme;
 
+  fontFamily: FontFamilyTheme;
   fontSize: FontSizeTheme;
   fontWeight: FontWeightTheme;
   lineHeight: LineHeightTheme;
@@ -142,6 +154,7 @@ export interface Theme extends ThemeConstants {
 export type Spacing = keyof SpacingTheme;
 export type SurfaceColor = keyof SurfaceColorTheme;
 export type ShadowBox = keyof ShadowBoxTheme;
+export type FontFamily = keyof FontFamilyTheme;
 
 export type BorderWidth = keyof BorderWidthTheme;
 export type CornerRad = keyof CornerRadTheme;

@@ -13,6 +13,8 @@
 | ADR-002 | 2026-04-26 | Locale support tiers (en/es full, fr/pt/it picker-only with es fallback) | Accepted |
 | ADR-003 | 2026-04-26 | Translation boundary lives at the React layer; services and strategies stay i18n-agnostic | Accepted |
 | ADR-004 | 2026-04-26 | Cross-boundary user-facing strings emitted as codes, resolved via co-located registry at React boundary | Accepted |
+| ADR-006 | 2026-04-27 | Adopt Luvo design system as theme source of truth (semantic tokens via useTheme, native Poppins) | Accepted |
+| ADR-007 | 2026-04-27 | Direct palette imports allowed only for non-semantic ramps (status indicator, cartographic) | Accepted |
 
 ## Entries
 
@@ -115,3 +117,43 @@ Non-React modules (strategies, services) emit typed codes from a closed string-l
 - Any new strategy or service that needs to surface user-facing copy must follow this pattern: code union + registry + React-boundary resolution. Reviewers should reject PRs that thread `t` into non-React code or return pre-translated strings.
 - Adding a code without a registry entry is a build error (`satisfies` constraint).
 - The pattern is the canonical implementation of ADR-003.
+
+---
+
+### ADR-006: Adopt Luvo design system as theme source of truth
+**Date:** 2026-04-27
+**Status:** Accepted
+
+**Context:**
+The Luvo design system (defined from ManualDeMarca.pdf) was implemented as a CSS spec, but `src/theme/` had diverged in small ways — no native Poppins font shipped (Text silently fell back to system font), `lineHeight` was commented out in the Text component, shadow had a single preset, and `fontWeight` only had three keys. The new spec defines a full palette, semantic surface/font/border tokens, spacing, radii, border widths, three named shadow tiers, and a full Poppins weight scale (300–800).
+
+**Decision:**
+Adopt the new Luvo design system as the canonical source of truth for all design tokens. Token taxonomy: palette only behind `src/theme/constants/colors.ts`; semantic tokens (surfaceColor, fontColor, borderColor, spacing, cornerRad, borderWidth, fontSize, lineHeight, fontWeight, fontFamily, shadowBox/shadowCard/shadowFloating/shadowBottomNav) exposed through `ThemeConstants` and consumed only via `useTheme()` in per-component theme hooks. No raw color strings or design numbers permitted in consumer files — enforced by `.claude/rules/styling.md`.
+
+**Rejected alternatives:**
+- A parallel theme namespace — rejected because consumers would need to know which namespace to pick; a single merged token tree is simpler.
+- Runtime font loading via `expo-font` — rejected because this is bare RN, and native linking renders Poppins on the first frame without a flash-of-system-text.
+
+**Consequences:**
+- Poppins ships as native-linked TTFs (6 weights: Light/Regular/Medium/SemiBold/Bold/ExtraBold).
+- `ThemeConstants` now includes `fontFamily`, expanded `fontWeight` (light/regular/medium/semibold/bold/extrabold), three named shadow presets (shadowBox=elevation2, shadowCard=elevation4, shadowFloating=elevation8), and a directional `shadowBottomNav` variant.
+- Clean iOS rebuild (pod install) and Android rebuild required to pick up the fonts.
+
+---
+
+### ADR-007: Direct palette imports allowed only for non-semantic ramps (status indicator, cartographic)
+**Date:** 2026-04-27
+**Status:** Accepted
+
+**Context:**
+After migrating consumer hooks to semantic tokens, two files remain that import from `Colors` directly: `useWsStatusIndicatorTheme.tsx` (maps connection status to palette stops) and `pinUtils.ts` (builds a lavender ramp for occupancy heatmap). Forcing these through fake semantic tokens would bloat the token API with machine-domain ramps that have no design-system analogue.
+
+**Decision:**
+Direct `Colors` palette imports are permitted only for domain ramps that have no semantic token equivalent — specifically real-time status indicators and cartographic occupancy heatmaps. Any other consumer importing `Colors` directly must justify it in the PR description or be refactored to semantic tokens.
+
+**Rejected alternatives:**
+- Force every `Colors[...]` import through a semantic token — rejected because it would require adding semantically-meaningless token names like `surface-lavender-300` to the theme API, which pollutes the design contract.
+
+**Consequences:**
+- ADR-007 becomes the code review gate for any future `Colors` import added outside these two exception files.
+- The two existing exceptions (`useWsStatusIndicatorTheme.tsx`, `pinUtils.ts`) are grandfathered and documented here.
