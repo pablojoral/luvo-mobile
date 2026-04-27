@@ -10,9 +10,10 @@
 | # | Date | Title | Status |
 |---|------|-------|--------|
 | ADR-001 | 2026-04-26 | i18n library and architecture (i18next + react-i18next + react-native-localize) | Accepted |
-| ADR-002 | 2026-04-26 | Locale support tiers (en/es full, fr/pt/it picker-only with es fallback) | Accepted |
+| ADR-002 | 2026-04-26 | Locale support tiers (en/es full, fr/pt/it picker-only with es fallback) | Superseded by ADR-005 |
 | ADR-003 | 2026-04-26 | Translation boundary lives at the React layer; services and strategies stay i18n-agnostic | Accepted |
 | ADR-004 | 2026-04-26 | Cross-boundary user-facing strings emitted as codes, resolved via co-located registry at React boundary | Accepted |
+| ADR-005 | 2026-04-27 | Promote fr and pt to fully-translated tier; only it remains picker-only | Accepted |
 
 ## Entries
 
@@ -115,3 +116,25 @@ Non-React modules (strategies, services) emit typed codes from a closed string-l
 - Any new strategy or service that needs to surface user-facing copy must follow this pattern: code union + registry + React-boundary resolution. Reviewers should reject PRs that thread `t` into non-React code or return pre-translated strings.
 - Adding a code without a registry entry is a build error (`satisfies` constraint).
 - The pattern is the canonical implementation of ADR-003.
+
+---
+
+### ADR-005: Promote fr and pt to fully-translated tier; only it remains picker-only
+**Date:** 2026-04-27
+**Status:** Accepted — supersedes ADR-002
+
+**Context:**
+ADR-002 (2026-04-26) defined two locale tiers: fully translated (en, es) and picker-only (fr, pt, it — exposed in the picker but with no bundles registered; i18next `fallbackLng: 'es'` resolves missing keys silently). Since then, fr was fully translated in PR #9 (197 keys, prior session) and pt (pt-BR) was fully translated in this session (197 keys). Both now have full key parity with en and es. The tiering described in ADR-002 no longer matches the shipped state; `current_focus.md` had already flagged the drift.
+
+**Decision:**
+Reclassify locale tiers. **Fully translated:** `en`, `es`, `fr`, `pt` (197 keys each, full parity). **Picker-only (es fallback):** `it` only. The mechanism is unchanged — fr and pt now have registered bundles under `src/services/i18n/locales/<lang>/` and are wired in `src/services/i18n/resources.ts`; `it` continues to resolve missing keys via `fallbackLng: 'es'`. The parity invariant is widened from en↔es to en↔es↔fr↔pt (197 keys).
+
+**Rejected alternatives:**
+- Leave ADR-002 as-is and rely on `current_focus.md` / commit history for current state: rejected — ADR-002 is consulted as source of truth for locale policy; stale ADRs cause drift in reviews and onboarding.
+- Edit ADR-002 in place: rejected — `DECISIONS.md` is append-only; superseding entries are the documented mechanism.
+
+**Consequences:**
+- ADR-002 marked Superseded by ADR-005 in the index.
+- Adding a string now requires updating four bundles (en/es/fr/pt) instead of two.
+- Only `it` remains picker-only; when it lands, the fallback policy reduces to a safety net.
+- A CI key-parity check (proposed as follow-up in ADR-002) should now cover all four fully-translated locales.
