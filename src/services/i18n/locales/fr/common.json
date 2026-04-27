@@ -1,0 +1,318 @@
+{
+  "actions": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "close": "Fermer"
+  },
+  "errors": {
+    "network": "Erreur réseau. Veuillez vérifier votre connexion.",
+    "generic": "Quelque chose s'est mal passé. Veuillez réessayer.",
+    "timeout": "La requête a expiré. Veuillez réessayer."
+  },
+  "auth": {
+    "notSignedIn": "Vous n'êtes pas connecté",
+    "defaultSubtitle": "Connectez-vous pour continuer.",
+    "signIn": "Se connecter",
+    "title": "Authentification",
+    "form": {
+      "email": {
+        "label": "E-mail",
+        "placeholder": "E-mail",
+        "required": "L'e-mail est obligatoire",
+        "invalid": "E-mail invalide"
+      },
+      "password": {
+        "label": "Mot de passe",
+        "placeholder": "Mot de passe",
+        "required": "Le mot de passe est obligatoire",
+        "minLength": "Minimum 6 caractères"
+      },
+      "submit": {
+        "login": "Se connecter",
+        "register": "S'inscrire"
+      }
+    }
+  },
+  "messages": {
+    "next": "Suivant",
+    "understood": "Compris"
+  },
+  "profile": {
+    "header": {
+      "greeting": "Bonjour,"
+    },
+    "menu": {
+      "account": "Compte",
+      "history": "Historique",
+      "settings": "Paramètres",
+      "info": "Informations",
+      "report": "Signaler",
+      "signOut": "Se déconnecter",
+      "signingOut": "Déconnexion…"
+    }
+  },
+  "account": {
+    "title": "Mon compte",
+    "profile": {
+      "sectionTitle": "Profil",
+      "namePlaceholder": "Votre nom",
+      "nameRequired": "Le nom est obligatoire"
+    },
+    "security": {
+      "sectionTitle": "Sécurité",
+      "resetPassword": "Réinitialiser le mot de passe"
+    },
+    "linkedAccounts": {
+      "sectionTitle": "Comptes liés",
+      "linkedBadge": "Lié"
+    },
+    "providers": {
+      "password": "E-mail",
+      "google": "Google",
+      "apple": "Apple",
+      "phone": "Téléphone"
+    },
+    "deleteAccount": {
+      "label": "Supprimer le compte",
+      "deleting": "Suppression du compte..."
+    },
+    "avatarPicker": {
+      "title": "Choisissez votre avatar"
+    },
+    "alerts": {
+      "deleteConfirmTitle": "Supprimer le compte",
+      "deleteConfirmBody": "Êtes-vous sûr ? Cette action est irréversible. Toutes vos données seront supprimées.",
+      "deleteConfirmCancel": "Annuler",
+      "deleteConfirmDelete": "Supprimer"
+    },
+    "messages": {
+      "saveFailed": "Impossible d'enregistrer le profil. Veuillez réessayer.",
+      "passwordResetSent": "E-mail envoyé",
+      "passwordResetSentBody": "Nous avons envoyé un lien pour réinitialiser votre mot de passe à {{email}}.",
+      "passwordResetFailed": "Impossible d'envoyer l'e-mail. Veuillez réessayer.",
+      "deleteFailed": "Impossible de supprimer le compte. Veuillez réessayer."
+    }
+  },
+  "machines": {
+    "title": "Machine",
+    "notFound": "Aucune information trouvée pour cette machine.",
+    "goBack": "Retour",
+    "model": "Modèle",
+    "startWash": "Démarrer le lavage",
+    "reportProblem": "Signaler un problème",
+    "status": {
+      "available": "Disponible",
+      "in_use": "En cours d'utilisation",
+      "out_of_order": "Hors service",
+      "maintenance": "Maintenance"
+    },
+    "type": {
+      "washing_machine": "Lave-linge",
+      "dryer": "Sèche-linge"
+    }
+  },
+  "laundry": {
+    "title": "Laverie",
+    "availability": "{{available}}/{{total}} Disponibles",
+    "filters": {
+      "all": "Tous",
+      "washing_machine": "Lave-linge",
+      "dryer": "Sèche-linge"
+    }
+  },
+  "history": {
+    "title": "Historique",
+    "stats": {
+      "spentThisMonth": "Dépensé ce mois",
+      "cyclesCompleted": "{{count}} cycles terminés"
+    },
+    "empty": "Vous n'avez aucun cycle enregistré pour l'instant.",
+    "cycleCard": {
+      "sharedBilling": "Facturation partagée"
+    }
+  },
+  "payment": {
+    "title": "Payer la machine",
+    "methodPicker": "Moyen de paiement",
+    "confirm": "Confirmer le paiement",
+    "processing": "Traitement du paiement…",
+    "success": {
+      "title": "Machine activée !",
+      "subtitle": "La machine démarrera sous peu.",
+      "done": "Terminé"
+    },
+    "error": {
+      "title": "Échec du paiement",
+      "generic": "Quelque chose s'est mal passé. Réessayez.",
+      "retry": "Réessayer",
+      "cancel": "Annuler"
+    },
+    "progress": {
+      "sending_command":     "Envoi de la commande…",
+      "awaiting_controller": "En attente de la confirmation du contrôleur…",
+      "creating_preference": "Création de la préférence de paiement…",
+      "opening_checkout":    "Ouverture du paiement…",
+      "verifying_payment":   "Vérification du paiement…"
+    },
+    "errors": {
+      "relay_busy":            "La machine est occupée. Veuillez réessayer.",
+      "payment_failed":        "Le paiement a échoué. Veuillez réessayer.",
+      "timeout":               "Délai expiré. Vérifiez l'état de la machine.",
+      "rejected":              "Le paiement a été refusé.",
+      "cancelled_or_rejected": "Le paiement a été annulé ou refusé.",
+      "browser_unavailable":   "Impossible d'ouvrir le navigateur sur cet appareil.",
+      "mp_deeplink_timeout":   "Délai expiré en attente de la réponse de MercadoPago.",
+      "stripe_not_configured": "Les paiements par carte ne sont pas encore disponibles.",
+      "unknown":               "Quelque chose s'est mal passé. Veuillez réessayer."
+    },
+    "comingSoon": "Bientôt disponible",
+    "strategies": {
+      "mercadopago": {
+        "label": "MercadoPago",
+        "description": "Payez par carte, Mercado Crédito ou en espèces."
+      },
+      "mqtt_relay": {
+        "label": "Paiement direct",
+        "description": "La machine s'active immédiatement après la confirmation."
+      },
+      "stripe": {
+        "label": "Carte de crédit",
+        "description": "Payez avec Visa, Mastercard ou Amex."
+      }
+    }
+  },
+  "report": {
+    "title": "Signaler un problème",
+    "entitySection": {
+      "label": "À quoi se réfère le signalement ?",
+      "scan": "Scanner le QR de la laverie ou de la machine"
+    },
+    "entityType": {
+      "laundry": "Laverie",
+      "machine": "Machine"
+    },
+    "subject": { "label": "Sujet", "placeholder": "Sélectionner un sujet..." },
+    "description": { "label": "Description", "placeholder": "Décrivez le problème en détail" },
+    "submit": "Envoyer le signalement",
+    "submitError": "Impossible d'envoyer le signalement. Réessayez.",
+    "errors": {
+      "subjectRequired": "Le sujet est obligatoire",
+      "descriptionRequired": "La description est obligatoire"
+    },
+    "messages": {
+      "laundryNotFound": { "title": "Laverie introuvable", "body": "Aucune information trouvée pour cette laverie." },
+      "machineNotFound": { "title": "Machine introuvable", "body": "Aucune information trouvée pour cette machine." },
+      "qrUnrecognized": { "title": "QR non reconnu", "body": "Scannez le QR d'une laverie ou d'une machine." }
+    }
+  },
+  "myLaundries": {
+    "title": "Mes laveries",
+    "authSubtitle": "Connectez-vous pour voir vos laveries.",
+    "empty": {
+      "title": "Aucune laverie",
+      "body": "Enregistrez une laverie privée avec votre code ou ajoutez-en une publique depuis la carte."
+    },
+    "item": {
+      "noMachines": "Aucune machine",
+      "available": "{{available}} sur {{total}} disponibles",
+      "tags": {
+        "private": "Privée",
+        "main": "Principale"
+      }
+    },
+    "swipe": {
+      "showQR": "Afficher le QR",
+      "remove": "Supprimer"
+    }
+  },
+  "qr": {
+    "alreadyHasAccess": { "title": "Accès déjà accordé", "body": "Vous êtes déjà associé à la laverie privée de ce code." },
+    "registered": { "title": "Terminé !", "body": "Vous avez été associé à la laverie privée avec succès." },
+    "invalidCode": { "title": "Code invalide", "body": "Le code d'accès est invalide ou a expiré." },
+    "privateLaundry": { "title": "Laverie privée", "body": "Cette laverie est privée. Vous avez besoin d'un code d'accès pour l'ajouter. Demandez-le à l'administrateur local." },
+    "alreadyAdded": { "body": "Cette laverie est déjà dans votre liste." },
+    "added": { "title": "Terminé !", "body": "La laverie a été ajoutée à votre liste." },
+    "addFailed": { "title": "Impossible d'ajouter", "body": "Une erreur s'est produite lors de l'ajout de la laverie. Réessayez." },
+    "deeplink": { "unrecognized": { "title": "Lien non reconnu", "body": "Impossible d'ouvrir le lien associé à ce code QR." } },
+    "unknown": { "title": "QR non reconnu", "body": "Ce code QR n'est pas compatible avec Luvo." }
+  },
+  "info": {
+    "title": "Informations",
+    "about": { "title": "À propos" },
+    "faq": { "title": "FAQ" },
+    "terms": { "title": "Conditions d'utilisation" },
+    "loading": "Chargement...",
+    "loadError": "Impossible de charger le contenu. Réessayez.",
+    "menu": {
+      "terms": "Conditions d'utilisation",
+      "faq": "FAQ",
+      "about": "À propos"
+    }
+  },
+  "tabs": {
+    "laundry": "Laveries",
+    "myLaundries": "Mes laveries",
+    "profile": "Profil"
+  },
+  "laundryRegistration": {
+    "title": "Ajouter une laverie",
+    "guestPrompt": "Connectez-vous pour ajouter cette laverie à votre liste",
+    "accessCodeLabel": "Code d'accès",
+    "description": "Ajoutez cette laverie privée à votre liste pour voir ses machines disponibles",
+    "invalidCode": "Code invalide ou expiré. Vérifiez le code et réessayez.",
+    "addButton": "Ajouter la laverie"
+  },
+  "scan": {
+    "tabs": {
+      "qr": "Scanner un QR",
+      "code": "Code"
+    },
+    "noCamera": "Vous n'avez pas activé l'accès à la caméra. Veuillez l'activer dans les paramètres de votre appareil.",
+    "codeSection": {
+      "title": "Saisissez le numéro de référence",
+      "submit": "Valider"
+    }
+  },
+  "laundryQR": {
+    "shareHint": "Partagez ce code avec les autres résidents"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "general": {
+      "title": "Général"
+    },
+    "notifications": {
+      "title": "Notifications"
+    },
+    "darkMode": {
+      "label": "Mode sombre",
+      "description": "Changer l'apparence de l'application"
+    },
+    "ownerMode": {
+      "label": "Mode propriétaire",
+      "description": "Activer les écrans de gestion des laveries"
+    },
+    "language": {
+      "label": "Langue",
+      "description": "Langue de l'interface"
+    },
+    "endOfCycle": {
+      "label": "Fin de cycle",
+      "description": "Me notifier quand le cycle de lavage se termine"
+    },
+    "promotions": {
+      "label": "Actualités et promotions",
+      "description": "Recevoir des nouvelles sur les nouvelles fonctionnalités et offres"
+    },
+    "maintenance": {
+      "label": "Alertes de maintenance",
+      "description": "Notifications lorsqu'une machine n'est pas disponible"
+    },
+    "notificationsDisabled": {
+      "title": "Notifications désactivées",
+      "body": "Pour recevoir ces notifications, activez les autorisations dans les paramètres de votre appareil."
+    }
+  }
+}
