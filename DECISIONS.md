@@ -10,11 +10,10 @@
 | # | Date | Title | Status |
 |---|------|-------|--------|
 | ADR-001 | 2026-04-26 | i18n library and architecture (i18next + react-i18next + react-native-localize) | Accepted |
-| ADR-002 | 2026-04-26 | Locale support tiers (en/es full, fr/pt/it picker-only with es fallback) | Accepted |
+| ADR-002 | 2026-04-26 | Locale support tiers (en/es full, fr/pt/it picker-only with es fallback) | Superseded by ADR-005 |
 | ADR-003 | 2026-04-26 | Translation boundary lives at the React layer; services and strategies stay i18n-agnostic | Accepted |
 | ADR-004 | 2026-04-26 | Cross-boundary user-facing strings emitted as codes, resolved via co-located registry at React boundary | Accepted |
-| ADR-006 | 2026-04-27 | Adopt Luvo design system as theme source of truth (semantic tokens via useTheme, native Poppins) | Accepted |
-| ADR-007 | 2026-04-27 | Direct palette imports allowed only for non-semantic ramps (status indicator, cartographic) | Accepted |
+| ADR-005 | 2026-04-27 | Promote fr and pt to fully-translated tier; only it remains picker-only | Accepted |
 
 ## Entries
 
@@ -120,40 +119,22 @@ Non-React modules (strategies, services) emit typed codes from a closed string-l
 
 ---
 
-### ADR-006: Adopt Luvo design system as theme source of truth
+### ADR-005: Promote fr and pt to fully-translated tier; only it remains picker-only
 **Date:** 2026-04-27
-**Status:** Accepted
+**Status:** Accepted — supersedes ADR-002
 
 **Context:**
-The Luvo design system (defined from ManualDeMarca.pdf) was implemented as a CSS spec, but `src/theme/` had diverged in small ways — no native Poppins font shipped (Text silently fell back to system font), `lineHeight` was commented out in the Text component, shadow had a single preset, and `fontWeight` only had three keys. The new spec defines a full palette, semantic surface/font/border tokens, spacing, radii, border widths, three named shadow tiers, and a full Poppins weight scale (300–800).
+ADR-002 (2026-04-26) defined two locale tiers: fully translated (en, es) and picker-only (fr, pt, it — exposed in the picker but with no bundles registered; i18next `fallbackLng: 'es'` resolves missing keys silently). Since then, fr was fully translated in PR #9 (197 keys, prior session) and pt (pt-BR) was fully translated in this session (197 keys). Both now have full key parity with en and es. The tiering described in ADR-002 no longer matches the shipped state; `current_focus.md` had already flagged the drift.
 
 **Decision:**
-Adopt the new Luvo design system as the canonical source of truth for all design tokens. Token taxonomy: palette only behind `src/theme/constants/colors.ts`; semantic tokens (surfaceColor, fontColor, borderColor, spacing, cornerRad, borderWidth, fontSize, lineHeight, fontWeight, fontFamily, shadowBox/shadowCard/shadowFloating/shadowBottomNav) exposed through `ThemeConstants` and consumed only via `useTheme()` in per-component theme hooks. No raw color strings or design numbers permitted in consumer files — enforced by `.claude/rules/styling.md`.
+Reclassify locale tiers. **Fully translated:** `en`, `es`, `fr`, `pt` (197 keys each, full parity). **Picker-only (es fallback):** `it` only. The mechanism is unchanged — fr and pt now have registered bundles under `src/services/i18n/locales/<lang>/` and are wired in `src/services/i18n/resources.ts`; `it` continues to resolve missing keys via `fallbackLng: 'es'`. The parity invariant is widened from en↔es to en↔es↔fr↔pt (197 keys).
 
 **Rejected alternatives:**
-- A parallel theme namespace — rejected because consumers would need to know which namespace to pick; a single merged token tree is simpler.
-- Runtime font loading via `expo-font` — rejected because this is bare RN, and native linking renders Poppins on the first frame without a flash-of-system-text.
+- Leave ADR-002 as-is and rely on `current_focus.md` / commit history for current state: rejected — ADR-002 is consulted as source of truth for locale policy; stale ADRs cause drift in reviews and onboarding.
+- Edit ADR-002 in place: rejected — `DECISIONS.md` is append-only; superseding entries are the documented mechanism.
 
 **Consequences:**
-- Poppins ships as native-linked TTFs (6 weights: Light/Regular/Medium/SemiBold/Bold/ExtraBold).
-- `ThemeConstants` now includes `fontFamily`, expanded `fontWeight` (light/regular/medium/semibold/bold/extrabold), three named shadow presets (shadowBox=elevation2, shadowCard=elevation4, shadowFloating=elevation8), and a directional `shadowBottomNav` variant.
-- Clean iOS rebuild (pod install) and Android rebuild required to pick up the fonts.
-
----
-
-### ADR-007: Direct palette imports allowed only for non-semantic ramps (status indicator, cartographic)
-**Date:** 2026-04-27
-**Status:** Accepted
-
-**Context:**
-After migrating consumer hooks to semantic tokens, two files remain that import from `Colors` directly: `useWsStatusIndicatorTheme.tsx` (maps connection status to palette stops) and `pinUtils.ts` (builds a lavender ramp for occupancy heatmap). Forcing these through fake semantic tokens would bloat the token API with machine-domain ramps that have no design-system analogue.
-
-**Decision:**
-Direct `Colors` palette imports are permitted only for domain ramps that have no semantic token equivalent — specifically real-time status indicators and cartographic occupancy heatmaps. Any other consumer importing `Colors` directly must justify it in the PR description or be refactored to semantic tokens.
-
-**Rejected alternatives:**
-- Force every `Colors[...]` import through a semantic token — rejected because it would require adding semantically-meaningless token names like `surface-lavender-300` to the theme API, which pollutes the design contract.
-
-**Consequences:**
-- ADR-007 becomes the code review gate for any future `Colors` import added outside these two exception files.
-- The two existing exceptions (`useWsStatusIndicatorTheme.tsx`, `pinUtils.ts`) are grandfathered and documented here.
+- ADR-002 marked Superseded by ADR-005 in the index.
+- Adding a string now requires updating four bundles (en/es/fr/pt) instead of two.
+- Only `it` remains picker-only; when it lands, the fallback policy reduces to a safety net.
+- A CI key-parity check (proposed as follow-up in ADR-002) should now cover all four fully-translated locales.
