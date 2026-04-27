@@ -1,93 +1,92 @@
 # Current Focus — luvo-mobile
 
-**Active task:** Next session — refactor Phase 4: number formatting with explicit locale and currency params.
+**Active task:** Visual smoke-test of PR #13 (design-system-tokens) — verify Poppins font renders correctly on all key screens. User-only task; blocked on physical device/simulator.
 
-**Status:** PR #8 merged. Design confirmed Option B (restore year to CycleCard). Phase 3 complete; Phase 4 queued.
-
----
-
-## Completed (2026-04-26, Session 4: Design Confirmation + CycleCard Date Format)
-
-**Design confirmation received:**
-- Option B confirmed: restore year to CycleCard dates
-- `formatDate` extended with optional `options: Intl.DateTimeFormatOptions` param (backward-compatible)
-- `useCycleCard.ts` updated to pass `{ day: '2-digit', month: 'short', year: 'numeric' }`
-- All 16 unit tests in `src/utils/History/__tests__/formatHistoryItem.test.ts` pass (13 existing + 3 new)
-
-**Commit 46973d0 pushed:**
-- Branch: `refactor/format-history-item-locale-param`
-- PR #8 updated with design confirmation + tests
-
-**PR #8 status:**
-- Unblocked — ready to merge
-- All design gates cleared
-- Code review previously passed
+**Status:** `in_progress` — all code work complete. 6 open PRs awaiting review/merge.
 
 ---
 
-## Completed (2026-04-26, Session 3: formatHistoryItem Locale Extraction)
+## Completed (Session 10, 2026-04-27: pt-BR Translation Blockers Fixed)
 
-**Branch created:**
-- `refactor/format-history-item-locale-param` branched from updated `master` (after PR #6 merged)
-
-**formatHistoryItem.ts refactored to pure module:**
-- Removed i18n singleton import from the module
-- Added `locale?: string` param to `formatAmount(amount, currency, locale?)`
-- Added `locale?: string` param to `formatDate(date, locale?)`
-- All locale resolution moved to call sites (component hooks)
-- File is now pure: no side effects, no singleton dependencies
-- Module is testable without i18n mocking
-
-**Call sites updated:**
-- `useCycleCard.ts`: passes `i18n.language` explicitly to `formatDate()`
-- `useStatsHeader.ts`: passes `i18n.language` explicitly to `formatAmount()`
-
-**Unit tests added:**
-- New file: `src/utils/History/__tests__/formatHistoryItem.test.ts`
-- 13 test cases: pure function tests, no i18n mocking, no singletons
-- All tests passing
+- Fixed 3 translation blockers in `src/services/i18n/locales/pt/common.json`
+- `"reporte"` → `"relatório"` in `report.submit`, `report.submitError`, `report.entitySection.label`
+- Commit `98b5e3d` pushed to `feat/i18n-pt-bundle`; PR #11 updated — all blockers resolved
 
 ---
 
-## Completed (2026-04-26, Session 2: Rebase + Code Review)
+## Completed (Session 9, 2026-04-27: Code Reviews Posted for All Open PRs)
 
-**Rebase & merge conflict resolution (2026-04-26 19:30–19:55):**
-- `origin/master` had moved to `3fac8a9` (hook file renames: `.ts` → `.tsx`)
-- Rebased `refactor/swipe-actions-split` onto `origin/master`: all 7 commits replayed cleanly, no manual conflict fixes needed
-- Force-pushed with `--force-with-lease`: branch now at `f2fcb74`
-- PR #6 status: `mergeable: MERGEABLE`, `state: OPEN`
+- Code reviews posted for all 6 open PRs (#9–#14)
+- PR #10 confirmed to cover all 4 pre-existing test infrastructure gaps (AsyncStorage, react-native-localize, Firebase auth); 7 suites / 51 tests green
+- PR #11 (pt-BR): 3 translation blockers identified → fixed in Session 10
+- PR #12 (it): no blockers; 2 minor suggestions (about title wording, mp_deeplink_timeout)
+- PR #9 (fr): no blockers; minor wording concern in settings.promotions.description
 
-**Code review completed:**
-- No blocking issues found
-- One minor suggestion: comment on template-literal cast in `usePaymentScreen.ts:47`
-- Review passed
+---
 
-**PR #6 merged to master (2026-04-26 ~20:00):**
-- Title: `refactor(swipe-actions): split QRSwipeAction + RemoveSwipeAction, extract theme hooks; i18n hook boundary (Phase 1–3)`
-- 7 commits: 2 SwipeActions refactor + 5 i18n Phase 1–3
+## Completed (Session 8, 2026-04-27: Design System Token Migration + PR #13)
+
+- Poppins fonts (6 TTF weights) linked natively: iOS UIAppFonts in Info.plist + Android assets/fonts/
+- `react-native.config.js` created; `react-native-asset` run
+- `src/theme/types/Theme.ts`: FontFamilyTheme, widened FontWeightTheme (+medium/bold/extrabold), ShadowCardTheme, ShadowFloatingTheme, ShadowBottomNavTheme; fontWeight value union tightened
+- `DefaultTheme.ts` + `DarkTheme.ts`: fontFamily.poppins, shadowCard (elev 4), shadowFloating (elev 8), shadowBottomNav (directional elev 4)
+- `useTextTheme.ts`: hardcoded `'Poppins'` → `theme.fontFamily.poppins`; lineHeight re-enabled (was silently disabled)
+- `Text.tsx`: lineHeight prop re-enabled and threaded through
+- `Tag/theme/constants.ts`: fontWeightMap type bug fixed (raw strings → semantic keys)
+- 6 shadow theme hooks migrated to differentiated presets
+- `border-width-xxs` dead token removed
+- `DECISIONS.md`: ADR-006 + ADR-007 appended
+- Branch `feat/design-system-tokens` pushed, PR #13 opened: https://github.com/pablojoral/luvo-mobile/pull/13
+
+---
+
+## Completed (Sessions 6–7, 2026-04-27: i18n Bundles fr + pt + it)
+
+- `src/services/i18n/locales/fr/common.json`: 197 keys, full parity with en/es → PR #9
+- `src/services/i18n/locales/pt/common.json`: 197 keys, full parity with en/es → PR #11
+- `src/services/i18n/locales/it/common.json`: 197 keys, full parity with en/es → PR #12
+- All three locales registered in `src/services/i18n/resources.ts`
+- ADR-005: all five locales (es/en/fr/pt/it) fully translated; no runtime fallback
+
+---
+
+## Completed (Sessions 1–5, 2026-04-26: formatHistoryItem refactor + SwipeActions + PR #6/#8)
+
+- PR #6 merged: SwipeActions split, theme hooks extracted, i18n hook boundary (Phases 1–3)
+- PR #8 merged: formatHistoryItem made pure (locale param), formatDate + formatAmount extended with Intl options
 
 ---
 
 ## Architecture decisions in effect
 
 - `SupportedLanguage = 'es' | 'en' | 'fr' | 'pt' | 'it'` lives ONLY in `src/services/i18n/languages.ts`
-- Only `en` and `es` have JSON bundles — `fr`/`pt`/`it` fall back to `es` via i18next `fallbackLng`
+- **All five locales have full 197-key JSON bundles** — no runtime fallback needed
 - Device language auto-detected on startup; picker overrides it
 - Component hooks call `useTranslation`; components themselves never do
-- ADR-004: For service/strategy i18n, return machine-readable codes from service, translate at React boundary (hook)
-- Formatting utilities (`formatHistoryItem`, etc.) accept locale as explicit parameter; no singleton imports
-- **ADR-005:** `formatDate` and `formatAmount` accept optional Intl format options params for UI flexibility (Phase 3–4 pattern)
+- **ADR-004:** service/strategy i18n: return machine-readable codes, translate at React hook boundary
+- **ADR-005:** all five locales fully translated; `formatDate`/`formatAmount` accept optional Intl options params
+- **ADR-006:** Luvo design system adopted as token source of truth; Poppins natively linked; three shadow tiers (shadowBox/shadowCard/shadowFloating)
+- **ADR-007:** direct `Colors` palette imports allowed only for non-semantic ramps (status indicator, cartographic heatmap)
 
 ---
 
 ## Still open / deferred
 
-1. **`fr` / `pt` / `it` translation bundles** — purely additive; gate on product confirming locale priority.
+1. **Visual smoke-test of PR #13** — user-only; requires `pod install` + clean iOS/Android rebuild. Critical before merge.
+2. **PR review backlog** — all open, all mergeable, none reviewed:
+   - PR #9 `feat/i18n-fr-bundle` — clear
+   - PR #10 `chore/test-infra-mocks` — clear (covers 4 pre-existing test failures)
+   - PR #11 `feat/i18n-pt-bundle` — clear (blockers fixed in Session 10)
+   - PR #12 `feat/i18n-it-bundle` — clear (2 minor suggestions)
+   - PR #13 `feat/design-system-tokens` — clear (user smoke-test pending)
+   - PR #14 `chore/focus-cleanup` — docs only
 
 ---
 
-## Next session goal (concrete first action)
+## Next session goal (concrete executable action)
 
-After PR #8 merges, create branch `refactor/i18n-phase-4-number-formatting` and extend `formatAmount` in `src/utils/History/formatHistoryItem.ts` with explicit `currency` and `locale` params, then update `useStatsHeader.ts` to pass both explicitly — mirroring the Phase 3 pattern applied to `formatDate`.
+Run `cd ios && pod install && yarn ios`, then verify Poppins renders correctly on Profile, Laundries, LaundryDetails, Payment, History, Settings, Account, MachineDetails, BottomTab, and ScanFab screens. If text looks like system font (not Poppins), check `ios/luvomobile/Info.plist` UIAppFonts entries and run `npx react-native-asset` again.
 
-**Last updated:** 2026-04-26 21:10
+---
+
+**Last updated:** 2026-04-27 HH:MM
