@@ -21,7 +21,7 @@ export const useLaundryQRTheme = () => {
       padding: theme.spacing['spacing-xl'],
       borderRadius: theme.cornerRad['corner-rad-xl'],
       backgroundColor: theme.surfaceColor['surface-primary'],
-      ...theme.shadowBox,
+      ...theme.shadowCard,
     },
   });
 

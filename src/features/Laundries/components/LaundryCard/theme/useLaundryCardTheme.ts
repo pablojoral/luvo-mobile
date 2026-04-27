@@ -13,7 +13,7 @@ export const useLaundryCardTheme = () => {
       backgroundColor: theme.surfaceColor['surface-invert'],
       borderRadius: theme.cornerRad['corner-rad-xxl'],
       overflow: 'hidden',
-      ...theme.shadowBox,
+      ...theme.shadowCard,
     },
   });
 
