@@ -1,70 +1,92 @@
 # Current Focus — luvo-mobile
 
-**Active task:** Design system migration — verify Poppins font renders correctly on all key screens after visual smoke-test.
+**Active task:** Visual smoke-test of PR #13 (design-system-tokens) — verify Poppins font renders correctly on all key screens. User-only task; blocked on physical device/simulator.
 
-**Status:** `in_progress` — PR #13 opened with design system tokens. i18n bundles (#9, #11, #12) awaiting review.
+**Status:** `in_progress` — all code work complete. 6 open PRs awaiting review/merge.
 
 ---
 
-## Completed (2026-04-27, Session 8: Design System Token Migration + PR #13)
+## Completed (Session 10, 2026-04-27: pt-BR Translation Blockers Fixed)
 
-- Poppins fonts (6 TTF weights: Light/Regular/Medium/SemiBold/Bold/ExtraBold) downloaded and linked natively for both iOS (UIAppFonts in Info.plist) and Android (assets/fonts/)
-- `react-native.config.js` created for `react-native-asset` linking
-- `src/theme/types/Theme.ts` extended: `FontFamilyTheme`, widened `FontWeightTheme` (+ medium/bold/extrabold), `ShadowCardTheme`, `ShadowFloatingTheme`, `ShadowBottomNavTheme`
-- `DefaultTheme.ts` + `DarkTheme.ts` updated with Poppins, expanded fontWeight, shadow presets (card, floating, bottom nav)
-- `useTextTheme.ts`: hardcoded `'Poppins'` → `theme.fontFamily.poppins`; lineHeight re-enabled (was silently disabled)
-- `Text.tsx`: lineHeight prop re-enabled
-- `Tag/theme/constants.ts` fontWeightMap: fixed type bug (raw strings → semantic keys)
-- 6 shadow theme hooks migrated to differentiated presets
+- Fixed 3 translation blockers in `src/services/i18n/locales/pt/common.json`
+- `"reporte"` → `"relatório"` in `report.submit`, `report.submitError`, `report.entitySection.label`
+- Commit `98b5e3d` pushed to `feat/i18n-pt-bundle`; PR #11 updated — all blockers resolved
+
+---
+
+## Completed (Session 9, 2026-04-27: Code Reviews Posted for All Open PRs)
+
+- Code reviews posted for all 6 open PRs (#9–#14)
+- PR #10 confirmed to cover all 4 pre-existing test infrastructure gaps (AsyncStorage, react-native-localize, Firebase auth mocks); 7 suites / 51 tests green
+- PR #11 (pt-BR): 3 translation blockers identified and subsequently fixed (Session 10)
+- PR #12 (it): no blockers; 2 minor suggestions (about title wording, mp_deeplink_timeout)
+- PR #9 (fr): no blockers; minor wording concern in settings.promotions.description
+
+---
+
+## Completed (Session 8, 2026-04-27: Design System Token Migration + PR #13)
+
+- Poppins fonts (6 TTF weights: Light/Regular/Medium/SemiBold/Bold/ExtraBold) linked natively: iOS UIAppFonts in Info.plist + Android assets/fonts/
+- `react-native.config.js` created; `npx react-native-asset` run
+- `src/theme/types/Theme.ts`: added `FontFamilyTheme`, widened `FontWeightTheme` (+ medium/bold/extrabold), added `ShadowCardTheme`, `ShadowFloatingTheme`, `ShadowBottomNavTheme`; fontWeight value union tightened
+- `DefaultTheme.ts` + `DarkTheme.ts`: `fontFamily.poppins`, expanded fontWeight, shadowCard (elev 4), shadowFloating (elev 8), shadowBottomNav (directional elev 4)
+- `useTextTheme.ts`: `fontFamily: 'Poppins'` → `theme.fontFamily.poppins`; lineHeight re-enabled (was silently disabled — app was rendering in system font)
+- `Text.tsx`: lineHeight prop re-enabled and threaded through
+- `Tag/theme/constants.ts`: fontWeightMap type bug fixed (raw strings → semantic keys)
+- 6 shadow theme hooks migrated to differentiated presets (shadowCard/shadowFloating/shadowBottomNav)
 - `border-width-xxs` dead token removed
-- `DECISIONS.md`: ADR-006 + ADR-007 appended
+- `DECISIONS.md`: ADR-006 (design system adoption) + ADR-007 (palette import exceptions) appended
 - Branch `feat/design-system-tokens` pushed, PR #13 opened: https://github.com/pablojoral/luvo-mobile/pull/13
-- Status: awaiting PR review; visual smoke-test pending
 
 ---
 
-## Completed (Sessions 7, 2026-04-27: i18n Bundles fr + pt + it)
+## Completed (Sessions 6–7, 2026-04-27: i18n Bundles fr + pt + it + PR #9/#11/#12)
 
-- `src/services/i18n/locales/fr/common.json` created: 197 keys (full parity with en, es)
-- `src/services/i18n/locales/pt/common.json` created: 197 keys (full parity with en, es)
-- `src/services/i18n/locales/it/common.json` created: 197 keys (full parity with en, es)
+- `src/services/i18n/locales/fr/common.json`: 197 keys, full parity with en/es → PR #9
+- `src/services/i18n/locales/pt/common.json`: 197 keys, full parity with en/es → PR #11
+- `src/services/i18n/locales/it/common.json`: 197 keys, full parity with en/es → PR #12
 - All three locales registered in `src/services/i18n/resources.ts`
-- Branches pushed: `feat/i18n-fr-bundle` (PR #9), `feat/i18n-pt-bundle` (PR #11), `feat/i18n-it-bundle` (PR #12)
-- ADR-005 appended to DECISIONS.md: all five locales (es, en, fr, pt, it) now fully translated
-- All PRs awaiting review; no test regressions
+- ADR-005 appended: all five locales (es/en/fr/pt/it) fully translated; no runtime fallback
+
+---
+
+## Completed (Sessions 1–5, 2026-04-26: formatHistoryItem refactor + SwipeActions split + PR #6/#8)
+
+- PR #6 merged: SwipeActions split, theme hooks extracted, i18n hook boundary (Phases 1–3)
+- PR #8 merged: formatHistoryItem made pure (locale param), formatDate + formatAmount extended with Intl options
 
 ---
 
 ## Architecture decisions in effect
 
 - `SupportedLanguage = 'es' | 'en' | 'fr' | 'pt' | 'it'` lives ONLY in `src/services/i18n/languages.ts`
-- **All five locales now have full 197-key JSON bundles** — no fallback required
+- **All five locales have full 197-key JSON bundles** — no runtime fallback needed
 - Device language auto-detected on startup; picker overrides it
 - Component hooks call `useTranslation`; components themselves never do
-- **ADR-004:** For service/strategy i18n, return machine-readable codes from service, translate at React boundary (hook)
-- **ADR-005:** All five locales fully translated (supersedes ADR-002); `formatDate` and `formatAmount` accept optional Intl format options params
-- Formatting utilities (`formatHistoryItem`, etc.) accept locale as explicit parameter; no singleton imports
-- **ADR-006 & ADR-007:** Design system adoption and palette import exceptions (Session 8)
+- **ADR-004:** service/strategy i18n: return machine-readable codes, translate at React hook boundary
+- **ADR-005:** all five locales fully translated; `formatDate`/`formatAmount` accept optional Intl options params
+- **ADR-006:** Luvo design system adopted as token source of truth; Poppins natively linked; three shadow tiers (shadowBox/shadowCard/shadowFloating)
+- **ADR-007:** direct `Colors` palette imports allowed only for non-semantic ramps (status indicator, cartographic heatmap)
 
 ---
 
 ## Still open / deferred
 
-1. **Visual smoke-test of PR #13** — verify Poppins renders correctly on physical device/simulator post-`pod install` + clean rebuild. (User-only task; critical before merge.)
-2. **PR review backlog** — Five open PRs awaiting review:
-   - PR #9: `feat/i18n-fr-bundle`
-   - PR #10: `test-infra-mocks` (pre-existing framework)
-   - PR #11: `feat/i18n-pt-bundle`
-   - PR #12: `feat/i18n-it-bundle`
-   - PR #13: `feat/design-system-tokens`
-3. **Pre-existing test infrastructure gaps** — 4 failing test suites (AsyncStorage mock, react-native-localize mock, Firebase auth mock — unrelated to i18n or design work). Tracked for future test-infra sprint.
+1. **Visual smoke-test of PR #13** — user-only; requires `pod install` + clean iOS/Android rebuild. Critical before merge.
+2. **PR review backlog** — all open, all mergeable, none reviewed:
+   - PR #9 `feat/i18n-fr-bundle` — clear
+   - PR #10 `chore/test-infra-mocks` — clear (covers 4 pre-existing test failures)
+   - PR #11 `feat/i18n-pt-bundle` — clear (blockers fixed in Session 10)
+   - PR #12 `feat/i18n-it-bundle` — clear (2 minor suggestions)
+   - PR #13 `feat/design-system-tokens` — clear (user smoke-test pending)
+   - PR #14 `chore/focus-cleanup` — docs only
 
 ---
 
 ## Next session goal (concrete executable action)
 
-Run `cd ios && pod install && yarn ios`, then verify Poppins renders correctly on Profile, Laundries, LaundryDetails, Payment, History, Settings, Account, MachineDetails, BottomTab, and ScanFab screens. If Poppins is not rendering (text looks like system font), check `ios/luvomobile/Info.plist` UIAppFonts entries and run `npx react-native-asset` again.
+Run `cd ios && pod install && yarn ios`, then verify Poppins renders correctly on Profile, Laundries, LaundryDetails, Payment, History, Settings, Account, MachineDetails, BottomTab, and ScanFab screens. If text looks like system font (not Poppins), check `ios/luvomobile/Info.plist` UIAppFonts entries and run `npx react-native-asset` again.
 
 ---
 
-**Last updated:** 2026-04-27 15:58
+**Last updated:** 2026-04-27 16:12
