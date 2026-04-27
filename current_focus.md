@@ -17,8 +17,8 @@
 ## Completed (Session 9, 2026-04-27: Code Reviews Posted for All Open PRs)
 
 - Code reviews posted for all 6 open PRs (#9–#14)
-- PR #10 confirmed to cover all 4 pre-existing test infrastructure gaps (AsyncStorage, react-native-localize, Firebase auth mocks); 7 suites / 51 tests green
-- PR #11 (pt-BR): 3 translation blockers identified and subsequently fixed (Session 10)
+- PR #10 confirmed to cover all 4 pre-existing test infrastructure gaps (AsyncStorage, react-native-localize, Firebase auth); 7 suites / 51 tests green
+- PR #11 (pt-BR): 3 translation blockers identified → fixed in Session 10
 - PR #12 (it): no blockers; 2 minor suggestions (about title wording, mp_deeplink_timeout)
 - PR #9 (fr): no blockers; minor wording concern in settings.promotions.description
 
@@ -26,31 +26,31 @@
 
 ## Completed (Session 8, 2026-04-27: Design System Token Migration + PR #13)
 
-- Poppins fonts (6 TTF weights: Light/Regular/Medium/SemiBold/Bold/ExtraBold) linked natively: iOS UIAppFonts in Info.plist + Android assets/fonts/
-- `react-native.config.js` created; `npx react-native-asset` run
-- `src/theme/types/Theme.ts`: added `FontFamilyTheme`, widened `FontWeightTheme` (+ medium/bold/extrabold), added `ShadowCardTheme`, `ShadowFloatingTheme`, `ShadowBottomNavTheme`; fontWeight value union tightened
-- `DefaultTheme.ts` + `DarkTheme.ts`: `fontFamily.poppins`, expanded fontWeight, shadowCard (elev 4), shadowFloating (elev 8), shadowBottomNav (directional elev 4)
-- `useTextTheme.ts`: `fontFamily: 'Poppins'` → `theme.fontFamily.poppins`; lineHeight re-enabled (was silently disabled — app was rendering in system font)
+- Poppins fonts (6 TTF weights) linked natively: iOS UIAppFonts in Info.plist + Android assets/fonts/
+- `react-native.config.js` created; `react-native-asset` run
+- `src/theme/types/Theme.ts`: FontFamilyTheme, widened FontWeightTheme (+medium/bold/extrabold), ShadowCardTheme, ShadowFloatingTheme, ShadowBottomNavTheme; fontWeight value union tightened
+- `DefaultTheme.ts` + `DarkTheme.ts`: fontFamily.poppins, shadowCard (elev 4), shadowFloating (elev 8), shadowBottomNav (directional elev 4)
+- `useTextTheme.ts`: hardcoded `'Poppins'` → `theme.fontFamily.poppins`; lineHeight re-enabled (was silently disabled)
 - `Text.tsx`: lineHeight prop re-enabled and threaded through
 - `Tag/theme/constants.ts`: fontWeightMap type bug fixed (raw strings → semantic keys)
-- 6 shadow theme hooks migrated to differentiated presets (shadowCard/shadowFloating/shadowBottomNav)
+- 6 shadow theme hooks migrated to differentiated presets
 - `border-width-xxs` dead token removed
-- `DECISIONS.md`: ADR-006 (design system adoption) + ADR-007 (palette import exceptions) appended
+- `DECISIONS.md`: ADR-006 + ADR-007 appended
 - Branch `feat/design-system-tokens` pushed, PR #13 opened: https://github.com/pablojoral/luvo-mobile/pull/13
 
 ---
 
-## Completed (Sessions 6–7, 2026-04-27: i18n Bundles fr + pt + it + PR #9/#11/#12)
+## Completed (Sessions 6–7, 2026-04-27: i18n Bundles fr + pt + it)
 
 - `src/services/i18n/locales/fr/common.json`: 197 keys, full parity with en/es → PR #9
 - `src/services/i18n/locales/pt/common.json`: 197 keys, full parity with en/es → PR #11
 - `src/services/i18n/locales/it/common.json`: 197 keys, full parity with en/es → PR #12
 - All three locales registered in `src/services/i18n/resources.ts`
-- ADR-005 appended: all five locales (es/en/fr/pt/it) fully translated; no runtime fallback
+- ADR-005: all five locales (es/en/fr/pt/it) fully translated; no runtime fallback
 
 ---
 
-## Completed (Sessions 1–5, 2026-04-26: formatHistoryItem refactor + SwipeActions split + PR #6/#8)
+## Completed (Sessions 1–5, 2026-04-26: formatHistoryItem refactor + SwipeActions + PR #6/#8)
 
 - PR #6 merged: SwipeActions split, theme hooks extracted, i18n hook boundary (Phases 1–3)
 - PR #8 merged: formatHistoryItem made pure (locale param), formatDate + formatAmount extended with Intl options
@@ -89,4 +89,4 @@ Run `cd ios && pod install && yarn ios`, then verify Poppins renders correctly o
 
 ---
 
-**Last updated:** 2026-04-27 16:12
+**Last updated:** 2026-04-27 HH:MM
