@@ -19,7 +19,7 @@ interface MyLaundryItemProps {
 
 export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaundryItemProps) => {
   const { styles } = useMyLaundriesTheme();
-  const { swipeableRef, location, machineLabel, handleQRPress, handleRemovePress } =
+  const { swipeableRef, location, machineLabel, privateTag, mainTag, handleQRPress, handleRemovePress } =
     useMyLaundryItem({ item, onRemove, onShowQR });
 
   const renderRightActions = useCallback(() => {
@@ -70,7 +70,7 @@ export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaun
                 color="font-invert"
                 surfaceColor="surface-invert"
               >
-                Privada
+                {privateTag}
               </Tag>
             )}
             {item.isMain && (
@@ -79,7 +79,7 @@ export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaun
                 color="font-secondary"
                 surfaceColor="surface-secondary"
               >
-                Principal
+                {mainTag}
               </Tag>
             )}
             <Tag fontSize="font-size-xs" color="font-light" surfaceColor="surface-background">

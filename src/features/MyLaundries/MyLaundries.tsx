@@ -8,14 +8,14 @@ import { useMyLaundriesTheme } from './theme/useMyLaundriesTheme';
 
 export const MyLaundries = () => {
   const { styles } = useMyLaundriesTheme();
-  const { firebaseUser, laundries, isLoading, renderItem, keyExtractor } = useMyLaundriesScreen();
+  const { firebaseUser, laundries, isLoading, renderItem, keyExtractor, title, authSubtitle } = useMyLaundriesScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Mis lavanderías" hideBack={true} />
+      <ScreenHeader title={title} hideBack={true} />
 
       {!firebaseUser ? (
-        <AuthRequiredScreen subtitle="Inicia sesión para ver tus lavanderías." />
+        <AuthRequiredScreen subtitle={authSubtitle} />
       ) : isLoading ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size={'large'} />

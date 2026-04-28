@@ -1,4 +1,5 @@
-import { StyleSheet, useMemo } from 'react-native';
+import { useMemo } from 'react';
+import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
 export const useLaundryMapMarkerTheme = () => {
@@ -13,7 +14,7 @@ export const useLaundryMapMarkerTheme = () => {
   });
 
   const wrapperStyle = useMemo(
-    () => [styles.wrapper, { padding: theme.spacing['spacing-sm'], ...theme.shadowBox }],
+    () => [styles.wrapper, { padding: theme.spacing['spacing-sm'], ...theme.shadowFloating }],
     [styles.wrapper, theme],
   );
 

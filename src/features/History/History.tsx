@@ -11,12 +11,12 @@ import { useHistoryTheme } from './theme/useHistoryTheme';
 export const History = () => {
   const navigation = useRootStackNavigation();
   const { styles } = useHistoryTheme();
-  const { items, isLoading, isFetchingNextPage, handleEndReached, renderItem, keyExtractor } =
+  const { title, items, isLoading, isFetchingNextPage, handleEndReached, renderItem, keyExtractor } =
     useHistoryScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Historial" onBack={() => navigation.goBack()} />
+      <ScreenHeader title={title} onBack={() => navigation.goBack()} />
 
       {isLoading ? (
         <View style={styles.loadingContainer}>

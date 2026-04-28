@@ -1,15 +1,16 @@
 import { IconName } from 'components/SvgIcon/types';
+import type { PaymentErrorCode, PaymentProgressCode } from './paymentCodes';
 
 export interface PaymentContext {
   machineId: number;
-  onProgress?: (message: string) => void;
+  onProgress?: (code: PaymentProgressCode) => void;
 }
 
 export interface PaymentResult {
   success:   boolean;
   paymentId?: string;
-  /** Human-readable error message when success is false */
-  error?:    string;
+  /** Machine-readable error code when success is false — translated at the React boundary */
+  error?:    PaymentErrorCode;
   /** Provider-specific data forwarded to the screen (e.g. Stripe client_secret) */
   clientData?: Record<string, unknown>;
 }

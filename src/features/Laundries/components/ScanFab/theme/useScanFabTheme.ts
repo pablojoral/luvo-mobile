@@ -12,7 +12,7 @@ export const useScanFabTheme = () => {
       backgroundColor: theme.surfaceColor['surface-invert'],
       alignItems: 'center',
       justifyContent: 'center',
-      ...theme.shadowBox,
+      ...theme.shadowFloating,
     },
   });
 

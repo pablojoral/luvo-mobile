@@ -42,11 +42,35 @@ export const DefaultThemeConstants: ThemeConstants = {
     shadowRadius: 3.84,
     elevation: 5,
   },
+  shadowCard: {
+    shadowColor: Colors['colors-black'],
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.18,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  shadowFloating: {
+    shadowColor: Colors['colors-black'],
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.30,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  shadowBottomNav: {
+    shadowColor: Colors['colors-black'],
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+
+  fontFamily: {
+    poppins: 'Poppins',
+  },
 
   // Border themes
   borderWidth: {
     'border-width-none': 0,
-    'border-width-xxs': 0,
     'border-width-xs': 1,
     'border-width-sm': 2,
     'border-width-md': 3,
@@ -89,7 +113,10 @@ export const DefaultThemeConstants: ThemeConstants = {
   fontWeight: {
     light: '300',
     regular: '400',
+    medium: '500',
     semibold: '600',
+    bold: '700',
+    extrabold: '800',
   },
   lineHeight: {
     'line-height-xs': 16,

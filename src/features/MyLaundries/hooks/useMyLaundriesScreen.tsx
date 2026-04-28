@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MyLaundry } from 'models/models';
 import { useFirebaseAuthState } from 'query/Auth/useAuth';
 import { useMyLaundries } from 'query/MyLaundries/useMyLaundries';
@@ -8,6 +9,7 @@ import type { ListRenderItem } from 'react-native';
 import { MyLaundryItem } from '../components/MyLaundryItem/MyLaundryItem';
 
 export const useMyLaundriesScreen = () => {
+  const { t } = useTranslation('common');
   const navigation = useRootStackNavigation();
   const { data: firebaseUser } = useFirebaseAuthState();
   const { data, isLoading } = useMyLaundries();
@@ -46,5 +48,13 @@ export const useMyLaundriesScreen = () => {
 
   const keyExtractor = useCallback((item: MyLaundry) => String(item.id), []);
 
-  return { firebaseUser, laundries, isLoading, renderItem, keyExtractor };
+  return {
+    firebaseUser,
+    laundries,
+    isLoading,
+    renderItem,
+    keyExtractor,
+    title: t('myLaundries.title'),
+    authSubtitle: t('myLaundries.authSubtitle'),
+  };
 };

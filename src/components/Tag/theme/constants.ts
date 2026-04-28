@@ -74,8 +74,8 @@ export const fontSizeMap: Record<ButtonSize, FontSize> = {
 };
 
 export const fontWeightMap: Record<ButtonSize, FontWeight> = {
-  xs: '400',
-  sm: '500',
-  md: '600',
-  xl: '700',
+  xs: 'regular',
+  sm: 'medium',
+  md: 'semibold',
+  xl: 'bold',
 };

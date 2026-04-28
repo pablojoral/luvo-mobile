@@ -17,7 +17,7 @@ export const Text = (props: TextProps) => {
     children,
     fontSize = 'font-size-md',
     color = 'font-primary',
-    // lineHeight = 'line-height-md',
+    lineHeight = 'line-height-md',
     fontWeight = 'regular',
     style,
     ...rest
@@ -26,7 +26,7 @@ export const Text = (props: TextProps) => {
   const { styles } = useTextTheme({
     fontSize,
     color,
-    // lineHeight,
+    lineHeight,
     fontWeight,
   });
 

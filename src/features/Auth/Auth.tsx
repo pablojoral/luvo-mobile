@@ -5,7 +5,6 @@ import { Text } from 'components/Text/Text';
 import { TextInput } from 'components/TextInput/TextInput';
 import { useKeyboardVisible } from 'hooks/useKeyboardVisible';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
-import { useFirebaseAuthState } from 'query/Auth/useAuth';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
@@ -13,25 +12,33 @@ import Animated, { FadeIn, SlideOutUp } from 'react-native-reanimated';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { useAuthForm } from './hooks/useAuthForm';
+import { useAuthScreen } from './hooks/useAuthScreen';
 import { useAuthTheme } from './theme/useAuthTheme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Auth'>;
 
 export const Auth = ({ route, navigation }: Props) => {
   const mode = route.params?.mode ?? 'login';
-  const { data: firebaseUser } = useFirebaseAuthState();
   const { styles } = useAuthTheme();
   const isKeyboardVisible = useKeyboardVisible();
-  const { control, errors, isSubmitting, onSubmit } = useAuthForm(mode);
-
-  React.useEffect(() => {
-    if (firebaseUser) navigation.goBack();
-  }, [firebaseUser, navigation]);
+  const {
+    control,
+    errors,
+    isSubmitting,
+    onSubmit,
+    emailRules,
+    passwordRules,
+    title,
+    emailLabel,
+    emailPlaceholder,
+    passwordLabel,
+    passwordPlaceholder,
+    submitLabel,
+  } = useAuthScreen(mode, navigation);
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Autenticación" onBack={() => navigation.goBack()} />
+      <ScreenHeader title={title} onBack={() => navigation.goBack()} />
       <KeyboardAvoidingView style={styles.avoidingView} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView bounces={false} keyboardShouldPersistTaps="handled">
           <Pressable onPress={Keyboard.dismiss} style={styles.content}>
@@ -47,14 +54,11 @@ export const Auth = ({ route, navigation }: Props) => {
             <Controller
               control={control}
               name="email"
-              rules={{
-                required: 'El email es obligatorio',
-                pattern: { value: /\S+@\S+\.\S+/, message: 'Email inválido' },
-              }}
+              rules={emailRules}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  label="Email"
-                  placeholder="Email"
+                  label={emailLabel}
+                  placeholder={emailPlaceholder}
                   autoCapitalize="none"
                   keyboardType="email-address"
                   onBlur={onBlur}
@@ -67,14 +71,11 @@ export const Auth = ({ route, navigation }: Props) => {
             <Controller
               control={control}
               name="password"
-              rules={{
-                required: 'La contraseña es obligatoria',
-                minLength: { value: 6, message: 'Mínimo 6 caracteres' },
-              }}
+              rules={passwordRules}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  label="Contraseña"
-                  placeholder="Contraseña"
+                  label={passwordLabel}
+                  placeholder={passwordPlaceholder}
                   secureTextEntry
                   onBlur={onBlur}
                   onChangeText={onChange}
@@ -91,7 +92,7 @@ export const Auth = ({ route, navigation }: Props) => {
           </Pressable>
         </ScrollView>
         <View style={styles.footer}>
-          <Button fullWidth label="Iniciar Sesión" onPress={onSubmit} disabled={isSubmitting} />
+          <Button fullWidth label={submitLabel} onPress={onSubmit} disabled={isSubmitting} />
         </View>
       </KeyboardAvoidingView>
     </View>
