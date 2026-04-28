@@ -25,6 +25,7 @@ jobs:
 
   typecheck:
     name: Typecheck
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,6 +38,7 @@ jobs:
 
   test:
     name: Unit tests
+    needs: typecheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,6 +51,8 @@ jobs:
 
   build-android:
     name: Build Android (debug)
+    needs: test
+    if: github.event_name == 'pull_request' && github.base_ref == 'master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
