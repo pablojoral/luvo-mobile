@@ -3,7 +3,6 @@ import Svg, { Path } from 'react-native-svg';
 import type { SvgProps } from 'react-native-svg';
 const SvgChevronRight = (props: SvgProps) => (
   <Svg
-    xmlns="http://www.w3.org/2000/svg"
     width={props.width ?? 24}
     height={props.height ?? 24}
     fill="none"
