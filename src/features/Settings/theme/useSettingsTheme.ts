@@ -23,30 +23,20 @@ export const useSettingsTheme = () => {
       gap: theme.spacing['spacing-xxl'],
     },
     group: {
-      gap: theme.spacing['spacing-sm'],
+      gap: theme.spacing['spacing-xs'],
+      paddingHorizontal: 0,
     },
     groupTitle: {
       paddingHorizontal: theme.spacing['spacing-xs'],
     },
-    groupCard: {
-      borderRadius: theme.cornerRad['corner-rad-xxl'],
+    rowCard: {
+      borderRadius: theme.cornerRad['corner-rad-lg'],
       backgroundColor: Colors['colors-white'],
-      overflow: 'hidden',
-      ...theme.shadowCard,
-    },
-    row: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: theme.spacing['spacing-lg'],
-      paddingVertical: theme.spacing['spacing-lg'],
+      padding: theme.spacing['spacing-md'],
       gap: theme.spacing['spacing-md'],
-    },
-    rowSeparator: {
-      height: theme.borderWidth['border-width-xs'],
-      backgroundColor: theme.borderColor['border-primary'],
-      // marginLeft intentional: computed indent to align the separator flush
-      // with the row text (past icon + row gap). Cannot be expressed as gap/padding.
-      marginLeft: theme.spacing['spacing-lg'] + ROW_ICON_SIZE + theme.spacing['spacing-md'],
+      ...theme.shadowCard,
     },
     rowIcon: {
       width: ROW_ICON_SIZE,

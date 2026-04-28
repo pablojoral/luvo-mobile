@@ -290,13 +290,10 @@
       "label": "Mode sombre",
       "description": "Changer l'apparence de l'application"
     },
-    "ownerMode": {
-      "label": "Mode propriétaire",
-      "description": "Activer les écrans de gestion des laveries"
-    },
     "language": {
       "label": "Langue",
-      "description": "Langue de l'interface"
+      "description": "Langue de l'interface",
+      "pickerTitle": "Sélectionner la langue"
     },
     "endOfCycle": {
       "label": "Fin de cycle",

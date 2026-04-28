@@ -65,15 +65,15 @@ export const SettingsRow = (props: SettingsRowProps) => {
   );
 
   if (props.type === 'toggle') {
-    return <View style={styles.row}>{inner}</View>;
+    return <View style={styles.rowCard}>{inner}</View>;
   }
 
   if (props.type === 'value' && readonly) {
-    return <View style={styles.row}>{inner}</View>;
+    return <View style={styles.rowCard}>{inner}</View>;
   }
 
   return (
-    <TouchableOpacity style={styles.row} onPress={props.onPress} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.rowCard} onPress={props.onPress} activeOpacity={0.7}>
       {inner}
     </TouchableOpacity>
   );

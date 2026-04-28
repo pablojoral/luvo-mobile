@@ -290,13 +290,10 @@
       "label": "Modo escuro",
       "description": "Alterar a aparência do app"
     },
-    "ownerMode": {
-      "label": "Modo proprietário",
-      "description": "Habilitar telas de gerenciamento da lavanderia"
-    },
     "language": {
       "label": "Idioma",
-      "description": "Idioma da interface"
+      "description": "Idioma da interface",
+      "pickerTitle": "Selecionar idioma"
     },
     "endOfCycle": {
       "label": "Fim de ciclo",

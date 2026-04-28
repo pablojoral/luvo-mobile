@@ -22,7 +22,7 @@ export const SettingsGroup = ({ title, children }: SettingsGroupProps) => {
           {title.toUpperCase()}
         </Text>
       ) : null}
-      <View style={styles.groupCard}>{children}</View>
+      {children}
     </View>
   );
 };
