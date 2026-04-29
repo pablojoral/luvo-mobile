@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - staging
-      - master
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -47,30 +46,3 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn test --ci
 
-  build-android:
-    name: Build Android (debug)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: yarn
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-      - name: Write .env
-        run: |
-          echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
-          echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
-          echo "MP_PUBLIC_KEY=${{ secrets.MP_PUBLIC_KEY }}" >> .env
-          echo "MP_ACCESS_TOKEN=${{ secrets.MP_ACCESS_TOKEN }}" >> .env
-      - run: yarn install --frozen-lockfile
-      - name: Build debug APK
-        working-directory: android
-        run: ./gradlew assembleDebug
-      - uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: android/app/build/outputs/apk/debug/app-debug.apk
