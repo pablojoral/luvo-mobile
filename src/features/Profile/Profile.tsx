@@ -3,12 +3,13 @@ import { SettingsMenu } from 'components/SettingsMenu/SettingsMenu';
 import { View } from 'react-native';
 
 import { ProfileHeader } from './components/ProfileHeader/ProfileHeader';
+import { ProfileHeaderCurve } from './components/ProfileHeaderCurve/ProfileHeaderCurve';
 import { useProfile } from './hooks/useProfile';
 import { useProfileTheme } from './theme/useProfileTheme';
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
 
 export const Profile = () => {
-  const { firebaseUser, user, profileItems, bottomItems, isLoading } = useProfile();
+  const { firebaseUser, user, profileItems, isLoading } = useProfile();
   const { styles } = useProfileTheme();
 
   return (
@@ -22,9 +23,9 @@ export const Profile = () => {
       ) : (
         <View style={styles.contentContainer}>
           <ProfileHeader name={user?.name ?? user?.email ?? ''} avatarId={user?.avatarId} />
+          <ProfileHeaderCurve />
           <View style={styles.menusContainer}>
             <SettingsMenu items={profileItems} />
-            <SettingsMenu items={bottomItems} />
           </View>
         </View>
       )}

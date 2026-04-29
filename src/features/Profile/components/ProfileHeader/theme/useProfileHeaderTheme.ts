@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
@@ -10,21 +11,31 @@ export const useProfileHeaderTheme = () => {
     container: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'flex-start',
       backgroundColor: theme.surfaceColor['surface-primary'],
       paddingHorizontal: theme.spacing['spacing-xl'],
-      paddingVertical: theme.spacing['spacing-md'],
-      paddingTop: theme.topInset + theme.spacing['spacing-xl'],
+      paddingBottom: theme.spacing['spacing-lg'],
     },
     contentContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: theme.spacing['spacing-xl'],
+      gap: theme.spacing['spacing-lg'],
+    },
+    avatarTile: {
+      borderRadius: theme.cornerRad['corner-rad-xl'],
+      overflow: 'hidden',
+      ...theme.shadowCard,
     },
     textContainer: {
-      gap: theme.spacing['spacing-xs'],
+      gap: theme.spacing['spacing-xxs'],
     },
-    iconContainer: {},
+    logoContainer: {},
   });
 
-  return { styles, AVATAR_SIZE };
+  const containerTopStyle = useMemo(
+    () => ({ paddingTop: theme.topInset + theme.spacing['spacing-xl'] }),
+    [theme.topInset, theme.spacing],
+  );
+
+  return { styles, containerTopStyle, AVATAR_SIZE };
 };

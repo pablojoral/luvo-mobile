@@ -1,318 +1,364 @@
 {
-  "actions": {
-    "save": "Salvar",
-    "cancel": "Cancelar",
-    "confirm": "Confirmar",
-    "back": "Voltar",
-    "close": "Fechar"
-  },
-  "errors": {
-    "network": "Erro de rede. Verifique sua conexão.",
-    "generic": "Algo deu errado. Tente novamente.",
-    "timeout": "A solicitação expirou. Tente novamente."
-  },
-  "auth": {
-    "notSignedIn": "Você não está conectado",
-    "defaultSubtitle": "Faça login para continuar.",
-    "signIn": "Entrar",
-    "title": "Autenticação",
-    "form": {
-      "email": {
-        "label": "E-mail",
-        "placeholder": "E-mail",
-        "required": "O e-mail é obrigatório",
-        "invalid": "E-mail inválido"
-      },
-      "password": {
-        "label": "Senha",
-        "placeholder": "Senha",
-        "required": "A senha é obrigatória",
-        "minLength": "Mínimo de 6 caracteres"
-      },
-      "submit": {
-        "login": "Entrar",
-        "register": "Cadastrar"
-      }
-    }
-  },
-  "messages": {
-    "next": "Próximo",
-    "understood": "Entendi"
-  },
-  "profile": {
-    "header": {
-      "greeting": "Olá,"
+    "actions": {
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "back": "Voltar",
+        "close": "Fechar"
     },
-    "menu": {
-      "account": "Conta",
-      "history": "Histórico",
-      "settings": "Configurações",
-      "info": "Informações",
-      "report": "Reportar",
-      "signOut": "Sair",
-      "signingOut": "Saindo…"
-    }
-  },
-  "account": {
-    "title": "Minha conta",
+    "errors": {
+        "network": "Erro de rede. Verifique sua conexão.",
+        "generic": "Algo deu errado. Tente novamente.",
+        "timeout": "A solicitação expirou. Tente novamente."
+    },
+    "auth": {
+        "notSignedIn": "Você não está conectado",
+        "defaultSubtitle": "Faça login para continuar.",
+        "signIn": "Entrar",
+        "title": "Autenticação",
+        "form": {
+            "email": {
+                "label": "E-mail",
+                "placeholder": "E-mail",
+                "required": "O e-mail é obrigatório",
+                "invalid": "E-mail inválido"
+            },
+            "password": {
+                "label": "Senha",
+                "placeholder": "Senha",
+                "required": "A senha é obrigatória",
+                "minLength": "Mínimo de 6 caracteres"
+            },
+            "submit": {
+                "login": "Entrar",
+                "register": "Cadastrar"
+            }
+        }
+    },
+    "messages": {
+        "next": "Próximo",
+        "understood": "Entendi"
+    },
     "profile": {
-      "sectionTitle": "Perfil",
-      "namePlaceholder": "Seu nome",
-      "nameRequired": "O nome é obrigatório"
+        "header": {
+            "greeting": "Olá,"
+        },
+        "menu": {
+            "account": "Conta",
+            "settings": "Configurações",
+            "info": "Informações",
+            "report": "Reportar"
+        }
     },
-    "security": {
-      "sectionTitle": "Segurança",
-      "resetPassword": "Redefinir senha"
+    "account": {
+        "title": "Minha conta",
+        "profile": {
+            "sectionTitle": "Perfil",
+            "namePlaceholder": "Seu nome",
+            "nameRequired": "O nome é obrigatório"
+        },
+        "security": {
+            "sectionTitle": "Segurança",
+            "resetPassword": "Redefinir senha"
+        },
+        "linkedAccounts": {
+            "sectionTitle": "Contas vinculadas",
+            "linkedBadge": "Vinculado"
+        },
+        "providers": {
+            "password": "E-mail",
+            "google": "Google",
+            "apple": "Apple",
+            "phone": "Telefone"
+        },
+        "deleteAccount": {
+            "label": "Excluir conta",
+            "deleting": "Excluindo conta..."
+        },
+        "avatarPicker": {
+            "title": "Escolha seu avatar"
+        },
+        "alerts": {
+            "deleteConfirmTitle": "Excluir conta",
+            "deleteConfirmBody": "Tem certeza? Essa ação não pode ser desfeita. Todos os seus dados serão excluídos.",
+            "deleteConfirmCancel": "Cancelar",
+            "deleteConfirmDelete": "Excluir"
+        },
+        "messages": {
+            "saveFailed": "Não foi possível salvar o perfil. Tente novamente.",
+            "passwordResetSent": "E-mail enviado",
+            "passwordResetSentBody": "Enviamos um link para redefinir sua senha para {{email}}.",
+            "passwordResetFailed": "Não foi possível enviar o e-mail. Tente novamente.",
+            "deleteFailed": "Não foi possível excluir a conta. Tente novamente."
+        }
     },
-    "linkedAccounts": {
-      "sectionTitle": "Contas vinculadas",
-      "linkedBadge": "Vinculado"
+    "machines": {
+        "title": "Máquina",
+        "notFound": "Nenhuma informação encontrada para esta máquina.",
+        "goBack": "Voltar",
+        "model": "Modelo",
+        "startWash": "Iniciar lavagem",
+        "reportProblem": "Reportar um problema",
+        "status": {
+            "available": "Disponível",
+            "in_use": "Em uso",
+            "out_of_order": "Fora de serviço",
+            "maintenance": "Manutenção"
+        },
+        "type": {
+            "washing_machine": "Lavadora",
+            "dryer": "Secadora"
+        }
     },
-    "providers": {
-      "password": "E-mail",
-      "google": "Google",
-      "apple": "Apple",
-      "phone": "Telefone"
+    "laundry": {
+        "title": "Lavanderia",
+        "availability": "{{available}}/{{total}} Disponíveis",
+        "filters": {
+            "all": "Todos",
+            "washing_machine": "Lavadoras",
+            "dryer": "Secadoras"
+        }
     },
-    "deleteAccount": {
-      "label": "Excluir conta",
-      "deleting": "Excluindo conta..."
+    "history": {
+        "title": "Histórico",
+        "stats": {
+            "spentThisMonth": "Gasto este mês",
+            "cyclesCompleted": "{{count}} ciclos concluídos"
+        },
+        "empty": "Você não tem nenhum ciclo registrado ainda.",
+        "cycleCard": {
+            "sharedBilling": "Cobrança compartilhada"
+        }
     },
-    "avatarPicker": {
-      "title": "Escolha seu avatar"
+    "payment": {
+        "title": "Pagar máquina",
+        "methodPicker": "Forma de pagamento",
+        "confirm": "Confirmar pagamento",
+        "processing": "Processando pagamento…",
+        "success": {
+            "title": "Máquina ativada!",
+            "subtitle": "A máquina vai iniciar em breve.",
+            "done": "Concluído"
+        },
+        "error": {
+            "title": "Falha no pagamento",
+            "generic": "Algo deu errado. Tente novamente.",
+            "retry": "Tentar novamente",
+            "cancel": "Cancelar"
+        },
+        "progress": {
+            "sending_command": "Enviando comando…",
+            "awaiting_controller": "Aguardando confirmação do controlador…",
+            "creating_preference": "Criando preferência de pagamento…",
+            "opening_checkout": "Abrindo checkout…",
+            "verifying_payment": "Verificando pagamento…"
+        },
+        "errors": {
+            "relay_busy": "A máquina está ocupada. Tente novamente.",
+            "payment_failed": "O pagamento falhou. Tente novamente.",
+            "timeout": "Solicitação expirada. Verifique o status da máquina.",
+            "rejected": "O pagamento foi recusado.",
+            "cancelled_or_rejected": "O pagamento foi cancelado ou recusado.",
+            "browser_unavailable": "Não foi possível abrir o navegador neste dispositivo.",
+            "mp_deeplink_timeout": "Tempo esgotado aguardando resposta do MercadoPago.",
+            "stripe_not_configured": "Pagamentos com cartão ainda não estão disponíveis.",
+            "unknown": "Algo deu errado. Tente novamente."
+        },
+        "comingSoon": "Em breve",
+        "strategies": {
+            "mercadopago": {
+                "label": "MercadoPago",
+                "description": "Pague com cartão, Mercado Crédito ou dinheiro."
+            },
+            "mqtt_relay": {
+                "label": "Pagamento direto",
+                "description": "A máquina é ativada imediatamente após a confirmação."
+            },
+            "stripe": {
+                "label": "Cartão de crédito",
+                "description": "Pague com Visa, Mastercard ou Amex."
+            }
+        }
     },
-    "alerts": {
-      "deleteConfirmTitle": "Excluir conta",
-      "deleteConfirmBody": "Tem certeza? Essa ação não pode ser desfeita. Todos os seus dados serão excluídos.",
-      "deleteConfirmCancel": "Cancelar",
-      "deleteConfirmDelete": "Excluir"
+    "report": {
+        "title": "Reportar um problema",
+        "entitySection": {
+            "label": "A qual item se refere o relatório?",
+            "scan": "Escanear QR da lavanderia ou máquina"
+        },
+        "entityType": {
+            "laundry": "Lavanderia",
+            "machine": "Máquina"
+        },
+        "subject": {
+            "label": "Assunto",
+            "placeholder": "Selecione um assunto..."
+        },
+        "description": {
+            "label": "Descrição",
+            "placeholder": "Explique o problema com mais detalhes"
+        },
+        "submit": "Enviar relatório",
+        "submitError": "Não foi possível enviar o relatório. Tente novamente.",
+        "errors": {
+            "subjectRequired": "O assunto é obrigatório",
+            "descriptionRequired": "A descrição é obrigatória"
+        },
+        "messages": {
+            "laundryNotFound": {
+                "title": "Lavanderia não encontrada",
+                "body": "Nenhuma informação encontrada para esta lavanderia."
+            },
+            "machineNotFound": {
+                "title": "Máquina não encontrada",
+                "body": "Nenhuma informação encontrada para esta máquina."
+            },
+            "qrUnrecognized": {
+                "title": "QR não reconhecido",
+                "body": "Escaneie o QR de uma lavanderia ou máquina."
+            }
+        }
     },
-    "messages": {
-      "saveFailed": "Não foi possível salvar o perfil. Tente novamente.",
-      "passwordResetSent": "E-mail enviado",
-      "passwordResetSentBody": "Enviamos um link para redefinir sua senha para {{email}}.",
-      "passwordResetFailed": "Não foi possível enviar o e-mail. Tente novamente.",
-      "deleteFailed": "Não foi possível excluir a conta. Tente novamente."
-    }
-  },
-  "machines": {
-    "title": "Máquina",
-    "notFound": "Nenhuma informação encontrada para esta máquina.",
-    "goBack": "Voltar",
-    "model": "Modelo",
-    "startWash": "Iniciar lavagem",
-    "reportProblem": "Reportar um problema",
-    "status": {
-      "available": "Disponível",
-      "in_use": "Em uso",
-      "out_of_order": "Fora de serviço",
-      "maintenance": "Manutenção"
+    "myLaundries": {
+        "title": "Minhas lavanderias",
+        "authSubtitle": "Faça login para ver suas lavanderias.",
+        "empty": {
+            "title": "Nenhuma lavanderia",
+            "body": "Cadastre uma lavanderia privada com seu código ou adicione uma pública pelo mapa."
+        },
+        "item": {
+            "noMachines": "Sem máquinas",
+            "available": "{{available}} de {{total}} disponíveis",
+            "tags": {
+                "private": "Privada",
+                "main": "Principal"
+            }
+        },
+        "swipe": {
+            "showQR": "Mostrar QR",
+            "remove": "Remover"
+        }
     },
-    "type": {
-      "washing_machine": "Lavadora",
-      "dryer": "Secadora"
-    }
-  },
-  "laundry": {
-    "title": "Lavanderia",
-    "availability": "{{available}}/{{total}} Disponíveis",
-    "filters": {
-      "all": "Todos",
-      "washing_machine": "Lavadoras",
-      "dryer": "Secadoras"
-    }
-  },
-  "history": {
-    "title": "Histórico",
-    "stats": {
-      "spentThisMonth": "Gasto este mês",
-      "cyclesCompleted": "{{count}} ciclos concluídos"
+    "qr": {
+        "alreadyHasAccess": {
+            "title": "Acesso já concedido",
+            "body": "Você já está associado à lavanderia privada deste código."
+        },
+        "registered": {
+            "title": "Pronto!",
+            "body": "Você foi associado à lavanderia privada com sucesso."
+        },
+        "invalidCode": {
+            "title": "Código inválido",
+            "body": "O código de acesso é inválido ou expirou."
+        },
+        "privateLaundry": {
+            "title": "Lavanderia privada",
+            "body": "Esta lavanderia é privada. Você precisa de um código de acesso para adicioná-la. Solicite ao administrador local."
+        },
+        "alreadyAdded": {
+            "body": "Esta lavanderia já está na sua lista."
+        },
+        "added": {
+            "title": "Pronto!",
+            "body": "A lavanderia foi adicionada à sua lista."
+        },
+        "addFailed": {
+            "title": "Não foi possível adicionar",
+            "body": "Ocorreu um erro ao adicionar a lavanderia. Tente novamente."
+        },
+        "deeplink": {
+            "unrecognized": {
+                "title": "Link não reconhecido",
+                "body": "Não foi possível abrir o link associado a este QR code."
+            }
+        },
+        "unknown": {
+            "title": "QR não reconhecido",
+            "body": "Este QR code não é compatível com o Luvo."
+        }
     },
-    "empty": "Você não tem nenhum ciclo registrado ainda.",
-    "cycleCard": {
-      "sharedBilling": "Cobrança compartilhada"
-    }
-  },
-  "payment": {
-    "title": "Pagar máquina",
-    "methodPicker": "Forma de pagamento",
-    "confirm": "Confirmar pagamento",
-    "processing": "Processando pagamento…",
-    "success": {
-      "title": "Máquina ativada!",
-      "subtitle": "A máquina vai iniciar em breve.",
-      "done": "Concluído"
+    "info": {
+        "title": "Informações",
+        "about": {
+            "title": "Sobre"
+        },
+        "faq": {
+            "title": "FAQ"
+        },
+        "terms": {
+            "title": "Termos e condições"
+        },
+        "loading": "Carregando...",
+        "loadError": "Não foi possível carregar o conteúdo. Tente novamente.",
+        "menu": {
+            "terms": "Termos e condições",
+            "faq": "FAQ",
+            "about": "Sobre"
+        }
     },
-    "error": {
-      "title": "Falha no pagamento",
-      "generic": "Algo deu errado. Tente novamente.",
-      "retry": "Tentar novamente",
-      "cancel": "Cancelar"
-    },
-    "progress": {
-      "sending_command":     "Enviando comando…",
-      "awaiting_controller": "Aguardando confirmação do controlador…",
-      "creating_preference": "Criando preferência de pagamento…",
-      "opening_checkout":    "Abrindo checkout…",
-      "verifying_payment":   "Verificando pagamento…"
-    },
-    "errors": {
-      "relay_busy":            "A máquina está ocupada. Tente novamente.",
-      "payment_failed":        "O pagamento falhou. Tente novamente.",
-      "timeout":               "Solicitação expirada. Verifique o status da máquina.",
-      "rejected":              "O pagamento foi recusado.",
-      "cancelled_or_rejected": "O pagamento foi cancelado ou recusado.",
-      "browser_unavailable":   "Não foi possível abrir o navegador neste dispositivo.",
-      "mp_deeplink_timeout":   "Tempo esgotado aguardando resposta do MercadoPago.",
-      "stripe_not_configured": "Pagamentos com cartão ainda não estão disponíveis.",
-      "unknown":               "Algo deu errado. Tente novamente."
-    },
-    "comingSoon": "Em breve",
-    "strategies": {
-      "mercadopago": {
-        "label": "MercadoPago",
-        "description": "Pague com cartão, Mercado Crédito ou dinheiro."
-      },
-      "mqtt_relay": {
-        "label": "Pagamento direto",
-        "description": "A máquina é ativada imediatamente após a confirmação."
-      },
-      "stripe": {
-        "label": "Cartão de crédito",
-        "description": "Pague com Visa, Mastercard ou Amex."
-      }
-    }
-  },
-  "report": {
-    "title": "Reportar um problema",
-    "entitySection": {
-      "label": "A qual item se refere o relatório?",
-      "scan": "Escanear QR da lavanderia ou máquina"
-    },
-    "entityType": {
-      "laundry": "Lavanderia",
-      "machine": "Máquina"
-    },
-    "subject": { "label": "Assunto", "placeholder": "Selecione um assunto..." },
-    "description": { "label": "Descrição", "placeholder": "Explique o problema com mais detalhes" },
-    "submit": "Enviar relatório",
-    "submitError": "Não foi possível enviar o relatório. Tente novamente.",
-    "errors": {
-      "subjectRequired": "O assunto é obrigatório",
-      "descriptionRequired": "A descrição é obrigatória"
-    },
-    "messages": {
-      "laundryNotFound": { "title": "Lavanderia não encontrada", "body": "Nenhuma informação encontrada para esta lavanderia." },
-      "machineNotFound": { "title": "Máquina não encontrada", "body": "Nenhuma informação encontrada para esta máquina." },
-      "qrUnrecognized": { "title": "QR não reconhecido", "body": "Escaneie o QR de uma lavanderia ou máquina." }
-    }
-  },
-  "myLaundries": {
-    "title": "Minhas lavanderias",
-    "authSubtitle": "Faça login para ver suas lavanderias.",
-    "empty": {
-      "title": "Nenhuma lavanderia",
-      "body": "Cadastre uma lavanderia privada com seu código ou adicione uma pública pelo mapa."
-    },
-    "item": {
-      "noMachines": "Sem máquinas",
-      "available": "{{available}} de {{total}} disponíveis",
-      "tags": {
-        "private": "Privada",
-        "main": "Principal"
-      }
-    },
-    "swipe": {
-      "showQR": "Mostrar QR",
-      "remove": "Remover"
-    }
-  },
-  "qr": {
-    "alreadyHasAccess": { "title": "Acesso já concedido", "body": "Você já está associado à lavanderia privada deste código." },
-    "registered": { "title": "Pronto!", "body": "Você foi associado à lavanderia privada com sucesso." },
-    "invalidCode": { "title": "Código inválido", "body": "O código de acesso é inválido ou expirou." },
-    "privateLaundry": { "title": "Lavanderia privada", "body": "Esta lavanderia é privada. Você precisa de um código de acesso para adicioná-la. Solicite ao administrador local." },
-    "alreadyAdded": { "body": "Esta lavanderia já está na sua lista." },
-    "added": { "title": "Pronto!", "body": "A lavanderia foi adicionada à sua lista." },
-    "addFailed": { "title": "Não foi possível adicionar", "body": "Ocorreu um erro ao adicionar a lavanderia. Tente novamente." },
-    "deeplink": { "unrecognized": { "title": "Link não reconhecido", "body": "Não foi possível abrir o link associado a este QR code." } },
-    "unknown": { "title": "QR não reconhecido", "body": "Este QR code não é compatível com o Luvo." }
-  },
-  "info": {
-    "title": "Informações",
-    "about": { "title": "Sobre" },
-    "faq": { "title": "FAQ" },
-    "terms": { "title": "Termos e condições" },
-    "loading": "Carregando...",
-    "loadError": "Não foi possível carregar o conteúdo. Tente novamente.",
-    "menu": {
-      "terms": "Termos e condições",
-      "faq": "FAQ",
-      "about": "Sobre"
-    }
-  },
-  "tabs": {
-    "laundry": "Lavanderias",
-    "myLaundries": "Minhas lavanderias",
-    "profile": "Perfil"
-  },
-  "laundryRegistration": {
-    "title": "Adicionar lavanderia",
-    "guestPrompt": "Faça login para adicionar esta lavanderia à sua lista",
-    "accessCodeLabel": "Código de acesso",
-    "description": "Adicione esta lavanderia privada à sua lista para ver suas máquinas disponíveis",
-    "invalidCode": "Código inválido ou expirado. Verifique o código e tente novamente.",
-    "addButton": "Adicionar lavanderia"
-  },
-  "scan": {
     "tabs": {
-      "qr": "Escanear QR",
-      "code": "Código"
+        "laundry": "Lavanderias",
+        "myLaundries": "Minhas lavanderias",
+        "profile": "Perfil"
     },
-    "noCamera": "Você não habilitou o acesso à câmera. Habilite nas configurações do seu dispositivo.",
-    "codeSection": {
-      "title": "Insira o número de referência",
-      "submit": "Confirmar"
+    "laundryRegistration": {
+        "title": "Adicionar lavanderia",
+        "guestPrompt": "Faça login para adicionar esta lavanderia à sua lista",
+        "accessCodeLabel": "Código de acesso",
+        "description": "Adicione esta lavanderia privada à sua lista para ver suas máquinas disponíveis",
+        "invalidCode": "Código inválido ou expirado. Verifique o código e tente novamente.",
+        "addButton": "Adicionar lavanderia"
+    },
+    "scan": {
+        "tabs": {
+            "qr": "Escanear QR",
+            "code": "Código"
+        },
+        "noCamera": "Você não habilitou o acesso à câmera. Habilite nas configurações do seu dispositivo.",
+        "codeSection": {
+            "title": "Insira o número de referência",
+            "submit": "Confirmar"
+        }
+    },
+    "laundryQR": {
+        "shareHint": "Compartilhe este código com outros moradores"
+    },
+    "settings": {
+        "title": "Configurações",
+        "general": {
+            "title": "Geral"
+        },
+        "notifications": {
+            "title": "Notificações"
+        },
+        "darkMode": {
+            "label": "Modo escuro",
+            "description": "Alterar a aparência do app"
+        },
+        "ownerMode": {
+            "label": "Modo proprietário",
+            "description": "Habilitar telas de gerenciamento da lavanderia"
+        },
+        "language": {
+            "label": "Idioma",
+            "description": "Idioma da interface"
+        },
+        "endOfCycle": {
+            "label": "Fim de ciclo",
+            "description": "Me notificar quando o ciclo de lavagem terminar"
+        },
+        "promotions": {
+            "label": "Novidades e promoções",
+            "description": "Receber novidades sobre novas funcionalidades e ofertas"
+        },
+        "maintenance": {
+            "label": "Alertas de manutenção",
+            "description": "Notificações quando uma máquina estiver indisponível"
+        },
+        "notificationsDisabled": {
+            "title": "Notificações desativadas",
+            "body": "Para receber essas notificações, habilite as permissões nas configurações do seu dispositivo."
+        }
     }
-  },
-  "laundryQR": {
-    "shareHint": "Compartilhe este código com outros moradores"
-  },
-  "settings": {
-    "title": "Configurações",
-    "general": {
-      "title": "Geral"
-    },
-    "notifications": {
-      "title": "Notificações"
-    },
-    "darkMode": {
-      "label": "Modo escuro",
-      "description": "Alterar a aparência do app"
-    },
-    "ownerMode": {
-      "label": "Modo proprietário",
-      "description": "Habilitar telas de gerenciamento da lavanderia"
-    },
-    "language": {
-      "label": "Idioma",
-      "description": "Idioma da interface"
-    },
-    "endOfCycle": {
-      "label": "Fim de ciclo",
-      "description": "Me notificar quando o ciclo de lavagem terminar"
-    },
-    "promotions": {
-      "label": "Novidades e promoções",
-      "description": "Receber novidades sobre novas funcionalidades e ofertas"
-    },
-    "maintenance": {
-      "label": "Alertas de manutenção",
-      "description": "Notificações quando uma máquina estiver indisponível"
-    },
-    "notificationsDisabled": {
-      "title": "Notificações desativadas",
-      "body": "Para receber essas notificações, habilite as permissões nas configurações do seu dispositivo."
-    }
-  }
 }

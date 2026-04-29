@@ -12,6 +12,10 @@ export const useSettingsMenuItemTheme = () => {
       paddingVertical: theme.spacing['spacing-xs'],
       paddingHorizontal: theme.spacing['spacing-sm'],
     },
+    // flex: 1 pushes the trailing icon to the right edge
+    label: {
+      flex: 1,
+    },
   });
 
   return { styles, theme };

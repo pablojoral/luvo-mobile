@@ -16,14 +16,13 @@ export const useProfileTheme = () => {
     },
     contentContainer: {
       flex: 1,
-      gap: theme.spacing['spacing-xxxxl'],
       paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
-      backgroundColor: theme.surfaceColor['surface-invert'],
+      backgroundColor: theme.surfaceColor['surface-background'],
     },
     menusContainer: {
       flex: 1,
-      justifyContent: 'space-between',
       paddingHorizontal: theme.spacing['spacing-xl'],
+      paddingTop: theme.spacing['spacing-lg'],
     },
   });
 

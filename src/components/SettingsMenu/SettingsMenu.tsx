@@ -12,7 +12,13 @@ export const SettingsMenu = ({ items }: SettingsMenuProps) => {
   return (
     <View style={styles.container}>
       {items.map(item => (
-        <SettingsMenuItem key={item.label} label={item.label} iconName={item.iconName} onPress={item.onPress} />
+        <SettingsMenuItem
+          key={item.label}
+          label={item.label}
+          iconName={item.iconName}
+          onPress={item.onPress}
+          trailingIcon={item.trailingIcon}
+        />
       ))}
     </View>
   );
