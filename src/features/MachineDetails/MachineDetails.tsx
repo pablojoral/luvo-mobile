@@ -65,7 +65,7 @@ export const MachineDetails = () => {
           <View style={styles.row}>
             <SvgIcon
               name={iconName}
-              size="font-size-xl"
+              size="icon-size-xl"
               color="font-secondary"
             />
             <Text fontSize="font-size-lg" fontWeight="semibold" color="font-primary">

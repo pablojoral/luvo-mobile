@@ -35,7 +35,7 @@ export const SelectInput = ({ label, placeholder, value, options, onChange, erro
         </Text>
         <SvgIcon
           name={isOpen ? 'ChevronLeft' : 'ChevronRight'}
-          size="font-size-md"
+          size="icon-size-md"
           color="font-secondary"
         />
       </Pressable>

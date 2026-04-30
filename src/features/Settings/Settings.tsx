@@ -6,6 +6,7 @@ import { useSettingsScreen } from './hooks/useSettingsScreen';
 import { SettingsGroup } from './components/SettingsGroup/SettingsGroup';
 import { SettingsRow } from './components/SettingsRow/SettingsRow';
 import { LanguagePicker } from './components/LanguagePicker/LanguagePicker';
+import type { SupportedLanguage } from 'services/i18n/languages';
 import { useSettingsTheme } from './theme/useSettingsTheme';
 
 export const Settings = () => {
@@ -78,7 +79,7 @@ export const Settings = () => {
 
       <LanguagePicker
         visible={languagePickerVisible}
-        currentLanguage={s?.language ?? 'es'}
+        currentLanguage={(s?.language ?? 'es') as SupportedLanguage}
         onSelect={handleLanguageSelect}
         onClose={closeLanguagePicker}
       />

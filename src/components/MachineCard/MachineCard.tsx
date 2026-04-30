@@ -62,7 +62,7 @@ export const MachineCard = ({ machine, onPress }: MachineCardProps) => {
         </View>
         <SvgIcon
           name={'ChevronRight'}
-          size={'font-size-xxl'}
+          size={'icon-size-xxl'}
           color={onPress ? 'font-primary' : 'font-disabled'}
         />
       </TouchableOpacity>
