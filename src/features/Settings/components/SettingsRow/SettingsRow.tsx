@@ -1,9 +1,9 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { IconName } from 'components/SvgIcon/types';
+import { Switch } from 'components/Switch/Switch';
 import { Text } from 'components/Text/Text';
-import { Switch, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useSettingsTheme } from 'features/Settings/theme/useSettingsTheme';
-import { useTheme } from 'theme/hooks/useTheme';
 
 type SettingsRowProps = {
   icon: IconName;
@@ -18,7 +18,6 @@ type SettingsRowProps = {
 
 export const SettingsRow = (props: SettingsRowProps) => {
   const { styles } = useSettingsTheme();
-  const theme = useTheme();
   const { icon, label, description, readonly } = props;
 
   const inner = (
@@ -40,14 +39,7 @@ export const SettingsRow = (props: SettingsRowProps) => {
 
       <View style={styles.rowRight}>
         {props.type === 'toggle' ? (
-          <Switch
-            value={props.value}
-            onValueChange={props.onToggle}
-            trackColor={{
-              false: theme.borderColor['border-primary'],
-              true: theme.surfaceColor['surface-invert'],
-            }}
-          />
+          <Switch value={props.value} onValueChange={props.onToggle} />
         ) : props.type === 'navigate' ? (
           <SvgIcon name="ChevronRight" size="font-size-lg" color="font-light" />
         ) : (

@@ -5,25 +5,13 @@ import { ScrollView, View } from 'react-native';
 import { useSettingsScreen } from './hooks/useSettingsScreen';
 import { SettingsGroup } from './components/SettingsGroup/SettingsGroup';
 import { SettingsRow } from './components/SettingsRow/SettingsRow';
-import { LanguagePicker } from './components/LanguagePicker/LanguagePicker';
+import { SettingsSeparator } from './components/SettingsSeparator/SettingsSeparator';
 import { useSettingsTheme } from './theme/useSettingsTheme';
-import type { SupportedLanguage } from '../../services/i18n/languages';
 
 export const Settings = () => {
   const navigation = useRootStackNavigation();
   const { styles } = useSettingsTheme();
-  const {
-    settings: s,
-    darkMode,
-    setDarkMode,
-    handleNotificationToggle,
-    strings,
-    languagePickerVisible,
-    openLanguagePicker,
-    closeLanguagePicker,
-    handleLanguageSelect,
-    currentLanguageLabel,
-  } = useSettingsScreen();
+  const { settings: s, darkMode, setDarkMode, handleNotificationToggle, strings } = useSettingsScreen();
 
   return (
     <View style={styles.container}>
@@ -39,13 +27,15 @@ export const Settings = () => {
             value={darkMode}
             onToggle={setDarkMode}
           />
+          <SettingsSeparator />
           <SettingsRow
             type="value"
             icon="Map"
             label={strings.languageLabel}
             description={strings.languageDescription}
-            value={currentLanguageLabel}
-            onPress={openLanguagePicker}
+            value={s?.language ?? 'es'}
+            onPress={() => {}}
+            readonly
           />
         </SettingsGroup>
 
@@ -58,6 +48,7 @@ export const Settings = () => {
             value={s?.notifyEndOfCycle ?? true}
             onToggle={v => handleNotificationToggle({ notifyEndOfCycle: v }, v)}
           />
+          <SettingsSeparator />
           <SettingsRow
             type="toggle"
             icon="Gift"
@@ -66,6 +57,7 @@ export const Settings = () => {
             value={s?.notifyPromotions ?? false}
             onToggle={v => handleNotificationToggle({ notifyPromotions: v }, v)}
           />
+          <SettingsSeparator />
           <SettingsRow
             type="toggle"
             icon="AlertCircle"
@@ -77,13 +69,6 @@ export const Settings = () => {
         </SettingsGroup>
 
       </ScrollView>
-
-      <LanguagePicker
-        visible={languagePickerVisible}
-        currentLanguage={(s?.language ?? 'es') as SupportedLanguage}
-        onSelect={handleLanguageSelect}
-        onClose={closeLanguagePicker}
-      />
     </View>
   );
 };

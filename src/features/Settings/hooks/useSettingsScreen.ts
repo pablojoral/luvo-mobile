@@ -12,7 +12,7 @@ import i18n from '../../../services/i18n/i18n';
 export function useSettingsScreen() {
   const { t } = useTranslation('common');
   const { data: settings } = useSettings();
-  const { mutate: update } = useUpdateSettings();
+  const { mutate: updateSettings } = useUpdateSettings();
 
   const darkMode = useDarkModeStore(st => st.darkMode);
   const setDarkMode = useDarkModeStore(st => st.setDarkMode);
@@ -24,7 +24,7 @@ export function useSettingsScreen() {
   const closeLanguagePicker = useCallback(() => setLanguagePickerVisible(false), []);
 
   const handleNotificationToggle = async (field: PatchUserSettings, value: boolean) => {
-    update(field);
+    updateSettings(field);
     if (!value) return;
     const status = await checkNotificationPermission();
     if (status !== 'granted') {
@@ -37,10 +37,10 @@ export function useSettingsScreen() {
 
   const handleLanguageSelect = useCallback(
     (lang: SupportedLanguage) => {
-      update({ language: lang });
+      updateSettings({ language: lang });
       closeLanguagePicker();
     },
-    [update, closeLanguagePicker],
+    [updateSettings, closeLanguagePicker],
   );
 
   const currentLanguageLabel = getLanguageLabel(
@@ -49,7 +49,6 @@ export function useSettingsScreen() {
 
   return {
     settings,
-    update,
     darkMode,
     setDarkMode,
     handleNotificationToggle,
