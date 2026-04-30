@@ -16,10 +16,18 @@
     "defaultSubtitle": "Accedi per continuare.",
     "signIn": "Accedi",
     "title": "Autenticazione",
+    "heading": {
+      "login": "Bentornato",
+      "register": "Crea il tuo account"
+    },
+    "subtitle": {
+      "login": "Accedi per vedere il tuo profilo e gestire il tuo account.",
+      "register": "Registrati per iniziare a usare Luvo."
+    },
     "form": {
       "email": {
         "label": "Email",
-        "placeholder": "Email",
+        "placeholder": "tuaemail@esempio.com",
         "required": "L'email è obbligatoria",
         "invalid": "Email non valida"
       },
@@ -32,7 +40,16 @@
       "submit": {
         "login": "Accedi",
         "register": "Registrati"
-      }
+      },
+      "forgotPassword": "Reimposta password",
+      "forgotPasswordSuccess": "Ti abbiamo inviato un'email per reimpostare la password.",
+      "signUpPrompt": "Nuovo su Luvo?",
+      "signUpLink": "Crea account",
+      "signInPrompt": "Hai già un account?",
+      "signInLink": "Accedi",
+      "socialDivider": "o",
+      "googleSignIn": "Continua con Google",
+      "appleSignIn": "Continua con Apple"
     }
   },
   "messages": {

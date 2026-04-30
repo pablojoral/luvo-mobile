@@ -16,10 +16,18 @@
     "defaultSubtitle": "Sign in to continue.",
     "signIn": "Sign In",
     "title": "Authentication",
+    "heading": {
+      "login": "Welcome back",
+      "register": "Create your account"
+    },
+    "subtitle": {
+      "login": "Sign in to view your profile and manage your account.",
+      "register": "Sign up to start using Luvo."
+    },
     "form": {
       "email": {
         "label": "Email",
-        "placeholder": "Email",
+        "placeholder": "youremail@example.com",
         "required": "Email is required",
         "invalid": "Invalid email"
       },
@@ -32,7 +40,16 @@
       "submit": {
         "login": "Sign In",
         "register": "Register"
-      }
+      },
+      "forgotPassword": "Reset password",
+      "forgotPasswordSuccess": "We sent you a password reset email.",
+      "signUpPrompt": "New to Luvo?",
+      "signUpLink": "Create account",
+      "signInPrompt": "Already have an account?",
+      "signInLink": "Sign in",
+      "socialDivider": "or",
+      "googleSignIn": "Continue with Google",
+      "appleSignIn": "Continue with Apple"
     }
   },
   "messages": {

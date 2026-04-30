@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { signInWithEmail, signUpWithEmail } from 'services/firebase/firebaseAuth';
+import { sendPasswordReset, signInWithEmail, signUpWithEmail } from 'services/firebase/firebaseAuth';
 
 export type AuthMode = 'login' | 'register';
 
@@ -11,10 +12,13 @@ export interface AuthFormValues {
 
 export const useAuthForm = (mode: AuthMode) => {
   const { t } = useTranslation('common');
+  const [forgotPasswordSent, setForgotPasswordSent] = useState(false);
 
   const {
     control,
     handleSubmit,
+    getValues,
+    reset,
     formState: { errors, isSubmitting },
     setError,
   } = useForm<AuthFormValues>({
@@ -45,5 +49,21 @@ export const useAuthForm = (mode: AuthMode) => {
     }
   });
 
-  return { control, errors, isSubmitting, onSubmit, emailRules, passwordRules };
+  const handleForgotPassword = async () => {
+    const email = getValues('email');
+    if (!email) {
+      setError('email', { message: t('auth.form.email.required') });
+      return;
+    }
+    try {
+      await sendPasswordReset(email);
+      setForgotPasswordSent(true);
+    } catch (err: unknown) {
+      setError('root', {
+        message: err instanceof Error ? err.message : t('errors.generic'),
+      });
+    }
+  };
+
+  return { control, errors, isSubmitting, onSubmit, emailRules, passwordRules, handleForgotPassword, forgotPasswordSent, reset };
 };

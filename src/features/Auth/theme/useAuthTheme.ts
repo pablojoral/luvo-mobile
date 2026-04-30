@@ -5,28 +5,46 @@ export const useAuthTheme = () => {
   const theme = useTheme();
 
   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.surfaceColor['surface-background'],
+    },
     avoidingView: {
       flex: 1,
     },
-    container: {
-      flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
-    },
-    logoContainer: {
-      alignItems: 'center',
-      gap: theme.spacing['spacing-md'],
+    scrollContent: {
+      flexGrow: 1,
     },
     content: {
-      flex: 1,
       padding: theme.spacing['spacing-xl'],
+      gap: theme.spacing['spacing-md'],
+    },
+    logoRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: theme.spacing['spacing-xs'],
+      marginBottom: theme.spacing['spacing-sm'],
+    },
+    headingSection: {
+      gap: theme.spacing['spacing-xs'],
+      marginBottom: theme.spacing['spacing-xs'],
+    },
+    formSection: {
       gap: theme.spacing['spacing-md'],
     },
     errorText: {
       alignSelf: 'flex-start',
     },
+    forgotPasswordRow: {
+      alignSelf: 'flex-end',
+    },
+    forgotPasswordSuccessText: {
+      alignSelf: 'flex-start',
+    },
     footer: {
       padding: theme.spacing['spacing-xl'],
-      paddingBottom: theme.spacing['spacing-max'],
+      paddingBottom: theme.spacing['spacing-xxxl'],
+      gap: theme.spacing['spacing-md'],
     },
   });
 
