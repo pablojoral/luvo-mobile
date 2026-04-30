@@ -44,7 +44,7 @@ export const QRScannerContent: React.FC = () => {
         <SvgImage name="qr-target" height={180} width={180} />
       </View>
       <TouchableOpacity style={styles.closeButton} onPress={close} activeOpacity={0.7}>
-        <SvgIcon name="ChevronLeft" size="font-size-xl" color="font-invert" />
+        <SvgIcon name="ChevronLeft" size="icon-size-md" color="font-invert" />
       </TouchableOpacity>
     </Animated.View>
   );

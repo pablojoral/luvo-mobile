@@ -290,13 +290,10 @@
       "label": "Modalità scura",
       "description": "Cambia l'aspetto dell'app"
     },
-    "ownerMode": {
-      "label": "Modalità proprietario",
-      "description": "Abilita le schermate di gestione della lavanderia"
-    },
     "language": {
       "label": "Lingua",
-      "description": "Lingua dell'interfaccia"
+      "description": "Lingua dell'interfaccia",
+      "pickerTitle": "Seleziona lingua"
     },
     "endOfCycle": {
       "label": "Fine ciclo",

@@ -19,7 +19,7 @@ export const useBottomTabNavigator = () => {
   const getTabBarIcon = (routeName: string, focused: boolean) => {
     const colorName: FontColor = focused ? 'font-highlight' : 'font-light';
     const name = iconMap[routeName as TabRouteName];
-    return <SvgIcon name={name!} size={'font-size-xxl'} color={colorName} />;
+    return <SvgIcon name={name!} size={'icon-size-xl'} color={colorName} />;
   };
 
   return {

@@ -47,7 +47,7 @@ export const FAQAccordionItem = ({ item }: FAQAccordionItemProps) => {
       <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.7}>
         <Text style={styles.faqQuestion}>{item.question}</Text>
         <Animated.View style={{ transform: [{ rotate }] }}>
-          <SvgIcon name="ChevronRight" size="font-size-lg" color="font-secondary" />
+          <SvgIcon name="ChevronRight" size="icon-size-sm" color="font-secondary" />
         </Animated.View>
       </TouchableOpacity>
 

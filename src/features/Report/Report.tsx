@@ -62,14 +62,14 @@ export const Report = ({ route, navigation }: Props) => {
               </Text>
               {selectedEntity === null ? (
                 <Pressable style={styles.scanButton} onPress={onScanForEntity}>
-                  <SvgIcon name="QrCode" size="font-size-xl" color="font-secondary" />
+                  <SvgIcon name="QrCode" size="icon-size-md" color="font-secondary" />
                   <Text fontSize="font-size-sm" color="font-secondary">
                     {strings.entitySectionScan}
                   </Text>
                 </Pressable>
               ) : (
                 <View style={styles.entityCard}>
-                  <SvgIcon name={entityIconName} size="font-size-lg" color="font-secondary" />
+                  <SvgIcon name={entityIconName} size="icon-size-sm" color="font-secondary" />
                   <View style={styles.entityCardInfo}>
                     <Text fontSize="font-size-xs" color="font-secondary">
                       {strings.entityTypeLabel(selectedEntity.type)}

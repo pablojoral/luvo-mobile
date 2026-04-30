@@ -13,7 +13,7 @@ export const QRSwipeAction = ({ onPress }: QRSwipeActionProps) => {
   const { showQRLabel } = useSwipeActions();
   return (
     <TouchableOpacity style={styles.actionQR} onPress={onPress} activeOpacity={0.8}>
-      <SvgIcon name="QrCode" size="font-size-xl" color="font-invert" />
+      <SvgIcon name="QrCode" size="icon-size-md" color="font-invert" />
       <Text fontSize="font-size-xs" color="font-invert" fontWeight="semibold">
         {showQRLabel}
       </Text>

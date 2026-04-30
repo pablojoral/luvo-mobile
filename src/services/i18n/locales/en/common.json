@@ -290,13 +290,10 @@
       "label": "Dark mode",
       "description": "Change the app appearance"
     },
-    "ownerMode": {
-      "label": "Owner mode",
-      "description": "Enable laundry management screens"
-    },
     "language": {
       "label": "Language",
-      "description": "Interface language"
+      "description": "Interface language",
+      "pickerTitle": "Select language"
     },
     "endOfCycle": {
       "label": "End of cycle",

@@ -82,6 +82,15 @@ export const DarkThemeConstants: ThemeConstants = {
     'border-width-xxxl': 8,
   },
 
+  iconSize: {
+    'icon-size-xs': 14,
+    'icon-size-sm': 18,
+    'icon-size-md': 20,
+    'icon-size-lg': 22,
+    'icon-size-xl': 24,
+    'icon-size-xxl': 26,
+    'icon-size-xxxl': 32,
+  },
   cornerRad: {
     'corner-rad-none': 0,
     'corner-rad-sm': 4,

@@ -21,7 +21,7 @@ export const SettingsMenuItem = ({ label, iconName, onPress }: SettingsMenuItemP
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <SvgIcon name={iconName} size={'font-size-xxl'} />
+      <SvgIcon name={iconName} size={'icon-size-xl'} />
       <Text fontSize={'font-size-xl'}>{label}</Text>
     </TouchableOpacity>
   );
