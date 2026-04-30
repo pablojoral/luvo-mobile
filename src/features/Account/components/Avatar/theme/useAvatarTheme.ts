@@ -35,9 +35,9 @@ export const useAvatarTheme = ({ avatarId, size, variant = 'circle' }: UseAvatar
             width: actualSize,
             height: actualSize,
             borderRadius: theme.cornerRad['corner-rad-xl'],
-            backgroundColor: theme.surfaceColor['surface-primary'],
+            backgroundColor: avatar.color + '66',
             borderWidth: theme.borderWidth['border-width-xs'],
-            borderColor: theme.surfaceColor['surface-background'],
+            borderColor: avatar.color,
           }
         : {
             width: actualSize,

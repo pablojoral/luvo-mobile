@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
-import { Colors } from 'theme/constants/colors';
 
 export const useScreenHeaderTheme = () => {
   const theme = useTheme();
@@ -12,7 +11,7 @@ export const useScreenHeaderTheme = () => {
       alignItems: 'center',
       paddingVertical: theme.spacing['spacing-lg'],
       paddingHorizontal: theme.spacing['spacing-md'],
-      backgroundColor: Colors['colors-white'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
       borderBottomLeftRadius: theme.cornerRad['corner-rad-xxl'],
       borderBottomRightRadius: theme.cornerRad['corner-rad-xxl'],
     },

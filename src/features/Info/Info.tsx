@@ -1,4 +1,4 @@
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { SettingsMenu } from 'components/SettingsMenu/SettingsMenu';
 import { View } from 'react-native';
 
@@ -11,7 +11,7 @@ export const Info = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={title} onBack={handleGoBack} />
+      <SafeScreenHeader title={title} onBack={handleGoBack} />
       <View style={styles.scrollContent}>
         <SettingsMenu items={items} />
       </View>

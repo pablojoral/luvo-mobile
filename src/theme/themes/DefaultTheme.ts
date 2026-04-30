@@ -20,10 +20,10 @@ export const DefaultThemeConstants: ThemeConstants = {
     'spacing-max': 96,
   },
   surfaceColor: {
-    'surface-primary': Colors['colors-lavender-50'],
+    'surface-primary': Colors['colors-white'],
     'surface-secondary': Colors['colors-rose-50'],
     'surface-tertiary': Colors['colors-grey-100'],
-    'surface-background': Colors['colors-lavender-200'],
+    'surface-background': Colors['colors-lavender-50'],
     'surface-surface': Colors['colors-lavender-300'],
     'surface-disabled': Colors['colors-lavender-600'],
     'surface-invert': Colors['colors-lavender-500'],

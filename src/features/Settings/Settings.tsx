@@ -1,4 +1,4 @@
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { ScrollView, View } from 'react-native';
 
@@ -27,7 +27,7 @@ export const Settings = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
+      <SafeScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         <SettingsGroup title={strings.generalTitle}>

@@ -11,7 +11,7 @@ export const useLanguagePickerTheme = () => {
       backgroundColor: Colors['colors-semi-transparent'],
     },
     sheet: {
-      backgroundColor: Colors['colors-white'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
       borderTopLeftRadius: theme.cornerRad['corner-rad-xxxl'],
       borderTopRightRadius: theme.cornerRad['corner-rad-xxxl'],
       paddingTop: theme.spacing['spacing-sm'],
@@ -40,7 +40,7 @@ export const useLanguagePickerTheme = () => {
       backgroundColor: theme.surfaceColor['surface-primary'],
     },
     rowUnselected: {
-      backgroundColor: Colors['colors-white'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
     },
     separator: {
       height: theme.borderWidth['border-width-xs'],

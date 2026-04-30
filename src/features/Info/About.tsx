@@ -1,4 +1,4 @@
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { Text } from 'components/Text/Text';
 import { ScrollView, View } from 'react-native';
 
@@ -12,7 +12,7 @@ export const About = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={title} onBack={handleGoBack} />
+      <SafeScreenHeader title={title} onBack={handleGoBack} />
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <Text>{loadingText}</Text>

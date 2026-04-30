@@ -11,7 +11,7 @@ export const useAvatarPickerTheme = () => {
       backgroundColor: Colors['colors-semi-transparent'],
     },
     sheet: {
-      backgroundColor: Colors['colors-white'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
       borderTopLeftRadius: theme.cornerRad['corner-rad-xxxl'],
       borderTopRightRadius: theme.cornerRad['corner-rad-xxxl'],
       // paddingHorizontal: theme.spacing['spacing-lg'],
