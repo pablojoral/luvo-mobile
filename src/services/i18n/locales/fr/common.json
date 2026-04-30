@@ -16,10 +16,18 @@
     "defaultSubtitle": "Connectez-vous pour continuer.",
     "signIn": "Se connecter",
     "title": "Authentification",
+    "heading": {
+      "login": "Bon retour",
+      "register": "Créez votre compte"
+    },
+    "subtitle": {
+      "login": "Connectez-vous pour voir votre profil et gérer votre compte.",
+      "register": "Inscrivez-vous pour commencer à utiliser Luvo."
+    },
     "form": {
       "email": {
         "label": "E-mail",
-        "placeholder": "E-mail",
+        "placeholder": "votreemail@exemple.com",
         "required": "L'e-mail est obligatoire",
         "invalid": "E-mail invalide"
       },

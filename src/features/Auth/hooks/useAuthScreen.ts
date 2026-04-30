@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
@@ -8,9 +8,10 @@ import { useSocialAuth } from './useSocialAuth';
 
 type AuthNavigation = NativeStackNavigationProp<RootStackParamList, 'Auth'>;
 
-export const useAuthScreen = (mode: AuthMode, navigation: AuthNavigation) => {
+export const useAuthScreen = (initialMode: AuthMode, navigation: AuthNavigation) => {
   const { t } = useTranslation('common');
   const { data: firebaseUser } = useFirebaseAuthState();
+  const [mode, setMode] = useState<AuthMode>(initialMode);
   const {
     control,
     errors,
@@ -20,13 +21,16 @@ export const useAuthScreen = (mode: AuthMode, navigation: AuthNavigation) => {
     passwordRules,
     handleForgotPassword,
     forgotPasswordSent,
+    reset,
   } = useAuthForm(mode);
   const { handleSocialSignIn, error: socialError, isSubmitting: isSocialSubmitting, showApple } = useSocialAuth();
 
   const isLoading = isSubmitting || isSocialSubmitting;
 
   const handleToggleMode = () => {
-    navigation.navigate('Auth', { mode: mode === 'login' ? 'register' : 'login' });
+    const next = mode === 'login' ? 'register' : 'login';
+    setMode(next);
+    reset();
   };
 
   useEffect(() => {
@@ -49,7 +53,8 @@ export const useAuthScreen = (mode: AuthMode, navigation: AuthNavigation) => {
     showApple,
     handleToggleMode,
     mode,
-    title: t('auth.title'),
+    heading: mode === 'register' ? t('auth.heading.register') : t('auth.heading.login'),
+    subtitle: mode === 'register' ? t('auth.subtitle.register') : t('auth.subtitle.login'),
     emailLabel: t('auth.form.email.label'),
     emailPlaceholder: t('auth.form.email.placeholder'),
     passwordLabel: t('auth.form.password.label'),

@@ -1,14 +1,14 @@
+import { AuthModeToggle } from 'components/AuthModeToggle/AuthModeToggle';
 import { Button } from 'components/Button/Button';
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { SocialAuth } from 'components/SocialAuth/SocialAuth';
 import { SvgImage } from 'components/SvgImage/SvgImage';
 import { Text } from 'components/Text/Text';
 import { TextInput } from 'components/TextInput/TextInput';
-import { useKeyboardVisible } from 'hooks/useKeyboardVisible';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, TouchableOpacity, View } from 'react-native';
-import Animated, { FadeIn, SlideOutUp } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -20,7 +20,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Auth'>;
 export const Auth = ({ route, navigation }: Props) => {
   const mode = route.params?.mode ?? 'login';
   const { styles } = useAuthTheme();
-  const isKeyboardVisible = useKeyboardVisible();
   const {
     control,
     errors,
@@ -36,7 +35,8 @@ export const Auth = ({ route, navigation }: Props) => {
     isSocialSubmitting,
     showApple,
     handleToggleMode,
-    title,
+    heading,
+    subtitle,
     emailLabel,
     emailPlaceholder,
     passwordLabel,
@@ -55,19 +55,20 @@ export const Auth = ({ route, navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={title} onBack={() => navigation.goBack()} />
       <KeyboardAvoidingView style={styles.avoidingView} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView bounces={false} keyboardShouldPersistTaps="handled">
+        <ScrollView bounces={false} keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scrollContent}>
           <Pressable onPress={Keyboard.dismiss} style={styles.content}>
-            {!isKeyboardVisible && (
-              <Animated.View
-                style={styles.logoContainer}
-                entering={FadeIn.duration(200)}
-                exiting={SlideOutUp.duration(200)}
-              >
-                <SvgImage name="luvo-logo-pink" height={128} width={128} />
-              </Animated.View>
-            )}
+            <View style={styles.logoRow}>
+              <SvgImage name="luvo-logo-pink" height={34} width={32} />
+              <Text fontSize="font-size-xxxl" color="font-highlight" fontWeight="bold">luvo</Text>
+            </View>
+            <Animated.View key={mode} entering={FadeInDown.duration(280).springify()}>
+              <View style={styles.headingSection}>
+                <Text fontSize="font-size-xxxxl" fontWeight="extrabold">{heading}</Text>
+                <Text fontSize="font-size-md" color="font-light">{subtitle}</Text>
+              </View>
+            </Animated.View>
+            <Animated.View entering={FadeIn.duration(200)} style={styles.formSection}>
             <Controller
               control={control}
               name="email"
@@ -104,14 +105,11 @@ export const Auth = ({ route, navigation }: Props) => {
               )}
             />
             {mode === 'login' && (
-              <View style={styles.forgotPasswordRow}>
-                <Button
-                  variant="link"
-                  label={forgotPasswordLabel}
-                  onPress={handleForgotPassword}
-                  disabled={isLoading}
-                />
-              </View>
+              <TouchableOpacity style={styles.forgotPasswordRow} onPress={handleForgotPassword} disabled={isLoading}>
+                <Text fontSize="font-size-sm" color="font-highlight" fontWeight="semibold">
+                  {forgotPasswordLabel}
+                </Text>
+              </TouchableOpacity>
             )}
             {forgotPasswordSent && (
               <Text fontSize="font-size-xs" color="font-success" style={styles.forgotPasswordSuccessText}>
@@ -123,57 +121,28 @@ export const Auth = ({ route, navigation }: Props) => {
                 {errors.root.message}
               </Text>
             )}
-            {socialError && (
-              <Text fontSize="font-size-xs" color="font-error" style={styles.errorText}>
-                {socialError}
-              </Text>
-            )}
+            </Animated.View>
           </Pressable>
-        </ScrollView>
-        <View style={styles.footer}>
-          <Button fullWidth label={submitLabel} onPress={onSubmit} disabled={isLoading} submitting={isSubmitting} />
-          <View style={styles.dividerRow}>
-            <View style={styles.dividerLine} />
-            <Text fontSize="font-size-xs" color="font-secondary">
-              {socialDividerLabel}
-            </Text>
-            <View style={styles.dividerLine} />
-          </View>
-          <View style={styles.socialButtonsRow}>
-            <Button
-              fullWidth
-              variant="secondary"
-              label={googleSignInLabel}
-              onPress={() => handleSocialSignIn('google')}
+          <View style={styles.footer}>
+            <Button fullWidth label={submitLabel} onPress={onSubmit} disabled={isLoading} submitting={isSubmitting} />
+            <SocialAuth
+              onSignIn={handleSocialSignIn}
               disabled={isLoading}
               submitting={isSocialSubmitting}
+              showApple={showApple}
+              error={socialError ?? undefined}
+              dividerLabel={socialDividerLabel}
+              googleLabel={googleSignInLabel}
+              appleLabel={appleSignInLabel}
             />
-            {showApple && (
-              <Button
-                fullWidth
-                variant="secondary"
-                label={appleSignInLabel}
-                onPress={() => handleSocialSignIn('apple')}
-                disabled={isLoading}
-                submitting={isSocialSubmitting}
-              />
-            )}
+            <AuthModeToggle
+              promptLabel={mode === 'login' ? signUpPromptLabel : signInPromptLabel}
+              linkLabel={mode === 'login' ? signUpLinkLabel : signInLinkLabel}
+              onPress={handleToggleMode}
+              disabled={isLoading}
+            />
           </View>
-          <TouchableOpacity
-            style={styles.modeToggleRow}
-            onPress={handleToggleMode}
-            disabled={isLoading}
-            accessibilityLabel={mode === 'login' ? signUpLinkLabel : signInLinkLabel}
-            accessibilityRole="button"
-          >
-            <Text fontSize="font-size-sm" color="font-secondary">
-              {mode === 'login' ? signUpPromptLabel : signInPromptLabel}
-            </Text>
-            <Text fontSize="font-size-sm" color="font-highlight" fontWeight="semibold">
-              {mode === 'login' ? signUpLinkLabel : signInLinkLabel}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </View>
   );

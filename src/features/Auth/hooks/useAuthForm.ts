@@ -18,6 +18,7 @@ export const useAuthForm = (mode: AuthMode) => {
     control,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors, isSubmitting },
     setError,
   } = useForm<AuthFormValues>({
@@ -64,5 +65,5 @@ export const useAuthForm = (mode: AuthMode) => {
     }
   };
 
-  return { control, errors, isSubmitting, onSubmit, emailRules, passwordRules, handleForgotPassword, forgotPasswordSent };
+  return { control, errors, isSubmitting, onSubmit, emailRules, passwordRules, handleForgotPassword, forgotPasswordSent, reset };
 };

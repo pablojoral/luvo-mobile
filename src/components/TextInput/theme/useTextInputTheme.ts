@@ -20,15 +20,9 @@ export const useTextInputTheme = ({
       width: '100%',
       gap: theme.spacing['spacing-xxs'],
     },
-    footer: {
+    inputWrapper: {
       flexDirection: 'row',
-      justifyContent: 'flex-end',
-    },
-    errorText: {
-      flex: 1,
-    },
-    input: {
-      width: '100%',
+      alignItems: 'center',
       height: theme.spacing['spacing-xxxxl'],
       borderWidth: theme.borderWidth['border-width-xs'],
       borderRadius: theme.cornerRad['corner-rad-md'],
@@ -36,8 +30,22 @@ export const useTextInputTheme = ({
         ? theme.borderColor['border-error']
         : theme.fontColor['font-primary'],
       paddingHorizontal: theme.spacing['spacing-sm'],
+    },
+    input: {
+      flex: 1,
       fontSize: theme.fontSize['font-size-md'],
       color: theme.fontColor[color],
+    },
+    eyeButton: {
+      paddingLeft: theme.spacing['spacing-xs'],
+      justifyContent: 'center',
+    },
+    footer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
+    errorText: {
+      flex: 1,
     },
   });
 

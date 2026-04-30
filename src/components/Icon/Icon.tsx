@@ -12,7 +12,9 @@ export type IconName =
   | 'information-circle'
   | 'information-circle-outline'
   | 'person'
-  | 'person-outline';
+  | 'person-outline'
+  | 'eye-outline'
+  | 'eye-off-outline';
 
 interface IconProps {
   name: IconName;

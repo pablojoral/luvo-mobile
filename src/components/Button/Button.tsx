@@ -1,3 +1,4 @@
+import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
 import { Text } from 'components/Text/Text';
 import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, View, ViewStyle } from 'react-native';
 import { ButtonSize } from 'theme/types/Theme';
@@ -47,12 +48,18 @@ export const Button = ({
   return (
     <TouchableOpacity disabled={disabled || stale || submitting} onPress={onPress} style={[containerStyle, style]}>
       <View style={contentContainerStyle} {...props}>
-        {iconName ? <Icon name={iconName} size={fontSizeMap[size]} color={textColorMap[variant]} /> : null}
-        {label ? (
-          <Text fontSize={fontSizeMap[size]} color={textColorMap[variant]} fontWeight={fontWeightMap[size]}>
-            {label}
-          </Text>
-        ) : null}
+        {submitting ? (
+          <ActivityIndicator color={textColorMap[variant]} size="small" />
+        ) : (
+          <>
+            {iconName ? <Icon name={iconName} size={fontSizeMap[size]} color={textColorMap[variant]} /> : null}
+            {label ? (
+              <Text fontSize={fontSizeMap[size]} color={textColorMap[variant]} fontWeight={fontWeightMap[size]}>
+                {label}
+              </Text>
+            ) : null}
+          </>
+        )}
       </View>
     </TouchableOpacity>
   );
