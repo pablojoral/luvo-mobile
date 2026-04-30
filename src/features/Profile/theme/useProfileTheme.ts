@@ -7,7 +7,7 @@ export const useProfileTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
+      backgroundColor: theme.surfaceColor['surface-surface'],
     },
     loadingContainer: {
       flex: 1,
@@ -16,14 +16,13 @@ export const useProfileTheme = () => {
     },
     contentContainer: {
       flex: 1,
-      gap: theme.spacing['spacing-xxxxl'],
-      paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
-      backgroundColor: theme.surfaceColor['surface-invert'],
     },
     menusContainer: {
       flex: 1,
       justifyContent: 'space-between',
       paddingHorizontal: theme.spacing['spacing-xl'],
+      paddingTop: theme.spacing['spacing-lg'],
+      paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
     },
   });
 

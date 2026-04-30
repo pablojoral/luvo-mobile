@@ -12,6 +12,9 @@ export const useSettingsMenuItemTheme = () => {
       paddingVertical: theme.spacing['spacing-xs'],
       paddingHorizontal: theme.spacing['spacing-sm'],
     },
+    label: {
+      flex: 1,
+    },
   });
 
   return { styles, theme };
