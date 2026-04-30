@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'theme/hooks/useTheme';
 
+
 export const useQRScannerTheme = () => {
   const theme = useTheme();
   const { top } = useSafeAreaInsets();
@@ -14,7 +15,7 @@ export const useQRScannerTheme = () => {
       left: 0,
       width,
       height,
-      zIndex: 9999,
+      zIndex: theme.zIndex.overlay,
     },
     camera: {
       position: 'absolute',
@@ -29,7 +30,7 @@ export const useQRScannerTheme = () => {
       left: 0,
       width,
       height,
-      backgroundColor: 'rgba(0,0,0,0.6)',
+      backgroundColor: theme.overlayColor.dimmer,
     },
     targetContainer: {
       flex: 1,

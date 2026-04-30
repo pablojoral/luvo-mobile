@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'theme/hooks/useTheme';
 
+
 export const useScanTheme = () => {
   const theme = useTheme();
   const { top } = useSafeAreaInsets();
@@ -23,7 +24,7 @@ export const useScanTheme = () => {
       left: 0,
       width: width,
       height: height,
-      zIndex: -9999,
+      zIndex: theme.zIndex.background,
       backgroundColor: theme.surfaceColor['surface-primary'],
     },
     camera: {
@@ -32,7 +33,7 @@ export const useScanTheme = () => {
       left: 0,
       width: width,
       height: height,
-      zIndex: -10000,
+      zIndex: theme.zIndex.camera,
     },
     qrContainer: {
       flex: 1,

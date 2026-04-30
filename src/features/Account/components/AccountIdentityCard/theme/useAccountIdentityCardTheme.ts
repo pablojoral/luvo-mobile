@@ -22,7 +22,7 @@ export const useAccountIdentityCardTheme = () => {
       gap: theme.spacing['spacing-xxxs'],
     },
     clientLabel: {
-      letterSpacing: 1.5,
+      letterSpacing: theme.letterSpacing.label,
       textTransform: 'uppercase',
     },
   });

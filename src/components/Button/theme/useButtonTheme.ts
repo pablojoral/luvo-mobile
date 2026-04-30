@@ -21,7 +21,7 @@ export const useButtonTheme = ({ variant, size, rounded, fullWidth }: ButtonThem
       alignItems: 'center',
       justifyContent: 'center',
       gap: theme.spacing['spacing-xxs'],
-      borderWidth: 1,
+      borderWidth: theme.borderWidth['border-width-xs'],
       borderRadius: rounded ? theme.cornerRad['corner-rad-full'] : theme.cornerRad['corner-rad-lg'],
       backgroundColor: theme.surfaceColor[surfaceColorMap[variant]],
       borderColor: theme.borderColor[borderColorMap[variant]],

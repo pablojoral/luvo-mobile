@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
+
 export const useReportTheme = () => {
   const theme = useTheme();
 
@@ -24,7 +25,7 @@ export const useReportTheme = () => {
       marginBottom: theme.spacing['spacing-xs'],
     },
     descriptionInput: {
-      height: 120,
+      height: theme.componentSize.descriptionInput,
       textAlignVertical: 'top',
     },
     errorText: {

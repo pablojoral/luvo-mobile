@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native';
+import { useTheme } from 'theme/hooks/useTheme';
 
 export const useAccountSectionLabelTheme = () => {
+  const theme = useTheme();
+
   const styles = StyleSheet.create({
     label: {
-      letterSpacing: 1.5,
-      paddingLeft: 4,
+      letterSpacing: theme.letterSpacing.label,
+      paddingLeft: theme.spacing['spacing-xxs'],
       textTransform: 'uppercase',
     },
   });

@@ -148,6 +148,26 @@ export const DefaultThemeConstants: ThemeConstants = {
     'font-success': Colors['colors-green-500'],
     'font-warning': Colors['colors-yellow-600'],
   },
+  letterSpacing: {
+    label: 1.5,
+  },
+  componentSize: {
+    fab: 56,
+    iconContainer: 48,
+    cardMaxWidth: 320,
+    descriptionInput: 120,
+    laundryImage: 112,
+  },
+  zIndex: {
+    overlay: 9999,
+    background: -9999,
+    camera: -10000,
+  },
+  overlayColor: {
+    modal: 'rgba(47,50,58,0.45)',
+    dimmer: 'rgba(0,0,0,0.6)',
+    backdrop: 'rgba(0,0,0,0.5)',
+  },
   navigation: {
     ...RNNavigationTheme,
     colors: {
