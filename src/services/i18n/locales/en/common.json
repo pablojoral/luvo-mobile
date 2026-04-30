@@ -32,7 +32,16 @@
       "submit": {
         "login": "Sign In",
         "register": "Register"
-      }
+      },
+      "forgotPassword": "Reset password",
+      "forgotPasswordSuccess": "We sent you a password reset email.",
+      "signUpPrompt": "New to Luvo?",
+      "signUpLink": "Create account",
+      "signInPrompt": "Already have an account?",
+      "signInLink": "Sign in",
+      "socialDivider": "or",
+      "googleSignIn": "Continue with Google",
+      "appleSignIn": "Continue with Apple"
     }
   },
   "messages": {

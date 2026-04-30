@@ -24,9 +24,35 @@ export const useAuthTheme = () => {
     errorText: {
       alignSelf: 'flex-start',
     },
+    forgotPasswordRow: {
+      alignSelf: 'flex-end',
+    },
+    forgotPasswordSuccessText: {
+      alignSelf: 'flex-start',
+    },
     footer: {
       padding: theme.spacing['spacing-xl'],
       paddingBottom: theme.spacing['spacing-max'],
+      gap: theme.spacing['spacing-md'],
+    },
+    dividerRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: theme.spacing['spacing-sm'],
+    },
+    dividerLine: {
+      flex: 1,
+      height: theme.borderWidth['border-width-xs'],
+      backgroundColor: theme.borderColor['border-secondary'],
+    },
+    socialButtonsRow: {
+      gap: theme.spacing['spacing-sm'],
+    },
+    modeToggleRow: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: theme.spacing['spacing-xxxs'],
     },
   });
 

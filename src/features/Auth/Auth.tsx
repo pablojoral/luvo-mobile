@@ -7,7 +7,7 @@ import { useKeyboardVisible } from 'hooks/useKeyboardVisible';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, SlideOutUp } from 'react-native-reanimated';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -25,15 +25,32 @@ export const Auth = ({ route, navigation }: Props) => {
     control,
     errors,
     isSubmitting,
+    isLoading,
     onSubmit,
     emailRules,
     passwordRules,
+    handleForgotPassword,
+    forgotPasswordSent,
+    handleSocialSignIn,
+    socialError,
+    isSocialSubmitting,
+    showApple,
+    handleToggleMode,
     title,
     emailLabel,
     emailPlaceholder,
     passwordLabel,
     passwordPlaceholder,
     submitLabel,
+    forgotPasswordLabel,
+    forgotPasswordSuccessLabel,
+    socialDividerLabel,
+    googleSignInLabel,
+    appleSignInLabel,
+    signUpPromptLabel,
+    signUpLinkLabel,
+    signInPromptLabel,
+    signInLinkLabel,
   } = useAuthScreen(mode, navigation);
 
   return (
@@ -65,6 +82,7 @@ export const Auth = ({ route, navigation }: Props) => {
                   onChangeText={onChange}
                   value={value}
                   error={errors.email?.message}
+                  editable={!isLoading}
                 />
               )}
             />
@@ -81,18 +99,80 @@ export const Auth = ({ route, navigation }: Props) => {
                   onChangeText={onChange}
                   value={value}
                   error={errors.password?.message}
+                  editable={!isLoading}
                 />
               )}
             />
+            {mode === 'login' && (
+              <View style={styles.forgotPasswordRow}>
+                <Button
+                  variant="link"
+                  label={forgotPasswordLabel}
+                  onPress={handleForgotPassword}
+                  disabled={isLoading}
+                />
+              </View>
+            )}
+            {forgotPasswordSent && (
+              <Text fontSize="font-size-xs" color="font-success" style={styles.forgotPasswordSuccessText}>
+                {forgotPasswordSuccessLabel}
+              </Text>
+            )}
             {errors.root && (
               <Text fontSize="font-size-xs" color="font-error" style={styles.errorText}>
                 {errors.root.message}
               </Text>
             )}
+            {socialError && (
+              <Text fontSize="font-size-xs" color="font-error" style={styles.errorText}>
+                {socialError}
+              </Text>
+            )}
           </Pressable>
         </ScrollView>
         <View style={styles.footer}>
-          <Button fullWidth label={submitLabel} onPress={onSubmit} disabled={isSubmitting} />
+          <Button fullWidth label={submitLabel} onPress={onSubmit} disabled={isLoading} submitting={isSubmitting} />
+          <View style={styles.dividerRow}>
+            <View style={styles.dividerLine} />
+            <Text fontSize="font-size-xs" color="font-secondary">
+              {socialDividerLabel}
+            </Text>
+            <View style={styles.dividerLine} />
+          </View>
+          <View style={styles.socialButtonsRow}>
+            <Button
+              fullWidth
+              variant="secondary"
+              label={googleSignInLabel}
+              onPress={() => handleSocialSignIn('google')}
+              disabled={isLoading}
+              submitting={isSocialSubmitting}
+            />
+            {showApple && (
+              <Button
+                fullWidth
+                variant="secondary"
+                label={appleSignInLabel}
+                onPress={() => handleSocialSignIn('apple')}
+                disabled={isLoading}
+                submitting={isSocialSubmitting}
+              />
+            )}
+          </View>
+          <TouchableOpacity
+            style={styles.modeToggleRow}
+            onPress={handleToggleMode}
+            disabled={isLoading}
+            accessibilityLabel={mode === 'login' ? signUpLinkLabel : signInLinkLabel}
+            accessibilityRole="button"
+          >
+            <Text fontSize="font-size-sm" color="font-secondary">
+              {mode === 'login' ? signUpPromptLabel : signInPromptLabel}
+            </Text>
+            <Text fontSize="font-size-sm" color="font-highlight" fontWeight="semibold">
+              {mode === 'login' ? signUpLinkLabel : signInLinkLabel}
+            </Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </View>

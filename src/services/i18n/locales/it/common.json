@@ -32,7 +32,16 @@
       "submit": {
         "login": "Accedi",
         "register": "Registrati"
-      }
+      },
+      "forgotPassword": "Reimposta password",
+      "forgotPasswordSuccess": "Ti abbiamo inviato un'email per reimpostare la password.",
+      "signUpPrompt": "Nuovo su Luvo?",
+      "signUpLink": "Crea account",
+      "signInPrompt": "Hai già un account?",
+      "signInLink": "Accedi",
+      "socialDivider": "o",
+      "googleSignIn": "Continua con Google",
+      "appleSignIn": "Continua con Apple"
     }
   },
   "messages": {

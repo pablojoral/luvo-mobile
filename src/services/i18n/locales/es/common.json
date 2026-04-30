@@ -32,7 +32,16 @@
       "submit": {
         "login": "Iniciar Sesión",
         "register": "Registrarse"
-      }
+      },
+      "forgotPassword": "Restablecer contraseña",
+      "forgotPasswordSuccess": "Te enviamos un correo para restablecer tu contraseña.",
+      "signUpPrompt": "¿Nuevo en Luvo?",
+      "signUpLink": "Crear cuenta",
+      "signInPrompt": "¿Ya tenés cuenta?",
+      "signInLink": "Iniciá sesión",
+      "socialDivider": "o",
+      "googleSignIn": "Continuar con Google",
+      "appleSignIn": "Continuar con Apple"
     }
   },
   "messages": {

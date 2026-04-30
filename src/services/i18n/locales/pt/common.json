@@ -32,7 +32,16 @@
       "submit": {
         "login": "Entrar",
         "register": "Cadastrar"
-      }
+      },
+      "forgotPassword": "Redefinir senha",
+      "forgotPasswordSuccess": "Enviamos um e-mail para redefinir sua senha.",
+      "signUpPrompt": "Novo no Luvo?",
+      "signUpLink": "Criar conta",
+      "signInPrompt": "Já tem uma conta?",
+      "signInLink": "Entrar",
+      "socialDivider": "ou",
+      "googleSignIn": "Continuar com Google",
+      "appleSignIn": "Continuar com Apple"
     }
   },
   "messages": {
