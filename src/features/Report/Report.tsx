@@ -1,7 +1,6 @@
 import { Button } from 'components/Button/Button';
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { SelectInput } from 'components/SelectInput/SelectInput';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
 import { TextInput } from 'components/TextInput/TextInput';
 import { QRScanner } from 'features/QRScanner/QRScanner';
@@ -11,6 +10,8 @@ import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View }
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { ReportEntityCard } from './components/ReportEntityCard/ReportEntityCard';
+import { ReportScanButton } from './components/ReportScanButton/ReportScanButton';
 import { useReportForm } from './hooks/useReportForm';
 import { useReportTheme } from './theme/useReportTheme';
 
@@ -25,9 +26,13 @@ export const Report = ({ route, navigation }: Props) => {
     isSubmitting,
     onSubmit,
     selectedEntity,
+    entityName,
+    entityIconName,
     subjectOptions,
     onScanForEntity,
     onClearEntity,
+    scrollViewRef,
+    handleDescriptionFocus,
     strings,
   } = useReportForm({
     laundryId,
@@ -35,57 +40,40 @@ export const Report = ({ route, navigation }: Props) => {
     onSuccess: () => navigation.goBack(),
   });
 
-  const entityName =
-    selectedEntity?.type === 'machine'
-      ? `${selectedEntity.machine.name} — ${selectedEntity.laundry.name}`
-      : selectedEntity?.laundry.name;
-
-  const entityIconName =
-    selectedEntity?.type === 'machine' && selectedEntity.machine.type === 'dryer'
-      ? 'Wind'
-      : selectedEntity?.type === 'machine'
-      ? 'Droplet'
-      : 'MapPin';
-
   return (
     <View style={styles.container}>
       <QRScanner override />
-      <ScreenHeader title={strings.title} onBack={() => navigation.goBack()} />
+      <SafeScreenHeader title={strings.title} onBack={() => navigation.goBack()} />
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <ScrollView bounces={false} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          ref={scrollViewRef}
+          bounces={false}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.scrollContent}
+        >
           <Pressable onPress={Keyboard.dismiss} style={styles.content}>
 
-            {/* Entity selection */}
             <View>
-              <Text fontSize="font-size-sm" color="font-secondary" style={styles.sectionLabel}>
+              <Text
+                fontSize="font-size-sm"
+                fontWeight="semibold"
+                color="font-highlight"
+                style={styles.sectionLabel}
+              >
                 {strings.entitySectionLabel}
               </Text>
               {selectedEntity === null ? (
-                <Pressable style={styles.scanButton} onPress={onScanForEntity}>
-                  <SvgIcon name="QrCode" size="icon-size-md" color="font-secondary" />
-                  <Text fontSize="font-size-sm" color="font-secondary">
-                    {strings.entitySectionScan}
-                  </Text>
-                </Pressable>
+                <ReportScanButton label={strings.entitySectionScan} onPress={onScanForEntity} />
               ) : (
-                <View style={styles.entityCard}>
-                  <SvgIcon name={entityIconName} size="icon-size-sm" color="font-secondary" />
-                  <View style={styles.entityCardInfo}>
-                    <Text fontSize="font-size-xs" color="font-secondary">
-                      {strings.entityTypeLabel(selectedEntity.type)}
-                    </Text>
-                    <Text fontSize="font-size-sm" fontWeight="semibold">
-                      {entityName}
-                    </Text>
-                  </View>
-                  <Pressable style={styles.clearButton} onPress={onClearEntity} hitSlop={8}>
-                    <Text fontSize="font-size-lg" color="font-secondary">×</Text>
-                  </Pressable>
-                </View>
+                <ReportEntityCard
+                  iconName={entityIconName}
+                  typeLabel={strings.entityTypeLabel(selectedEntity.type)}
+                  name={entityName ?? ''}
+                  onClear={onClearEntity}
+                />
               )}
             </View>
 
-            {/* Subject dropdown */}
             <Controller
               control={control}
               name="subject"
@@ -102,7 +90,6 @@ export const Report = ({ route, navigation }: Props) => {
               )}
             />
 
-            {/* Description */}
             <Controller
               control={control}
               name="description"
@@ -113,6 +100,7 @@ export const Report = ({ route, navigation }: Props) => {
                   placeholder={strings.descriptionPlaceholder}
                   multiline
                   maxLength={2000}
+                  onFocus={handleDescriptionFocus}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}

@@ -21,14 +21,18 @@ export const Account = () => {
     control,
     errors,
     watchedAvatarId,
+    displayName,
     pickerVisible,
-    setPickerVisible,
-    handleAvatarSelect,
+    openAvatarPicker,
+    closeAvatarPicker,
     isDeleting,
     confirmDelete,
-    setConfirmDelete,
+    openConfirmDelete,
+    cancelConfirmDelete,
     confirmSignOut,
-    setConfirmSignOut,
+    openConfirmSignOut,
+    cancelConfirmSignOut,
+    handleAvatarSelect,
     handlePasswordReset,
     handleDeleteAccount,
     signOut,
@@ -41,9 +45,9 @@ export const Account = () => {
       <SafeScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-        <TouchableOpacity onPress={() => setPickerVisible(true)} activeOpacity={0.8}>
+        <TouchableOpacity onPress={openAvatarPicker} activeOpacity={0.8}>
           <AccountIdentityCard
-            name={user?.name ?? user?.email ?? ''}
+            name={displayName}
             avatarId={watchedAvatarId}
             clientLabel={strings.clientLabel}
           />
@@ -78,17 +82,17 @@ export const Account = () => {
         <AccountActionRow
           icon="LogOut"
           label={strings.signOut}
-          onPress={() => setConfirmSignOut(true)}
+          onPress={openConfirmSignOut}
         />
 
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={() => setConfirmDelete(true)}
+          onPress={openConfirmDelete}
           disabled={isDeleting}
           activeOpacity={0.7}
         >
           <Text fontSize="font-size-sm" color="font-placeholder" style={styles.deleteText}>
-            {isDeleting ? strings.deletingLabel : strings.deleteLabel}
+            {strings.deleteButtonLabel}
           </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -97,7 +101,7 @@ export const Account = () => {
         visible={pickerVisible}
         currentId={watchedAvatarId}
         onSelect={handleAvatarSelect}
-        onClose={() => setPickerVisible(false)}
+        onClose={closeAvatarPicker}
       />
 
       <ActionModal
@@ -107,7 +111,7 @@ export const Account = () => {
         confirmLabel={strings.deleteConfirmDelete}
         cancelLabel={strings.deleteConfirmCancel}
         onConfirm={handleDeleteAccount}
-        onCancel={() => setConfirmDelete(false)}
+        onCancel={cancelConfirmDelete}
       />
 
       <ActionModal
@@ -118,8 +122,8 @@ export const Account = () => {
         body={strings.signOutConfirmBody}
         confirmLabel={strings.signOutConfirmConfirm}
         cancelLabel={strings.signOutConfirmCancel}
-        onConfirm={() => signOut()}
-        onCancel={() => setConfirmSignOut(false)}
+        onConfirm={signOut}
+        onCancel={cancelConfirmSignOut}
       />
     </View>
   );

@@ -50,7 +50,7 @@ export const RootStackNavigator = () => {
         <RootStack.Screen name="Tabs" component={TabsScreen} />
         <RootStack.Screen name="Auth" component={Auth} options={{ presentation: 'modal', headerShown: false }} />
         <RootStack.Screen name="Payment" component={Payment} options={{ presentation: 'modal' }} />
-        <RootStack.Screen name="Report" component={Report} options={{ presentation: 'modal' }} />
+        <RootStack.Screen name="Report" component={Report} />
         <RootStack.Screen name="LaundryQR" component={LaundryQR} options={{ presentation: 'modal' }} />
         <RootStack.Screen name="RegisterLaundry" component={LaundryRegistration} options={{ presentation: 'modal' }} />
         <RootStack.Screen name="MachineDetails" component={MachineDetails} options={{ presentation: 'modal' }} />

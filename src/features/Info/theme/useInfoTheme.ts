@@ -8,7 +8,6 @@ export const useInfoTheme = () => {
     container: {
       flex: 1,
       backgroundColor: theme.surfaceColor['surface-primary'],
-      paddingTop: theme.topInset,
     },
     scroll: {
       flex: 1,

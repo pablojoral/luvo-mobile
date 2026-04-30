@@ -32,6 +32,7 @@ export const useTextInputTheme = ({
       height: theme.spacing['spacing-xxxxl'],
       borderWidth: theme.borderWidth['border-width-xs'],
       borderRadius: theme.cornerRad['corner-rad-md'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
       borderColor: error
         ? theme.borderColor['border-error']
         : theme.fontColor['font-primary'],

@@ -3,6 +3,7 @@ import { CreateReport, Laundry, Machine } from 'models/models';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { ScrollView } from 'react-native';
 import { useReportSubjects } from 'query/ReportSubject/useReportSubjects';
 import { useSubmitReport } from 'query/Report/useSubmitReport';
 import { useQRScanner } from 'stores/useQRScanner';
@@ -38,6 +39,11 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
 
   const [selectedEntity, setSelectedEntity] = useState<SelectedEntity | null>(null);
   const initializedRef = useRef(false);
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const handleDescriptionFocus = useCallback(() => {
+    setTimeout(() => scrollViewRef.current?.scrollToEnd({ animated: true }), 100);
+  }, []);
 
   const {
     control,
@@ -133,6 +139,18 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
     }
   });
 
+  const entityName =
+    selectedEntity?.type === 'machine'
+      ? `${selectedEntity.machine.name} — ${selectedEntity.laundry.name}`
+      : selectedEntity?.laundry.name;
+
+  const entityIconName: 'Wind' | 'Droplet' | 'MapPin' =
+    selectedEntity?.type === 'machine' && selectedEntity.machine.type === 'dryer'
+      ? 'Wind'
+      : selectedEntity?.type === 'machine'
+      ? 'Droplet'
+      : 'MapPin';
+
   return {
     control,
     errors,
@@ -140,9 +158,13 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
     onSubmit,
     setValue,
     selectedEntity,
+    entityName,
+    entityIconName,
     subjectOptions,
     onScanForEntity,
     onClearEntity,
+    scrollViewRef,
+    handleDescriptionFocus,
     strings: {
       title: t('report.title'),
       entitySectionLabel: t('report.entitySection.label'),

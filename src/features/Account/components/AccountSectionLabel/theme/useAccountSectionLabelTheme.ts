@@ -5,6 +5,7 @@ export const useAccountSectionLabelTheme = () => {
     label: {
       letterSpacing: 1.5,
       paddingLeft: 4,
+      textTransform: 'uppercase',
     },
   });
 

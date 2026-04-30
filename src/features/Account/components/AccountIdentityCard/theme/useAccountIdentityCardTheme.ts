@@ -23,6 +23,7 @@ export const useAccountIdentityCardTheme = () => {
     },
     clientLabel: {
       letterSpacing: 1.5,
+      textTransform: 'uppercase',
     },
   });
 

@@ -10,7 +10,7 @@ export const AccountSectionLabel = ({ title }: AccountSectionLabelProps) => {
 
   return (
     <Text fontSize="font-size-xs" fontWeight="bold" color="font-light" style={styles.label}>
-      {title.toUpperCase()}
+      {title}
     </Text>
   );
 };
