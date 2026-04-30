@@ -13,7 +13,7 @@ export const useReportEntityCardTheme = () => {
       padding: theme.spacing['spacing-md'],
       backgroundColor: Colors['colors-lavender-100'],
       borderWidth: theme.borderWidth['border-width-xs'],
-      borderColor: Colors['colors-rose-500'],
+      borderColor: Colors['colors-lavender-300'],
       borderRadius: theme.cornerRad['corner-rad-md'],
     },
     info: {

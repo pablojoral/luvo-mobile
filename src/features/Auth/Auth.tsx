@@ -18,7 +18,6 @@ import { useAuthTheme } from './theme/useAuthTheme';
 type Props = NativeStackScreenProps<RootStackParamList, 'Auth'>;
 
 export const Auth = ({ route, navigation }: Props) => {
-  const mode = route.params?.mode ?? 'login';
   const { styles } = useAuthTheme();
   const {
     control,
@@ -35,6 +34,7 @@ export const Auth = ({ route, navigation }: Props) => {
     isSocialSubmitting,
     showApple,
     handleToggleMode,
+    mode,
     heading,
     subtitle,
     emailLabel,
@@ -51,7 +51,7 @@ export const Auth = ({ route, navigation }: Props) => {
     signUpLinkLabel,
     signInPromptLabel,
     signInLinkLabel,
-  } = useAuthScreen(mode, navigation);
+  } = useAuthScreen(route.params?.mode ?? 'login', navigation);
 
   return (
     <View style={styles.container}>

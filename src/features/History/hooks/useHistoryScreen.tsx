@@ -7,7 +7,7 @@ import { CycleCard } from '../components/CycleCard/CycleCard';
 
 export const useHistoryScreen = () => {
   const { t } = useTranslation('common');
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useHistory();
+  const { data, isLoading, isRefetching, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useHistory();
 
   const title = t('history.title');
   const items: HistoryItem[] = data?.pages.flatMap(p => p.data) ?? [];
@@ -22,5 +22,5 @@ export const useHistoryScreen = () => {
 
   const keyExtractor = useCallback((item: HistoryItem) => item.id, []);
 
-  return { title, items, isLoading, isFetchingNextPage, handleEndReached, renderItem, keyExtractor };
+  return { title, items, isLoading, isRefetching, refetch, isFetchingNextPage, handleEndReached, renderItem, keyExtractor };
 };

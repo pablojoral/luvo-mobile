@@ -6,6 +6,8 @@ import { useMe, useUpdateProfile, useDeleteAccount, useSignOut } from 'query/Aut
 import { sendPasswordReset } from 'services/firebase/firebaseAuth';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
+import { useLaundriesStore } from 'stores/useLaundriesStore';
+import { useSelectedLaundry } from 'stores/useSelectedLaundry';
 
 export type AccountFormValues = {
   name: string;
@@ -18,6 +20,12 @@ export function useAccountScreen() {
   const { mutateAsync: updateProfile } = useUpdateProfile();
   const { mutate: deleteAccount, isPending: isDeleting } = useDeleteAccount();
   const { mutate: signOut } = useSignOut();
+
+  const resetAppState = () => {
+    useLaundriesStore.setState({ laundries: [], connectionState: 'idle' });
+    useSelectedLaundry.setState({ selectedLaundryId: null });
+    nav.reset({ index: 1, routes: [{ name: 'Tabs' }, { name: 'Auth' }] });
+  };
   const addMessage = useMessagesStore(s => s.addMessage);
   const nav = useRootStackNavigation();
   const [pickerVisible, setPickerVisible] = useState(false);
@@ -76,9 +84,17 @@ export function useAccountScreen() {
     }
   };
 
+  const handleSignOut = () => {
+    signOut(undefined, {
+      onSuccess: resetAppState,
+      onError: () =>
+        addMessage({ title: t('errors.generic'), body: t('account.messages.signOutFailed') }),
+    });
+  };
+
   const handleDeleteAccount = () => {
     deleteAccount(undefined, {
-      onSuccess: () => nav.navigate('Tabs'),
+      onSuccess: resetAppState,
       onError: () =>
         addMessage({ title: t('errors.generic'), body: t('account.messages.deleteFailed') }),
     });
@@ -105,8 +121,8 @@ export function useAccountScreen() {
     cancelConfirmSignOut: () => setConfirmSignOut(false),
     handleAvatarSelect,
     handlePasswordReset,
+    handleSignOut,
     handleDeleteAccount,
-    signOut,
     user,
     strings: {
       screenTitle:           t('account.title'),

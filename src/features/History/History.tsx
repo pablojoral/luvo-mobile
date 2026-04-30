@@ -1,6 +1,6 @@
 import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
-import { FlatList, View } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
 import { HistoryEmptyState } from './components/HistoryEmptyState/HistoryEmptyState';
@@ -11,7 +11,7 @@ import { useHistoryTheme } from './theme/useHistoryTheme';
 export const History = () => {
   const navigation = useRootStackNavigation();
   const { styles } = useHistoryTheme();
-  const { title, items, isLoading, isFetchingNextPage, handleEndReached, renderItem, keyExtractor } =
+  const { title, items, isLoading, isRefetching, refetch, isFetchingNextPage, handleEndReached, renderItem, keyExtractor } =
     useHistoryScreen();
 
   return (
@@ -32,6 +32,7 @@ export const History = () => {
           ListFooterComponent={isFetchingNextPage ? <ActivityIndicator size="small" /> : null}
           onEndReached={handleEndReached}
           onEndReachedThreshold={0.3}
+          refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
           style={styles.list}
           contentContainerStyle={styles.listContent}
         />

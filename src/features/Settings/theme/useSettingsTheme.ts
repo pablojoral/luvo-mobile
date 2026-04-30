@@ -8,11 +8,11 @@ export const useSettingsTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
+      backgroundColor: theme.surfaceColor['surface-background'],
     },
     scroll: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
+      backgroundColor: theme.surfaceColor['surface-background'],
     },
     scrollContent: {
       paddingHorizontal: theme.spacing['spacing-xl'],

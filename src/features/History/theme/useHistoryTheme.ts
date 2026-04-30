@@ -7,7 +7,7 @@ export const useHistoryTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
+      backgroundColor: theme.surfaceColor['surface-background'],
     },
     list: {
       flex: 1,

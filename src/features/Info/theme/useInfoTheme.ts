@@ -7,7 +7,7 @@ export const useInfoTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
+      backgroundColor: theme.surfaceColor['surface-background'],
     },
     scroll: {
       flex: 1,
@@ -53,9 +53,9 @@ export const useInfoTheme = () => {
       color: theme.fontColor['font-primary'],
     },
     faqAnswer: {
-      fontSize: theme.fontSize['font-size-md'],
+      fontSize: theme.fontSize['font-size-sm'],
       lineHeight: theme.lineHeight['line-height-lg'],
-      color: theme.fontColor['font-secondary'],
+      color: theme.fontColor['font-placeholder'],
     },
     loadingContainer: {
       flex: 1,
