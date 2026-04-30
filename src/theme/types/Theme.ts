@@ -134,6 +134,30 @@ export interface FontColorTheme {
   'font-warning': string;
 }
 
+export interface LetterSpacingTheme {
+  label: number;
+}
+
+export interface ComponentSizeTheme {
+  fab: number;
+  iconContainer: number;
+  cardMaxWidth: number;
+  descriptionInput: number;
+  laundryImage: number;
+}
+
+export interface ZIndexTheme {
+  overlay: number;
+  background: number;
+  camera: number;
+}
+
+export interface OverlayColorTheme {
+  modal: string;
+  dimmer: string;
+  backdrop: string;
+}
+
 export interface ThemeConstants {
   navBarHeight: number;
   spacing: SpacingTheme;
@@ -148,11 +172,16 @@ export interface ThemeConstants {
   fontWeight: FontWeightTheme;
   lineHeight: LineHeightTheme;
   fontColor: FontColorTheme;
+  letterSpacing: LetterSpacingTheme;
 
   borderWidth: BorderWidthTheme;
   cornerRad: CornerRadTheme;
   borderColor: BorderColorTheme;
   iconSize: IconSizeTheme;
+
+  componentSize: ComponentSizeTheme;
+  zIndex: ZIndexTheme;
+  overlayColor: OverlayColorTheme;
 
   navigation: ReactNavigation.Theme;
 }

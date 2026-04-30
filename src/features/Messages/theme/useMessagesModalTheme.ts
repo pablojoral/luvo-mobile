@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
+
 export const useMessagesModalTheme = () => {
   const theme = useTheme();
 
@@ -8,7 +9,7 @@ export const useMessagesModalTheme = () => {
     overlay: {
       position: 'absolute',
       inset: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: theme.overlayColor.backdrop,
       alignItems: 'center',
       justifyContent: 'center',
       paddingHorizontal: theme.spacing['spacing-xl'],

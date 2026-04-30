@@ -26,7 +26,7 @@ export const usePaymentTheme = () => {
     },
     machineInfo: {
       flex: 1,
-      gap: 2,
+      gap: theme.spacing['spacing-xxxs'],
     },
     idleContent: {
       gap: theme.spacing['spacing-xs'],

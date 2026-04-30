@@ -155,6 +155,27 @@ export const DarkThemeConstants: ThemeConstants = {
     'font-warning': Colors['colors-yellow-300'],
   },
 
+  letterSpacing: {
+    label: 1.5,
+  },
+  componentSize: {
+    fab: 56,
+    iconContainer: 48,
+    cardMaxWidth: 320,
+    descriptionInput: 120,
+    laundryImage: 112,
+  },
+  zIndex: {
+    overlay: 9999,
+    background: -9999,
+    camera: -10000,
+  },
+  overlayColor: {
+    modal: 'rgba(20,20,30,0.55)',
+    dimmer: 'rgba(0,0,0,0.75)',
+    backdrop: 'rgba(0,0,0,0.65)',
+  },
+
   navigation: {
     ...RNNavigationDarkTheme,
     colors: {

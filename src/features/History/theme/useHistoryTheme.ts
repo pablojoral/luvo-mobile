@@ -8,7 +8,6 @@ export const useHistoryTheme = () => {
     container: {
       flex: 1,
       backgroundColor: theme.surfaceColor['surface-primary'],
-      paddingTop: theme.topInset,
     },
     list: {
       flex: 1,

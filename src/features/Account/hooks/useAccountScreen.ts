@@ -84,17 +84,25 @@ export function useAccountScreen() {
     });
   };
 
+  const displayName = user?.name ?? user?.email ?? '';
+
   return {
     control,
     errors,
     watchedAvatarId,
+    displayName,
     pickerVisible,
-    setPickerVisible,
+    openAvatarPicker:   () => setPickerVisible(true),
+    closeAvatarPicker:  () => setPickerVisible(false),
     isDeleting,
     confirmDelete,
     setConfirmDelete,
+    openConfirmDelete:  () => setConfirmDelete(true),
+    cancelConfirmDelete: () => setConfirmDelete(false),
     confirmSignOut,
     setConfirmSignOut,
+    openConfirmSignOut:  () => setConfirmSignOut(true),
+    cancelConfirmSignOut: () => setConfirmSignOut(false),
     handleAvatarSelect,
     handlePasswordReset,
     handleDeleteAccount,
@@ -111,8 +119,7 @@ export function useAccountScreen() {
       resetPassword:         t('account.security.resetPassword'),
       sessionSection:        t('profile.menu.signOut'),
       signOut:               t('profile.menu.signOut'),
-      deleteLabel:           t('account.deleteAccount.label'),
-      deletingLabel:         t('account.deleteAccount.deleting'),
+      deleteButtonLabel:     isDeleting ? t('account.deleteAccount.deleting') : t('account.deleteAccount.label'),
       deleteConfirmTitle:    t('account.alerts.deleteConfirmTitle'),
       deleteConfirmBody:     t('account.alerts.deleteConfirmBody'),
       deleteConfirmDelete:   t('account.alerts.deleteConfirmDelete'),

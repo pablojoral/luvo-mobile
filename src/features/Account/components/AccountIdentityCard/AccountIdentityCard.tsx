@@ -17,7 +17,7 @@ export const AccountIdentityCard = ({ name, avatarId, clientLabel }: AccountIden
       <Avatar avatarId={avatarId} size={AVATAR_SIZE} variant="squircle" />
       <View style={styles.textContainer}>
         <Text fontSize="font-size-xs" fontWeight="bold" color="font-light" style={styles.clientLabel}>
-          {clientLabel.toUpperCase()}
+          {clientLabel}
         </Text>
         <Text fontSize="font-size-lg" fontWeight="extrabold">
           {name}

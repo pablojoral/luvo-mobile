@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
+
 export const useSettingsTheme = () => {
   const theme = useTheme();
 
@@ -24,7 +25,7 @@ export const useSettingsTheme = () => {
     },
     groupTitle: {
       paddingHorizontal: theme.spacing['spacing-xs'],
-      letterSpacing: 1.5,
+      letterSpacing: theme.letterSpacing.label,
     },
     rowCard: {
       borderRadius: theme.cornerRad['corner-rad-lg'],

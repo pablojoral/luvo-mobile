@@ -1,6 +1,6 @@
-// theme/useLaundryDetailsModalTheme.ts
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
+
 
 export const useLaundryDetailsCardTheme = () => {
   const theme = useTheme();
@@ -35,8 +35,8 @@ export const useLaundryDetailsCardTheme = () => {
       flexShrink: 0,
       justifyContent: 'center',
       alignItems: 'center',
-      height: 112,
-      width: 112,
+      height: theme.componentSize.laundryImage,
+      width: theme.componentSize.laundryImage,
       borderRadius: theme.cornerRad['corner-rad-full'],
       overflow: 'hidden',
       borderWidth: theme.borderWidth['border-width-xs'],

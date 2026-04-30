@@ -8,7 +8,7 @@ import { useProfileTheme } from './theme/useProfileTheme';
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
 
 export const Profile = () => {
-  const { firebaseUser, user, profileItems, bottomItems, isLoading } = useProfile();
+  const { firebaseUser, user, profileItems, isLoading } = useProfile();
   const { styles } = useProfileTheme();
 
   return (
@@ -24,7 +24,6 @@ export const Profile = () => {
           <ProfileHeader name={user?.name ?? user?.email ?? ''} avatarId={user?.avatarId} />
           <View style={styles.menusContainer}>
             <SettingsMenu items={profileItems} />
-            <SettingsMenu items={bottomItems} />
           </View>
         </View>
       )}

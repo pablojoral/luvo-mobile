@@ -1,4 +1,4 @@
-import { useFirebaseAuthState, useMe, useSignOut } from 'query/Auth/useAuth';
+import { useFirebaseAuthState, useMe } from 'query/Auth/useAuth';
 import type { SettingsMenuItemData } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 export const useProfile = () => {
   const { data: firebaseUser } = useFirebaseAuthState();
   const { data: user, isLoading: isLoadingMe } = useMe();
-  const { mutate: signOut, isPending: signingOut } = useSignOut();
   const rootNavigation = useRootStackNavigation();
   const { t } = useTranslation('common');
 
@@ -24,15 +23,7 @@ export const useProfile = () => {
     { label: t('profile.menu.report'), iconName: 'AlertTriangle', onPress: handleReport },
   ];
 
-  const bottomItems: SettingsMenuItemData[] = [
-    {
-      label: signingOut ? t('profile.menu.signingOut') : t('profile.menu.signOut'),
-      iconName: 'LogOut',
-      onPress: () => signOut(),
-    },
-  ];
-
   const authSubtitle = t('auth.defaultSubtitle');
 
-  return { firebaseUser, user, profileItems, bottomItems, isLoading: isLoadingMe, authSubtitle };
+  return { firebaseUser, user, profileItems, isLoading: isLoadingMe, authSubtitle };
 };

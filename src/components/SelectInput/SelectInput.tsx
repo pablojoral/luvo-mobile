@@ -1,7 +1,9 @@
 import { SelectorOption } from 'components/PillSelector/PillSelector';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
+import { useEffect } from 'react';
 import { Pressable, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { useSelectInput } from './hooks/useSelectInput';
 import { useSelectInputTheme } from './theme/useSelectInputTheme';
@@ -19,6 +21,15 @@ export const SelectInput = ({ label, placeholder, value, options, onChange, erro
   const { styles } = useSelectInputTheme({ error: !!error });
   const { isOpen, toggle, select, selectedLabel } = useSelectInput({ value, options, onChange });
 
+  const rotation = useSharedValue(0);
+  useEffect(() => {
+    rotation.value = withTiming(isOpen ? 90 : 0, { duration: 180 });
+  }, [isOpen, rotation]);
+
+  const chevronStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }));
+
   return (
     <View style={styles.container}>
       {label && (
@@ -33,11 +44,9 @@ export const SelectInput = ({ label, placeholder, value, options, onChange, erro
         >
           {selectedLabel ?? placeholder ?? 'Seleccionar...'}
         </Text>
-        <SvgIcon
-          name={isOpen ? 'ChevronLeft' : 'ChevronRight'}
-          size="icon-size-md"
-          color="font-secondary"
-        />
+        <Animated.View style={chevronStyle}>
+          <SvgIcon name="ChevronRight" size="icon-size-md" color="font-secondary" />
+        </Animated.View>
       </Pressable>
       {isOpen && (
         <View style={styles.optionsList}>

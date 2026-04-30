@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Colors } from 'theme/constants/colors';
 import { useTheme } from 'theme/hooks/useTheme';
 
+
 export const useActionModalTheme = (variant: 'destructive' | 'neutral' = 'neutral') => {
   const theme = useTheme();
 
@@ -10,7 +11,7 @@ export const useActionModalTheme = (variant: 'destructive' | 'neutral' = 'neutra
   const styles = StyleSheet.create({
     overlay: {
       flex: 1,
-      backgroundColor: 'rgba(47,50,58,0.45)',
+      backgroundColor: theme.overlayColor.modal,
       alignItems: 'center',
       justifyContent: 'center',
       padding: theme.spacing['spacing-xl'],
@@ -20,13 +21,13 @@ export const useActionModalTheme = (variant: 'destructive' | 'neutral' = 'neutra
       borderRadius: theme.cornerRad['corner-rad-xxxl'],
       padding: theme.spacing['spacing-xl'],
       width: '100%',
-      maxWidth: 320,
+      maxWidth: theme.componentSize.cardMaxWidth,
       alignItems: 'center',
       ...theme.shadowFloating,
     },
     iconContainer: {
-      width: 48,
-      height: 48,
+      width: theme.componentSize.iconContainer,
+      height: theme.componentSize.iconContainer,
       borderRadius: theme.cornerRad['corner-rad-full'],
       backgroundColor: isDestructive
         ? Colors['colors-red-50']
