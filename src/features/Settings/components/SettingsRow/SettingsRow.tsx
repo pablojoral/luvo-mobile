@@ -22,9 +22,7 @@ export const SettingsRow = (props: SettingsRowProps) => {
 
   const inner = (
     <>
-      <View style={styles.rowIcon}>
-        <SvgIcon name={icon} size="font-size-xl" color="font-secondary" />
-      </View>
+      <SvgIcon name={icon} size="icon-size-lg" color="font-primary" />
 
       <View style={styles.rowContent}>
         <Text fontSize="font-size-md" fontWeight="semibold">
@@ -41,14 +39,14 @@ export const SettingsRow = (props: SettingsRowProps) => {
         {props.type === 'toggle' ? (
           <Switch value={props.value} onValueChange={props.onToggle} />
         ) : props.type === 'navigate' ? (
-          <SvgIcon name="ChevronRight" size="font-size-lg" color="font-light" />
+          <SvgIcon name="ChevronRight" size="icon-size-sm" color="font-light" />
         ) : (
           <>
             <Text fontSize="font-size-sm" color="font-placeholder">
               {props.value}
             </Text>
             {!readonly ? (
-              <SvgIcon name="ChevronRight" size="font-size-lg" color="font-light" />
+              <SvgIcon name="ChevronRight" size="icon-size-sm" color="font-light" />
             ) : null}
           </>
         )}

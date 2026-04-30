@@ -15,7 +15,7 @@ export const SettingsGroup = ({ title, children }: SettingsGroupProps) => {
       {title ? (
         <Text
           fontSize="font-size-xs"
-          fontWeight="semibold"
+          fontWeight="bold"
           color="font-placeholder"
           style={styles.groupTitle}
         >

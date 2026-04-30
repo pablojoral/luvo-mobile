@@ -1,20 +1,20 @@
 import React, { memo } from 'react';
 import { View, StyleSheet, ViewStyle, AccessibilityProps } from 'react-native';
 import type { SvgProps } from 'react-native-svg';
-import { FontColor, FontSize } from 'theme/types/Theme';
+import { FontColor, IconSize } from 'theme/types/Theme';
 import { useTheme } from 'theme/hooks/useTheme';
 import { IconName, icons } from './types';
 
 export type SvgIconProps = Omit<SvgProps, 'width' | 'height'> & {
   name: IconName;
-  size?: FontSize;
+  size?: IconSize;
   color?: FontColor;
   style?: ViewStyle;
 } & AccessibilityProps;
 
 const SvgIconComponent: React.FC<SvgIconProps> = ({
   name,
-  size = 'font-size-sm',
+  size = 'icon-size-xl',
   color = 'font-primary',
   style,
   accessibilityLabel,
@@ -25,7 +25,7 @@ const SvgIconComponent: React.FC<SvgIconProps> = ({
 
   const theme = useTheme();
 
-  const sizeValue = theme.fontSize[size] || theme.fontSize['font-size-sm'];
+  const sizeValue = theme.iconSize[size] ?? theme.iconSize['icon-size-xl'];
   const colorValue = color ? theme.fontColor[color] : undefined;
 
   if (!Icon) {

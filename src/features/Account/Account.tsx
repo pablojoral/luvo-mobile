@@ -39,7 +39,7 @@ export const Account = () => {
           <TouchableOpacity style={styles.avatarButton} onPress={() => setPickerVisible(true)} activeOpacity={0.8}>
             <Avatar avatarId={watchedAvatarId} size={96} />
             <View style={styles.editBadge}>
-              <SvgIcon name="Edit" size="font-size-sm" color="font-invert" />
+              <SvgIcon name="Edit" size="icon-size-xs" color="font-invert" />
             </View>
           </TouchableOpacity>
         </View>
@@ -47,7 +47,7 @@ export const Account = () => {
         <SettingsGroup title={strings.profileSection}>
           <View style={styles.nameRow}>
             <View style={styles.rowIcon}>
-              <SvgIcon name="User" size="font-size-xl" color="font-secondary" />
+              <SvgIcon name="User" size="icon-size-md" color="font-secondary" />
             </View>
             <View style={styles.nameInputWrapper}>
               <Controller
@@ -88,7 +88,7 @@ export const Account = () => {
                 {i > 0 ? <View style={styles.separator} /> : null}
                 <View style={styles.providerRow}>
                   <View style={styles.rowIcon}>
-                    <SvgIcon name="User" size="font-size-xl" color="font-secondary" />
+                    <SvgIcon name="User" size="icon-size-md" color="font-secondary" />
                   </View>
                   <Text fontSize="font-size-md" fontWeight="semibold" style={styles.providerLabel}>
                     {p.label}
@@ -111,7 +111,7 @@ export const Account = () => {
           activeOpacity={0.7}
         >
           <View style={styles.deleteRowIcon}>
-            <SvgIcon name="AlertTriangle" size="font-size-xl" color="font-error" />
+            <SvgIcon name="AlertTriangle" size="icon-size-md" color="font-error" />
           </View>
           <Text fontSize="font-size-md" color="font-error" fontWeight="semibold">
             {isDeleting ? strings.deletingLabel : strings.deleteLabel}

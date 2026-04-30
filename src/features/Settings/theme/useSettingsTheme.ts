@@ -2,25 +2,24 @@ import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 import { Colors } from 'theme/constants/colors';
 
-const ROW_ICON_SIZE = 40;
-
 export const useSettingsTheme = () => {
   const theme = useTheme();
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
+      backgroundColor: Colors['colors-white'],
       paddingTop: theme.topInset,
     },
     scroll: {
       flex: 1,
+      backgroundColor: theme.surfaceColor['surface-primary'],
     },
     scrollContent: {
       paddingHorizontal: theme.spacing['spacing-xl'],
       paddingTop: theme.spacing['spacing-lg'],
       paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
-      gap: theme.spacing['spacing-xxl'],
+      gap: theme.spacing['spacing-xl'],
     },
     group: {
       gap: theme.spacing['spacing-xs'],
@@ -28,25 +27,17 @@ export const useSettingsTheme = () => {
     },
     groupTitle: {
       paddingHorizontal: theme.spacing['spacing-xs'],
+      letterSpacing: 1.5,
     },
     rowCard: {
       borderRadius: theme.cornerRad['corner-rad-lg'],
       backgroundColor: Colors['colors-white'],
       flexDirection: 'row',
       alignItems: 'center',
-      padding: theme.spacing['spacing-md'],
-      gap: theme.spacing['spacing-md'],
+      paddingVertical: theme.spacing['spacing-sm'],
+      paddingHorizontal: theme.spacing['spacing-md'],
+      gap: theme.spacing['spacing-sm'],
       ...theme.shadowCard,
-    },
-    rowIcon: {
-      width: ROW_ICON_SIZE,
-      height: ROW_ICON_SIZE,
-      borderRadius: theme.cornerRad['corner-rad-full'],
-      backgroundColor: Colors['colors-white'],
-      borderWidth: theme.borderWidth['border-width-xs'],
-      borderColor: theme.borderColor['border-secondary'],
-      alignItems: 'center',
-      justifyContent: 'center',
     },
     rowContent: {
       flex: 1,

@@ -28,7 +28,7 @@ export const PaymentMethodCard = ({ strategy, selected, onSelect }: PaymentMetho
     >
       <View style={styles.row}>
         <View style={styles.iconWrap}>
-          <SvgIcon name={strategy.icon} size={'font-size-xl'} color={'font-highlight'} />
+          <SvgIcon name={strategy.icon} size={'icon-size-md'} color={'font-highlight'} />
         </View>
         <View style={styles.textWrap}>
           <Text fontSize={'font-size-md'} fontWeight={'semibold'}>
@@ -40,7 +40,7 @@ export const PaymentMethodCard = ({ strategy, selected, onSelect }: PaymentMetho
         </View>
         {selected && strategy.isAvailable ? (
           <View style={styles.check}>
-            <SvgIcon name={'Info'} size={'font-size-sm'} color={'font-invert'} />
+            <SvgIcon name={'Info'} size={'icon-size-xs'} color={'font-invert'} />
           </View>
         ) : null}
       </View>

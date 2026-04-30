@@ -37,7 +37,7 @@ export const MachineCard = ({ machine, onPress }: MachineCardProps) => {
         disabled={!onPress}
       >
         <View style={styles.contentContainer}>
-          <SvgIcon name={iconName} size={'font-size-xxxxl'} />
+          <SvgIcon name={iconName} size={'icon-size-xxxl'} />
           <View style={styles.infoContainer}>
             <View style={styles.machineInfo}>
               <Text fontSize={'font-size-lg'} fontWeight={'semibold'}>
@@ -51,7 +51,7 @@ export const MachineCard = ({ machine, onPress }: MachineCardProps) => {
               <AvailabilityTag status={machine.status} />
               {inUse && cycleSeconds != null ? (
                 <View style={styles.timerContainer}>
-                  <SvgIcon name={'Clock'} size={'font-size-sm'} color={'font-light'} />
+                  <SvgIcon name={'Clock'} size={'icon-size-xs'} color={'font-light'} />
                   <Text fontSize={'font-size-sm'} color={'font-light'}>
                     {remainingTime}
                   </Text>

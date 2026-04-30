@@ -17,7 +17,7 @@ export const CycleCard = ({ item }: CycleCardProps) => {
   return (
     <View style={styles.cycleCard}>
       <View style={styles.cycleIconBox}>
-        <SvgIcon name={icon} size="font-size-lg" color="font-secondary" />
+        <SvgIcon name={icon} size="icon-size-sm" color="font-secondary" />
       </View>
 
       <View style={styles.cycleInfo}>

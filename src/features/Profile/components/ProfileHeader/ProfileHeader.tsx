@@ -27,7 +27,7 @@ export const ProfileHeader = ({ name, avatarId }: ProfileHeaderProps) => {
         </View>
       </View>
       <View style={styles.iconContainer}>
-        <SvgIcon name="LuvoCircle" size="font-size-xxl" />
+        <SvgIcon name="LuvoCircle" size="icon-size-xl" />
       </View>
     </View>
   );

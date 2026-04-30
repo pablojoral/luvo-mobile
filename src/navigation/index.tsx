@@ -1,3 +1,4 @@
+import { StatusBar } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
@@ -27,9 +28,17 @@ const linking: LinkingOptions<RootStackParamList> = {
 
 export const Navigator = () => {
   const theme = useTheme();
+  const isDark = theme.navigation.dark;
+
   return (
-    <NavigationContainer linking={linking} theme={theme.navigation}>
-      <RootStackNavigator />
-    </NavigationContainer>
+    <>
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor={theme.navigation.colors.background}
+      />
+      <NavigationContainer linking={linking} theme={theme.navigation}>
+        <RootStackNavigator />
+      </NavigationContainer>
+    </>
   );
 };

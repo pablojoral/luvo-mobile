@@ -12,7 +12,7 @@ export const ScanFab = ({ onPress }: ScanFabProps) => {
 
   return (
     <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.8}>
-      <SvgIcon name="QrCode" size="font-size-xl" color="font-invert" />
+      <SvgIcon name="QrCode" size="icon-size-md" color="font-invert" />
     </TouchableOpacity>
   );
 };

@@ -22,7 +22,7 @@ export const ScreenHeader = ({ title, hideBack, onBack }: ScreenHeaderProps) => 
     <View style={styles.container}>
       {!hideBack ? (
         <TouchableOpacity style={styles.backButton} onPress={handleBack} accessibilityLabel="Volver">
-          <SvgIcon name="ArrowLeftCircle" size="font-size-xxl" />
+          <SvgIcon name="ChevronLeft" size="icon-size-xxl" />
         </TouchableOpacity>
       ) : null}
       <Text fontSize="font-size-lg" fontWeight="semibold" style={styles.title}>

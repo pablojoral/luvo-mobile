@@ -1,12 +1,43 @@
+import { useMemo } from 'react';
+import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
-export const useSwitchTheme = () => {
+export const TRACK_WIDTH = 48;
+export const TRACK_HEIGHT = 28;
+export const THUMB_SIZE = 22;
+export const THUMB_MARGIN = 3;
+export const THUMB_TRAVEL = TRACK_WIDTH - THUMB_SIZE - THUMB_MARGIN * 2;
+
+export const useSwitchTheme = (disabled: boolean) => {
   const theme = useTheme();
 
-  return {
-    theme,
-    trackColorFalse: theme.borderColor['border-primary'],
-    trackColorTrue: theme.surfaceColor['surface-invert'],
-    thumbColor: theme.borderColor['border-invert'],
-  };
+  const styles = StyleSheet.create({
+    trackOverlay: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      backgroundColor: theme.surfaceColor['surface-invert'],
+    },
+    thumb: {
+      width: THUMB_SIZE,
+      height: THUMB_SIZE,
+      borderRadius: theme.cornerRad['corner-rad-full'],
+      backgroundColor: theme.borderColor['border-invert'],
+    },
+  });
+
+  const trackStyle = useMemo(() => ({
+    width: TRACK_WIDTH,
+    height: TRACK_HEIGHT,
+    borderRadius: theme.cornerRad['corner-rad-full'],
+    backgroundColor: theme.surfaceColor['surface-background'],
+    justifyContent: 'center' as const,
+    padding: THUMB_MARGIN,
+    overflow: 'hidden' as const,
+    opacity: disabled ? 0.4 : 1,
+  }), [disabled, theme]);
+
+  return { styles, trackStyle, theme };
 };

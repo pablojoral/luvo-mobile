@@ -58,7 +58,7 @@ export const Payment = ({ route, navigation }: Props) => {
             <View style={styles.machineRow}>
               <SvgIcon
                 name={machine.type === 'dryer' ? 'Droplet' : 'Wind'}
-                size={'font-size-xxxxl'}
+                size={'icon-size-xxxl'}
                 color={'font-highlight'}
               />
               <View style={styles.machineInfo}>
@@ -119,7 +119,7 @@ export const Payment = ({ route, navigation }: Props) => {
         {isSuccess && (
           <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
             <View style={[styles.resultIcon, styles.resultIconSuccess]}>
-              <SvgIcon name={'Star'} size={'font-size-xxxxl'} color={'font-success'} />
+              <SvgIcon name={'Star'} size={'icon-size-xxxl'} color={'font-success'} />
             </View>
             <Text fontSize={'font-size-xl'} fontWeight={'semibold'} style={styles.statusMsg}>
               {strings.successTitle}
@@ -142,7 +142,7 @@ export const Payment = ({ route, navigation }: Props) => {
         {isError && (
           <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
             <View style={[styles.resultIcon, styles.resultIconError]}>
-              <SvgIcon name={'AlertCircle'} size={'font-size-xxxxl'} color={'font-error'} />
+              <SvgIcon name={'AlertCircle'} size={'icon-size-xxxl'} color={'font-error'} />
             </View>
             <Text fontSize={'font-size-xl'} fontWeight={'semibold'} style={styles.statusMsg}>
               {strings.errorTitle}

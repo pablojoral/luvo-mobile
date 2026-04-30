@@ -13,7 +13,7 @@ export const RemoveSwipeAction = ({ onPress }: RemoveSwipeActionProps) => {
   const { removeLabel } = useSwipeActions();
   return (
     <TouchableOpacity style={styles.actionRemove} onPress={onPress} activeOpacity={0.8}>
-      <SvgIcon name="AlertCircle" size="font-size-xl" color="font-invert" />
+      <SvgIcon name="AlertCircle" size="icon-size-md" color="font-invert" />
       <Text fontSize="font-size-xs" color="font-invert" fontWeight="semibold">
         {removeLabel}
       </Text>

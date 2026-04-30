@@ -38,7 +38,7 @@ export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaun
     >
       <TouchableOpacity style={styles.item} onPress={onPress} activeOpacity={0.75}>
         <View style={styles.itemIcon}>
-          <SvgIcon name="MapPin" size="font-size-xl" color="font-secondary" />
+          <SvgIcon name="MapPin" size="icon-size-md" color="font-secondary" />
         </View>
 
         <View style={styles.itemContent}>
@@ -56,7 +56,7 @@ export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaun
 
           {item.visibility === 'private' && item.accessCode ? (
             <View style={styles.itemCodeRow}>
-              <SvgIcon name="QrCode" size="font-size-sm" color="font-placeholder" />
+              <SvgIcon name="QrCode" size="icon-size-xs" color="font-placeholder" />
               <Text fontSize="font-size-sm" color="font-placeholder">
                 {item.accessCode}
               </Text>
@@ -89,7 +89,7 @@ export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaun
         </View>
 
         <View style={styles.itemChevron}>
-          <SvgIcon name="ChevronRight" size="font-size-xl" color="font-light" />
+          <SvgIcon name="ChevronRight" size="icon-size-md" color="font-light" />
         </View>
       </TouchableOpacity>
     </ReanimatedSwipeable>

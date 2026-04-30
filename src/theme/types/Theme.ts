@@ -80,6 +80,16 @@ export interface BorderColorTheme {
   'border-transparent': string;
 }
 
+export interface IconSizeTheme {
+  'icon-size-xs': number;
+  'icon-size-sm': number;
+  'icon-size-md': number;
+  'icon-size-lg': number;
+  'icon-size-xl': number;
+  'icon-size-xxl': number;
+  'icon-size-xxxl': number;
+}
+
 // Font themes
 export interface FontSizeTheme {
   'font-size-xs': number;
@@ -142,6 +152,7 @@ export interface ThemeConstants {
   borderWidth: BorderWidthTheme;
   cornerRad: CornerRadTheme;
   borderColor: BorderColorTheme;
+  iconSize: IconSizeTheme;
 
   navigation: ReactNavigation.Theme;
 }
@@ -164,6 +175,8 @@ export type FontSize = keyof FontSizeTheme;
 export type FontWeight = keyof FontWeightTheme;
 export type LineHeight = keyof LineHeightTheme;
 export type FontColor = keyof FontColorTheme;
+
+export type IconSize = keyof IconSizeTheme;
 
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'xl';
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
