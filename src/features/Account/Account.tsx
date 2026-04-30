@@ -30,9 +30,11 @@ export const Account = () => {
     openConfirmDelete,
     cancelConfirmDelete,
     confirmSignOut,
+    setConfirmDelete,
+    handleAvatarSelect,
+    setConfirmSignOut,
     openConfirmSignOut,
     cancelConfirmSignOut,
-    handleAvatarSelect,
     handlePasswordReset,
     handleDeleteAccount,
     signOut,
@@ -124,6 +126,28 @@ export const Account = () => {
         cancelLabel={strings.signOutConfirmCancel}
         onConfirm={signOut}
         onCancel={cancelConfirmSignOut}
+      />
+
+      <ActionModal
+        visible={confirmDelete}
+        title={strings.deleteConfirmTitle}
+        body={strings.deleteConfirmBody}
+        confirmLabel={strings.deleteConfirmDelete}
+        cancelLabel={strings.deleteConfirmCancel}
+        onConfirm={handleDeleteAccount}
+        onCancel={() => setConfirmDelete(false)}
+      />
+
+      <ActionModal
+        visible={confirmSignOut}
+        variant="neutral"
+        icon="LogOut"
+        title={strings.signOutConfirmTitle}
+        body={strings.signOutConfirmBody}
+        confirmLabel={strings.signOutConfirmConfirm}
+        cancelLabel={strings.signOutConfirmCancel}
+        onConfirm={() => signOut()}
+        onCancel={() => setConfirmSignOut(false)}
       />
     </View>
   );
