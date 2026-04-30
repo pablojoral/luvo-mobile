@@ -1,14 +1,15 @@
 import { Controller } from 'react-hook-form';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { Text } from 'components/Text/Text';
-import { TextInput } from 'components/TextInput/TextInput';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { SettingsGroup } from 'features/Settings/components/SettingsGroup/SettingsGroup';
-import { SettingsRow } from 'features/Settings/components/SettingsRow/SettingsRow';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
-import { Avatar } from './components/Avatar/Avatar';
+import { ActionModal } from 'components/ActionModal/ActionModal';
+import { AccountActionRow } from './components/AccountActionRow/AccountActionRow';
+import { AccountDetailRow } from './components/AccountDetailRow/AccountDetailRow';
+import { AccountEditableRow } from './components/AccountEditableRow/AccountEditableRow';
+import { AccountIdentityCard } from './components/AccountIdentityCard/AccountIdentityCard';
+import { AccountSectionLabel } from './components/AccountSectionLabel/AccountSectionLabel';
 import { AvatarPicker } from './components/AvatarPicker/AvatarPicker';
 import { useAccountScreen } from './hooks/useAccountScreen';
 import { useAccountTheme } from './theme/useAccountTheme';
@@ -22,98 +23,71 @@ export const Account = () => {
     watchedAvatarId,
     pickerVisible,
     setPickerVisible,
-    isDeleting,
     handleAvatarSelect,
+    isDeleting,
+    confirmDelete,
+    setConfirmDelete,
+    confirmSignOut,
+    setConfirmSignOut,
     handlePasswordReset,
     handleDeleteAccount,
-    linkedProviders,
+    signOut,
+    user,
     strings,
   } = useAccountScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
+      <SafeScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-        <View style={styles.avatarSection}>
-          <TouchableOpacity style={styles.avatarButton} onPress={() => setPickerVisible(true)} activeOpacity={0.8}>
-            <Avatar avatarId={watchedAvatarId} size={96} />
-            <View style={styles.editBadge}>
-              <SvgIcon name="Edit" size="icon-size-xs" color="font-invert" />
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <SettingsGroup title={strings.profileSection}>
-          <View style={styles.nameRow}>
-            <View style={styles.rowIcon}>
-              <SvgIcon name="User" size="icon-size-md" color="font-secondary" />
-            </View>
-            <View style={styles.nameInputWrapper}>
-              <Controller
-                control={control}
-                name="name"
-                rules={{ required: true, minLength: 1 }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    placeholder={strings.namePlaceholder}
-                    maxLength={50}
-                    returnKeyType="done"
-                    error={errors.name ? strings.nameRequired : undefined}
-                    style={styles.nameInput}
-                  />
-                )}
-              />
-            </View>
-          </View>
-        </SettingsGroup>
-
-        <SettingsGroup title={strings.securitySection}>
-          <SettingsRow
-            type="value"
-            icon="Settings"
-            label={strings.resetPassword}
-            value=""
-            onPress={handlePasswordReset}
+        <TouchableOpacity onPress={() => setPickerVisible(true)} activeOpacity={0.8}>
+          <AccountIdentityCard
+            name={user?.name ?? user?.email ?? ''}
+            avatarId={watchedAvatarId}
+            clientLabel={strings.clientLabel}
           />
-        </SettingsGroup>
+        </TouchableOpacity>
 
-        {linkedProviders.length > 0 ? (
-          <SettingsGroup title={strings.linkedSection}>
-            {linkedProviders.map((p, i) => (
-              <View key={p.id}>
-                {i > 0 ? <View style={styles.separator} /> : null}
-                <View style={styles.providerRow}>
-                  <View style={styles.rowIcon}>
-                    <SvgIcon name="User" size="icon-size-md" color="font-secondary" />
-                  </View>
-                  <Text fontSize="font-size-md" fontWeight="semibold" style={styles.providerLabel}>
-                    {p.label}
-                  </Text>
-                  <View style={styles.vinculadaBadge}>
-                    <Text fontSize="font-size-xs" style={styles.vinculadaText}>
-                      {strings.linkedBadge}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </SettingsGroup>
-        ) : null}
+        <AccountSectionLabel title={strings.nameLabel} />
+        <Controller
+          control={control}
+          name="name"
+          rules={{ required: true, minLength: 1 }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <AccountEditableRow
+              label={strings.nameLabel}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              placeholder={strings.namePlaceholder}
+              error={errors.name ? strings.nameRequired : undefined}
+            />
+          )}
+        />
+        <AccountDetailRow label={strings.emailLabel} value={user?.email ?? ''} />
+
+        <AccountSectionLabel title={strings.securitySection} />
+        <AccountActionRow
+          icon="Settings"
+          label={strings.resetPassword}
+          onPress={handlePasswordReset}
+        />
+
+        <AccountSectionLabel title={strings.sessionSection} />
+        <AccountActionRow
+          icon="LogOut"
+          label={strings.signOut}
+          onPress={() => setConfirmSignOut(true)}
+        />
 
         <TouchableOpacity
-          style={styles.deleteRow}
-          onPress={handleDeleteAccount}
+          style={styles.deleteButton}
+          onPress={() => setConfirmDelete(true)}
           disabled={isDeleting}
           activeOpacity={0.7}
         >
-          <View style={styles.deleteRowIcon}>
-            <SvgIcon name="AlertTriangle" size="icon-size-md" color="font-error" />
-          </View>
-          <Text fontSize="font-size-md" color="font-error" fontWeight="semibold">
+          <Text fontSize="font-size-sm" color="font-placeholder" style={styles.deleteText}>
             {isDeleting ? strings.deletingLabel : strings.deleteLabel}
           </Text>
         </TouchableOpacity>
@@ -124,6 +98,28 @@ export const Account = () => {
         currentId={watchedAvatarId}
         onSelect={handleAvatarSelect}
         onClose={() => setPickerVisible(false)}
+      />
+
+      <ActionModal
+        visible={confirmDelete}
+        title={strings.deleteConfirmTitle}
+        body={strings.deleteConfirmBody}
+        confirmLabel={strings.deleteConfirmDelete}
+        cancelLabel={strings.deleteConfirmCancel}
+        onConfirm={handleDeleteAccount}
+        onCancel={() => setConfirmDelete(false)}
+      />
+
+      <ActionModal
+        visible={confirmSignOut}
+        variant="neutral"
+        icon="LogOut"
+        title={strings.signOutConfirmTitle}
+        body={strings.signOutConfirmBody}
+        confirmLabel={strings.signOutConfirmConfirm}
+        cancelLabel={strings.signOutConfirmCancel}
+        onConfirm={() => signOut()}
+        onCancel={() => setConfirmSignOut(false)}
       />
     </View>
   );

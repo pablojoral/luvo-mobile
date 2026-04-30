@@ -1,4 +1,4 @@
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
 import { FlatList, View } from 'react-native';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
@@ -16,7 +16,7 @@ export const History = () => {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={title} onBack={() => navigation.goBack()} />
+      <SafeScreenHeader title={title} onBack={() => navigation.goBack()} />
 
       {isLoading ? (
         <View style={styles.loadingContainer}>

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
-import { Colors } from 'theme/constants/colors';
 
 export const useSettingsTheme = () => {
   const theme = useTheme();
@@ -8,8 +7,7 @@ export const useSettingsTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: Colors['colors-white'],
-      paddingTop: theme.topInset,
+      backgroundColor: theme.surfaceColor['surface-primary'],
     },
     scroll: {
       flex: 1,
@@ -18,7 +16,6 @@ export const useSettingsTheme = () => {
     scrollContent: {
       paddingHorizontal: theme.spacing['spacing-xl'],
       paddingTop: theme.spacing['spacing-lg'],
-      paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
       gap: theme.spacing['spacing-xl'],
     },
     group: {
@@ -31,7 +28,7 @@ export const useSettingsTheme = () => {
     },
     rowCard: {
       borderRadius: theme.cornerRad['corner-rad-lg'],
-      backgroundColor: Colors['colors-white'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
       flexDirection: 'row',
       alignItems: 'center',
       paddingVertical: theme.spacing['spacing-sm'],

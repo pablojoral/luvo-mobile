@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { useMe, useUpdateProfile, useDeleteAccount } from 'query/Auth/useAuth';
-import { sendPasswordReset, getLinkedProviders } from 'services/firebase/firebaseAuth';
+import { useMe, useUpdateProfile, useDeleteAccount, useSignOut } from 'query/Auth/useAuth';
+import { sendPasswordReset } from 'services/firebase/firebaseAuth';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 
@@ -18,16 +17,12 @@ export function useAccountScreen() {
   const { data: user } = useMe();
   const { mutateAsync: updateProfile } = useUpdateProfile();
   const { mutate: deleteAccount, isPending: isDeleting } = useDeleteAccount();
+  const { mutate: signOut } = useSignOut();
   const addMessage = useMessagesStore(s => s.addMessage);
   const nav = useRootStackNavigation();
   const [pickerVisible, setPickerVisible] = useState(false);
-
-  const providerLabels: Record<string, string> = {
-    password:     t('account.providers.password'),
-    'google.com': t('account.providers.google'),
-    'apple.com':  t('account.providers.apple'),
-    phone:        t('account.providers.phone'),
-  };
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmSignOut, setConfirmSignOut] = useState(false);
 
   const { control, handleSubmit, reset, setValue, watch, formState: { isDirty, errors } } =
     useForm<AccountFormValues>({ defaultValues: { name: '', avatarId: 1 } });
@@ -82,29 +77,12 @@ export function useAccountScreen() {
   };
 
   const handleDeleteAccount = () => {
-    Alert.alert(
-      t('account.alerts.deleteConfirmTitle'),
-      t('account.alerts.deleteConfirmBody'),
-      [
-        { text: t('account.alerts.deleteConfirmCancel'), style: 'cancel' },
-        {
-          text: t('account.alerts.deleteConfirmDelete'),
-          style: 'destructive',
-          onPress: () =>
-            deleteAccount(undefined, {
-              onSuccess: () => nav.navigate('Tabs'),
-              onError: () =>
-                addMessage({ title: t('errors.generic'), body: t('account.messages.deleteFailed') }),
-            }),
-        },
-      ],
-    );
+    deleteAccount(undefined, {
+      onSuccess: () => nav.navigate('Tabs'),
+      onError: () =>
+        addMessage({ title: t('errors.generic'), body: t('account.messages.deleteFailed') }),
+    });
   };
-
-  const linkedProviders = getLinkedProviders().map(id => ({
-    id,
-    label: providerLabels[id] ?? id,
-  }));
 
   return {
     control,
@@ -113,21 +91,36 @@ export function useAccountScreen() {
     pickerVisible,
     setPickerVisible,
     isDeleting,
+    confirmDelete,
+    setConfirmDelete,
+    confirmSignOut,
+    setConfirmSignOut,
     handleAvatarSelect,
     handlePasswordReset,
     handleDeleteAccount,
-    linkedProviders,
+    signOut,
+    user,
     strings: {
-      screenTitle:         t('account.title'),
-      profileSection:      t('account.profile.sectionTitle'),
-      namePlaceholder:     t('account.profile.namePlaceholder'),
-      nameRequired:        t('account.profile.nameRequired'),
-      securitySection:     t('account.security.sectionTitle'),
-      resetPassword:       t('account.security.resetPassword'),
-      linkedSection:       t('account.linkedAccounts.sectionTitle'),
-      linkedBadge:         t('account.linkedAccounts.linkedBadge'),
-      deleteLabel:         t('account.deleteAccount.label'),
-      deletingLabel:       t('account.deleteAccount.deleting'),
+      screenTitle:           t('account.title'),
+      nameLabel:             t('account.profile.sectionTitle'),
+      namePlaceholder:       t('account.profile.namePlaceholder'),
+      nameRequired:          t('account.profile.nameRequired'),
+      emailLabel:            'Email',
+      clientLabel:           'Cliente Luvo',
+      securitySection:       t('account.security.sectionTitle'),
+      resetPassword:         t('account.security.resetPassword'),
+      sessionSection:        t('profile.menu.signOut'),
+      signOut:               t('profile.menu.signOut'),
+      deleteLabel:           t('account.deleteAccount.label'),
+      deletingLabel:         t('account.deleteAccount.deleting'),
+      deleteConfirmTitle:    t('account.alerts.deleteConfirmTitle'),
+      deleteConfirmBody:     t('account.alerts.deleteConfirmBody'),
+      deleteConfirmDelete:   t('account.alerts.deleteConfirmDelete'),
+      deleteConfirmCancel:   t('account.alerts.deleteConfirmCancel'),
+      signOutConfirmTitle:   t('profile.menu.signOut'),
+      signOutConfirmBody:    t('auth.defaultSubtitle'),
+      signOutConfirmConfirm: t('profile.menu.signOut'),
+      signOutConfirmCancel:  t('actions.cancel'),
     },
   };
 }
