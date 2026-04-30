@@ -8,6 +8,17 @@ interface UseTextThemeParams {
   fontWeight: FontWeight;
 }
 
+// iOS ignores fontWeight on custom fonts — explicit family names are required.
+// These names must match the PostScript names embedded in each TTF file.
+const POPPINS_FAMILY: Record<FontWeight, string> = {
+  light: 'Poppins-Light',
+  regular: 'Poppins-Regular',
+  medium: 'Poppins-Medium',
+  semibold: 'Poppins-SemiBold',
+  bold: 'Poppins-Bold',
+  extrabold: 'Poppins-ExtraBold',
+};
+
 export const useTextTheme = ({
   fontSize = 'font-size-md',
   color = 'font-primary',
@@ -16,10 +27,9 @@ export const useTextTheme = ({
   const theme = useTheme();
   const styles: { text: TextStyle } = StyleSheet.create({
     text: {
-      fontFamily: theme.fontFamily.poppins,
+      fontFamily: POPPINS_FAMILY[fontWeight],
       fontSize: theme.fontSize[fontSize],
       color: theme.fontColor[color],
-      fontWeight: theme.fontWeight[fontWeight],
     },
   });
   return { styles, theme };
