@@ -1,5 +1,5 @@
 import { Text as RNText, TextProps as RNTextProps } from 'react-native';
-import { FontColor, FontSize, FontWeight } from 'theme/types/Theme';
+import { FontColor, FontSize, FontWeight, LineHeight } from 'theme/types/Theme';
 
 import { useTextTheme } from './theme/useTextTheme';
 
@@ -8,6 +8,7 @@ export interface TextProps extends RNTextProps {
   fontSize?: FontSize;
   color?: FontColor;
   fontWeight?: FontWeight;
+  lineHeight?: LineHeight;
   style?: RNTextProps['style'];
 }
 
@@ -17,11 +18,12 @@ export const Text = (props: TextProps) => {
     fontSize = 'font-size-md',
     color = 'font-primary',
     fontWeight = 'regular',
+    lineHeight,
     style,
     ...rest
   } = props;
 
-  const { styles } = useTextTheme({ fontSize, color, fontWeight });
+  const { styles } = useTextTheme({ fontSize, color, fontWeight, lineHeight });
 
   return (
     <RNText {...rest} style={[styles.text, style]}>

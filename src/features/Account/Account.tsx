@@ -30,14 +30,12 @@ export const Account = () => {
     openConfirmDelete,
     cancelConfirmDelete,
     confirmSignOut,
-    setConfirmDelete,
-    handleAvatarSelect,
-    setConfirmSignOut,
     openConfirmSignOut,
     cancelConfirmSignOut,
+    handleAvatarSelect,
     handlePasswordReset,
+    handleSignOut,
     handleDeleteAccount,
-    signOut,
     user,
     strings,
   } = useAccountScreen();
@@ -46,6 +44,7 @@ export const Account = () => {
     <View style={styles.container}>
       <SafeScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
+      <View style={styles.body}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         <TouchableOpacity onPress={openAvatarPicker} activeOpacity={0.8}>
           <AccountIdentityCard
@@ -98,6 +97,7 @@ export const Account = () => {
           </Text>
         </TouchableOpacity>
       </ScrollView>
+      </View>
 
       <AvatarPicker
         visible={pickerVisible}
@@ -124,30 +124,8 @@ export const Account = () => {
         body={strings.signOutConfirmBody}
         confirmLabel={strings.signOutConfirmConfirm}
         cancelLabel={strings.signOutConfirmCancel}
-        onConfirm={signOut}
+        onConfirm={handleSignOut}
         onCancel={cancelConfirmSignOut}
-      />
-
-      <ActionModal
-        visible={confirmDelete}
-        title={strings.deleteConfirmTitle}
-        body={strings.deleteConfirmBody}
-        confirmLabel={strings.deleteConfirmDelete}
-        cancelLabel={strings.deleteConfirmCancel}
-        onConfirm={handleDeleteAccount}
-        onCancel={() => setConfirmDelete(false)}
-      />
-
-      <ActionModal
-        visible={confirmSignOut}
-        variant="neutral"
-        icon="LogOut"
-        title={strings.signOutConfirmTitle}
-        body={strings.signOutConfirmBody}
-        confirmLabel={strings.signOutConfirmConfirm}
-        cancelLabel={strings.signOutConfirmCancel}
-        onConfirm={() => signOut()}
-        onCancel={() => setConfirmSignOut(false)}
       />
     </View>
   );

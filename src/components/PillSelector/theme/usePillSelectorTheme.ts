@@ -14,7 +14,9 @@ export const usePillSelectorTheme = ({ backgroundColor, thumbColor }: PillSelect
     outerContainer: {
       borderRadius: theme.cornerRad['corner-rad-full'],
       backgroundColor: theme.surfaceColor[backgroundColor],
-      padding: theme.spacing['spacing-xxxs'],
+      padding: theme.spacing['spacing-xs'],
+      borderWidth: theme.borderWidth['border-width-xs'],
+      borderColor: theme.borderColor['border-invert'],
     },
     container: {
       position: 'relative',
@@ -36,10 +38,7 @@ export const usePillSelectorTheme = ({ backgroundColor, thumbColor }: PillSelect
     segment: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: theme.spacing['spacing-xs'],
-    },
-    label: {
-      fontWeight: '600',
+      paddingVertical: theme.spacing['spacing-sm'],
     },
   });
 

@@ -22,23 +22,25 @@ export const FAQ = () => {
   return (
     <View style={styles.container}>
       <SafeScreenHeader title={title} onBack={handleGoBack} />
-      {isLoading ? (
-        <View style={styles.loadingContainer}>
-          <Text>{loadingText}</Text>
-        </View>
-      ) : error ? (
-        <View style={styles.errorContainer}>
-          <Text color="font-error">{loadError}</Text>
-        </View>
-      ) : (
-        <FlatList
-          data={items}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          style={styles.scroll}
-          contentContainerStyle={styles.scrollContent}
-        />
-      )}
+      <View style={styles.body}>
+        {isLoading ? (
+          <View style={styles.loadingContainer}>
+            <Text>{loadingText}</Text>
+          </View>
+        ) : error ? (
+          <View style={styles.errorContainer}>
+            <Text color="font-error">{loadError}</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={items}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            style={styles.scroll}
+            contentContainerStyle={styles.scrollContent}
+          />
+        )}
+      </View>
     </View>
   );
 };

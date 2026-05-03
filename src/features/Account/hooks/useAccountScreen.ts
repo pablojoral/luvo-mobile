@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { useAccountStrings } from './useAccountStrings';
 
 import { useMe, useUpdateProfile, useDeleteAccount, useSignOut } from 'query/Auth/useAuth';
 import { sendPasswordReset } from 'services/firebase/firebaseAuth';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
+import { useLaundriesStore } from 'stores/useLaundriesStore';
+import { useSelectedLaundry } from 'stores/useSelectedLaundry';
 
 export type AccountFormValues = {
   name: string;
@@ -13,21 +15,27 @@ export type AccountFormValues = {
 };
 
 export function useAccountScreen() {
-  const { t } = useTranslation('common');
   const { data: user } = useMe();
   const { mutateAsync: updateProfile } = useUpdateProfile();
   const { mutate: deleteAccount, isPending: isDeleting } = useDeleteAccount();
   const { mutate: signOut } = useSignOut();
+  const strings = useAccountStrings(isDeleting);
+
   const addMessage = useMessagesStore(s => s.addMessage);
   const nav = useRootStackNavigation();
   const [pickerVisible, setPickerVisible] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmSignOut, setConfirmSignOut] = useState(false);
 
+  const resetAppState = () => {
+    useLaundriesStore.setState({ laundries: [], connectionState: 'idle' });
+    useSelectedLaundry.setState({ selectedLaundryId: null });
+    nav.reset({ index: 1, routes: [{ name: 'Tabs' }, { name: 'Auth' }] });
+  };
+
   const { control, handleSubmit, reset, setValue, watch, formState: { isDirty, errors } } =
     useForm<AccountFormValues>({ defaultValues: { name: '', avatarId: 1 } });
 
-  // Initialize form once user data arrives
   const initialized = useRef(false);
   useEffect(() => {
     if (user && !initialized.current) {
@@ -36,7 +44,6 @@ export function useAccountScreen() {
     }
   }, [user, reset]);
 
-  // Auto-submit with 800 ms debounce whenever name or avatarId changes
   const watchedName = watch('name');
   const watchedAvatarId = watch('avatarId');
   const isDirtyRef = useRef(isDirty);
@@ -50,7 +57,7 @@ export function useAccountScreen() {
           await updateProfile({ name: data.name.trim(), avatarId: data.avatarId });
           reset(data);
         } catch {
-          addMessage({ title: t('errors.generic'), body: t('account.messages.saveFailed') });
+          addMessage({ title: strings.genericError, body: strings.saveFailed });
         }
       })();
     }, 800);
@@ -68,19 +75,27 @@ export function useAccountScreen() {
     try {
       await sendPasswordReset(user.email);
       addMessage({
-        title: t('account.messages.passwordResetSent'),
-        body: t('account.messages.passwordResetSentBody', { email: user.email }),
+        title: strings.passwordResetSent,
+        body: strings.passwordResetSentBody(user.email),
       });
     } catch {
-      addMessage({ title: t('errors.generic'), body: t('account.messages.passwordResetFailed') });
+      addMessage({ title: strings.genericError, body: strings.passwordResetFailed });
     }
+  };
+
+  const handleSignOut = () => {
+    signOut(undefined, {
+      onSuccess: resetAppState,
+      onError: () =>
+        addMessage({ title: strings.genericError, body: strings.signOutFailed }),
+    });
   };
 
   const handleDeleteAccount = () => {
     deleteAccount(undefined, {
-      onSuccess: () => nav.navigate('Tabs'),
+      onSuccess: resetAppState,
       onError: () =>
-        addMessage({ title: t('errors.generic'), body: t('account.messages.deleteFailed') }),
+        addMessage({ title: strings.genericError, body: strings.deleteFailed }),
     });
   };
 
@@ -92,12 +107,12 @@ export function useAccountScreen() {
     watchedAvatarId,
     displayName,
     pickerVisible,
-    openAvatarPicker:   () => setPickerVisible(true),
-    closeAvatarPicker:  () => setPickerVisible(false),
+    openAvatarPicker:    () => setPickerVisible(true),
+    closeAvatarPicker:   () => setPickerVisible(false),
     isDeleting,
     confirmDelete,
     setConfirmDelete,
-    openConfirmDelete:  () => setConfirmDelete(true),
+    openConfirmDelete:   () => setConfirmDelete(true),
     cancelConfirmDelete: () => setConfirmDelete(false),
     confirmSignOut,
     setConfirmSignOut,
@@ -105,29 +120,9 @@ export function useAccountScreen() {
     cancelConfirmSignOut: () => setConfirmSignOut(false),
     handleAvatarSelect,
     handlePasswordReset,
+    handleSignOut,
     handleDeleteAccount,
-    signOut,
     user,
-    strings: {
-      screenTitle:           t('account.title'),
-      nameLabel:             t('account.profile.sectionTitle'),
-      namePlaceholder:       t('account.profile.namePlaceholder'),
-      nameRequired:          t('account.profile.nameRequired'),
-      emailLabel:            'Email',
-      clientLabel:           'Cliente Luvo',
-      securitySection:       t('account.security.sectionTitle'),
-      resetPassword:         t('account.security.resetPassword'),
-      sessionSection:        t('profile.menu.signOut'),
-      signOut:               t('profile.menu.signOut'),
-      deleteButtonLabel:     isDeleting ? t('account.deleteAccount.deleting') : t('account.deleteAccount.label'),
-      deleteConfirmTitle:    t('account.alerts.deleteConfirmTitle'),
-      deleteConfirmBody:     t('account.alerts.deleteConfirmBody'),
-      deleteConfirmDelete:   t('account.alerts.deleteConfirmDelete'),
-      deleteConfirmCancel:   t('account.alerts.deleteConfirmCancel'),
-      signOutConfirmTitle:   t('profile.menu.signOut'),
-      signOutConfirmBody:    t('auth.defaultSubtitle'),
-      signOutConfirmConfirm: t('profile.menu.signOut'),
-      signOutConfirmCancel:  t('actions.cancel'),
-    },
+    strings,
   };
 }

@@ -1,12 +1,11 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { SvgImage } from 'components/SvgImage/SvgImage';
-import { useCameraScanner } from 'features/Scan/hooks/useCamera';
-import React, { useCallback, useRef } from 'react';
+import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { Camera } from 'react-native-vision-camera';
-import { useQRScanner } from 'stores/useQRScanner';
 import { useQRScannerTheme } from '../../theme/useQRScannerTheme';
+import { useQRScannerContent } from './hooks/useQRScannerContent';
 
 /**
  * Content is split into a separate component so the Animated.View's
@@ -14,20 +13,7 @@ import { useQRScannerTheme } from '../../theme/useQRScannerTheme';
  */
 export const QRScannerContent: React.FC = () => {
   const { styles } = useQRScannerTheme();
-  const { onScan, close } = useQRScanner();
-  const handledRef = useRef(false);
-
-  const handleCodeScanned = useCallback(
-    (code: string) => {
-      if (handledRef.current) return;
-      handledRef.current = true;
-      onScan?.(code);
-      close();
-    },
-    [onScan, close],
-  );
-
-  const { hasPermission, codeScanner } = useCameraScanner(handleCodeScanned);
+  const { hasPermission, codeScanner, close } = useQRScannerContent();
 
   return (
     <Animated.View style={styles.overlay} entering={FadeIn} exiting={FadeOut}>

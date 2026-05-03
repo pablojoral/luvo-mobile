@@ -7,13 +7,10 @@ export const useLaundryDetailsTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
-    },
-    content: {
-      flex: 1,
       backgroundColor: theme.surfaceColor['surface-invert'],
+      gap: theme.spacing['spacing-sm'],
     },
   });
 
-  return { styles, theme };
+  return { styles };
 };

@@ -1,9 +1,8 @@
 import { SelectorOption } from 'components/PillSelector/PillSelector';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
-import { useEffect } from 'react';
 import { Pressable, View } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 import { useSelectInput } from './hooks/useSelectInput';
 import { useSelectInputTheme } from './theme/useSelectInputTheme';
@@ -19,16 +18,7 @@ export interface SelectInputProps {
 
 export const SelectInput = ({ label, placeholder, value, options, onChange, error }: SelectInputProps) => {
   const { styles } = useSelectInputTheme({ error: !!error });
-  const { isOpen, toggle, select, selectedLabel } = useSelectInput({ value, options, onChange });
-
-  const rotation = useSharedValue(0);
-  useEffect(() => {
-    rotation.value = withTiming(isOpen ? 90 : 0, { duration: 180 });
-  }, [isOpen, rotation]);
-
-  const chevronStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${rotation.value}deg` }],
-  }));
+  const { isOpen, toggle, select, selectedLabel, chevronStyle } = useSelectInput({ value, options, onChange });
 
   return (
     <View style={styles.container}>

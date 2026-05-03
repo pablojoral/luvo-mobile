@@ -8,6 +8,7 @@ import {
   Spacing,
   SurfaceColor,
 } from 'theme/types/Theme';
+import { TextStyle } from 'react-native';
 
 export const surfaceColorMap: Record<ButtonVariant, SurfaceColor> = {
   primary: 'surface-invert',
@@ -45,10 +46,10 @@ export const spacingMap: Record<ButtonVariant, Record<ButtonSize, Spacing>> = {
     xl: 'spacing-xl',
   },
   link: {
-    xs: 'spacing-xs',
-    sm: 'spacing-sm',
-    md: 'spacing-md',
-    xl: 'spacing-xl',
+    xs: 'spacing-none',
+    sm: 'spacing-none',
+    md: 'spacing-none',
+    xl: 'spacing-none',
   },
   destructive: {
     xs: 'spacing-xs',
@@ -63,7 +64,7 @@ export const textColorMap: Record<ButtonVariant, FontColor> = {
   secondary: 'font-primary',
   tertiary: 'font-secondary',
   destructive: 'font-invert',
-  link: 'font-primary',
+  link: 'font-highlight',
 };
 
 export const fontSizeMap: Record<ButtonSize, FontSize> = {
@@ -73,9 +74,14 @@ export const fontSizeMap: Record<ButtonSize, FontSize> = {
   xl: 'font-size-xxl',
 };
 
-export const fontWeightMap: Record<ButtonSize, FontWeight> = {
-  xs: 'light',
-  sm: 'light',
-  md: 'regular',
-  xl: 'semibold',
+export const fontWeightMap: Record<ButtonVariant, Record<ButtonSize, FontWeight>> = {
+  primary:     { xs: 'light', sm: 'light', md: 'regular', xl: 'semibold' },
+  secondary:   { xs: 'light', sm: 'light', md: 'regular', xl: 'semibold' },
+  tertiary:    { xs: 'light', sm: 'light', md: 'regular', xl: 'semibold' },
+  destructive: { xs: 'light', sm: 'light', md: 'regular', xl: 'semibold' },
+  link:        { xs: 'semibold', sm: 'semibold', md: 'semibold', xl: 'semibold' },
+};
+
+export const textDecorationMap: Partial<Record<ButtonVariant, TextStyle['textDecorationLine']>> = {
+  link: 'underline',
 };

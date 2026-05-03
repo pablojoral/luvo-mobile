@@ -1,18 +1,16 @@
-import { useTranslation } from 'react-i18next';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useContent } from 'query/Content/useContent';
+import { useTermsStrings } from './useTermsStrings';
 
 export const useTermsScreen = () => {
-  const { t } = useTranslation('common');
+  const strings = useTermsStrings();
   const navigation = useRootStackNavigation();
   const { data: content, isLoading, error } = useContent('terms');
 
   const handleGoBack = () => navigation.goBack();
 
   return {
-    title: t('info.terms.title'),
-    loadingText: t('info.loading'),
-    loadError: t('info.loadError'),
+    ...strings,
     content,
     isLoading,
     error,

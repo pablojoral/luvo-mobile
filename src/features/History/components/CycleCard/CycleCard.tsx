@@ -1,35 +1,31 @@
-import { View } from 'react-native';
 import { Text } from 'components/Text/Text';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { useHistoryTheme } from '../../theme/useHistoryTheme';
+import { View } from 'react-native';
 import type { HistoryItem } from 'services/api/services/HistoryService';
+
 import { useCycleCard } from './hooks/useCycleCard';
+import { useCycleCardTheme } from './theme/useCycleCardTheme';
 
 interface CycleCardProps {
   item: HistoryItem;
 }
 
 export const CycleCard = ({ item }: CycleCardProps) => {
-  const { styles } = useHistoryTheme();
-  const { icon, formattedAmount, formattedDate, sharedBillingLabel, machineName, laundryName, isShared } =
-    useCycleCard({ item });
+  const { icon, formattedAmount, subtitle, machineName, machineType } = useCycleCard({ item });
+  const { styles, iconBoxStyle } = useCycleCardTheme(machineType);
 
   return (
-    <View style={styles.cycleCard}>
-      <View style={styles.cycleIconBox}>
-        <SvgIcon name={icon} size="icon-size-sm" color="font-secondary" />
+    <View style={styles.card}>
+      <View style={iconBoxStyle}>
+        <SvgIcon name={icon} size="icon-size-md" color="font-primary" />
       </View>
 
-      <View style={styles.cycleInfo}>
-        <Text style={styles.cycleMachine}>{machineName}</Text>
-        <Text style={styles.cycleLaundry}>{laundryName}</Text>
-        {isShared && <Text style={styles.sharedBadge}>{sharedBillingLabel}</Text>}
+      <View style={styles.info}>
+        <Text fontSize="font-size-md" fontWeight="semibold">{machineName}</Text>
+        <Text fontSize="font-size-xs" color="font-placeholder">{subtitle}</Text>
       </View>
 
-      <View style={styles.cycleRight}>
-        <Text style={styles.cycleAmount}>{formattedAmount}</Text>
-        <Text style={styles.cycleDate}>{formattedDate}</Text>
-      </View>
+      <Text fontSize="font-size-md" fontWeight="semibold">{formattedAmount}</Text>
     </View>
   );
 };

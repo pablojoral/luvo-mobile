@@ -36,8 +36,6 @@ export const Payment = ({ route, navigation }: Props) => {
     selectedStrategy,
     setSelectedStrategy,
     paymentState,
-    progressMsg,
-    errorMsg,
     execute,
     reset,
     isLoading,
@@ -110,7 +108,7 @@ export const Payment = ({ route, navigation }: Props) => {
           <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
             <ActivityIndicator size="large" />
             <Text fontSize={'font-size-md'} color={'font-secondary'} style={styles.statusMsg}>
-              {progressMsg || strings.processing}
+              {strings.progressMsg || strings.processing}
             </Text>
           </Animated.View>
         )}
@@ -148,7 +146,7 @@ export const Payment = ({ route, navigation }: Props) => {
               {strings.errorTitle}
             </Text>
             <Text fontSize={'font-size-sm'} color={'font-light'} style={styles.statusSub}>
-              {errorMsg}
+              {strings.errorMsg}
             </Text>
             <Button
               label={strings.retry}

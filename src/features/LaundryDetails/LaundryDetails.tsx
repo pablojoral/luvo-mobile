@@ -1,5 +1,4 @@
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
-import { LaundryDetailsCard } from 'features/LaundryDetails/components/LaundryDetailsCard/LaundryDetailsCard';
+import { LaundryDetailsHero } from 'features/LaundryDetails/components/LaundryDetailsHero/LaundryDetailsHero';
 import { MachinesList } from 'features/LaundryDetails/components/MachinesList/MachineList';
 import { View } from 'react-native';
 
@@ -8,15 +7,12 @@ import { useLaundryDetailsTheme } from './theme/useLaundryDetailsTheme';
 
 export const LaundryDetails = () => {
   const { styles } = useLaundryDetailsTheme();
-  const { laundry, screenTitle, handleGoBack } = useLaundryDetailsScreen();
+  const { laundry } = useLaundryDetailsScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={screenTitle} onBack={handleGoBack} />
-      <View style={styles.content}>
-        <LaundryDetailsCard laundry={laundry} />
-        <MachinesList laundry={laundry} />
-      </View>
+      <LaundryDetailsHero laundry={laundry} />
+      <MachinesList laundry={laundry} />
     </View>
   );
 };

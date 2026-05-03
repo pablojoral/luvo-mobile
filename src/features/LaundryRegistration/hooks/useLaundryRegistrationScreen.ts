@@ -3,10 +3,10 @@ import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useFirebaseAuthState } from 'query/Auth/useAuth';
 import { useRegisterMyLaundry } from 'query/MyLaundries/useRegisterMyLaundry';
-import { useTranslation } from 'react-i18next';
+import { useLaundryRegistrationStrings } from './useLaundryRegistrationStrings';
 
 export const useLaundryRegistrationScreen = () => {
-  const { t } = useTranslation('common');
+  const strings = useLaundryRegistrationStrings();
   const route = useRoute<RouteProp<RootStackParamList, 'RegisterLaundry'>>();
   const navigation = useRootStackNavigation();
   const { code } = route.params;
@@ -29,13 +29,7 @@ export const useLaundryRegistrationScreen = () => {
   };
 
   return {
-    title: t('laundryRegistration.title'),
-    guestPrompt: t('laundryRegistration.guestPrompt'),
-    signInLabel: t('auth.signIn'),
-    accessCodeLabel: t('laundryRegistration.accessCodeLabel'),
-    description: t('laundryRegistration.description'),
-    invalidCode: t('laundryRegistration.invalidCode'),
-    addButton: t('laundryRegistration.addButton'),
+    ...strings,
     code,
     firebaseUser,
     authLoading,

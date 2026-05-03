@@ -12,8 +12,10 @@ export const Info = () => {
   return (
     <View style={styles.container}>
       <SafeScreenHeader title={title} onBack={handleGoBack} />
-      <View style={styles.scrollContent}>
-        <SettingsMenu items={items} />
+      <View style={styles.body}>
+        <View style={styles.scrollContent}>
+          <SettingsMenu items={items} />
+        </View>
       </View>
     </View>
   );

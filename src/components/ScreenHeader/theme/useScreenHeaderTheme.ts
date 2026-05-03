@@ -6,24 +6,20 @@ export const useScreenHeaderTheme = () => {
 
   const styles = StyleSheet.create({
     container: {
-      width: '100%',
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: theme.spacing['spacing-lg'],
+      paddingVertical: theme.spacing['spacing-sm'],
       paddingHorizontal: theme.spacing['spacing-md'],
+      gap: theme.spacing['spacing-sm'],
       backgroundColor: theme.surfaceColor['surface-primary'],
-      borderBottomLeftRadius: theme.cornerRad['corner-rad-xxl'],
-      borderBottomRightRadius: theme.cornerRad['corner-rad-xxl'],
     },
     backButton: {
-      padding: theme.spacing['spacing-xs'],
-    },
-    title: {
-      flex: 1,
-      textAlign: 'center',
-    },
-    spacer: {
-      width: theme.fontSize['font-size-xxl'] + theme.spacing['spacing-xs'] * 2,
+      width: theme.spacing['spacing-xxxl'],
+      height: theme.spacing['spacing-xxxl'],
+      borderRadius: theme.cornerRad['corner-rad-full'],
+      backgroundColor: theme.surfaceColor['surface-background'],
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   });
 

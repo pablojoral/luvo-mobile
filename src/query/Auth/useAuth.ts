@@ -59,7 +59,7 @@ export function useSignOut() {
   return useMutation({
     mutationFn: () => authService.logout(),
     onSuccess: () => {
-      qc.removeQueries({ queryKey: qk.auth.me() });
+      qc.clear();
     },
   });
 }

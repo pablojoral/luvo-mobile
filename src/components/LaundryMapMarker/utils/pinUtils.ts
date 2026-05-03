@@ -1,24 +1,25 @@
 import { Colors } from 'theme/constants/colors';
 
+// Circle center (20,20) radius 18. Nib base at ±77° (16,37.5)/(24,37.5), tip at (20,43).
 export const PIN_PATH =
-  'M12 2C7.03 2 3 6.03 3 10.5c0 6.5 7 12 8.5 13 .3.2.7.2 1 0C14 22.5 21 17 21 10.5 21 6.03 16.97 2 12 2z';
+  'M 16 37.5 A 18 18 0 1 1 24 37.5 L 20 43 Z';
 
-export const VIEWBOX_SIZE = 24;
+export const PIN_VIEWBOX_WIDTH  = 40;
+export const PIN_VIEWBOX_HEIGHT = 50;
 
 /**
- * Builds the SVG fill path.
- * When partial (0 < ratio < 1) the top edge has a gentle wave.
- * At 0 or 1 the wave amplitude collapses to 0 (flat edge).
+ * Builds the SVG fill path that rises from the bottom based on ratio.
+ * When partial the top edge has a gentle wave; at 0 or 1 it is flat.
  */
-export function buildFillPath(ratio: number, vb: number): string {
-  const y   = vb * (1 - ratio);
-  const amp = ratio > 0 && ratio < 1 ? 1.5 : 0;
+export function buildFillPath(ratio: number): string {
+  const y   = PIN_VIEWBOX_HEIGHT * (1 - ratio);
+  const amp = ratio > 0 && ratio < 1 ? 2 : 0;
   return [
     `M 0 ${y}`,
-    `C 4 ${y - amp}, 8 ${y + amp}, 12 ${y}`,
-    `C 16 ${y - amp}, 20 ${y + amp}, ${vb} ${y}`,
-    `L ${vb} ${vb}`,
-    `L 0 ${vb}`,
+    `C 8 ${y - amp}, 16 ${y + amp}, 20 ${y}`,
+    `C 24 ${y - amp}, 32 ${y + amp}, ${PIN_VIEWBOX_WIDTH} ${y}`,
+    `L ${PIN_VIEWBOX_WIDTH} ${PIN_VIEWBOX_HEIGHT}`,
+    `L 0 ${PIN_VIEWBOX_HEIGHT}`,
     'Z',
   ].join(' ');
 }

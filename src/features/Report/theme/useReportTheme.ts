@@ -8,7 +8,14 @@ export const useReportTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: theme.surfaceColor['surface-primary'],
+    },
+    body: {
+      flex: 1,
       backgroundColor: theme.surfaceColor['surface-background'],
+      borderTopLeftRadius: theme.cornerRad['corner-rad-xxl'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-xxl'],
+      overflow: 'hidden',
     },
     flex: {
       flex: 1,

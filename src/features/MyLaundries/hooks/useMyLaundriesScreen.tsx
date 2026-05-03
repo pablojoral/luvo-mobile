@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { MyLaundry } from 'models/models';
 import { useFirebaseAuthState } from 'query/Auth/useAuth';
 import { useMyLaundries } from 'query/MyLaundries/useMyLaundries';
@@ -7,12 +6,13 @@ import { useRemoveMyLaundry } from 'query/MyLaundries/useRemoveMyLaundry';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import type { ListRenderItem } from 'react-native';
 import { MyLaundryItem } from '../components/MyLaundryItem/MyLaundryItem';
+import { useMyLaundriesStrings } from './useMyLaundriesStrings';
 
 export const useMyLaundriesScreen = () => {
-  const { t } = useTranslation('common');
+  const { title, authSubtitle } = useMyLaundriesStrings();
   const navigation = useRootStackNavigation();
   const { data: firebaseUser } = useFirebaseAuthState();
-  const { data, isLoading } = useMyLaundries();
+  const { data, isLoading, isRefetching, refetch } = useMyLaundries();
   const { mutate: remove } = useRemoveMyLaundry();
 
   const laundries = data?.laundries ?? [];
@@ -52,9 +52,11 @@ export const useMyLaundriesScreen = () => {
     firebaseUser,
     laundries,
     isLoading,
+    isRefetching,
+    refetch,
     renderItem,
     keyExtractor,
-    title: t('myLaundries.title'),
-    authSubtitle: t('myLaundries.authSubtitle'),
+    title,
+    authSubtitle,
   };
 };

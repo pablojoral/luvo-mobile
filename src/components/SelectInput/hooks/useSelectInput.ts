@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SelectorOption } from 'components/PillSelector/PillSelector';
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 interface Options {
   value: string;
@@ -19,5 +20,14 @@ export const useSelectInput = ({ value, options, onChange }: Options) => {
     setIsOpen(false);
   }, [onChange]);
 
-  return { isOpen, toggle, select, selectedLabel };
+  const rotation = useSharedValue(0);
+  useEffect(() => {
+    rotation.value = withTiming(isOpen ? 90 : 0, { duration: 180 });
+  }, [isOpen, rotation]);
+
+  const chevronStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }));
+
+  return { isOpen, toggle, select, selectedLabel, chevronStyle };
 };

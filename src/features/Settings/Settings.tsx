@@ -29,6 +29,7 @@ export const Settings = () => {
     <View style={styles.container}>
       <SafeScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
+      <View style={styles.body}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         <SettingsGroup title={strings.generalTitle}>
           <SettingsRow
@@ -76,6 +77,7 @@ export const Settings = () => {
           />
         </SettingsGroup>
       </ScrollView>
+      </View>
 
       <LanguagePicker
         visible={languagePickerVisible}

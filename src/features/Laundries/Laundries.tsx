@@ -2,7 +2,7 @@ import { LaundryMapMarker } from 'components/LaundryMapMarker/LaundryMapMarker';
 import React from 'react';
 import { View } from 'react-native';
 import Config from 'react-native-config';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 import { Camera, MapView, setAccessToken } from '@rnmapbox/maps';
 
@@ -21,14 +21,10 @@ export const Laundries = () => {
     connectionState,
     selectedLaundryId,
     clearSelectedLaundry,
-    fabBottom,
+    fabAnimatedStyle,
     handleScan,
     handleCardLayout,
   } = useLaundriesScreen();
-
-  const fabAnimatedStyle = useAnimatedStyle(() => ({
-    bottom: fabBottom.value,
-  }));
 
   return (
     <View style={styles.container}>

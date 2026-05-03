@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 
@@ -7,7 +7,6 @@ import { Tag } from 'components/Tag/Tag';
 import { Text } from 'components/Text/Text';
 import { MyLaundry } from 'models/models';
 import { useMyLaundriesTheme } from '../../theme/useMyLaundriesTheme';
-import { QRSwipeAction, RemoveSwipeAction } from './components/SwipeActions/SwipeActions';
 import { useMyLaundryItem } from './hooks/useMyLaundryItem';
 
 interface MyLaundryItemProps {
@@ -19,15 +18,8 @@ interface MyLaundryItemProps {
 
 export const MyLaundryItem = memo(({ item, onPress, onRemove, onShowQR }: MyLaundryItemProps) => {
   const { styles } = useMyLaundriesTheme();
-  const { swipeableRef, location, machineLabel, privateTag, mainTag, handleQRPress, handleRemovePress } =
+  const { swipeableRef, location, machineLabel, privateTag, mainTag, renderRightActions } =
     useMyLaundryItem({ item, onRemove, onShowQR });
-
-  const renderRightActions = useCallback(() => {
-    if (item.visibility === 'private') {
-      return <QRSwipeAction onPress={handleQRPress} />;
-    }
-    return <RemoveSwipeAction onPress={handleRemovePress} />;
-  }, [item.visibility, handleQRPress, handleRemovePress]);
 
   return (
     <ReanimatedSwipeable

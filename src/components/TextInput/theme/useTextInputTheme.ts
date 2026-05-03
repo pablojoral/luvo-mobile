@@ -23,7 +23,7 @@ export const useTextInputTheme = ({
     inputWrapper: {
       flexDirection: 'row',
       alignItems: 'center',
-      height: theme.spacing['spacing-xxxxl'],
+      minHeight: theme.spacing['spacing-xxxxl'],
       borderWidth: theme.borderWidth['border-width-xs'],
       borderRadius: theme.cornerRad['corner-rad-md'],
       backgroundColor: theme.surfaceColor['surface-primary'],
