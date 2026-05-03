@@ -1,53 +1,74 @@
 import { PillSelector } from 'components/PillSelector/PillSelector';
-import { SvgImage } from 'components/SvgImage/SvgImage';
+import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
-import { ScrollView, View } from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { TouchableOpacity, View } from 'react-native';
 import { Camera } from 'react-native-vision-camera';
 
 import { CodeSection } from './components/CodeSection/CodeSection';
+import { QRViewfinder } from './components/QRViewfinder/QRViewfinder';
 import { useScanScreen } from './hooks/useScanScreen';
 import { useScanTheme } from './theme/useScanTheme';
 
 export const Scan = () => {
-  const { styles } = useScanTheme();
-  const {
-    options,
-    selectedOption,
-    setSelectedOption,
-    isQrSelected,
-    hasPermission,
-    codeScanner,
-    noAccessMessage,
-  } = useScanScreen();
+  const { mode, handleModeChange, modeOptions, hasPermission, codeScanner, handleCode, strings } = useScanScreen();
+  const { styles, containerStyle } = useScanTheme(mode);
+  const isQR = mode === 'qr';
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <PillSelector
-        backgroundColor={'surface-tertiary'}
-        options={options}
-        value={selectedOption}
-        onChange={setSelectedOption}
-      />
-      {!hasPermission && isQrSelected && <Text>{noAccessMessage}</Text>}
-      {hasPermission && isQrSelected && (
-        <View style={styles.qrContainer}>
-          <SvgImage name="qr-target" height={180} width={180} />
-        </View>
-      )}
+    <View style={containerStyle}>
       {hasPermission && (
         <Camera
           style={styles.camera}
           device={Camera.getAvailableCameraDevices()[0]}
-          isActive={true}
+          isActive={isQR}
           codeScanner={codeScanner}
         />
       )}
 
-      {(!hasPermission || !isQrSelected) && (
-        <Animated.View style={styles.background} entering={FadeIn} exiting={FadeOut} />
+      {isQR && (
+        <>
+          <View style={styles.dimmer} />
+          <View style={styles.qrHeader}>
+            <TouchableOpacity style={styles.closeButton} onPress={() => handleModeChange('manual')} activeOpacity={0.7}>
+              <SvgIcon name="ChevronLeft" size="icon-size-md" color="font-invert" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.toggleRow}>
+            <PillSelector
+              options={modeOptions}
+              value={mode}
+              onChange={handleModeChange}
+              backgroundColor="surface-transparent"
+              thumbColor="surface-invert"
+            />
+          </View>
+          <View style={styles.viewfinderRow}>
+            <QRViewfinder />
+          </View>
+          <View style={styles.instructions}>
+            <Text fontSize="font-size-lg" fontWeight="bold" color="font-invert">
+              {strings.qrTitle}
+            </Text>
+            <Text fontSize="font-size-sm" color="font-invert" lineHeight="line-height-lg">
+              {strings.qrSubtitle}
+            </Text>
+          </View>
+        </>
       )}
-      {!isQrSelected && <CodeSection />}
-    </ScrollView>
+
+      {!isQR && (
+        <>
+          <View style={styles.manualSpacer} />
+          <View style={styles.toggleRow}>
+            <PillSelector
+              options={modeOptions}
+              value={mode}
+              onChange={handleModeChange}
+            />
+          </View>
+          <CodeSection onSubmit={handleCode} />
+        </>
+      )}
+    </View>
   );
 };

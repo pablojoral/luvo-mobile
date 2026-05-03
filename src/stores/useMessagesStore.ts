@@ -4,6 +4,7 @@ export interface AppMessage {
   id: string;
   title?: string;
   body: string;
+  onDismiss?: () => void;
 }
 
 interface MessagesState {
@@ -37,6 +38,7 @@ export const useMessagesStore = create<MessagesState>((set, get) => ({
   dismiss: () => {
     const { currentIndex, messages } = get();
     if (currentIndex < messages.length - 1) return; // only dismissible on last
+    messages.forEach(m => m.onDismiss?.());
     set({ messages: [], currentIndex: 0 });
   },
 }));

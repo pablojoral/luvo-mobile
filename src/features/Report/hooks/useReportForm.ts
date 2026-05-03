@@ -114,7 +114,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
       } else {
         addMessage({ title: strings.qrUnrecognizedTitle, body: strings.qrUnrecognizedBody });
       }
-    });
+    }, 'report');
   }, [openScanner, addMessage, setValue, strings]);
 
   const onClearEntity = useCallback(() => {

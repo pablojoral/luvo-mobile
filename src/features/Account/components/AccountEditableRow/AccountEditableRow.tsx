@@ -34,7 +34,6 @@ export const AccountEditableRow = ({
         onBlur={onBlur}
         placeholder={placeholder}
         placeholderTextColor={placeholderColor}
-        returnKeyType="done"
         maxLength={50}
       />
       {error ? (

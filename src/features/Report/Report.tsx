@@ -3,7 +3,6 @@ import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { SelectInput } from 'components/SelectInput/SelectInput';
 import { Text } from 'components/Text/Text';
 import { TextInput } from 'components/TextInput/TextInput';
-import { QRScanner } from 'features/QRScanner/QRScanner';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { Controller } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
@@ -42,7 +41,6 @@ export const Report = ({ route, navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <QRScanner override />
       <SafeScreenHeader title={strings.title} onBack={() => navigation.goBack()} />
       <View style={styles.body}>
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

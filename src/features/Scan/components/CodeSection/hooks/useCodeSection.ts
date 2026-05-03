@@ -1,10 +1,23 @@
-import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
+import { useScanStrings } from 'features/Scan/hooks/useScanStrings';
 
-export const useCodeSection = () => {
-  const { t } = useTranslation('common');
+interface CodeFormValues {
+  code: string;
+}
+
+export const useCodeSection = (onSubmit: (code: string) => void) => {
+  const strings = useScanStrings();
+  const { control, handleSubmit, formState: { isValid } } = useForm<CodeFormValues>({
+    defaultValues: { code: '' },
+    mode: 'onChange',
+  });
 
   return {
-    title: t('scan.codeSection.title'),
-    buttonLabel: t('scan.codeSection.submit'),
+    control,
+    onSubmit: handleSubmit(({ code }) => onSubmit(code)),
+    isSubmittable: isValid,
+    label: strings.codeLabel,
+    subtitle: strings.codeSubtitle,
+    submitLabel: strings.codeSubmit,
   };
 };

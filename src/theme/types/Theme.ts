@@ -23,6 +23,7 @@ export interface SurfaceColorTheme {
   'surface-disabled': string;
   'surface-invert': string;
   'surface-transparent': string;
+  'surface-dark': string;
   'surface-success': string;
   'surface-error': string;
   'surface-warning': string;
@@ -148,6 +149,7 @@ export interface ComponentSizeTheme {
 
 export interface ZIndexTheme {
   overlay: number;
+  message: number;
   background: number;
   camera: number;
 }
@@ -156,6 +158,7 @@ export interface OverlayColorTheme {
   modal: string;
   dimmer: string;
   backdrop: string;
+  glassButton: string;
 }
 
 export interface ThemeConstants {
@@ -204,6 +207,7 @@ export type FontSize = keyof FontSizeTheme;
 export type FontWeight = keyof FontWeightTheme;
 export type LineHeight = keyof LineHeightTheme;
 export type FontColor = keyof FontColorTheme;
+export type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
 
 export type IconSize = keyof IconSizeTheme;
 
