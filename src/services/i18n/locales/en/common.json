@@ -120,7 +120,9 @@
     "notFound": "No information found for this machine.",
     "goBack": "Go back",
     "model": "Model",
-    "startWash": "Start wash",
+    "startWash": "Pay for wash",
+    "notify": "Notify me when the cycle ends",
+    "endsIn": "Ends in",
     "reportProblem": "Report a problem",
     "status": {
       "available": "Available",

@@ -2,7 +2,7 @@ import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 import { Colors } from 'theme/constants/colors';
 import { useTheme } from 'theme/hooks/useTheme';
 
-import { buildFillPath, getFillColor, PIN_PATH, PIN_VIEWBOX_WIDTH, PIN_VIEWBOX_HEIGHT } from '../utils/pinUtils';
+import { buildFillPath, PIN_PATH, PIN_VIEWBOX_WIDTH, PIN_VIEWBOX_HEIGHT } from '../utils/pinUtils';
 
 interface PinSvgProps {
   /** 0–1 fill ratio */
@@ -20,9 +20,8 @@ const LOGO_TRANSFORM = `translate(${LOGO_TX}, ${LOGO_TY}) scale(${LOGO_SCALE})`;
 const LOGO_FILL  = Colors['colors-rose-500'];
 
 export const PinSvg = ({ ratio, size }: PinSvgProps) => {
-  const theme     = useTheme();
-  const fillColor = getFillColor(ratio);
-  const height    = Math.round(size * PIN_VIEWBOX_HEIGHT / PIN_VIEWBOX_WIDTH);
+  const theme  = useTheme();
+  const height = Math.round(size * PIN_VIEWBOX_HEIGHT / PIN_VIEWBOX_WIDTH);
 
   return (
     <Svg width={size} height={height} viewBox={`0 0 ${PIN_VIEWBOX_WIDTH} ${PIN_VIEWBOX_HEIGHT}`}>
@@ -35,7 +34,7 @@ export const PinSvg = ({ ratio, size }: PinSvgProps) => {
       <Path d={PIN_PATH} fill={theme.surfaceColor['surface-primary']} />
 
       <G clipPath="url(#pinClip)">
-        <Path d={buildFillPath(ratio)} fill={fillColor} />
+        <Path d={buildFillPath(ratio)} fill={theme.surfaceColor['surface-invert']} />
       </G>
 
       <Path

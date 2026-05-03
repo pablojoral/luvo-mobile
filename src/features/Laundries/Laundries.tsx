@@ -19,7 +19,8 @@ export const Laundries = () => {
   const {
     laundries,
     connectionState,
-    selectedLaundryId,
+    showCard,
+    cardKey,
     clearSelectedLaundry,
     fabAnimatedStyle,
     handleScan,
@@ -53,7 +54,7 @@ export const Laundries = () => {
         <ScanFab onPress={handleScan} />
       </Animated.View>
 
-      {selectedLaundryId && <LaundryCard onLayout={handleCardLayout} />}
+      {showCard && cardKey !== null && <LaundryCard key={cardKey} laundryId={cardKey} onLayout={handleCardLayout} />}
     </View>
   );
 };

@@ -112,7 +112,7 @@
       "passwordResetSentBody": "Enviamos um link para redefinir sua senha para {{email}}.",
       "passwordResetFailed": "Não foi possível enviar o e-mail. Tente novamente.",
       "deleteFailed": "Não foi possível excluir a conta. Tente novamente.",
-      "signOutFailed": "Não foi possível sair. Tente novamente."
+      "signOutFailed": "Não foi possível sair da conta. Tente novamente."
     }
   },
   "machines": {
@@ -120,7 +120,9 @@
     "notFound": "Nenhuma informação encontrada para esta máquina.",
     "goBack": "Voltar",
     "model": "Modelo",
-    "startWash": "Iniciar lavagem",
+    "startWash": "Pagar lavagem",
+    "notify": "Notificar-me quando o ciclo terminar",
+    "endsIn": "Termina em",
     "reportProblem": "Reportar um problema",
     "status": {
       "available": "Disponível",
@@ -177,22 +179,22 @@
       "cancel": "Cancelar"
     },
     "progress": {
-      "sending_command":     "Enviando comando…",
+      "sending_command": "Enviando comando…",
       "awaiting_controller": "Aguardando confirmação do controlador…",
       "creating_preference": "Criando preferência de pagamento…",
-      "opening_checkout":    "Abrindo checkout…",
-      "verifying_payment":   "Verificando pagamento…"
+      "opening_checkout": "Abrindo checkout…",
+      "verifying_payment": "Verificando pagamento…"
     },
     "errors": {
-      "relay_busy":            "A máquina está ocupada. Tente novamente.",
-      "payment_failed":        "O pagamento falhou. Tente novamente.",
-      "timeout":               "Solicitação expirada. Verifique o status da máquina.",
-      "rejected":              "O pagamento foi recusado.",
+      "relay_busy": "A máquina está ocupada. Tente novamente.",
+      "payment_failed": "O pagamento falhou. Tente novamente.",
+      "timeout": "Solicitação expirada. Verifique o status da máquina.",
+      "rejected": "O pagamento foi recusado.",
       "cancelled_or_rejected": "O pagamento foi cancelado ou recusado.",
-      "browser_unavailable":   "Não foi possível abrir o navegador neste dispositivo.",
-      "mp_deeplink_timeout":   "Tempo esgotado aguardando resposta do MercadoPago.",
+      "browser_unavailable": "Não foi possível abrir o navegador neste dispositivo.",
+      "mp_deeplink_timeout": "Tempo esgotado aguardando resposta do MercadoPago.",
       "stripe_not_configured": "Pagamentos com cartão ainda não estão disponíveis.",
-      "unknown":               "Algo deu errado. Tente novamente."
+      "unknown": "Algo deu errado. Tente novamente."
     },
     "comingSoon": "Em breve",
     "strategies": {
@@ -229,8 +231,14 @@
       "descriptionRequired": "A descrição é obrigatória"
     },
     "messages": {
-      "laundryNotFound": { "title": "Lavanderia não encontrada", "body": "Nenhuma informação encontrada para esta lavanderia." },
-      "machineNotFound": { "title": "Máquina não encontrada", "body": "Nenhuma informação encontrada para esta máquina." },
+      "laundryNotFound": {
+        "title": "Lavanderia não encontrada",
+        "body": "Nenhuma informação encontrada para esta lavanderia."
+      },
+      "machineNotFound": {
+        "title": "Máquina não encontrada",
+        "body": "Nenhuma informação encontrada para esta máquina."
+      },
       "qrUnrecognized": { "title": "QR não reconhecido", "body": "Escaneie o QR de uma lavanderia ou máquina." }
     }
   },
@@ -255,14 +263,28 @@
     }
   },
   "qr": {
-    "alreadyHasAccess": { "title": "Acesso já concedido", "body": "Você já está associado à lavanderia privada deste código." },
+    "alreadyHasAccess": {
+      "title": "Acesso já concedido",
+      "body": "Você já está associado à lavanderia privada deste código."
+    },
     "registered": { "title": "Pronto!", "body": "Você foi associado à lavanderia privada com sucesso." },
     "invalidCode": { "title": "Código inválido", "body": "O código de acesso é inválido ou expirou." },
-    "privateLaundry": { "title": "Lavanderia privada", "body": "Esta lavanderia é privada. Você precisa de um código de acesso para adicioná-la. Solicite ao administrador local." },
+    "privateLaundry": {
+      "title": "Lavanderia privada",
+      "body": "Esta lavanderia é privada. Você precisa de um código de acesso para adicioná-la. Solicite ao administrador local."
+    },
     "alreadyAdded": { "body": "Esta lavanderia já está na sua lista." },
     "added": { "title": "Pronto!", "body": "A lavanderia foi adicionada à sua lista." },
-    "addFailed": { "title": "Não foi possível adicionar", "body": "Ocorreu um erro ao adicionar a lavanderia. Tente novamente." },
-    "deeplink": { "unrecognized": { "title": "Link não reconhecido", "body": "Não foi possível abrir o link associado a este QR code." } },
+    "addFailed": {
+      "title": "Não foi possível adicionar",
+      "body": "Ocorreu um erro ao adicionar a lavanderia. Tente novamente."
+    },
+    "deeplink": {
+      "unrecognized": {
+        "title": "Link não reconhecido",
+        "body": "Não foi possível abrir o link associado a este QR code."
+      }
+    },
     "unknown": { "title": "QR não reconhecido", "body": "Este QR code não é compatível com o Luvo." }
   },
   "info": {

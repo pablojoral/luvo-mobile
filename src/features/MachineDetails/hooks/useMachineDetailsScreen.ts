@@ -3,20 +3,14 @@ import { MachineStatus } from 'models/models';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useLaundriesStore } from 'stores/useLaundriesStore';
-import type { IconName } from 'components/SvgIcon/types';
-import type { FontColor, SurfaceColor } from 'theme/types/Theme';
+import type { SurfaceColor } from 'theme/types/Theme';
 import { useMachineDetailsStrings } from './useMachineDetailsStrings';
 
-interface StatusColorEntry {
-  color: FontColor;
-  surfaceColor: SurfaceColor;
-}
-
-const STATUS_COLOR: Record<MachineStatus, StatusColorEntry> = {
-  available:    { color: 'font-success',   surfaceColor: 'surface-success' },
-  in_use:       { color: 'font-warning',   surfaceColor: 'surface-warning' },
-  out_of_order: { color: 'font-error',     surfaceColor: 'surface-error' },
-  maintenance:  { color: 'font-warning',   surfaceColor: 'surface-warning' },
+const STATUS_SURFACE: Record<MachineStatus, SurfaceColor> = {
+  available:    'surface-status-available-subtle',
+  in_use:       'surface-status-in-use-subtle',
+  out_of_order: 'surface-status-out-of-order-subtle',
+  maintenance:  'surface-status-maintenance-subtle',
 };
 
 export const useMachineDetailsScreen = () => {
@@ -24,8 +18,8 @@ export const useMachineDetailsScreen = () => {
   const navigation = useRootStackNavigation();
   const { machineId } = route.params;
   const {
-    screenTitle, notFoundText, goBackLabel, modelLabel,
-    startWashLabel, reportProblemLabel, typeLabels, statusLabels,
+    screenTitle, notFoundText, goBackLabel,
+    startWashLabel, notifyLabel, reportProblemLabel, typeLabels,
   } = useMachineDetailsStrings();
 
   const connectionState = useLaundriesStore(s => s.connectionState);
@@ -41,11 +35,12 @@ export const useMachineDetailsScreen = () => {
   );
 
   const isConnecting = connectionState === 'idle' || connectionState === 'connecting';
-  const statusStyle = machine ? STATUS_COLOR[machine.status] : null;
-  const isAvailable = machine?.status === 'available';
   const typeLabel = machine ? typeLabels[machine.type] : '';
-  const statusLabel = machine ? statusLabels[machine.status] : '';
-  const iconName: IconName = machine?.type === 'dryer' ? 'Wind' : 'Droplet';
+  const statusSurfaceColor: SurfaceColor = machine ? STATUS_SURFACE[machine.status] : 'surface-background';
+
+  const showPay    = machine?.status === 'available';
+  const showNotify = machine?.status === 'in_use';
+  const cycleSeconds = machine?.cycleRemainingSeconds ?? 0;
 
   const handleGoBack = () => navigation.goBack();
   const handleStartWash = () => {
@@ -56,24 +51,26 @@ export const useMachineDetailsScreen = () => {
       navigation.navigate('Report', { laundryId: laundry.id, machineId: machine.id });
     }
   };
+  const handleNotify = () => {};
 
   return {
     machine,
     laundry,
     isConnecting,
-    statusStyle,
-    isAvailable,
+    statusSurfaceColor,
+    showPay,
+    showNotify,
+    cycleSeconds,
     typeLabel,
-    statusLabel,
-    iconName,
     screenTitle,
     notFoundText,
     goBackLabel,
-    modelLabel,
     startWashLabel,
+    notifyLabel,
     reportProblemLabel,
     handleGoBack,
     handleStartWash,
+    handleNotify,
     handleReport,
   };
 };

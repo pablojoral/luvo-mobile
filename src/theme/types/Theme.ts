@@ -17,6 +17,7 @@ export interface SpacingTheme {
 export interface SurfaceColorTheme {
   'surface-primary': string;
   'surface-secondary': string;
+  'surface-button': string;
   'surface-tertiary': string;
   'surface-background': string;
   'surface-surface': string;
@@ -25,8 +26,20 @@ export interface SurfaceColorTheme {
   'surface-transparent': string;
   'surface-dark': string;
   'surface-success': string;
+  'surface-success-subtle': string;
   'surface-error': string;
+  'surface-error-subtle': string;
   'surface-warning': string;
+  'surface-warning-subtle': string;
+  'surface-tertiary-subtle': string;
+  'surface-status-available': string;
+  'surface-status-available-subtle': string;
+  'surface-status-in-use': string;
+  'surface-status-in-use-subtle': string;
+  'surface-status-out-of-order': string;
+  'surface-status-out-of-order-subtle': string;
+  'surface-status-maintenance': string;
+  'surface-status-maintenance-subtle': string;
 }
 
 export interface ShadowBoxTheme {
@@ -133,6 +146,10 @@ export interface FontColorTheme {
   'font-success': string;
   'font-error': string;
   'font-warning': string;
+  'font-status-available': string;
+  'font-status-in-use': string;
+  'font-status-out-of-order': string;
+  'font-status-maintenance': string;
 }
 
 export interface LetterSpacingTheme {

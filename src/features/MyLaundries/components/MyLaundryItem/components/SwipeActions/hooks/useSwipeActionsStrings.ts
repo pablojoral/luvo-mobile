@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-export const useSwipeActions = () => {
+export const useSwipeActionsStrings = () => {
   const { t } = useTranslation('common');
 
   return {

@@ -1,23 +1,23 @@
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
+import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import type { IconName } from 'components/SvgIcon/types';
 import { Text } from 'components/Text/Text';
 import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, View, ViewStyle } from 'react-native';
-import { ButtonSize } from 'theme/types/Theme';
+import { ButtonSize, ButtonVariant } from 'theme/types/Theme';
 
-import { fontSizeMap, fontWeightMap, textColorMap, textDecorationMap } from './theme/constants';
+import { fontSizeMap, fontWeightMap, iconSizeMap, textColorMap, textDecorationMap } from './theme/constants';
 import { useButtonTheme } from './theme/useButtonTheme';
-import { Icon, IconName } from 'components/Icon/Icon';
-
-type ButtonVaraint = 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
 
 interface ButtonProps extends TouchableOpacityProps {
   label?: string;
-  variant?: ButtonVaraint;
+  variant?: ButtonVariant;
   size?: ButtonSize;
   iconName?: IconName;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   fullWidth?: boolean;
+  alignLeft?: boolean;
   disabled?: boolean;
   submitting?: boolean;
   stale?: boolean;
@@ -32,17 +32,19 @@ export const Button = ({
   onPress,
   style,
   fullWidth,
+  alignLeft,
   disabled,
   submitting,
   stale,
   rounded,
   ...props
 }: ButtonProps) => {
-  const { containerStyle, contentContainerStyle } = useButtonTheme({
+  const { containerStyle, contentContainerStyle, contentStyle } = useButtonTheme({
     variant,
     size,
     fullWidth,
     rounded,
+    alignLeft,
   });
 
   return (
@@ -51,8 +53,8 @@ export const Button = ({
         {submitting ? (
           <ActivityIndicator color={textColorMap[variant]} size="small" />
         ) : (
-          <>
-            {iconName ? <Icon name={iconName} size={fontSizeMap[size]} color={textColorMap[variant]} /> : null}
+          <View style={contentStyle}>
+            {iconName ? <SvgIcon name={iconName} size={iconSizeMap[size]} color={textColorMap[variant]} /> : null}
             {label ? (
               <Text
                 fontSize={fontSizeMap[size]}
@@ -63,7 +65,7 @@ export const Button = ({
                 {label}
               </Text>
             ) : null}
-          </>
+          </View>
         )}
       </View>
     </TouchableOpacity>

@@ -1,33 +1,32 @@
-import { useTranslation } from 'react-i18next';
-
 import { PaymentStrategy } from '../../../strategies/PaymentStrategy';
+import { usePaymentMethodCardStrings } from './usePaymentMethodCardStrings';
 
 interface UsePaymentMethodCardParams {
   strategy: PaymentStrategy;
 }
 
 export function usePaymentMethodCard({ strategy }: UsePaymentMethodCardParams) {
-  const { t } = useTranslation('common');
+  const strings = usePaymentMethodCardStrings();
 
   // Resolve label: fall back to strategy.label for unknown strategy IDs.
   let label: string;
   let localizedDescription: string;
 
   if (strategy.id === 'mercadopago') {
-    label = t('payment.strategies.mercadopago.label');
-    localizedDescription = t('payment.strategies.mercadopago.description');
+    label = strings.mercadopagoLabel;
+    localizedDescription = strings.mercadopagoDescription;
   } else if (strategy.id === 'mqtt_relay') {
-    label = t('payment.strategies.mqtt_relay.label');
-    localizedDescription = t('payment.strategies.mqtt_relay.description');
+    label = strings.mqttRelayLabel;
+    localizedDescription = strings.mqttRelayDescription;
   } else if (strategy.id === 'stripe') {
-    label = t('payment.strategies.stripe.label');
-    localizedDescription = t('payment.strategies.stripe.description');
+    label = strings.stripeLabel;
+    localizedDescription = strings.stripeDescription;
   } else {
     label = strategy.label;
     localizedDescription = strategy.description;
   }
 
-  const description = strategy.isAvailable ? localizedDescription : t('payment.comingSoon');
+  const description = strategy.isAvailable ? localizedDescription : strings.comingSoon;
 
   return {
     label,

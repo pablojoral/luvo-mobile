@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 import { ViewStyle } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
-import { IconSize } from 'theme/types/Theme';
+import { IconSize, SurfaceColor } from 'theme/types/Theme';
 
 interface UseIconButtonThemeParams {
   iconSize: IconSize;
+  surfaceColor: SurfaceColor;
 }
 
-export const useIconButtonTheme = ({ iconSize }: UseIconButtonThemeParams) => {
+export const useIconButtonTheme = ({ iconSize, surfaceColor }: UseIconButtonThemeParams) => {
   const theme = useTheme();
 
   const containerStyle: ViewStyle = useMemo(() => {
@@ -16,12 +17,12 @@ export const useIconButtonTheme = ({ iconSize }: UseIconButtonThemeParams) => {
       width: size,
       height: size,
       borderRadius: size / 2,
-      backgroundColor: theme.surfaceColor['surface-primary'],
+      backgroundColor: theme.surfaceColor[surfaceColor],
       alignItems: 'center',
       justifyContent: 'center',
       ...theme.shadowCard,
     };
-  }, [iconSize, theme]);
+  }, [iconSize, surfaceColor, theme]);
 
   return { containerStyle };
 };

@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { type ListRenderItemInfo } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import i18n from 'services/i18n/i18n';
 import type { LanguageOption, SupportedLanguage } from 'services/i18n/languages';
 import { SUPPORTED_LANGUAGES } from 'services/i18n/languages';
 import { LanguagePickerRow } from '../components/LanguagePickerRow/LanguagePickerRow';
+import { useLanguagePickerStrings } from './useLanguagePickerStrings';
 
 interface UseLanguagePickerProps {
   onSelect: (lang: SupportedLanguage) => void;
@@ -13,7 +13,7 @@ interface UseLanguagePickerProps {
 }
 
 export const useLanguagePicker = ({ onSelect, onClose, currentLanguage }: UseLanguagePickerProps) => {
-  const { t } = useTranslation('common');
+  const { pickerTitle } = useLanguagePickerStrings();
 
   const handleSelect = useCallback(
     (lang: SupportedLanguage) => {
@@ -42,7 +42,7 @@ export const useLanguagePicker = ({ onSelect, onClose, currentLanguage }: UseLan
     handleSelect,
     keyExtractor,
     renderItem,
-    pickerTitle: t('settings.language.pickerTitle'),
+    pickerTitle,
   };
 };
 

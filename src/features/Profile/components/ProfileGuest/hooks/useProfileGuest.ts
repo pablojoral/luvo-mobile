@@ -1,16 +1,16 @@
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
-import { useTranslation } from 'react-i18next';
+import { useProfileGuestStrings } from './useProfileGuestStrings';
 
 export const useProfileGuest = () => {
   const navigation = useRootStackNavigation();
-  const { t } = useTranslation('common');
+  const { title, subtitle, signInLabel } = useProfileGuestStrings();
 
   const handleSignIn = () => navigation.navigate('Auth');
 
   return {
     handleSignIn,
-    title: t('auth.notSignedIn'),
-    subtitle: t('auth.defaultSubtitle'),
-    signInLabel: t('auth.signIn'),
+    title,
+    subtitle,
+    signInLabel,
   };
 };

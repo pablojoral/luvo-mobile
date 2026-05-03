@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { useFirebaseAuthState } from 'query/Auth/useAuth';
 import { myLaundriesService } from 'services/api/services/MyLaundriesService';
@@ -13,5 +13,6 @@ export function useMyLaundries() {
     queryFn: () => myLaundriesService.list(),
     staleTime: 30 * 1000,
     enabled: uid !== null,
+    placeholderData: keepPreviousData,
   });
 }

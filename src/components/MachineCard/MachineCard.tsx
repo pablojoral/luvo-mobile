@@ -23,7 +23,7 @@ function formatSeconds(secs: number): string {
 export const MachineCard = ({ machine, onPress }: MachineCardProps) => {
   const { styles } = useMachineCardTheme();
 
-  const iconName: IconName = machine.type === 'dryer' ? 'Droplet' : 'Wind';
+  const iconName: IconName = machine.type === 'dryer' ? 'Wind' : 'Droplet';
   const inUse = machine.status === 'in_use';
   const cycleSeconds = machine.cycleRemainingSeconds;
   const remainingTime = cycleSeconds != null ? formatSeconds(cycleSeconds) : '--:--';

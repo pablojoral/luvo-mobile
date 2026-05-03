@@ -4,16 +4,17 @@ import { useSafeScreenHeaderTheme } from './theme/useSafeScreenHeaderTheme';
 
 interface SafeScreenHeaderProps {
   title: string;
+  subtitle?: string;
   hideBack?: boolean;
   onBack?: () => void;
 }
 
-export const SafeScreenHeader = ({ title, hideBack, onBack }: SafeScreenHeaderProps) => {
+export const SafeScreenHeader = ({ title, subtitle, hideBack, onBack }: SafeScreenHeaderProps) => {
   const { styles } = useSafeScreenHeaderTheme();
 
   return (
     <View style={styles.wrapper}>
-      <ScreenHeader title={title} hideBack={hideBack} onBack={onBack} />
+      <ScreenHeader title={title} subtitle={subtitle} hideBack={hideBack} onBack={onBack} />
     </View>
   );
 };

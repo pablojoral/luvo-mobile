@@ -10,7 +10,7 @@ export const AvailabilityTag = ({ status }: AvailabilityTagProps) => {
   const { label, color, surfaceColor } = useAvailabilityTag({ status });
 
   return (
-    <Tag color={color} surfaceColor={surfaceColor}>
+    <Tag color={color} surfaceColor={surfaceColor} fontWeight="semibold">
       {label}
     </Tag>
   );

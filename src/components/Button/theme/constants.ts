@@ -5,6 +5,7 @@ import {
   FontColor,
   FontSize,
   FontWeight,
+  IconSize,
   Spacing,
   SurfaceColor,
 } from 'theme/types/Theme';
@@ -72,6 +73,13 @@ export const fontSizeMap: Record<ButtonSize, FontSize> = {
   sm: 'font-size-sm',
   md: 'font-size-md',
   xl: 'font-size-xxl',
+};
+
+export const iconSizeMap: Record<ButtonSize, IconSize> = {
+  xs: 'icon-size-xs',
+  sm: 'icon-size-sm',
+  md: 'icon-size-md',
+  xl: 'icon-size-lg',
 };
 
 export const fontWeightMap: Record<ButtonVariant, Record<ButtonSize, FontWeight>> = {

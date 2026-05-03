@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { Linking } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useAddMyLaundry } from 'query/MyLaundries/useAddMyLaundry';
@@ -10,9 +9,10 @@ import { useLaundriesStore } from 'stores/useLaundriesStore';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { useQRScanner } from 'stores/useQRScanner';
 import { parseQRCode } from 'utils/parseQRCode';
+import { useQRScanHandlerStrings } from './useQRScanHandlerStrings';
 
 export const useQRScanHandler = () => {
-  const { t } = useTranslation('common');
+  const strings = useQRScanHandlerStrings();
   const navigation = useRootStackNavigation();
   const { open: openScanner } = useQRScanner();
   const { addMessage } = useMessagesStore();
@@ -33,8 +33,8 @@ export const useQRScanHandler = () => {
 
           if (alreadyHasAccess) {
             addMessage({
-              title: t('qr.alreadyHasAccess.title'),
-              body: t('qr.alreadyHasAccess.body'),
+              title: strings.alreadyHasAccessTitle,
+              body: strings.alreadyHasAccessBody,
             });
             break;
           }
@@ -42,13 +42,13 @@ export const useQRScanHandler = () => {
           registerMyLaundry(result.code, {
             onSuccess: () =>
               addMessage({
-                title: t('qr.registered.title'),
-                body: t('qr.registered.body'),
+                title: strings.registeredTitle,
+                body: strings.registeredBody,
               }),
             onError: () =>
               addMessage({
-                title: t('qr.invalidCode.title'),
-                body: t('qr.invalidCode.body'),
+                title: strings.invalidCodeTitle,
+                body: strings.invalidCodeBody,
               }),
           });
           break;
@@ -59,28 +59,28 @@ export const useQRScanHandler = () => {
 
           if (!laundry || laundry.visibility === 'private') {
             addMessage({
-              title: t('qr.privateLaundry.title'),
-              body: t('qr.privateLaundry.body'),
+              title: strings.privateLaundryTitle,
+              body: strings.privateLaundryBody,
             });
             break;
           }
 
           const alreadyAdded = myLaundriesData?.laundries.some(l => l.id === result.laundryId);
           if (alreadyAdded) {
-            addMessage({ body: t('qr.alreadyAdded.body') });
+            addMessage({ body: strings.alreadyAddedBody });
             break;
           }
 
           addMyLaundry(result.laundryId, {
             onSuccess: () =>
               addMessage({
-                title: t('qr.added.title'),
-                body: t('qr.added.body'),
+                title: strings.addedTitle,
+                body: strings.addedBody,
               }),
             onError: () =>
               addMessage({
-                title: t('qr.addFailed.title'),
-                body: t('qr.addFailed.body'),
+                title: strings.addFailedTitle,
+                body: strings.addFailedBody,
               }),
           });
           break;
@@ -94,8 +94,8 @@ export const useQRScanHandler = () => {
         case 'other_deeplink': {
           Linking.openURL(result.url).catch(() =>
             addMessage({
-              title: t('qr.deeplink.unrecognized.title'),
-              body: t('qr.deeplink.unrecognized.body'),
+              title: strings.deeplinkUnrecognizedTitle,
+              body: strings.deeplinkUnrecognizedBody,
             }),
           );
           break;
@@ -103,14 +103,14 @@ export const useQRScanHandler = () => {
 
         case 'unknown': {
           addMessage({
-            title: t('qr.unknown.title'),
-            body: t('qr.unknown.body'),
+            title: strings.unknownTitle,
+            body: strings.unknownBody,
           });
           break;
         }
       }
     });
-  }, [t, navigation, openScanner, addMessage, laundries, myLaundriesData, addMyLaundry, registerMyLaundry]);
+  }, [strings, navigation, openScanner, addMessage, laundries, myLaundriesData, addMyLaundry, registerMyLaundry]);
 
   return { handleScan };
 };

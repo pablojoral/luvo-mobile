@@ -7,12 +7,13 @@ import { useLaundryCardTheme } from './theme/useLaundryCardTheme';
 const SPRING = { damping: 18, stiffness: 180, mass: 0.9 };
 
 interface LaundryCardProps {
+  laundryId: number;
   onLayout?: (height: number) => void;
 }
 
-export const LaundryCard = ({ onLayout }: LaundryCardProps) => {
+export const LaundryCard = ({ laundryId, onLayout }: LaundryCardProps) => {
   const { styles } = useLaundryCardTheme();
-  const { laundry, handleLayout, handlePress } = useLaundryCard({ onLayout });
+  const { laundry, handleLayout, handlePress } = useLaundryCard({ laundryId, onLayout });
 
   return (
     <Animated.View

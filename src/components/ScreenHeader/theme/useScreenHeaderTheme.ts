@@ -13,13 +13,9 @@ export const useScreenHeaderTheme = () => {
       gap: theme.spacing['spacing-sm'],
       backgroundColor: theme.surfaceColor['surface-primary'],
     },
-    backButton: {
-      width: theme.spacing['spacing-xxxl'],
-      height: theme.spacing['spacing-xxxl'],
-      borderRadius: theme.cornerRad['corner-rad-full'],
-      backgroundColor: theme.surfaceColor['surface-background'],
-      alignItems: 'center',
-      justifyContent: 'center',
+    titleGroup: {
+      flex: 1,
+      gap: theme.spacing['spacing-xxxs'],
     },
   });
 

@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import type { FontColor } from 'theme/types/Theme';
+import { useConcurrencyTagStrings } from './useConcurrencyTagStrings';
 
 type ConcurrencyLevel = 'low' | 'medium' | 'high' | 'none';
 
@@ -24,11 +24,11 @@ interface UseConcurrencyTagParams {
 }
 
 export const useConcurrencyTag = ({ available, total }: UseConcurrencyTagParams) => {
-  const { t } = useTranslation('common');
   const level = getLevel(available, total);
+  const { label } = useConcurrencyTagStrings(level);
 
   return {
-    label: t(`laundry.concurrency.${level}`),
+    label,
     color: fontColorMap[level],
   };
 };

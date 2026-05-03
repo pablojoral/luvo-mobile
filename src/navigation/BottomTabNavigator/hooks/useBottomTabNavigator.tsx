@@ -1,8 +1,8 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { IconName } from 'components/SvgIcon/types';
-import { useTranslation } from 'react-i18next';
 import { FontColor } from 'theme/types/Theme';
 import { useBottomTabNavigatorTheme } from '../theme/useBottomTabNavigatorTheme';
+import { useBottomTabNavigatorStrings } from './useBottomTabNavigatorStrings';
 
 type TabRouteName = 'Laundry' | 'MyLaundries' | 'Profile';
 
@@ -13,7 +13,7 @@ const iconMap: Record<TabRouteName, IconName> = {
 };
 
 export const useBottomTabNavigator = () => {
-  const { t } = useTranslation('common');
+  const { tabTitles } = useBottomTabNavigatorStrings();
   const { tabBarStyle, tabBarLabelStyle, tabBarIconStyle, theme } = useBottomTabNavigatorTheme();
 
   const getTabBarIcon = (routeName: string, focused: boolean) => {
@@ -28,10 +28,6 @@ export const useBottomTabNavigator = () => {
     tabBarIconStyle,
     theme,
     getTabBarIcon,
-    tabTitles: {
-      laundry: t('tabs.laundry'),
-      myLaundries: t('tabs.myLaundries'),
-      profile: t('tabs.profile'),
-    },
+    tabTitles,
   };
 };

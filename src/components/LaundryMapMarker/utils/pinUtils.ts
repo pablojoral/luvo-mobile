@@ -1,5 +1,3 @@
-import { Colors } from 'theme/constants/colors';
-
 // Circle center (20,20) radius 18. Nib base at ±77° (16,37.5)/(24,37.5), tip at (20,43).
 export const PIN_PATH =
   'M 16 37.5 A 18 18 0 1 1 24 37.5 L 20 43 Z';
@@ -24,8 +22,3 @@ export function buildFillPath(ratio: number): string {
   ].join(' ');
 }
 
-export function getFillColor(ratio: number): string {
-  if (ratio <= 0.33) return Colors['colors-lavender-300'];
-  if (ratio <= 0.66) return Colors['colors-lavender-500'];
-  return Colors['colors-lavender-600'];
-}

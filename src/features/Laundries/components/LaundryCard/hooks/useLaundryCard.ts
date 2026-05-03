@@ -2,16 +2,15 @@ import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useR
 import { useRef } from 'react';
 import { LayoutChangeEvent } from 'react-native';
 import { useLaundriesStore } from 'stores/useLaundriesStore';
-import { useSelectedLaundry } from 'stores/useSelectedLaundry';
 
 interface UseLaundryCardProps {
+  laundryId: number;
   onLayout?: (height: number) => void;
 }
 
-export const useLaundryCard = ({ onLayout }: UseLaundryCardProps) => {
+export const useLaundryCard = ({ laundryId, onLayout }: UseLaundryCardProps) => {
   const navigation = useRootStackNavigation();
-  const { selectedLaundryId } = useSelectedLaundry();
-  const currentLaundry = useLaundriesStore(s => s.laundries.find(l => l.id === selectedLaundryId) ?? null);
+  const currentLaundry = useLaundriesStore(s => s.laundries.find(l => l.id === laundryId) ?? null);
 
   const laundryRef = useRef(currentLaundry);
   if (currentLaundry) laundryRef.current = currentLaundry;

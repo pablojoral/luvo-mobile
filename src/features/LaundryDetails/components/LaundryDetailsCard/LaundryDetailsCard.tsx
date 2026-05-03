@@ -1,6 +1,6 @@
 import { Button } from 'components/Button/Button';
 import { ConcurrencyTag } from 'components/ConcurrencyTag/ConcurrencyTag';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import { LocationLabel } from 'components/LocationLabel/LocationLabel';
 import { Text } from 'components/Text/Text';
 import { Laundry } from 'models/models';
 import { StyleProp, View, ViewStyle } from 'react-native';
@@ -23,10 +23,7 @@ export const LaundryDetailsCard = ({ laundry, style }: LaundryDetailsCardProps) 
     <View style={[styles.card, style]}>
       <Text fontSize="font-size-xl" fontWeight="semibold">{title}</Text>
       <View style={styles.addressRow}>
-        <SvgIcon name="MapPin" size="icon-size-sm" color="font-placeholder" />
-        <Text fontSize="font-size-sm" color="font-placeholder" style={styles.addressText} numberOfLines={1}>
-          {location}
-        </Text>
+        {location ? <LocationLabel location={location} style={styles.addressFlex} /> : null}
         <Button variant="link" size="sm" label={directionsLabel} onPress={handleGetDirections} />
       </View>
       <ConcurrencyTag available={available} total={total} />

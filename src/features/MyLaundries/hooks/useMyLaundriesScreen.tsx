@@ -13,6 +13,7 @@ export const useMyLaundriesScreen = () => {
   const navigation = useRootStackNavigation();
   const { data: firebaseUser } = useFirebaseAuthState();
   const { data, isLoading, isRefetching, refetch } = useMyLaundries();
+  const showLoader = isLoading && !data;
   const { mutate: remove } = useRemoveMyLaundry();
 
   const laundries = data?.laundries ?? [];
@@ -51,7 +52,7 @@ export const useMyLaundriesScreen = () => {
   return {
     firebaseUser,
     laundries,
-    isLoading,
+    showLoader,
     isRefetching,
     refetch,
     renderItem,

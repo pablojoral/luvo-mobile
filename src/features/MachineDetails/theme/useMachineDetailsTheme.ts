@@ -1,7 +1,9 @@
+import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
+import type { SurfaceColor } from 'theme/types/Theme';
 
-export const useMachineDetailsTheme = () => {
+export const useMachineDetailsTheme = (statusSurfaceColor: SurfaceColor) => {
   const theme = useTheme();
 
   const styles = StyleSheet.create({
@@ -9,26 +11,30 @@ export const useMachineDetailsTheme = () => {
       flex: 1,
       backgroundColor: theme.surfaceColor['surface-primary'],
     },
-    content: {
+    body: {
       flex: 1,
+      backgroundColor: theme.surfaceColor['surface-background'],
+      borderTopLeftRadius: theme.cornerRad['corner-rad-xxl'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-xxl'],
+      overflow: 'hidden',
+    },
+    scroll: {
+      flex: 1,
+    },
+    scrollContent: {
       paddingHorizontal: theme.spacing['spacing-xl'],
-      paddingTop: theme.spacing['spacing-xl'],
+      paddingTop: theme.spacing['spacing-lg'],
+      paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
       gap: theme.spacing['spacing-lg'],
     },
-    card: {
-      padding: theme.spacing['spacing-xl'],
+    heroCard: {
       borderRadius: theme.cornerRad['corner-rad-xl'],
-      backgroundColor: theme.surfaceColor['surface-background'],
-      gap: theme.spacing['spacing-md'],
-    },
-    row: {
-      flexDirection: 'row',
       alignItems: 'center',
+      paddingVertical: theme.spacing['spacing-xxl'],
       gap: theme.spacing['spacing-sm'],
     },
     actions: {
       gap: theme.spacing['spacing-sm'],
-      paddingBottom: theme.spacing['spacing-xl'],
     },
     notFound: {
       flex: 1,
@@ -42,5 +48,9 @@ export const useMachineDetailsTheme = () => {
     },
   });
 
-  return { styles, theme };
+  const heroCardBg = useMemo(() => ({
+    backgroundColor: theme.surfaceColor[statusSurfaceColor],
+  }), [statusSurfaceColor, theme]);
+
+  return { styles, heroCardBg, theme };
 };

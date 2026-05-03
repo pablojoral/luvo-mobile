@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { Linking } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { parseQRCode } from 'utils/parseQRCode';
+import { useScanQRHandlerStrings } from './useScanQRHandlerStrings';
 
 export const useScanQRHandler = () => {
-  const { t } = useTranslation('common');
+  const strings = useScanQRHandlerStrings();
   const navigation = useRootStackNavigation();
   const { addMessage } = useMessagesStore();
 
@@ -27,16 +27,16 @@ export const useScanQRHandler = () => {
       case 'other_deeplink':
         Linking.openURL(result.url).catch(() =>
           addMessage({
-            title: t('qr.deeplink.unrecognized.title'),
-            body: t('qr.deeplink.unrecognized.body'),
+            title: strings.deeplinkUnrecognizedTitle,
+            body: strings.deeplinkUnrecognizedBody,
           }),
         );
         break;
       case 'unknown':
-        addMessage({ title: t('qr.unknown.title'), body: t('qr.unknown.body') });
+        addMessage({ title: strings.unknownTitle, body: strings.unknownBody });
         break;
     }
-  }, [t, navigation, addMessage]);
+  }, [strings, navigation, addMessage]);
 
   return { handleCode };
 };
