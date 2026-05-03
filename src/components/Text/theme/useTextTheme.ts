@@ -12,7 +12,7 @@ interface UseTextThemeParams {
 
 // iOS ignores fontWeight on custom fonts — explicit family names are required.
 // These names must match the PostScript names embedded in each TTF file.
-const POPPINS_FAMILY: Record<FontWeight, string> = {
+export const POPPINS_FAMILY: Record<FontWeight, string> = {
   light: 'Poppins-Light',
   regular: 'Poppins-Regular',
   medium: 'Poppins-Medium',

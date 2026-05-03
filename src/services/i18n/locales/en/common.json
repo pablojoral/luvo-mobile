@@ -216,7 +216,8 @@
     "title": "Report a problem",
     "entitySection": {
       "label": "What does the report refer to?",
-      "scan": "Scan laundry or machine QR"
+      "scanHint": "Scan QR code",
+      "scan": "Laundry or machine"
     },
     "entityType": {
       "laundry": "Laundry",

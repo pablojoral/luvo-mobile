@@ -6,6 +6,7 @@ export const useReportStrings = () => {
   return {
     title:                     t('report.title'),
     entitySectionLabel:        t('report.entitySection.label'),
+    entitySectionScanHint:     t('report.entitySection.scanHint'),
     entitySectionScan:         t('report.entitySection.scan'),
     entityTypeLabel:           (type: SelectedEntity['type']) =>
       type === 'laundry' ? t('report.entityType.laundry') : t('report.entityType.machine'),

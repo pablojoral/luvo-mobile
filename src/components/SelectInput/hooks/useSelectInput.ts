@@ -9,25 +9,26 @@ interface Options {
 }
 
 export const useSelectInput = ({ value, options, onChange }: Options) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const selectedLabel = options.find(o => o.value === value)?.label;
 
-  const toggle = useCallback(() => setIsOpen(v => !v), []);
+  const showModal = useCallback(() => setModalVisible(true), []);
+  const hideModal = useCallback(() => setModalVisible(false), []);
 
   const select = useCallback((val: string) => {
     onChange(val);
-    setIsOpen(false);
+    setModalVisible(false);
   }, [onChange]);
 
   const rotation = useSharedValue(0);
   useEffect(() => {
-    rotation.value = withTiming(isOpen ? 90 : 0, { duration: 180 });
-  }, [isOpen, rotation]);
+    rotation.value = withTiming(modalVisible ? 90 : 0, { duration: 180 });
+  }, [modalVisible, rotation]);
 
   const chevronStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],
   }));
 
-  return { isOpen, toggle, select, selectedLabel, chevronStyle };
+  return { modalVisible, showModal, hideModal, select, selectedLabel, chevronStyle };
 };

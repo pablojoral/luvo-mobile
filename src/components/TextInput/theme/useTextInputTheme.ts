@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { POPPINS_FAMILY } from 'components/Text/theme/useTextTheme';
 import { useTheme } from 'theme/hooks/useTheme';
 import { FontColor } from 'theme/types/Theme';
 
@@ -29,11 +30,12 @@ export const useTextInputTheme = ({
       backgroundColor: theme.surfaceColor['surface-primary'],
       borderColor: error
         ? theme.borderColor['border-error']
-        : theme.fontColor['font-primary'],
+        : theme.borderColor['border-primary'],
       paddingHorizontal: theme.spacing['spacing-sm'],
     },
     input: {
       flex: 1,
+      fontFamily: POPPINS_FAMILY['regular'],
       fontSize: theme.fontSize['font-size-md'],
       color: theme.fontColor[color],
     },

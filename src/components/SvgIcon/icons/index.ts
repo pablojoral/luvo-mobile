@@ -1,4 +1,5 @@
 export { default as AlertCircle } from './AlertCircle';
+export { default as Check } from './Check';
 export { default as AlertTriangle } from './AlertTriangle';
 export { default as ArrowLeftCircle } from './ArrowLeftCircle';
 export { default as ArrowRightCircle } from './ArrowRightCircle';

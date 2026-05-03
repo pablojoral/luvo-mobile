@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
-export const useReportEntityCardTheme = () => {
+export const useReportScanButtonTheme = () => {
   const theme = useTheme();
 
   const styles = StyleSheet.create({
@@ -9,8 +9,7 @@ export const useReportEntityCardTheme = () => {
       flexDirection: 'row',
       alignItems: 'center',
       gap: theme.spacing['spacing-sm'],
-      paddingHorizontal: theme.spacing['spacing-md'],
-      paddingVertical: theme.spacing['spacing-sm'],
+      padding: theme.spacing['spacing-md'],
       backgroundColor: theme.surfaceColor['surface-button'],
       borderWidth: theme.borderWidth['border-width-xs'],
       borderColor: theme.borderColor['border-secondary'],
@@ -19,9 +18,6 @@ export const useReportEntityCardTheme = () => {
     info: {
       flex: 1,
       gap: theme.spacing['spacing-xxxs'],
-    },
-    clearButton: {
-      padding: theme.spacing['spacing-xs'],
     },
   });
 
