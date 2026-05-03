@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-export const useMyLaundryEmptyList = () => {
+export const useMyLaundryEmptyListStrings = () => {
   const { t } = useTranslation('common');
 
   return {

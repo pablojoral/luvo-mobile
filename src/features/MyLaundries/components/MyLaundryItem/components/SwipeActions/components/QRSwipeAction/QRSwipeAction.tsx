@@ -1,7 +1,7 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
 import { TouchableOpacity } from 'react-native';
-import { useSwipeActions } from '../../hooks/useSwipeActions';
+import { useSwipeActionsStrings } from '../../hooks/useSwipeActionsStrings';
 import { useQRSwipeActionTheme } from './theme/useQRSwipeActionTheme';
 
 interface QRSwipeActionProps {
@@ -10,7 +10,7 @@ interface QRSwipeActionProps {
 
 export const QRSwipeAction = ({ onPress }: QRSwipeActionProps) => {
   const { styles } = useQRSwipeActionTheme();
-  const { showQRLabel } = useSwipeActions();
+  const { showQRLabel } = useSwipeActionsStrings();
   return (
     <TouchableOpacity style={styles.actionQR} onPress={onPress} activeOpacity={0.8}>
       <SvgIcon name="QrCode" size="icon-size-md" color="font-invert" />

@@ -14,7 +14,7 @@ export const usePillSelectorTheme = ({ backgroundColor, thumbColor }: PillSelect
     outerContainer: {
       borderRadius: theme.cornerRad['corner-rad-full'],
       backgroundColor: theme.surfaceColor[backgroundColor],
-      padding: theme.spacing['spacing-xs'],
+      padding: theme.spacing['spacing-xxs'],
       borderWidth: theme.borderWidth['border-width-xs'],
       borderColor: theme.borderColor['border-invert'],
     },

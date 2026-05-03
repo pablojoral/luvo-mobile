@@ -1,5 +1,4 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { TouchableOpacity } from 'react-native';
+import { IconButton } from 'components/IconButton/IconButton';
 
 import { useScanFabTheme } from './theme/useScanFabTheme';
 
@@ -11,8 +10,6 @@ export const ScanFab = ({ onPress }: ScanFabProps) => {
   const { styles } = useScanFabTheme();
 
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.8}>
-      <SvgIcon name="QrCode" size="icon-size-xl" color="font-invert" />
-    </TouchableOpacity>
+    <IconButton iconName="QrCode" iconSize="icon-size-xl" iconColor="font-invert" onPress={onPress} style={styles.button} />
   );
 };

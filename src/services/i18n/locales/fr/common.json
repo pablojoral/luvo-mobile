@@ -120,7 +120,9 @@
     "notFound": "Aucune information trouvée pour cette machine.",
     "goBack": "Retour",
     "model": "Modèle",
-    "startWash": "Démarrer le lavage",
+    "startWash": "Payer le lavage",
+    "notify": "Me notifier quand le cycle se termine",
+    "endsIn": "Se termine dans",
     "reportProblem": "Signaler un problème",
     "status": {
       "available": "Disponible",

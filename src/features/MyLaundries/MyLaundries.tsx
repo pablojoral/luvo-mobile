@@ -9,7 +9,7 @@ import { useMyLaundriesTheme } from './theme/useMyLaundriesTheme';
 
 export const MyLaundries = () => {
   const { styles } = useMyLaundriesTheme();
-  const { firebaseUser, laundries, isLoading, isRefetching, refetch, renderItem, keyExtractor, title, authSubtitle } = useMyLaundriesScreen();
+  const { firebaseUser, laundries, showLoader, isRefetching, refetch, renderItem, keyExtractor, title, authSubtitle } = useMyLaundriesScreen();
 
   return (
     <View style={styles.container}>
@@ -18,7 +18,7 @@ export const MyLaundries = () => {
       <View style={styles.body}>
         {!firebaseUser ? (
           <AuthRequiredScreen subtitle={authSubtitle} />
-        ) : isLoading ? (
+        ) : showLoader ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size={'large'} />
           </View>

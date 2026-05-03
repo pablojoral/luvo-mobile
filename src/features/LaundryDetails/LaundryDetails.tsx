@@ -1,3 +1,4 @@
+import { LaundryDetailsCard } from 'features/LaundryDetails/components/LaundryDetailsCard/LaundryDetailsCard';
 import { LaundryDetailsHero } from 'features/LaundryDetails/components/LaundryDetailsHero/LaundryDetailsHero';
 import { MachinesList } from 'features/LaundryDetails/components/MachinesList/MachineList';
 import { View } from 'react-native';
@@ -11,8 +12,11 @@ export const LaundryDetails = () => {
 
   return (
     <View style={styles.container}>
-      <LaundryDetailsHero laundry={laundry} />
-      <MachinesList laundry={laundry} />
+      <LaundryDetailsHero />
+      <View style={styles.body}>
+        <LaundryDetailsCard laundry={laundry} />
+        <MachinesList laundry={laundry} />
+      </View>
     </View>
   );
 };

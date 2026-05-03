@@ -1,16 +1,16 @@
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
-import { useTranslation } from 'react-i18next';
+import { useAuthRequiredScreenStrings } from './useAuthRequiredScreenStrings';
 
 export const useAuthRequiredScreen = () => {
   const navigation = useRootStackNavigation();
-  const { t } = useTranslation('common');
+  const { title, defaultSubtitle, signInLabel } = useAuthRequiredScreenStrings();
 
   const handleSignIn = () => navigation.navigate('Auth');
 
   return {
     handleSignIn,
-    title: t('auth.notSignedIn'),
-    defaultSubtitle: t('auth.defaultSubtitle'),
-    signInLabel: t('auth.signIn'),
+    title,
+    defaultSubtitle,
+    signInLabel,
   };
 };

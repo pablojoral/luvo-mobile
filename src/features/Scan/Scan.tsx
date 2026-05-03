@@ -1,7 +1,7 @@
+import { IconButton } from 'components/IconButton/IconButton';
 import { PillSelector } from 'components/PillSelector/PillSelector';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { Camera } from 'react-native-vision-camera';
 
 import { CodeSection } from './components/CodeSection/CodeSection';
@@ -29,9 +29,7 @@ export const Scan = () => {
         <>
           <View style={styles.dimmer} />
           <View style={styles.qrHeader}>
-            <TouchableOpacity style={styles.closeButton} onPress={() => handleModeChange('manual')} activeOpacity={0.7}>
-              <SvgIcon name="ChevronLeft" size="icon-size-md" color="font-invert" />
-            </TouchableOpacity>
+            <IconButton iconName="ChevronLeft" iconSize="icon-size-md" iconColor="font-invert" onPress={() => handleModeChange('manual')} style={styles.closeButton} />
           </View>
           <View style={styles.toggleRow}>
             <PillSelector

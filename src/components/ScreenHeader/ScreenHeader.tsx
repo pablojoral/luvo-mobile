@@ -1,6 +1,6 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import { IconButton } from 'components/IconButton/IconButton';
 import { Text } from 'components/Text/Text';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,11 +8,12 @@ import { useScreenHeaderTheme } from './theme/useScreenHeaderTheme';
 
 interface ScreenHeaderProps {
   title: string;
+  subtitle?: string;
   hideBack?: boolean;
   onBack?: () => void;
 }
 
-export const ScreenHeader = ({ title, hideBack, onBack }: ScreenHeaderProps) => {
+export const ScreenHeader = ({ title, subtitle, hideBack, onBack }: ScreenHeaderProps) => {
   const navigation = useNavigation();
   const { styles } = useScreenHeaderTheme();
 
@@ -21,11 +22,23 @@ export const ScreenHeader = ({ title, hideBack, onBack }: ScreenHeaderProps) => 
   return (
     <View style={styles.container}>
       {!hideBack ? (
-        <TouchableOpacity style={styles.backButton} onPress={handleBack} accessibilityLabel="Volver">
-          <SvgIcon name="ChevronLeft" size="icon-size-lg" />
-        </TouchableOpacity>
+        <IconButton
+          iconName="ChevronLeft"
+          iconSize="icon-size-lg"
+          onPress={handleBack}
+          accessibilityLabel="Volver"
+        />
       ) : null}
-      <Text fontSize="font-size-xxl" fontWeight="bold">{title}</Text>
+      <View style={styles.titleGroup}>
+        <Text fontSize="font-size-xxl" fontWeight="bold">
+          {title}
+        </Text>
+        {subtitle ? (
+          <Text fontSize="font-size-sm" color="font-secondary">
+            {subtitle}
+          </Text>
+        ) : null}
+      </View>
     </View>
   );
 };

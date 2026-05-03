@@ -1,12 +1,12 @@
 import { Text } from 'components/Text/Text';
 import { View } from 'react-native';
 
-import { useHistoryEmptyState } from './hooks/useHistoryEmptyState';
+import { useHistoryEmptyStateStrings } from './hooks/useHistoryEmptyStateStrings';
 import { useHistoryEmptyStateTheme } from './theme/useHistoryEmptyStateTheme';
 
 export const HistoryEmptyState = () => {
   const { styles } = useHistoryEmptyStateTheme();
-  const { emptyText } = useHistoryEmptyState();
+  const { emptyText } = useHistoryEmptyStateStrings();
 
   return (
     <View style={styles.container}>

@@ -1,4 +1,5 @@
 import { IconButton } from 'components/IconButton/IconButton';
+import { LocationLabel } from 'components/LocationLabel/LocationLabel';
 import { SvgImage } from 'components/SvgImage/SvgImage';
 import { Tag } from 'components/Tag/Tag';
 import { Text } from 'components/Text/Text';
@@ -20,8 +21,10 @@ export const LaundryMapCard = ({ laundry, onPress }: LaundryMapCardProps) => {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
       <View style={styles.info}>
-        <Text fontSize="font-size-lg" fontWeight="bold">{title}</Text>
-        <Text fontSize="font-size-sm" color="font-placeholder" numberOfLines={1}>{location}</Text>
+        <Text fontSize="font-size-lg" fontWeight="bold">
+          {title}
+        </Text>
+        {location ? <LocationLabel location={location} /> : null}
         <View style={styles.availabilityRow}>
           <Tag surfaceColor="surface-surface" fontWeight="semibold" fontSize="font-size-sm">
             {availabilityLabel}

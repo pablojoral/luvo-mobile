@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import type { ListRenderItem } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { AvatarOption } from '../../../avatars';
 import { AvatarPickerItem } from '../AvatarPickerItem';
+import { useAvatarPickerStrings } from './useAvatarPickerStrings';
 
 interface UseAvatarPickerProps {
   currentId: number;
@@ -11,7 +11,7 @@ interface UseAvatarPickerProps {
 }
 
 export const useAvatarPicker = ({ currentId, onSelect, onClose }: UseAvatarPickerProps) => {
-  const { t } = useTranslation('common');
+  const { title } = useAvatarPickerStrings();
 
   const renderItem = useCallback<ListRenderItem<AvatarOption>>(
     ({ item }) => (
@@ -32,6 +32,6 @@ export const useAvatarPicker = ({ currentId, onSelect, onClose }: UseAvatarPicke
   return {
     renderItem,
     keyExtractor,
-    title: t('account.avatarPicker.title'),
+    title,
   };
 };

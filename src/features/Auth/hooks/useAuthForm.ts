@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { sendPasswordReset, signInWithEmail, signUpWithEmail } from 'services/firebase/firebaseAuth';
+import { useAuthFormStrings } from './useAuthFormStrings';
 
 export type AuthMode = 'login' | 'register';
 
@@ -11,7 +11,7 @@ export interface AuthFormValues {
 }
 
 export const useAuthForm = (mode: AuthMode) => {
-  const { t } = useTranslation('common');
+  const { emailRequired, emailInvalid, passwordRequired, passwordMinLength, errorsGeneric } = useAuthFormStrings();
   const [forgotPasswordSent, setForgotPasswordSent] = useState(false);
 
   const {
@@ -26,13 +26,13 @@ export const useAuthForm = (mode: AuthMode) => {
   });
 
   const emailRules = {
-    required: t('auth.form.email.required'),
-    pattern: { value: /\S+@\S+\.\S+/, message: t('auth.form.email.invalid') },
+    required: emailRequired,
+    pattern: { value: /\S+@\S+\.\S+/, message: emailInvalid },
   };
 
   const passwordRules = {
-    required: t('auth.form.password.required'),
-    minLength: { value: 6, message: t('auth.form.password.minLength') },
+    required: passwordRequired,
+    minLength: { value: 6, message: passwordMinLength },
   };
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
@@ -44,7 +44,7 @@ export const useAuthForm = (mode: AuthMode) => {
       }
     } catch (err: unknown) {
       setError('root', {
-        message: err instanceof Error ? err.message : t('errors.generic'),
+        message: err instanceof Error ? err.message : errorsGeneric,
       });
     }
   });
@@ -52,7 +52,7 @@ export const useAuthForm = (mode: AuthMode) => {
   const handleForgotPassword = async () => {
     const email = getValues('email');
     if (!email) {
-      setError('email', { message: t('auth.form.email.required') });
+      setError('email', { message: emailRequired });
       return;
     }
     try {
@@ -60,7 +60,7 @@ export const useAuthForm = (mode: AuthMode) => {
       setForgotPasswordSent(true);
     } catch (err: unknown) {
       setError('root', {
-        message: err instanceof Error ? err.message : t('errors.generic'),
+        message: err instanceof Error ? err.message : errorsGeneric,
       });
     }
   };

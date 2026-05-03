@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { Linking } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useMyLaundries } from 'query/MyLaundries/useMyLaundries';
@@ -8,9 +7,10 @@ import { useRegisterMyLaundry } from 'query/MyLaundries/useRegisterMyLaundry';
 import { useQRScanner } from 'stores/useQRScanner';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { parseQRCode } from 'utils/parseQRCode';
+import { useQRScanHandlerStrings } from './useQRScanHandlerStrings';
 
 export const useQRScanHandler = () => {
-  const { t } = useTranslation('common');
+  const strings = useQRScanHandlerStrings();
   const navigation = useRootStackNavigation();
   const { open: openScanner } = useQRScanner();
   const { addMessage } = useMessagesStore();
@@ -39,8 +39,8 @@ export const useQRScanHandler = () => {
 
           if (alreadyHasAccess) {
             addMessage({
-              title: t('qr.alreadyHasAccess.title'),
-              body: t('qr.alreadyHasAccess.body'),
+              title: strings.alreadyHasAccessTitle,
+              body: strings.alreadyHasAccessBody,
             });
             break;
           }
@@ -48,15 +48,15 @@ export const useQRScanHandler = () => {
           registerMyLaundry(result.code, {
             onSuccess: laundry => {
               addMessage({
-                title: t('qr.registered.title'),
-                body: t('qr.registered.body'),
+                title: strings.registeredTitle,
+                body: strings.registeredBody,
               });
               navigation.navigate('LaundryDetails', { laundryId: laundry.id });
             },
             onError: () =>
               addMessage({
-                title: t('qr.invalidCode.title'),
-                body: t('qr.invalidCode.body'),
+                title: strings.invalidCodeTitle,
+                body: strings.invalidCodeBody,
               }),
           });
           break;
@@ -65,8 +65,8 @@ export const useQRScanHandler = () => {
         case 'other_deeplink': {
           Linking.openURL(result.url).catch(() =>
             addMessage({
-              title: t('qr.deeplink.unrecognized.title'),
-              body: t('qr.deeplink.unrecognized.body'),
+              title: strings.deeplinkUnrecognizedTitle,
+              body: strings.deeplinkUnrecognizedBody,
             }),
           );
           break;
@@ -74,14 +74,14 @@ export const useQRScanHandler = () => {
 
         case 'unknown': {
           addMessage({
-            title: t('qr.unknown.title'),
-            body: t('qr.unknown.body'),
+            title: strings.unknownTitle,
+            body: strings.unknownBody,
           });
           break;
         }
       }
     });
-  }, [t, navigation, openScanner, addMessage, myLaundriesData, registerMyLaundry]);
+  }, [strings, navigation, openScanner, addMessage, myLaundriesData, registerMyLaundry]);
 
   return { handleScan };
 };

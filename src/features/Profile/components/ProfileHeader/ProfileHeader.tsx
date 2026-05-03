@@ -3,7 +3,7 @@ import { SvgImage } from 'components/SvgImage/SvgImage';
 import { Text } from 'components/Text/Text';
 import { View } from 'react-native';
 
-import { useProfileHeader } from './hooks/useProfileHeader';
+import { useProfileHeaderStrings } from './hooks/useProfileHeaderStrings';
 import { useProfileHeaderTheme } from './theme/useProfileHeaderTheme';
 
 interface ProfileHeaderProps {
@@ -13,7 +13,7 @@ interface ProfileHeaderProps {
 
 export const ProfileHeader = ({ name, avatarId }: ProfileHeaderProps) => {
   const { styles, AVATAR_SIZE } = useProfileHeaderTheme();
-  const { greeting } = useProfileHeader();
+  const { greeting } = useProfileHeaderStrings();
 
   return (
     <View style={styles.container}>

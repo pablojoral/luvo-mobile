@@ -3,11 +3,11 @@ import { Text } from 'components/Text/Text';
 import { View } from 'react-native';
 
 import { useMyLaundryEmptyListTheme } from './theme/useMyLaundryEmptyListTheme';
-import { useMyLaundryEmptyList } from './hooks/useMyLaundryEmptyList';
+import { useMyLaundryEmptyListStrings } from './hooks/useMyLaundryEmptyListStrings';
 
 export const MyLaundryEmptyList = () => {
   const { styles } = useMyLaundryEmptyListTheme();
-  const { title, body } = useMyLaundryEmptyList();
+  const { title, body } = useMyLaundryEmptyListStrings();
 
   return (
     <View style={styles.container}>

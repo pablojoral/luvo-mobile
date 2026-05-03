@@ -24,8 +24,8 @@ export const useTagTheme = ({ surfaceColor, borderColor, fullWidth, disabled }: 
       backgroundColor: disabled ? theme.surfaceColor['surface-disabled'] : theme.surfaceColor[surfaceColor],
       borderColor: disabled ? theme.borderColor['border-disabled'] : theme.borderColor[borderColor],
       paddingVertical: theme.spacing['spacing-xs'],
-      paddingHorizontal: theme.spacing['spacing-sm'],
-      ...(fullWidth ? { flexGrow: 1, flexShrink: 1 } : { alignSelf: 'flex-start' }),
+      paddingHorizontal: theme.spacing['spacing-md'],
+      ...(fullWidth ? { flexGrow: 1, flexShrink: 1 } : { alignSelf: 'center' }),
     };
   }, [theme, surfaceColor, borderColor, fullWidth, disabled]);
 

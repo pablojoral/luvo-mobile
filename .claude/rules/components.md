@@ -193,7 +193,45 @@ export const HistoryEmptyState = () => { ... };
 
 ---
 
-## 10. No `any` in component props or hook return types
+## 10. Strings and labels always live in a dedicated `use[Component]Strings` hook
+
+Never call `useTranslation` or `t()` inside a logic hook (e.g. `useMyScreen.ts`). All translated strings must be extracted into a separate `use[Component]Strings.ts` file co-located in the same `hooks/` folder. The logic hook imports from it.
+
+```
+features/MyFeature/hooks/
+  useMyFeature.ts         ← logic only — no useTranslation
+  useMyFeatureStrings.ts  ← all t() calls live here
+```
+
+```ts
+// BAD — translation mixed into logic hook
+export const useMyFeature = () => {
+  const { t } = useTranslation('common');
+  const title = t('myFeature.title');
+  const [count, setCount] = useState(0);
+  return { title, count };
+};
+
+// GOOD — strings isolated
+// useMyFeatureStrings.ts
+export const useMyFeatureStrings = () => {
+  const { t } = useTranslation('common');
+  return { title: t('myFeature.title') };
+};
+
+// useMyFeature.ts
+export const useMyFeature = () => {
+  const { title } = useMyFeatureStrings();
+  const [count, setCount] = useState(0);
+  return { title, count };
+};
+```
+
+If a hook contains **only** translated strings and no logic, name the file `use[Component]Strings.ts` directly — do not create a separate empty logic hook.
+
+---
+
+## 11. No `any` in component props or hook return types
 
 Use proper model types from `src/models/` or derive precise types from API responses. `any` in a prop type defeats TypeScript's value entirely.
 

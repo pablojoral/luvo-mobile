@@ -17,9 +17,8 @@ export const useLaundryDetailsCardTheme = () => {
       alignItems: 'center',
       gap: theme.spacing['spacing-xxs'],
     },
-    addressText: {
+    addressFlex: {
       flex: 1,
-      flexShrink: 1,
     },
   });
 

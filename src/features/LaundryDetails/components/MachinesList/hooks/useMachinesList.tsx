@@ -3,22 +3,22 @@ import { Laundry, Machine } from 'models/models';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import type { ListRenderItem } from 'react-native';
 import { MachineCard } from 'components/MachineCard/MachineCard';
-import { useTranslation } from 'react-i18next';
 import type { SelectorOption } from 'components/PillSelector/PillSelector';
+import { useMachinesListStrings } from './useMachinesListStrings';
 
 interface UseMachinesListProps {
   laundry: Laundry | null;
 }
 
 export const useMachinesList = ({ laundry }: UseMachinesListProps) => {
-  const { t } = useTranslation('common');
+  const { filterAll, filterWashingMachine, filterDryer } = useMachinesListStrings();
   const navigation = useRootStackNavigation();
   const [filter, setFilter] = useState('all');
 
   const filterOptions: SelectorOption[] = [
-    { label: t('laundry.filters.all'), value: 'all' },
-    { label: t('laundry.filters.washing_machine'), value: 'washing_machine' },
-    { label: t('laundry.filters.dryer'), value: 'dryer' },
+    { label: filterAll, value: 'all' },
+    { label: filterWashingMachine, value: 'washing_machine' },
+    { label: filterDryer, value: 'dryer' },
   ];
 
   const machines = laundry?.machines ?? [];
@@ -28,11 +28,7 @@ export const useMachinesList = ({ laundry }: UseMachinesListProps) => {
     ({ item }) => (
       <MachineCard
         machine={item}
-        onPress={
-          item.status === 'available'
-            ? () => navigation.navigate('MachineDetails', { machineId: item.id })
-            : undefined
-        }
+        onPress={() => navigation.navigate('MachineDetails', { machineId: item.id })}
       />
     ),
     [navigation],

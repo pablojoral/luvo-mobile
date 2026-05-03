@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
-export const useProfileHeader = () => {
+export const useLaundryQRScreenStrings = () => {
   const { t } = useTranslation('common');
 
   return {
-    greeting: t('profile.header.greeting'),
+    shareHint: t('laundryQR.shareHint'),
   };
 };

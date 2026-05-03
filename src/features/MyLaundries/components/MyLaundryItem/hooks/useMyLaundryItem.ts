@@ -1,8 +1,8 @@
 import React, { useCallback, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable';
 import { MyLaundry } from 'models/models';
 import { QRSwipeAction, RemoveSwipeAction } from '../components/SwipeActions/SwipeActions';
+import { useMyLaundryItemStrings } from './useMyLaundryItemStrings';
 
 interface UseMyLaundryItemProps {
   item: MyLaundry;
@@ -11,7 +11,7 @@ interface UseMyLaundryItemProps {
 }
 
 export const useMyLaundryItem = ({ item, onRemove, onShowQR }: UseMyLaundryItemProps) => {
-  const { t } = useTranslation('common');
+  const { noMachines, available, privateTag, mainTag } = useMyLaundryItemStrings();
   const swipeableRef = useRef<SwipeableMethods>(null);
 
   const location = [item.location.address, item.location.city]
@@ -22,8 +22,8 @@ export const useMyLaundryItem = ({ item, onRemove, onShowQR }: UseMyLaundryItemP
   const totalCount = item.machines.length;
   const machineLabel =
     totalCount === 0
-      ? t('myLaundries.item.noMachines')
-      : t('myLaundries.item.available', { available: availableCount, total: totalCount });
+      ? noMachines
+      : available(availableCount, totalCount);
 
   const handleQRPress = useCallback(() => {
     swipeableRef.current?.close();
@@ -34,9 +34,6 @@ export const useMyLaundryItem = ({ item, onRemove, onShowQR }: UseMyLaundryItemP
     swipeableRef.current?.close();
     onRemove();
   }, [onRemove]);
-
-  const privateTag = t('myLaundries.item.tags.private');
-  const mainTag = t('myLaundries.item.tags.main');
 
   const renderRightActions = useCallback(() => {
     if (item.visibility === 'private') {

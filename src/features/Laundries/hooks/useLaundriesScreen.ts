@@ -6,6 +6,7 @@ import { useSelectedLaundry } from 'stores/useSelectedLaundry';
 import { useLaundriesTheme } from '../theme/useLaundriesTheme';
 
 const SPRING = { damping: 18, stiffness: 180, mass: 0.9 };
+const CARD_EXIT_DURATION = 400;
 
 export const useLaundriesScreen = () => {
   const { fabBaseBottom, cardBottom } = useLaundriesTheme();
@@ -15,12 +16,21 @@ export const useLaundriesScreen = () => {
   const { handleScan } = useQRScanHandler();
 
   const [cardHeight, setCardHeight] = useState(0);
+  const [showCard, setShowCard] = useState(false);
+  const [cardKey, setCardKey] = useState<number | null>(null);
   const fabBottom = useSharedValue(fabBaseBottom);
 
   useEffect(() => {
-    if (!selectedLaundryId) {
+    if (selectedLaundryId !== null) {
+      setCardKey(selectedLaundryId);
+      setShowCard(true);
+    } else {
       fabBottom.value = withSpring(fabBaseBottom, SPRING);
-      setCardHeight(0);
+      const timer = setTimeout(() => {
+        setShowCard(false);
+        setCardHeight(0);
+      }, CARD_EXIT_DURATION);
+      return () => clearTimeout(timer);
     }
   }, [selectedLaundryId, fabBaseBottom, fabBottom]);
 
@@ -37,6 +47,8 @@ export const useLaundriesScreen = () => {
     laundries,
     connectionState,
     selectedLaundryId,
+    showCard,
+    cardKey,
     clearSelectedLaundry,
     cardHeight,
     fabAnimatedStyle,

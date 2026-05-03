@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
 import { useMessagesStore } from 'stores/useMessagesStore';
+import { useMessagesModalStrings } from './useMessagesModalStrings';
 
 export const useMessagesModal = () => {
   const { messages, currentIndex, next, prev, dismiss } = useMessagesStore();
-  const { t } = useTranslation('common');
+  const { backLabel, nextLabel, understoodLabel } = useMessagesModalStrings();
 
   const message = messages[currentIndex];
   const visible = messages.length > 0;
@@ -20,8 +20,8 @@ export const useMessagesModal = () => {
     next,
     prev,
     dismiss,
-    backLabel: t('actions.back'),
-    nextLabel: t('messages.next'),
-    understoodLabel: t('messages.understood'),
+    backLabel,
+    nextLabel,
+    understoodLabel,
   };
 };
