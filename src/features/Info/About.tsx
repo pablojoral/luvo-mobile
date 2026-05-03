@@ -13,22 +13,24 @@ export const About = () => {
   return (
     <View style={styles.container}>
       <SafeScreenHeader title={title} onBack={handleGoBack} />
-      {isLoading ? (
-        <View style={styles.loadingContainer}>
-          <Text>{loadingText}</Text>
-        </View>
-      ) : error ? (
-        <View style={styles.errorContainer}>
-          <Text color="font-error">{loadError}</Text>
-        </View>
-      ) : (
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.scrollContent}
-        >
-          <Text style={styles.contentText}>{content?.body}</Text>
-        </ScrollView>
-      )}
+      <View style={styles.body}>
+        {isLoading ? (
+          <View style={styles.loadingContainer}>
+            <Text>{loadingText}</Text>
+          </View>
+        ) : error ? (
+          <View style={styles.errorContainer}>
+            <Text color="font-error">{loadError}</Text>
+          </View>
+        ) : (
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.scrollContent}
+          >
+            <Text lineHeight="line-height-lg">{content?.body}</Text>
+          </ScrollView>
+        )}
+      </View>
     </View>
   );
 };

@@ -20,12 +20,14 @@ export const Profile = () => {
           <ActivityIndicator size={'large'} />
         </View>
       ) : (
-        <View style={styles.contentContainer}>
+        <>
           <ProfileHeader name={user?.name ?? user?.email ?? ''} avatarId={user?.avatarId} />
-          <View style={styles.menusContainer}>
-            <SettingsMenu items={profileItems} />
+          <View style={styles.contentContainer}>
+            <View style={styles.menusContainer}>
+              <SettingsMenu items={profileItems} />
+            </View>
           </View>
-        </View>
+        </>
       )}
     </View>
   );

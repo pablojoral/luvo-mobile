@@ -1,9 +1,9 @@
 import { Text } from 'components/Text/Text';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { useRef, useState } from 'react';
-import { Animated, LayoutChangeEvent, TouchableOpacity, View } from 'react-native';
+import { Animated, TouchableOpacity, View } from 'react-native';
 import type { FAQItem } from 'services/api/services/ContentService';
 import { useInfoTheme } from '../../theme/useInfoTheme';
+import { useFAQAccordionItem } from './hooks/useFAQAccordionItem';
 
 interface FAQAccordionItemProps {
   item: FAQItem;
@@ -11,56 +11,26 @@ interface FAQAccordionItemProps {
 
 export const FAQAccordionItem = ({ item }: FAQAccordionItemProps) => {
   const { styles } = useInfoTheme();
-  const [open, setOpen] = useState(false);
-  const [bodyHeight, setBodyHeight] = useState(0);
-  const rotation = useRef(new Animated.Value(0)).current;
-  const heightAnim = useRef(new Animated.Value(0)).current;
-
-  const onMeasure = (e: LayoutChangeEvent) => {
-    const h = e.nativeEvent.layout.height;
-    if (h > 0 && bodyHeight === 0) setBodyHeight(h);
-  };
-
-  const toggle = () => {
-    Animated.parallel([
-      Animated.timing(rotation, {
-        toValue: open ? 0 : 1,
-        duration: 220,
-        useNativeDriver: true,
-      }),
-      Animated.timing(heightAnim, {
-        toValue: open ? 0 : bodyHeight,
-        duration: 220,
-        useNativeDriver: false,
-      }),
-    ]).start();
-    setOpen(prev => !prev);
-  };
-
-  const rotate = rotation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '90deg'],
-  });
+  const { heightAnim, rotate, toggle, bodyHeight, onMeasure } = useFAQAccordionItem();
 
   return (
     <View style={styles.accordionItem}>
       <TouchableOpacity style={styles.accordionHeader} onPress={toggle} activeOpacity={0.7}>
-        <Text style={styles.faqQuestion}>{item.question}</Text>
+        <Text fontWeight="semibold" style={styles.faqQuestion}>{item.question}</Text>
         <Animated.View style={{ transform: [{ rotate }] }}>
-          <SvgIcon name="ChevronRight" size="icon-size-sm" color={'font-primary'} />
+          <SvgIcon name="ChevronRight" size="icon-size-sm" color="font-primary" />
         </Animated.View>
       </TouchableOpacity>
 
       <Animated.View style={[styles.accordionBodyAnimated, { height: heightAnim }]}>
         <View style={styles.accordionBody}>
-          <Text style={styles.faqAnswer}>{item.answer}</Text>
+          <Text fontSize="font-size-sm" color="font-placeholder" lineHeight="line-height-lg">{item.answer}</Text>
         </View>
       </Animated.View>
 
-      {/* Ghost: measures natural height outside the height-constrained container */}
       {bodyHeight === 0 && (
         <View onLayout={onMeasure} style={styles.accordionBodyGhost} pointerEvents="none">
-          <Text style={styles.faqAnswer}>{item.answer}</Text>
+          <Text fontSize="font-size-sm" color="font-placeholder" lineHeight="line-height-lg">{item.answer}</Text>
         </View>
       )}
     </View>

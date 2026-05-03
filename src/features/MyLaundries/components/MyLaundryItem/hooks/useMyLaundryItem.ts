@@ -1,7 +1,8 @@
-import { useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable';
 import { MyLaundry } from 'models/models';
+import { QRSwipeAction, RemoveSwipeAction } from '../components/SwipeActions/SwipeActions';
 
 interface UseMyLaundryItemProps {
   item: MyLaundry;
@@ -37,5 +38,12 @@ export const useMyLaundryItem = ({ item, onRemove, onShowQR }: UseMyLaundryItemP
   const privateTag = t('myLaundries.item.tags.private');
   const mainTag = t('myLaundries.item.tags.main');
 
-  return { swipeableRef, location, machineLabel, privateTag, mainTag, handleQRPress, handleRemovePress };
+  const renderRightActions = useCallback(() => {
+    if (item.visibility === 'private') {
+      return React.createElement(QRSwipeAction, { onPress: handleQRPress });
+    }
+    return React.createElement(RemoveSwipeAction, { onPress: handleRemovePress });
+  }, [item.visibility, handleQRPress, handleRemovePress]);
+
+  return { swipeableRef, location, machineLabel, privateTag, mainTag, renderRightActions };
 };

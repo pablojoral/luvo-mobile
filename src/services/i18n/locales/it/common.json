@@ -77,6 +77,8 @@
       "namePlaceholder": "Il tuo nome",
       "nameRequired": "Il nome è obbligatorio"
     },
+    "emailLabel": "Email",
+    "clientLabel": "Cliente Luvo",
     "security": {
       "sectionTitle": "Sicurezza",
       "resetPassword": "Reimposta password"
@@ -109,7 +111,8 @@
       "passwordResetSent": "Email inviata",
       "passwordResetSentBody": "Abbiamo inviato un link per reimpostare la password a {{email}}.",
       "passwordResetFailed": "Impossibile inviare l'email. Riprova.",
-      "deleteFailed": "Impossibile eliminare l'account. Riprova."
+      "deleteFailed": "Impossibile eliminare l'account. Riprova.",
+      "signOutFailed": "Impossibile disconnettersi. Riprova."
     }
   },
   "machines": {
@@ -133,6 +136,13 @@
   "laundry": {
     "title": "Lavanderia",
     "availability": "{{available}}/{{total}} Disponibili",
+    "directions": "Come arrivare",
+    "concurrency": {
+      "low": "Bassa affluenza",
+      "medium": "Media affluenza",
+      "high": "Alta affluenza",
+      "none": "Nessuna disponibilità"
+    },
     "filters": {
       "all": "Tutte",
       "washing_machine": "Lavatrici",

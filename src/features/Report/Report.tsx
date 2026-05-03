@@ -44,6 +44,7 @@ export const Report = ({ route, navigation }: Props) => {
     <View style={styles.container}>
       <QRScanner override />
       <SafeScreenHeader title={strings.title} onBack={() => navigation.goBack()} />
+      <View style={styles.body}>
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView
           ref={scrollViewRef}
@@ -121,6 +122,7 @@ export const Report = ({ route, navigation }: Props) => {
           <Button fullWidth label={strings.submit} onPress={onSubmit} disabled={isSubmitting} />
         </View>
       </KeyboardAvoidingView>
+      </View>
     </View>
   );
 };

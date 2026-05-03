@@ -171,11 +171,10 @@ export const DarkThemeConstants: ThemeConstants = {
     camera: -10000,
   },
   overlayColor: {
-    modal: 'rgba(20,20,30,0.55)',
-    dimmer: 'rgba(0,0,0,0.75)',
-    backdrop: 'rgba(0,0,0,0.65)',
+    modal: 'rgba(0,0,0,0.6)',
+    dimmer: 'rgba(0,0,0,0.7)',
+    backdrop: 'rgba(0,0,0,0.6)',
   },
-
   navigation: {
     ...RNNavigationDarkTheme,
     colors: {

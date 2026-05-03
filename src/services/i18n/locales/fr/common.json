@@ -77,6 +77,8 @@
       "namePlaceholder": "Votre nom",
       "nameRequired": "Le nom est obligatoire"
     },
+    "emailLabel": "E-mail",
+    "clientLabel": "Client Luvo",
     "security": {
       "sectionTitle": "Sécurité",
       "resetPassword": "Réinitialiser le mot de passe"
@@ -109,7 +111,8 @@
       "passwordResetSent": "E-mail envoyé",
       "passwordResetSentBody": "Nous avons envoyé un lien pour réinitialiser votre mot de passe à {{email}}.",
       "passwordResetFailed": "Impossible d'envoyer l'e-mail. Veuillez réessayer.",
-      "deleteFailed": "Impossible de supprimer le compte. Veuillez réessayer."
+      "deleteFailed": "Impossible de supprimer le compte. Veuillez réessayer.",
+      "signOutFailed": "Impossible de se déconnecter. Veuillez réessayer."
     }
   },
   "machines": {
@@ -133,6 +136,13 @@
   "laundry": {
     "title": "Laverie",
     "availability": "{{available}}/{{total}} Disponibles",
+    "directions": "Comment y aller",
+    "concurrency": {
+      "low": "Faible affluence",
+      "medium": "Affluence modérée",
+      "high": "Forte affluence",
+      "none": "Aucune disponibilité"
+    },
     "filters": {
       "all": "Tous",
       "washing_machine": "Lave-linge",

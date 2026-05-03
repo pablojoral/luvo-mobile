@@ -2,7 +2,6 @@ import { SelectorOption } from 'components/PillSelector/PillSelector';
 import { CreateReport, Laundry, Machine } from 'models/models';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 import { useReportSubjects } from 'query/ReportSubject/useReportSubjects';
 import { useSubmitReport } from 'query/Report/useSubmitReport';
@@ -10,6 +9,7 @@ import { useQRScanner } from 'stores/useQRScanner';
 import { useLaundriesStore } from 'stores/useLaundriesStore';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { parseQRCode } from 'utils/parseQRCode';
+import { useReportStrings } from './useReportStrings';
 
 export type SelectedEntity =
   | { type: 'laundry'; laundry: Laundry }
@@ -27,7 +27,7 @@ interface Options {
 }
 
 export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
-  const { t } = useTranslation('common');
+  const strings = useReportStrings();
   const { mutateAsync } = useSubmitReport();
   const { open: openScanner } = useQRScanner();
   const { addMessage } = useMessagesStore();
@@ -55,7 +55,6 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
     defaultValues: { subject: '', description: '' },
   });
 
-  // Initialize entity from route params once the laundries store is populated
   useEffect(() => {
     if (initializedRef.current) return;
     if (machineId === undefined && laundryId === undefined) {
@@ -100,7 +99,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
           setSelectedEntity({ type: 'laundry', laundry });
           setValue('subject', '');
         } else {
-          addMessage({ title: t('report.messages.laundryNotFound.title'), body: t('report.messages.laundryNotFound.body') });
+          addMessage({ title: strings.laundryNotFoundTitle, body: strings.laundryNotFoundBody });
         }
       } else if (result.type === 'machine') {
         for (const l of currentLaundries) {
@@ -111,12 +110,12 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
             return;
           }
         }
-        addMessage({ title: t('report.messages.machineNotFound.title'), body: t('report.messages.machineNotFound.body') });
+        addMessage({ title: strings.machineNotFoundTitle, body: strings.machineNotFoundBody });
       } else {
-        addMessage({ title: t('report.messages.qrUnrecognized.title'), body: t('report.messages.qrUnrecognized.body') });
+        addMessage({ title: strings.qrUnrecognizedTitle, body: strings.qrUnrecognizedBody });
       }
     });
-  }, [openScanner, addMessage, setValue, t]);
+  }, [openScanner, addMessage, setValue, strings]);
 
   const onClearEntity = useCallback(() => {
     setSelectedEntity(null);
@@ -135,7 +134,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
       await mutateAsync(body);
       onSuccess();
     } catch {
-      setError('root', { message: t('report.submitError') });
+      setError('root', { message: strings.submitError });
     }
   });
 
@@ -165,19 +164,6 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
     onClearEntity,
     scrollViewRef,
     handleDescriptionFocus,
-    strings: {
-      title: t('report.title'),
-      entitySectionLabel: t('report.entitySection.label'),
-      entitySectionScan: t('report.entitySection.scan'),
-      entityTypeLabel: (type: SelectedEntity['type']) =>
-        type === 'laundry' ? t('report.entityType.laundry') : t('report.entityType.machine'),
-      subjectLabel: t('report.subject.label'),
-      subjectPlaceholder: t('report.subject.placeholder'),
-      subjectRequired: t('report.errors.subjectRequired'),
-      descriptionLabel: t('report.description.label'),
-      descriptionPlaceholder: t('report.description.placeholder'),
-      descriptionRequired: t('report.errors.descriptionRequired'),
-      submit: t('report.submit'),
-    },
+    strings,
   };
 };

@@ -1,58 +1,35 @@
-import { SvgImage } from 'components/SvgImage/SvgImage';
-import { Tag } from 'components/Tag/Tag';
-import { TagButton } from 'components/TagButton/TagButton';
+import { Button } from 'components/Button/Button';
+import { ConcurrencyTag } from 'components/ConcurrencyTag/ConcurrencyTag';
+import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
 import { Laundry } from 'models/models';
-import { Pressable, View, ViewProps } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 
 import { useLaundryDetailsCard } from './hooks/useLaundryDetailsCard';
 import { useLaundryDetailsCardTheme } from './theme/useLaundryDetailsCardTheme';
 
-interface LaundryDetailsCardProps extends ViewProps {
+interface LaundryDetailsCardProps {
   laundry: Laundry | null;
-  onToggle?: () => void;
+  style?: StyleProp<ViewStyle>;
 }
 
-export const LaundryDetailsCard = ({ laundry, onToggle, ...props }: LaundryDetailsCardProps) => {
-  const { styles, wave } = useLaundryDetailsCardTheme();
-  const { width, title, location, availabilityLabel, myLaundriesButton } = useLaundryDetailsCard({ laundry });
+export const LaundryDetailsCard = ({ laundry, style }: LaundryDetailsCardProps) => {
+  const { styles } = useLaundryDetailsCardTheme();
+  const { title, location, available, total, directionsLabel, handleGetDirections } = useLaundryDetailsCard({ laundry });
 
-  if (!laundry) {
-    return null;
-  }
-
-  const content = (
-    <View style={styles.contentContainer}>
-      <View style={styles.infoContainer}>
-        <View style={styles.infoContentContainer}>
-          <View style={styles.textContainer}>
-            <Text fontSize={'font-size-lg'}>{title}</Text>
-            <Text fontSize={'font-size-sm'} color={'font-placeholder'}>
-              {location}
-            </Text>
-          </View>
-          <View style={styles.tagsContainer}>
-            <Tag fontSize={'font-size-sm'} color={'font-placeholder'}>
-              {availabilityLabel}
-            </Tag>
-            {laundry.visibility === 'public' && (
-              <TagButton {...myLaundriesButton} fontSize="font-size-sm" iconName="Star" />
-            )}
-          </View>
-        </View>
-      </View>
-      <View style={styles.imageContainer}>
-        <SvgImage name={'laundry-small'} height={112} width={112} />
-      </View>
-    </View>
-  );
+  if (!laundry) return null;
 
   return (
-    <View {...props}>
-      <View style={wave.container}>
-        <SvgImage name={'wave-laundry-card'} width={width} height={157} />
+    <View style={[styles.card, style]}>
+      <Text fontSize="font-size-xl" fontWeight="semibold">{title}</Text>
+      <View style={styles.addressRow}>
+        <SvgIcon name="MapPin" size="icon-size-sm" color="font-placeholder" />
+        <Text fontSize="font-size-sm" color="font-placeholder" style={styles.addressText} numberOfLines={1}>
+          {location}
+        </Text>
+        <Button variant="link" size="sm" label={directionsLabel} onPress={handleGetDirections} />
       </View>
-      {onToggle ? <Pressable onPress={onToggle}>{content}</Pressable> : content}
+      <ConcurrencyTag available={available} total={total} />
     </View>
   );
 };

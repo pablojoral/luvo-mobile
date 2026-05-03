@@ -1,13 +1,12 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useFAQ } from 'query/Content/useFAQ';
 import type { FAQItem } from 'services/api/services/ContentService';
-
 import { FAQAccordionItem } from '../components/FAQAccordionItem/FAQAccordionItem';
+import { useFAQStrings } from './useFAQStrings';
 
 export const useFAQScreen = () => {
-  const { t } = useTranslation('common');
+  const strings = useFAQStrings();
   const navigation = useRootStackNavigation();
   const { data: items, isLoading, error } = useFAQ();
 
@@ -17,9 +16,7 @@ export const useFAQScreen = () => {
   const handleGoBack = () => navigation.goBack();
 
   return {
-    title: t('info.faq.title'),
-    loadingText: t('info.loading'),
-    loadError: t('info.loadError'),
+    ...strings,
     items,
     isLoading,
     error,

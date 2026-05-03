@@ -42,7 +42,7 @@ export const PillSelector = ({
         <View style={styles.row}>
           {options.map((o, i) => (
             <Pressable key={o.value} style={[styles.segment, segmentWidthStyle]} onPress={() => handlePress(i)}>
-              <Text fontSize={'font-size-sm'}>{o.label}</Text>
+              <Text fontSize={'font-size-sm'} fontWeight={'medium'}>{o.label}</Text>
             </Pressable>
           ))}
         </View>

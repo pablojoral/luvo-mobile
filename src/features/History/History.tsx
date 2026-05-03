@@ -1,7 +1,7 @@
 import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
-import { FlatList, RefreshControl, View } from 'react-native';
-import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
+import { SectionList, RefreshControl, View } from 'react-native';
+import type { HistoryItem } from 'services/api/services/HistoryService';
 
 import { HistoryEmptyState } from './components/HistoryEmptyState/HistoryEmptyState';
 import { StatsHeader } from './components/StatsHeader/StatsHeader';
@@ -9,34 +9,46 @@ import { useHistoryScreen } from './hooks/useHistoryScreen';
 import { useHistoryTheme } from './theme/useHistoryTheme';
 
 export const History = () => {
-  const navigation = useRootStackNavigation();
   const { styles } = useHistoryTheme();
-  const { title, items, isLoading, isRefetching, refetch, isFetchingNextPage, handleEndReached, renderItem, keyExtractor } =
-    useHistoryScreen();
+  const {
+    title,
+    sections,
+    isLoading,
+    isRefetching,
+    refetch,
+    isFetchingNextPage,
+    handleGoBack,
+    handleEndReached,
+    renderItem,
+    renderSectionHeader,
+    keyExtractor,
+  } = useHistoryScreen();
 
   return (
     <View style={styles.container}>
-      <SafeScreenHeader title={title} onBack={() => navigation.goBack()} />
+      <SafeScreenHeader title={title} onBack={handleGoBack} />
 
-      {isLoading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" />
-        </View>
-      ) : (
-        <FlatList
-          data={items}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          ListHeaderComponent={<StatsHeader />}
-          ListEmptyComponent={<HistoryEmptyState />}
-          ListFooterComponent={isFetchingNextPage ? <ActivityIndicator size="small" /> : null}
-          onEndReached={handleEndReached}
-          onEndReachedThreshold={0.3}
-          refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
-          style={styles.list}
-          contentContainerStyle={styles.listContent}
-        />
-      )}
+      <View style={styles.body}>
+        {isLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" />
+          </View>
+        ) : (
+          <SectionList<HistoryItem, { title: string }>
+            sections={sections}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            renderSectionHeader={renderSectionHeader}
+            ListHeaderComponent={StatsHeader}
+            ListEmptyComponent={HistoryEmptyState}
+            ListFooterComponent={isFetchingNextPage ? <ActivityIndicator size="small" /> : null}
+            onEndReached={handleEndReached}
+            onEndReachedThreshold={0.3}
+            refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+            contentContainerStyle={styles.listContent}
+          />
+        )}
+      </View>
     </View>
   );
 };

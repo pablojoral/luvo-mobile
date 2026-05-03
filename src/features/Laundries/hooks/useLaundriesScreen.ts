@@ -1,6 +1,6 @@
 import { useQRScanHandler } from 'features/QRScanner/hooks/useQRScanHandler';
 import { useEffect, useState } from 'react';
-import { useSharedValue, withSpring } from 'react-native-reanimated';
+import { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useLaundriesStore } from 'stores/useLaundriesStore';
 import { useSelectedLaundry } from 'stores/useSelectedLaundry';
 import { useLaundriesTheme } from '../theme/useLaundriesTheme';
@@ -29,13 +29,17 @@ export const useLaundriesScreen = () => {
     fabBottom.value = withSpring(cardBottom + height + 8, SPRING);
   };
 
+  const fabAnimatedStyle = useAnimatedStyle(() => ({
+    bottom: fabBottom.value,
+  }));
+
   return {
     laundries,
     connectionState,
     selectedLaundryId,
     clearSelectedLaundry,
     cardHeight,
-    fabBottom,
+    fabAnimatedStyle,
     handleScan,
     handleCardLayout,
   };

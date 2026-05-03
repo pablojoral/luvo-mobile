@@ -8,15 +8,21 @@ export const useSettingsTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: theme.surfaceColor['surface-primary'],
+    },
+    body: {
+      flex: 1,
       backgroundColor: theme.surfaceColor['surface-background'],
+      borderTopLeftRadius: theme.cornerRad['corner-rad-xxl'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-xxl'],
     },
     scroll: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-background'],
     },
     scrollContent: {
       paddingHorizontal: theme.spacing['spacing-xl'],
       paddingTop: theme.spacing['spacing-lg'],
+      paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
       gap: theme.spacing['spacing-xl'],
     },
     group: {

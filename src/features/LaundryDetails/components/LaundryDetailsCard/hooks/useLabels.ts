@@ -10,6 +10,7 @@ export const useLabels = (laundry: Laundry | null) => {
 
   const { available, total } = getAvailableMachines(laundry);
   const availabilityLabel = t('laundry.availability', { available, total });
+  const directionsLabel = t('laundry.directions');
 
-  return { title, location, availabilityLabel };
+  return { title, location, availabilityLabel, directionsLabel };
 };

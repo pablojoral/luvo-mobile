@@ -8,11 +8,12 @@ export const useMachinesListTheme = () => {
 
   const styles = StyleSheet.create({
     containerStyle: {
+      flex: 1,
       backgroundColor: theme.surfaceColor['surface-invert'],
+      gap: theme.spacing['spacing-sm'],
     },
     typeSelectorContainer: {
       paddingHorizontal: theme.spacing['spacing-md'],
-      paddingVertical: theme.spacing['spacing-xs'],
     },
     listContentContainerStyle: {
       flexGrow: 1,

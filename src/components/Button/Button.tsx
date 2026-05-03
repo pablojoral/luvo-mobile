@@ -3,7 +3,7 @@ import { Text } from 'components/Text/Text';
 import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, View, ViewStyle } from 'react-native';
 import { ButtonSize } from 'theme/types/Theme';
 
-import { fontSizeMap, fontWeightMap, textColorMap } from './theme/constants';
+import { fontSizeMap, fontWeightMap, textColorMap, textDecorationMap } from './theme/constants';
 import { useButtonTheme } from './theme/useButtonTheme';
 import { Icon, IconName } from 'components/Icon/Icon';
 
@@ -54,7 +54,12 @@ export const Button = ({
           <>
             {iconName ? <Icon name={iconName} size={fontSizeMap[size]} color={textColorMap[variant]} /> : null}
             {label ? (
-              <Text fontSize={fontSizeMap[size]} color={textColorMap[variant]} fontWeight={fontWeightMap[size]}>
+              <Text
+                fontSize={fontSizeMap[size]}
+                color={textColorMap[variant]}
+                fontWeight={fontWeightMap[variant][size]}
+                style={textDecorationMap[variant] ? { textDecorationLine: textDecorationMap[variant] } : undefined}
+              >
                 {label}
               </Text>
             ) : null}

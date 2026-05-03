@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { useQRScanner } from 'stores/useQRScanner';
+import React from 'react';
 import { QRScannerContent } from './components/QRScannerContent/QRScannerContent';
+import { useQRScannerComponent } from './hooks/useQRScannerComponent';
 
 interface QRScannerProps {
   /** When true, this instance suppresses the root-level QRScanner camera. */
@@ -8,17 +8,8 @@ interface QRScannerProps {
 }
 
 export const QRScanner: React.FC<QRScannerProps> = ({ override }) => {
-  const isOpen = useQRScanner(s => s.isOpen);
-  const hasOverridingScanner = useQRScanner(s => s.hasOverridingScanner);
-  const setHasOverridingScanner = useQRScanner(s => s.setHasOverridingScanner);
+  const { isOpen, hasOverridingScanner } = useQRScannerComponent(override);
 
-  useEffect(() => {
-    if (!override) return;
-    setHasOverridingScanner(true);
-    return () => setHasOverridingScanner(false);
-  }, [override, setHasOverridingScanner]);
-
-  // Root instance: yield to a higher-priority scanner mounted inside a modal
   if (!override && hasOverridingScanner) return null;
 
   return isOpen ? <QRScannerContent /> : null;

@@ -13,6 +13,7 @@ export const useMachineCardTheme = () => {
       padding: theme.spacing['spacing-sm'],
       backgroundColor: theme.surfaceColor['surface-primary'],
       borderRadius: theme.cornerRad['corner-rad-lg'],
+      ...theme.shadowCard,
     },
     contentContainer: {
       flexDirection: 'row',

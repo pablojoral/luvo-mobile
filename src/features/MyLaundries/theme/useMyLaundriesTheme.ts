@@ -7,12 +7,12 @@ export const useMyLaundriesTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-primary'],
-      paddingTop: theme.topInset,
+      backgroundColor: theme.surfaceColor['surface-background'],
     },
     listContent: {
       paddingTop: theme.spacing['spacing-lg'],
       paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
+      paddingHorizontal: theme.spacing['spacing-xl'],
       gap: theme.spacing['spacing-sm'],
     },
     emptyContainer: {
@@ -31,11 +31,13 @@ export const useMyLaundriesTheme = () => {
     // Item styles
     item: {
       backgroundColor: theme.surfaceColor['surface-primary'],
-      borderRadius: theme.cornerRad['corner-rad-xl'],
-      padding: theme.spacing['spacing-md'],
+      borderRadius: theme.cornerRad['corner-rad-lg'],
+      paddingVertical: theme.spacing['spacing-sm'],
+      paddingHorizontal: theme.spacing['spacing-md'],
       flexDirection: 'row',
       alignItems: 'center',
-      gap: theme.spacing['spacing-xl'],
+      gap: theme.spacing['spacing-sm'],
+      ...theme.shadowCard,
     },
     itemIcon: {
       width: theme.spacing['spacing-xxxl'],
@@ -78,6 +80,8 @@ export const useMyLaundriesTheme = () => {
       justifyContent: 'center',
       width: theme.spacing['spacing-xxxl'] * 2,
       gap: theme.spacing['spacing-xxs'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-lg'],
+      borderBottomRightRadius: theme.cornerRad['corner-rad-lg'],
     },
     actionQR: {
       backgroundColor: theme.surfaceColor['surface-invert'],
@@ -85,6 +89,8 @@ export const useMyLaundriesTheme = () => {
       justifyContent: 'center',
       width: theme.spacing['spacing-xxxl'] * 2,
       gap: theme.spacing['spacing-xxs'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-lg'],
+      borderBottomRightRadius: theme.cornerRad['corner-rad-lg'],
     },
   });
 

@@ -10,10 +10,6 @@ export const useLaundryCardTheme = () => {
       bottom: theme.navBarHeight + theme.spacing['spacing-md'],
       left: theme.spacing['spacing-md'],
       right: theme.spacing['spacing-md'],
-      backgroundColor: theme.surfaceColor['surface-invert'],
-      borderRadius: theme.cornerRad['corner-rad-xxl'],
-      overflow: 'hidden',
-      ...theme.shadowCard,
     },
   });
 

@@ -1,17 +1,18 @@
 import { Text } from 'components/Text/Text';
 import { View } from 'react-native';
-import { useHistoryTheme } from '../../theme/useHistoryTheme';
+
 import { useStatsHeader } from './hooks/useStatsHeader';
+import { useStatsHeaderTheme } from './theme/useStatsHeaderTheme';
 
 export const StatsHeader = () => {
-  const { styles } = useHistoryTheme();
+  const { styles } = useStatsHeaderTheme();
   const { spentThisMonthLabel, cyclesCompletedLabel, formattedAmount } = useStatsHeader();
 
   return (
-    <View style={styles.statsCard}>
-      <Text style={styles.statsLabel}>{spentThisMonthLabel}</Text>
-      <Text style={styles.statsAmount}>{formattedAmount}</Text>
-      <Text style={styles.statsCycles}>{cyclesCompletedLabel}</Text>
+    <View style={styles.card}>
+      <Text fontSize="font-size-xs" color="font-placeholder">{spentThisMonthLabel}</Text>
+      <Text fontSize="font-size-xxxxl" fontWeight="semibold">{formattedAmount}</Text>
+      <Text fontSize="font-size-xs" color="font-placeholder">{cyclesCompletedLabel}</Text>
     </View>
   );
 };

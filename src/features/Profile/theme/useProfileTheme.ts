@@ -7,7 +7,7 @@ export const useProfileTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.surfaceColor['surface-surface'],
+      backgroundColor: theme.surfaceColor['surface-primary'],
     },
     loadingContainer: {
       flex: 1,
@@ -16,6 +16,9 @@ export const useProfileTheme = () => {
     },
     contentContainer: {
       flex: 1,
+      backgroundColor: theme.surfaceColor['surface-invert'],
+      borderTopLeftRadius: theme.cornerRad['corner-rad-xxl'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-xxl'],
     },
     menusContainer: {
       flex: 1,

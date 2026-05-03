@@ -1,6 +1,7 @@
+import { useCallback } from 'react';
+import { Linking, Platform } from 'react-native';
 import { Laundry } from 'models/models';
-import { useMyLaundriesButton } from 'query/MyLaundries/useMyLaundriesButton';
-import { useWindowDimensions } from 'react-native';
+import { getAvailableMachines } from 'utils/Laundry/getAvailableMachines';
 import { useLabels } from './useLabels';
 
 interface UseLaundryDetailsCardProps {
@@ -8,9 +9,20 @@ interface UseLaundryDetailsCardProps {
 }
 
 export const useLaundryDetailsCard = ({ laundry }: UseLaundryDetailsCardProps) => {
-  const { width } = useWindowDimensions();
-  const { title, location, availabilityLabel } = useLabels(laundry);
-  const myLaundriesButton = useMyLaundriesButton(laundry?.id ?? 0);
+  const { title, location, directionsLabel } = useLabels(laundry);
+  const { available, total } = getAvailableMachines(laundry);
 
-  return { width, title, location, availabilityLabel, myLaundriesButton };
+  const handleGetDirections = useCallback(() => {
+    const { latitude, longitude, address } = laundry?.location ?? {};
+    if (!latitude || !longitude) return;
+    const encoded = encodeURIComponent(address ?? `${latitude},${longitude}`);
+    const url = Platform.OS === 'ios'
+      ? `maps:?q=${encoded}&ll=${latitude},${longitude}`
+      : `geo:${latitude},${longitude}?q=${encoded}`;
+    Linking.openURL(url).catch(() =>
+      Linking.openURL(`https://maps.google.com/?q=${latitude},${longitude}`),
+    );
+  }, [laundry]);
+
+  return { title, location, available, total, directionsLabel, handleGetDirections };
 };

@@ -1,18 +1,19 @@
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
 import { AuthRequiredScreen } from 'components/AuthRequiredScreen/AuthRequiredScreen';
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
-import { FlatList, View } from 'react-native';
+import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
+import { FlatList, RefreshControl, View } from 'react-native';
+
 import { MyLaundryEmptyList } from './components/MyLaundryEmptyList/MyLaundryEmptyList';
 import { useMyLaundriesScreen } from './hooks/useMyLaundriesScreen';
 import { useMyLaundriesTheme } from './theme/useMyLaundriesTheme';
 
 export const MyLaundries = () => {
   const { styles } = useMyLaundriesTheme();
-  const { firebaseUser, laundries, isLoading, renderItem, keyExtractor, title, authSubtitle } = useMyLaundriesScreen();
+  const { firebaseUser, laundries, isLoading, isRefetching, refetch, renderItem, keyExtractor, title, authSubtitle } = useMyLaundriesScreen();
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title={title} hideBack={true} />
+      <SafeScreenHeader title={title} hideBack={true} />
 
       {!firebaseUser ? (
         <AuthRequiredScreen subtitle={authSubtitle} />
@@ -27,6 +28,7 @@ export const MyLaundries = () => {
           renderItem={renderItem}
           contentContainerStyle={laundries.length === 0 ? styles.emptyContainer : styles.listContent}
           ListEmptyComponent={<MyLaundryEmptyList />}
+          refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
         />
       )}
     </View>

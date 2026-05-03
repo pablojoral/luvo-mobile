@@ -77,6 +77,8 @@
       "namePlaceholder": "Your name",
       "nameRequired": "Name is required"
     },
+    "emailLabel": "Email",
+    "clientLabel": "Luvo client",
     "security": {
       "sectionTitle": "Security",
       "resetPassword": "Reset password"
@@ -109,7 +111,8 @@
       "passwordResetSent": "Email sent",
       "passwordResetSentBody": "We sent a link to reset your password to {{email}}.",
       "passwordResetFailed": "Could not send the email. Please try again.",
-      "deleteFailed": "Could not delete the account. Please try again."
+      "deleteFailed": "Could not delete the account. Please try again.",
+      "signOutFailed": "Could not sign out. Please try again."
     }
   },
   "machines": {
@@ -133,6 +136,13 @@
   "laundry": {
     "title": "Laundry",
     "availability": "{{available}}/{{total}} Available",
+    "directions": "Get directions",
+    "concurrency": {
+      "low": "Low concurrency",
+      "medium": "Medium concurrency",
+      "high": "High concurrency",
+      "none": "No availability"
+    },
     "filters": {
       "all": "All",
       "washing_machine": "Washers",

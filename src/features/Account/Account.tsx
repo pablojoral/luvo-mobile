@@ -44,6 +44,7 @@ export const Account = () => {
     <View style={styles.container}>
       <SafeScreenHeader title={strings.screenTitle} onBack={() => navigation.goBack()} />
 
+      <View style={styles.body}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
         <TouchableOpacity onPress={openAvatarPicker} activeOpacity={0.8}>
           <AccountIdentityCard
@@ -96,6 +97,7 @@ export const Account = () => {
           </Text>
         </TouchableOpacity>
       </ScrollView>
+      </View>
 
       <AvatarPicker
         visible={pickerVisible}

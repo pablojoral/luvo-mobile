@@ -7,7 +7,13 @@ export const useInfoTheme = () => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: theme.surfaceColor['surface-primary'],
+    },
+    body: {
+      flex: 1,
       backgroundColor: theme.surfaceColor['surface-background'],
+      borderTopLeftRadius: theme.cornerRad['corner-rad-xxl'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-xxl'],
     },
     scroll: {
       flex: 1,
@@ -16,11 +22,6 @@ export const useInfoTheme = () => {
       paddingHorizontal: theme.spacing['spacing-xl'],
       paddingTop: theme.spacing['spacing-lg'],
       paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
-    },
-    contentText: {
-      fontSize: theme.fontSize['font-size-md'],
-      lineHeight: theme.lineHeight['line-height-lg'],
-      color: theme.fontColor['font-primary'],
     },
     accordionItem: {
       borderBottomWidth: 1,
@@ -48,14 +49,6 @@ export const useInfoTheme = () => {
     },
     faqQuestion: {
       flex: 1,
-      fontSize: theme.fontSize['font-size-md'],
-      fontWeight: '600',
-      color: theme.fontColor['font-primary'],
-    },
-    faqAnswer: {
-      fontSize: theme.fontSize['font-size-sm'],
-      lineHeight: theme.lineHeight['line-height-lg'],
-      color: theme.fontColor['font-placeholder'],
     },
     loadingContainer: {
       flex: 1,

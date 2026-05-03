@@ -22,13 +22,10 @@ export const ScreenHeader = ({ title, hideBack, onBack }: ScreenHeaderProps) => 
     <View style={styles.container}>
       {!hideBack ? (
         <TouchableOpacity style={styles.backButton} onPress={handleBack} accessibilityLabel="Volver">
-          <SvgIcon name="ChevronLeft" size="icon-size-xxl" />
+          <SvgIcon name="ChevronLeft" size="icon-size-lg" />
         </TouchableOpacity>
       ) : null}
-      <Text fontSize="font-size-lg" fontWeight="semibold" style={styles.title}>
-        {title}
-      </Text>
-      {!hideBack ? <View style={styles.spacer} /> : null}
+      <Text fontSize="font-size-xxl" fontWeight="bold">{title}</Text>
     </View>
   );
 };
