@@ -1,5 +1,6 @@
 import {
   AlertCircle,
+  Check,
   ArrowLeftCircle,
   ArrowRightCircle,
   AlertTriangle,
@@ -29,6 +30,7 @@ import {
 
 export const icons = {
   AlertCircle,
+  Check,
   AlertTriangle,
   ArrowLeftCircle,
   ArrowRightCircle,

@@ -216,7 +216,8 @@
     "title": "Segnala un problema",
     "entitySection": {
       "label": "A cosa si riferisce la segnalazione?",
-      "scan": "Scansiona il QR della lavanderia o della macchina"
+      "scanHint": "Scansiona un codice QR",
+      "scan": "Lavanderia o macchina"
     },
     "entityType": {
       "laundry": "Lavanderia",

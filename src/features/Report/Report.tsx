@@ -10,6 +10,7 @@ import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View }
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { ReportEntityCard } from './components/ReportEntityCard/ReportEntityCard';
+import { ReportScanButton } from './components/ReportScanButton/ReportScanButton';
 import { useReportForm } from './hooks/useReportForm';
 import { useReportTheme } from './theme/useReportTheme';
 
@@ -61,7 +62,7 @@ export const Report = ({ route, navigation }: Props) => {
                 {strings.entitySectionLabel}
               </Text>
               {selectedEntity === null ? (
-                <Button variant="tertiary" fullWidth alignLeft iconName="QrCode" label={strings.entitySectionScan} onPress={onScanForEntity} />
+                <ReportScanButton hint={strings.entitySectionScanHint} label={strings.entitySectionScan} onPress={onScanForEntity} />
               ) : (
                 <ReportEntityCard
                   iconName={entityIconName}
