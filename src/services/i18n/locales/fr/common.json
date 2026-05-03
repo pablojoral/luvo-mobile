@@ -299,7 +299,16 @@
     "noCamera": "Vous n'avez pas activé l'accès à la caméra. Veuillez l'activer dans les paramètres de votre appareil.",
     "codeSection": {
       "title": "Saisissez le numéro de référence",
+      "subtitle": "Vous trouverez le code sur l'étiquette QR collée sur la machine à laver ou le sèche-linge, ou sur votre code d'accès.",
       "submit": "Valider"
+    },
+    "qr": {
+      "title": "Pointez vers le QR code",
+      "subtitle": "Trouvez le code sur la machine à laver ou le sèche-linge que vous souhaitez utiliser, ou sur votre code d'accès."
+    },
+    "report": {
+      "title": "Scannez la laverie ou la machine",
+      "subtitle": "Pointez vers le QR code de la laverie ou de la machine que vous souhaitez signaler."
     }
   },
   "laundryQR": {

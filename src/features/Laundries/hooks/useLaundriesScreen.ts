@@ -1,4 +1,4 @@
-import { useQRScanHandler } from 'features/QRScanner/hooks/useQRScanHandler';
+import { useQRScanHandler } from './useQRScanHandler';
 import { useEffect, useState } from 'react';
 import { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useLaundriesStore } from 'stores/useLaundriesStore';

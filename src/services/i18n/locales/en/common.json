@@ -299,7 +299,16 @@
     "noCamera": "You have not enabled camera access. Please enable it in your device settings.",
     "codeSection": {
       "title": "Enter the reference number",
+      "subtitle": "You'll find the code on the QR label attached to the washer or dryer, or on your access code.",
       "submit": "Submit"
+    },
+    "qr": {
+      "title": "Aim at the QR code",
+      "subtitle": "Find the code on the washer or dryer you want to use, or on your access code."
+    },
+    "report": {
+      "title": "Scan the laundry or machine",
+      "subtitle": "Aim at the QR code of the laundry or machine you want to report."
     }
   },
   "laundryQR": {

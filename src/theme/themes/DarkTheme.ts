@@ -33,6 +33,7 @@ export const DarkThemeConstants: ThemeConstants = {
     'surface-error': Colors['colors-red-900'],
     'surface-warning': Colors['colors-yellow-900'],
     'surface-transparent': 'transparent',
+    'surface-dark': Colors['colors-grey-900'],
   },
 
   shadowBox: {
@@ -167,6 +168,7 @@ export const DarkThemeConstants: ThemeConstants = {
   },
   zIndex: {
     overlay: 9999,
+    message: 10000,
     background: -9999,
     camera: -10000,
   },
@@ -174,6 +176,7 @@ export const DarkThemeConstants: ThemeConstants = {
     modal: 'rgba(0,0,0,0.6)',
     dimmer: 'rgba(0,0,0,0.7)',
     backdrop: 'rgba(0,0,0,0.6)',
+    glassButton: 'rgba(255,255,255,0.15)',
   },
   navigation: {
     ...RNNavigationDarkTheme,

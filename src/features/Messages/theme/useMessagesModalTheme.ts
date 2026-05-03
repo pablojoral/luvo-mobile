@@ -9,6 +9,7 @@ export const useMessagesModalTheme = () => {
     overlay: {
       position: 'absolute',
       inset: 0,
+      zIndex: theme.zIndex.message,
       backgroundColor: theme.overlayColor.backdrop,
       alignItems: 'center',
       justifyContent: 'center',

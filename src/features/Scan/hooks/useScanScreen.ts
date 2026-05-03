@@ -1,30 +1,34 @@
-import { SelectorOption } from 'components/PillSelector/PillSelector';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
+import { useCallback, useState } from 'react';
+import type { SelectorOption } from 'components/PillSelector/PillSelector';
 import { useCameraScanner } from './useCamera';
+import { useScanQRHandler } from './useScanQRHandler';
+import { useScanStrings } from './useScanStrings';
+
+export type ScanMode = 'qr' | 'manual';
 
 export const useScanScreen = () => {
-  const { t } = useTranslation('common');
-  const [selectedOption, setSelectedOption] = useState<string>('qr');
-  const isQrSelected = selectedOption === 'qr';
+  const strings = useScanStrings();
+  const [mode, setMode] = useState<ScanMode>('qr');
+  const { handleCode } = useScanQRHandler();
 
-  const { hasPermission, codeScanner } = useCameraScanner(() => {});
+  const { hasPermission, codeScanner } = useCameraScanner(handleCode);
 
-  const options: SelectorOption[] = [
-    { label: t('scan.tabs.qr'), value: 'qr' },
-    { label: t('scan.tabs.code'), value: 'code' },
+  const handleModeChange = useCallback((value: string) => {
+    setMode(value as ScanMode);
+  }, []);
+
+  const modeOptions: SelectorOption[] = [
+    { label: strings.modeCode, value: 'manual' },
+    { label: strings.modeQR, value: 'qr' },
   ];
 
-  const noAccessMessage = t('scan.noCamera');
-
   return {
-    options,
-    selectedOption,
-    setSelectedOption,
-    isQrSelected,
+    mode,
+    handleModeChange,
+    modeOptions,
     hasPermission,
     codeScanner,
-    noAccessMessage,
+    handleCode,
+    strings,
   };
 };

@@ -299,7 +299,16 @@
     "noCamera": "Você não habilitou o acesso à câmera. Habilite nas configurações do seu dispositivo.",
     "codeSection": {
       "title": "Insira o número de referência",
+      "subtitle": "Você encontra o código na etiqueta QR colada na máquina de lavar ou secadora, ou no seu código de acesso.",
       "submit": "Confirmar"
+    },
+    "qr": {
+      "title": "Aponte para o código QR",
+      "subtitle": "Encontre o código na lavadora ou secadora que deseja usar, ou no seu código de acesso."
+    },
+    "report": {
+      "title": "Escaneie a lavanderia ou a máquina",
+      "subtitle": "Aponte para o código QR da lavanderia ou máquina que deseja reportar."
     }
   },
   "laundryQR": {

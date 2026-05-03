@@ -25,7 +25,7 @@ export const useAnimatedStyles = ({ options, value, onChange }: UseAnimatedStyle
   const thumbStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: withSpring(progress.value * segmentW) }],
   }));
-  const segmentWidthStyle = { width: segmentW };
+  const segmentWidthStyle = containerW > 0 ? { width: segmentW } : {};
 
   const onLayout = (e: LayoutChangeEvent) => {
     setContainerW(e.nativeEvent.layout.width);

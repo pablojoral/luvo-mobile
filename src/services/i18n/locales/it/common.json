@@ -299,7 +299,16 @@
     "noCamera": "Non hai abilitato l'accesso alla fotocamera. Abilitalo nelle impostazioni del dispositivo.",
     "codeSection": {
       "title": "Inserisci il numero di riferimento",
+      "subtitle": "Trovi il codice sull'etichetta QR attaccata alla lavatrice o all'asciugatrice, o nel tuo codice di accesso.",
       "submit": "Invia"
+    },
+    "qr": {
+      "title": "Punta al codice QR",
+      "subtitle": "Trova il codice sulla lavatrice o sull'asciugatrice che vuoi usare, o nel tuo codice di accesso."
+    },
+    "report": {
+      "title": "Scansiona la lavanderia o la macchina",
+      "subtitle": "Punta al codice QR della lavanderia o della macchina che vuoi segnalare."
     }
   },
   "laundryQR": {

@@ -15,22 +15,24 @@ export const MyLaundries = () => {
     <View style={styles.container}>
       <SafeScreenHeader title={title} hideBack={true} />
 
-      {!firebaseUser ? (
-        <AuthRequiredScreen subtitle={authSubtitle} />
-      ) : isLoading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size={'large'} />
-        </View>
-      ) : (
-        <FlatList
-          data={laundries}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          contentContainerStyle={laundries.length === 0 ? styles.emptyContainer : styles.listContent}
-          ListEmptyComponent={<MyLaundryEmptyList />}
-          refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
-        />
-      )}
+      <View style={styles.body}>
+        {!firebaseUser ? (
+          <AuthRequiredScreen subtitle={authSubtitle} />
+        ) : isLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size={'large'} />
+          </View>
+        ) : (
+          <FlatList
+            data={laundries}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            contentContainerStyle={laundries.length === 0 ? styles.emptyContainer : styles.listContent}
+            ListEmptyComponent={<MyLaundryEmptyList />}
+            refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+          />
+        )}
+      </View>
     </View>
   );
 };

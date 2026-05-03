@@ -1,19 +1,19 @@
 import { create } from 'zustand';
 
+export type ScannerContext = 'general' | 'report';
+
 interface QRScannerState {
   isOpen: boolean;
+  context: ScannerContext;
   onScan: ((code: string) => void) | null;
-  open: (onScan: (code: string) => void) => void;
+  open: (onScan: (code: string) => void, context?: ScannerContext) => void;
   close: () => void;
-  hasOverridingScanner: boolean;
-  setHasOverridingScanner: (val: boolean) => void;
 }
 
 export const useQRScanner = create<QRScannerState>(set => ({
   isOpen: false,
+  context: 'general',
   onScan: null,
-  open: onScan => set({ isOpen: true, onScan }),
-  close: () => set({ isOpen: false, onScan: null }),
-  hasOverridingScanner: false,
-  setHasOverridingScanner: val => set({ hasOverridingScanner: val }),
+  open: (onScan, context = 'general') => set({ isOpen: true, onScan, context }),
+  close: () => set({ isOpen: false, onScan: null, context: 'general' }),
 }));

@@ -5,6 +5,7 @@ export { default as ArrowRightCircle } from './ArrowRightCircle';
 export { default as Bell } from './Bell';
 export { default as ChevronLeft } from './ChevronLeft';
 export { default as ChevronRight } from './ChevronRight';
+export { default as Cross } from './Cross';
 export { default as Clipboard } from './Clipboard';
 export { default as Clock } from './Clock';
 export { default as CreditCard } from './CreditCard';

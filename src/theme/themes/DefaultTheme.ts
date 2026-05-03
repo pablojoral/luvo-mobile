@@ -31,6 +31,7 @@ export const DefaultThemeConstants: ThemeConstants = {
     'surface-error': Colors['colors-red-50'],
     'surface-warning': Colors['colors-yellow-50'],
     'surface-transparent': 'transparent',
+    'surface-dark': Colors['colors-grey-900'],
   },
   shadowBox: {
     shadowColor: Colors['colors-black'],
@@ -138,7 +139,7 @@ export const DefaultThemeConstants: ThemeConstants = {
   },
   fontColor: {
     'font-primary': Colors['colors-grey-900'],
-    'font-secondary': Colors['colors-lavender-500'],
+    'font-secondary': Colors['colors-grey-300'],
     'font-highlight': Colors['colors-rose-500'],
     'font-light': Colors['colors-grey-400'],
     'font-disabled': Colors['colors-grey-400'],
@@ -160,6 +161,7 @@ export const DefaultThemeConstants: ThemeConstants = {
   },
   zIndex: {
     overlay: 9999,
+    message: 10000,
     background: -9999,
     camera: -10000,
   },
@@ -167,6 +169,7 @@ export const DefaultThemeConstants: ThemeConstants = {
     modal: 'rgba(47,50,58,0.45)',
     dimmer: 'rgba(0,0,0,0.6)',
     backdrop: 'rgba(0,0,0,0.5)',
+    glassButton: 'rgba(255,255,255,0.15)',
   },
   navigation: {
     ...RNNavigationTheme,

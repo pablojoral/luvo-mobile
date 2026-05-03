@@ -1,12 +1,11 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'theme/hooks/useTheme';
+import type { ScannerMode } from '../components/QRScannerContent/hooks/useQRScannerContent';
 
-
-export const useQRScannerTheme = () => {
+export const useQRScannerTheme = (mode: ScannerMode = 'qr') => {
   const theme = useTheme();
-  const { top } = useSafeAreaInsets();
   const { height, width } = Dimensions.get('window');
+  const isQR = mode === 'qr';
 
   const styles = StyleSheet.create({
     overlay: {
@@ -16,6 +15,7 @@ export const useQRScannerTheme = () => {
       width,
       height,
       zIndex: theme.zIndex.overlay,
+      backgroundColor: isQR ? theme.surfaceColor['surface-dark'] : theme.surfaceColor['surface-background'],
     },
     camera: {
       position: 'absolute',
@@ -32,16 +32,13 @@ export const useQRScannerTheme = () => {
       height,
       backgroundColor: theme.overlayColor.dimmer,
     },
-    targetContainer: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    closeButton: {
+    codeCover: {
       position: 'absolute',
-      top: top + theme.spacing['spacing-md'],
-      right: theme.spacing['spacing-xl'],
-      padding: theme.spacing['spacing-sm'],
+      top: 0,
+      left: 0,
+      width,
+      height,
+      backgroundColor: theme.surfaceColor['surface-background'],
     },
   });
 
