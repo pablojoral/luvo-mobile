@@ -9,10 +9,10 @@ import { MyLaundryItem } from '../components/MyLaundryItem/MyLaundryItem';
 import { useMyLaundriesStrings } from './useMyLaundriesStrings';
 
 export const useMyLaundriesScreen = () => {
-  const { title, authSubtitle } = useMyLaundriesStrings();
+  const { title, authSubtitle, loadError } = useMyLaundriesStrings();
   const navigation = useRootStackNavigation();
   const { data: firebaseUser } = useFirebaseAuthState();
-  const { data, isLoading, refetch } = useMyLaundries();
+  const { data, isLoading, isError, refetch } = useMyLaundries();
   const showLoader = isLoading && !data;
   const [isManualRefreshing, setIsManualRefreshing] = useState(false);
   const { mutate: remove } = useRemoveMyLaundry();
@@ -63,11 +63,13 @@ export const useMyLaundriesScreen = () => {
     firebaseUser,
     laundries,
     showLoader,
+    isError,
     isManualRefreshing,
     handleRefresh,
     renderItem,
     keyExtractor,
     title,
     authSubtitle,
+    loadError,
   };
 };

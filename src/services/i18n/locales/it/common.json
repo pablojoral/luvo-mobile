@@ -9,7 +9,16 @@
   "errors": {
     "network": "Errore di rete. Controlla la connessione.",
     "generic": "Qualcosa è andato storto. Riprova.",
-    "timeout": "La richiesta è scaduta. Riprova."
+    "timeout": "La richiesta è scaduta. Riprova.",
+    "boundary": {
+      "title": "Qualcosa è andato storto",
+      "body": "Si è verificato un errore inatteso. Riprova.",
+      "retry": "Riprova"
+    },
+    "profileLoad": {
+      "body": "Impossibile caricare il tuo profilo.",
+      "retry": "Riprova"
+    }
   },
   "auth": {
     "notSignedIn": "Non hai effettuato l'accesso",
@@ -228,8 +237,14 @@
       "laundry": "Lavanderia",
       "machine": "Macchina"
     },
-    "subject": { "label": "Oggetto", "placeholder": "Seleziona un oggetto..." },
-    "description": { "label": "Descrizione", "placeholder": "Spiega il problema in modo più dettagliato" },
+    "subject": {
+      "label": "Oggetto",
+      "placeholder": "Seleziona un oggetto..."
+    },
+    "description": {
+      "label": "Descrizione",
+      "placeholder": "Spiega il problema in modo più dettagliato"
+    },
     "submit": "Invia segnalazione",
     "submitError": "Impossibile inviare la segnalazione. Riprova.",
     "submitSuccess": "Segnalazione inviata con successo.",
@@ -255,6 +270,7 @@
   "myLaundries": {
     "title": "Le mie lavanderie",
     "authSubtitle": "Accedi per vedere le tue lavanderie.",
+    "loadError": "Impossibile caricare le tue lavanderie.",
     "empty": {
       "title": "Nessuna lavanderia",
       "body": "Registra una lavanderia privata con il tuo codice o aggiungine una pubblica dalla mappa."
@@ -277,14 +293,25 @@
       "title": "Accesso già concesso",
       "body": "Sei già associato alla lavanderia privata di questo codice."
     },
-    "registered": { "title": "Fatto!", "body": "Sei stato associato con successo alla lavanderia privata." },
-    "invalidCode": { "title": "Codice non valido", "body": "Il codice di accesso non è valido o è scaduto." },
+    "registered": {
+      "title": "Fatto!",
+      "body": "Sei stato associato con successo alla lavanderia privata."
+    },
+    "invalidCode": {
+      "title": "Codice non valido",
+      "body": "Il codice di accesso non è valido o è scaduto."
+    },
     "privateLaundry": {
       "title": "Lavanderia privata",
       "body": "Questa lavanderia è privata. Hai bisogno di un codice di accesso per aggiungerla. Chiedi all'amministratore locale."
     },
-    "alreadyAdded": { "body": "Questa lavanderia è già nella tua lista." },
-    "added": { "title": "Fatto!", "body": "La lavanderia è stata aggiunta alla tua lista." },
+    "alreadyAdded": {
+      "body": "Questa lavanderia è già nella tua lista."
+    },
+    "added": {
+      "title": "Fatto!",
+      "body": "La lavanderia è stata aggiunta alla tua lista."
+    },
     "addFailed": {
       "title": "Impossibile aggiungere",
       "body": "Si è verificato un errore durante l'aggiunta della lavanderia. Riprova."
@@ -295,13 +322,22 @@
         "body": "Impossibile aprire il link associato a questo codice QR."
       }
     },
-    "unknown": { "title": "QR non riconosciuto", "body": "Questo codice QR non è compatibile con Luvo." }
+    "unknown": {
+      "title": "QR non riconosciuto",
+      "body": "Questo codice QR non è compatibile con Luvo."
+    }
   },
   "info": {
     "title": "Informazioni",
-    "about": { "title": "Chi siamo" },
-    "faq": { "title": "FAQ" },
-    "terms": { "title": "Termini e condizioni" },
+    "about": {
+      "title": "Chi siamo"
+    },
+    "faq": {
+      "title": "FAQ"
+    },
+    "terms": {
+      "title": "Termini e condizioni"
+    },
     "loading": "Caricamento...",
     "loadError": "Impossibile caricare il contenuto. Riprova.",
     "menu": {

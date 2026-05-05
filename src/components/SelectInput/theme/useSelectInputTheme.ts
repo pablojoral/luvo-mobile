@@ -3,9 +3,10 @@ import { useTheme } from 'theme/hooks/useTheme';
 
 interface Params {
   error?: boolean;
+  disabled?: boolean;
 }
 
-export const useSelectInputTheme = ({ error = false }: Params = {}) => {
+export const useSelectInputTheme = ({ error = false, disabled = false }: Params = {}) => {
   const theme = useTheme();
 
   const styles = StyleSheet.create({
@@ -24,6 +25,7 @@ export const useSelectInputTheme = ({ error = false }: Params = {}) => {
       borderRadius: theme.cornerRad['corner-rad-md'],
       borderColor: error ? theme.borderColor['border-error'] : theme.borderColor['border-primary'],
       paddingHorizontal: theme.spacing['spacing-sm'],
+      opacity: disabled ? 0.5 : 1,
     },
     footer: {
       flexDirection: 'row',

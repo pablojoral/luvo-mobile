@@ -14,6 +14,9 @@ export const useProfileTheme = () => {
       alignItems: 'center',
       justifyContent: 'center',
       paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
+      backgroundColor: theme.surfaceColor['surface-background'],
+      borderTopLeftRadius: theme.cornerRad['corner-rad-xxl'],
+      borderTopRightRadius: theme.cornerRad['corner-rad-xxl'],
     },
     contentContainer: {
       flex: 1,

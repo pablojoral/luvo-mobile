@@ -9,7 +9,16 @@
   "errors": {
     "network": "Error de red. Por favor revisá tu conexión.",
     "generic": "Algo salió mal. Por favor intentá de nuevo.",
-    "timeout": "La solicitud expiró. Por favor intentá de nuevo."
+    "timeout": "La solicitud expiró. Por favor intentá de nuevo.",
+    "boundary": {
+      "title": "Algo salió mal",
+      "body": "Ocurrió un error inesperado. Por favor intentá de nuevo.",
+      "retry": "Intentar de nuevo"
+    },
+    "profileLoad": {
+      "body": "No se pudo cargar tu perfil.",
+      "retry": "Intentar de nuevo"
+    }
   },
   "auth": {
     "notSignedIn": "Aún no iniciaste sesión",
@@ -228,8 +237,14 @@
       "laundry": "Lavandería",
       "machine": "Máquina"
     },
-    "subject": { "label": "Asunto", "placeholder": "Seleccionar asunto..." },
-    "description": { "label": "Descripción", "placeholder": "Explica el problema con más detalle" },
+    "subject": {
+      "label": "Asunto",
+      "placeholder": "Seleccionar asunto..."
+    },
+    "description": {
+      "label": "Descripción",
+      "placeholder": "Explica el problema con más detalle"
+    },
     "submit": "Enviar reporte",
     "submitError": "No se pudo enviar el reporte. Intenta nuevamente.",
     "submitSuccess": "Reporte enviado correctamente.",
@@ -242,13 +257,20 @@
         "title": "Lavandería no encontrada",
         "body": "No se encontró información para esta lavandería."
       },
-      "machineNotFound": { "title": "Máquina no encontrada", "body": "No se encontró información para esta máquina." },
-      "qrUnrecognized": { "title": "QR no reconocido", "body": "Escanea el QR de una lavandería o máquina." }
+      "machineNotFound": {
+        "title": "Máquina no encontrada",
+        "body": "No se encontró información para esta máquina."
+      },
+      "qrUnrecognized": {
+        "title": "QR no reconocido",
+        "body": "Escanea el QR de una lavandería o máquina."
+      }
     }
   },
   "myLaundries": {
     "title": "Mis lavanderías",
     "authSubtitle": "Inicia sesión para ver tus lavanderías.",
+    "loadError": "No se pudieron cargar tus lavanderías.",
     "empty": {
       "title": "Sin lavanderías",
       "body": "Registrá una lavandería privada con tu código o agregá una pública desde el mapa."
@@ -271,14 +293,25 @@
       "title": "Ya tienes acceso",
       "body": "Ya estás asociado a la lavandería privada de este código."
     },
-    "registered": { "title": "¡Listo!", "body": "Has sido asociado a la lavandería privada exitosamente." },
-    "invalidCode": { "title": "Código inválido", "body": "El código de acceso no es válido o ha expirado." },
+    "registered": {
+      "title": "¡Listo!",
+      "body": "Has sido asociado a la lavandería privada exitosamente."
+    },
+    "invalidCode": {
+      "title": "Código inválido",
+      "body": "El código de acceso no es válido o ha expirado."
+    },
     "privateLaundry": {
       "title": "Lavandería privada",
       "body": "Esta lavandería es privada. Necesitas un código de acceso para agregarla. Pídelo al administrador del local."
     },
-    "alreadyAdded": { "body": "Esta lavandería ya está en tu lista." },
-    "added": { "title": "¡Listo!", "body": "La lavandería se ha agregado a tu lista." },
+    "alreadyAdded": {
+      "body": "Esta lavandería ya está en tu lista."
+    },
+    "added": {
+      "title": "¡Listo!",
+      "body": "La lavandería se ha agregado a tu lista."
+    },
     "addFailed": {
       "title": "No se pudo agregar",
       "body": "Ocurrió un error al agregar la lavandería. Inténtalo de nuevo."
@@ -289,13 +322,22 @@
         "body": "No se pudo abrir el enlace asociado a este código QR."
       }
     },
-    "unknown": { "title": "QR no reconocido", "body": "Este código QR no es compatible con Luvo." }
+    "unknown": {
+      "title": "QR no reconocido",
+      "body": "Este código QR no es compatible con Luvo."
+    }
   },
   "info": {
     "title": "Información",
-    "about": { "title": "Acerca de" },
-    "faq": { "title": "Preguntas frecuentes" },
-    "terms": { "title": "Términos y condiciones" },
+    "about": {
+      "title": "Acerca de"
+    },
+    "faq": {
+      "title": "Preguntas frecuentes"
+    },
+    "terms": {
+      "title": "Términos y condiciones"
+    },
     "loading": "Cargando...",
     "loadError": "No se pudo cargar el contenido. Intentá de nuevo.",
     "menu": {

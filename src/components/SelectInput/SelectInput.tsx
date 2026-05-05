@@ -17,10 +17,11 @@ export interface SelectInputProps {
   options: SelectorOption[];
   onChange: (value: string) => void;
   error?: string;
+  disabled?: boolean;
 }
 
-export const SelectInput = ({ label, placeholder, value, options, onChange, error }: SelectInputProps) => {
-  const { styles } = useSelectInputTheme({ error: !!error });
+export const SelectInput = ({ label, placeholder, value, options, onChange, error, disabled }: SelectInputProps) => {
+  const { styles } = useSelectInputTheme({ error: !!error, disabled });
   const { modalVisible, showModal, hideModal, select, selectedLabel, chevronStyle } = useSelectInput({ value, options, onChange });
 
   return (
@@ -30,7 +31,7 @@ export const SelectInput = ({ label, placeholder, value, options, onChange, erro
           {label}
         </Text>
       )}
-      <Pressable style={styles.trigger} onPress={showModal}>
+      <Pressable style={styles.trigger} onPress={disabled ? undefined : showModal}>
         <Text
           fontSize="font-size-md"
           color={selectedLabel ? 'font-primary' : 'font-placeholder'}

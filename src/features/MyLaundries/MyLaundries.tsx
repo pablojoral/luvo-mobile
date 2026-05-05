@@ -1,5 +1,6 @@
-import { Loader } from 'components/Loader/Loader';
 import { AuthRequiredScreen } from 'components/AuthRequiredScreen/AuthRequiredScreen';
+import { LoadErrorState } from 'components/LoadErrorState/LoadErrorState';
+import { Loader } from 'components/Loader/Loader';
 import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { FlatList, RefreshControl, View } from 'react-native';
 
@@ -13,12 +14,14 @@ export const MyLaundries = () => {
     firebaseUser,
     laundries,
     showLoader,
+    isError,
     isManualRefreshing,
     handleRefresh,
     renderItem,
     keyExtractor,
     title,
     authSubtitle,
+    loadError,
   } = useMyLaundriesScreen();
 
   return (
@@ -31,6 +34,10 @@ export const MyLaundries = () => {
         ) : showLoader ? (
           <View style={styles.loadingContainer}>
             <Loader size={'icon-size-128'} />
+          </View>
+        ) : isError ? (
+          <View style={styles.loadingContainer}>
+            <LoadErrorState message={loadError} onRetry={handleRefresh} />
           </View>
         ) : (
           <FlatList

@@ -9,7 +9,16 @@
   "errors": {
     "network": "Erreur réseau. Veuillez vérifier votre connexion.",
     "generic": "Quelque chose s'est mal passé. Veuillez réessayer.",
-    "timeout": "La requête a expiré. Veuillez réessayer."
+    "timeout": "La requête a expiré. Veuillez réessayer.",
+    "boundary": {
+      "title": "Quelque chose s'est mal passé",
+      "body": "Une erreur inattendue est survenue. Veuillez réessayer.",
+      "retry": "Réessayer"
+    },
+    "profileLoad": {
+      "body": "Impossible de charger votre profil.",
+      "retry": "Réessayer"
+    }
   },
   "auth": {
     "notSignedIn": "Vous n'êtes pas connecté",
@@ -184,22 +193,22 @@
       "cancel": "Annuler"
     },
     "progress": {
-      "sending_command":     "Envoi de la commande…",
+      "sending_command": "Envoi de la commande…",
       "awaiting_controller": "En attente de la confirmation du contrôleur…",
       "creating_preference": "Création de la préférence de paiement…",
-      "opening_checkout":    "Ouverture du paiement…",
-      "verifying_payment":   "Vérification du paiement…"
+      "opening_checkout": "Ouverture du paiement…",
+      "verifying_payment": "Vérification du paiement…"
     },
     "errors": {
-      "relay_busy":            "La machine est occupée. Veuillez réessayer.",
-      "payment_failed":        "Le paiement a échoué. Veuillez réessayer.",
-      "timeout":               "Délai expiré. Vérifiez l'état de la machine.",
-      "rejected":              "Le paiement a été refusé.",
+      "relay_busy": "La machine est occupée. Veuillez réessayer.",
+      "payment_failed": "Le paiement a échoué. Veuillez réessayer.",
+      "timeout": "Délai expiré. Vérifiez l'état de la machine.",
+      "rejected": "Le paiement a été refusé.",
       "cancelled_or_rejected": "Le paiement a été annulé ou refusé.",
-      "browser_unavailable":   "Impossible d'ouvrir le navigateur sur cet appareil.",
-      "mp_deeplink_timeout":   "Délai expiré en attente de la réponse de MercadoPago.",
+      "browser_unavailable": "Impossible d'ouvrir le navigateur sur cet appareil.",
+      "mp_deeplink_timeout": "Délai expiré en attente de la réponse de MercadoPago.",
       "stripe_not_configured": "Les paiements par carte ne sont pas encore disponibles.",
-      "unknown":               "Quelque chose s'est mal passé. Veuillez réessayer."
+      "unknown": "Quelque chose s'est mal passé. Veuillez réessayer."
     },
     "comingSoon": "Bientôt disponible",
     "strategies": {
@@ -228,8 +237,14 @@
       "laundry": "Laverie",
       "machine": "Machine"
     },
-    "subject": { "label": "Sujet", "placeholder": "Sélectionner un sujet..." },
-    "description": { "label": "Description", "placeholder": "Décrivez le problème en détail" },
+    "subject": {
+      "label": "Sujet",
+      "placeholder": "Sélectionner un sujet..."
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Décrivez le problème en détail"
+    },
     "submit": "Envoyer le signalement",
     "submitError": "Impossible d'envoyer le signalement. Réessayez.",
     "submitSuccess": "Signalement envoyé avec succès.",
@@ -238,14 +253,24 @@
       "descriptionRequired": "La description est obligatoire"
     },
     "messages": {
-      "laundryNotFound": { "title": "Laverie introuvable", "body": "Aucune information trouvée pour cette laverie." },
-      "machineNotFound": { "title": "Machine introuvable", "body": "Aucune information trouvée pour cette machine." },
-      "qrUnrecognized": { "title": "QR non reconnu", "body": "Scannez le QR d'une laverie ou d'une machine." }
+      "laundryNotFound": {
+        "title": "Laverie introuvable",
+        "body": "Aucune information trouvée pour cette laverie."
+      },
+      "machineNotFound": {
+        "title": "Machine introuvable",
+        "body": "Aucune information trouvée pour cette machine."
+      },
+      "qrUnrecognized": {
+        "title": "QR non reconnu",
+        "body": "Scannez le QR d'une laverie ou d'une machine."
+      }
     }
   },
   "myLaundries": {
     "title": "Mes laveries",
     "authSubtitle": "Connectez-vous pour voir vos laveries.",
+    "loadError": "Impossible de charger vos laveries.",
     "empty": {
       "title": "Aucune laverie",
       "body": "Enregistrez une laverie privée avec votre code ou ajoutez-en une publique depuis la carte."
@@ -264,21 +289,55 @@
     }
   },
   "qr": {
-    "alreadyHasAccess": { "title": "Accès déjà accordé", "body": "Vous êtes déjà associé à la laverie privée de ce code." },
-    "registered": { "title": "Terminé !", "body": "Vous avez été associé à la laverie privée avec succès." },
-    "invalidCode": { "title": "Code invalide", "body": "Le code d'accès est invalide ou a expiré." },
-    "privateLaundry": { "title": "Laverie privée", "body": "Cette laverie est privée. Vous avez besoin d'un code d'accès pour l'ajouter. Demandez-le à l'administrateur local." },
-    "alreadyAdded": { "body": "Cette laverie est déjà dans votre liste." },
-    "added": { "title": "Terminé !", "body": "La laverie a été ajoutée à votre liste." },
-    "addFailed": { "title": "Impossible d'ajouter", "body": "Une erreur s'est produite lors de l'ajout de la laverie. Réessayez." },
-    "deeplink": { "unrecognized": { "title": "Lien non reconnu", "body": "Impossible d'ouvrir le lien associé à ce code QR." } },
-    "unknown": { "title": "QR non reconnu", "body": "Ce code QR n'est pas compatible avec Luvo." }
+    "alreadyHasAccess": {
+      "title": "Accès déjà accordé",
+      "body": "Vous êtes déjà associé à la laverie privée de ce code."
+    },
+    "registered": {
+      "title": "Terminé !",
+      "body": "Vous avez été associé à la laverie privée avec succès."
+    },
+    "invalidCode": {
+      "title": "Code invalide",
+      "body": "Le code d'accès est invalide ou a expiré."
+    },
+    "privateLaundry": {
+      "title": "Laverie privée",
+      "body": "Cette laverie est privée. Vous avez besoin d'un code d'accès pour l'ajouter. Demandez-le à l'administrateur local."
+    },
+    "alreadyAdded": {
+      "body": "Cette laverie est déjà dans votre liste."
+    },
+    "added": {
+      "title": "Terminé !",
+      "body": "La laverie a été ajoutée à votre liste."
+    },
+    "addFailed": {
+      "title": "Impossible d'ajouter",
+      "body": "Une erreur s'est produite lors de l'ajout de la laverie. Réessayez."
+    },
+    "deeplink": {
+      "unrecognized": {
+        "title": "Lien non reconnu",
+        "body": "Impossible d'ouvrir le lien associé à ce code QR."
+      }
+    },
+    "unknown": {
+      "title": "QR non reconnu",
+      "body": "Ce code QR n'est pas compatible avec Luvo."
+    }
   },
   "info": {
     "title": "Informations",
-    "about": { "title": "À propos" },
-    "faq": { "title": "FAQ" },
-    "terms": { "title": "Conditions d'utilisation" },
+    "about": {
+      "title": "À propos"
+    },
+    "faq": {
+      "title": "FAQ"
+    },
+    "terms": {
+      "title": "Conditions d'utilisation"
+    },
     "loading": "Chargement...",
     "loadError": "Impossible de charger le contenu. Réessayez.",
     "menu": {

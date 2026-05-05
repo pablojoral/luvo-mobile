@@ -14,5 +14,6 @@ export function useMyLaundries() {
     staleTime: 30 * 1000,
     enabled: uid !== null,
     placeholderData: keepPreviousData,
+    meta: { suppressGlobalError: true },
   });
 }

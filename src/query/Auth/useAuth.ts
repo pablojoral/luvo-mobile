@@ -41,7 +41,8 @@ export function useMe(options?: { enabled?: boolean }) {
     queryKey: qk.auth.me(),
     queryFn: () => authService.me(),
     enabled: options?.enabled ?? true,
-    staleTime: 60 * 1000, // user rarely changes
+    staleTime: 60 * 1000,
+    meta: { suppressGlobalError: true },
   });
 }
 
