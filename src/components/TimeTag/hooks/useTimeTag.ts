@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react';
+import { formatHHMMSS } from 'utils/formatTime';
 import { useTimeTagStrings } from './useTimeTagStrings';
-
-function formatSeconds(secs: number): string {
-  const h = Math.floor(secs / 3600);
-  const m = Math.floor((secs % 3600) / 60);
-  const s = secs % 60;
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-}
 
 export const useTimeTag = (seconds: number, extended = false) => {
   const { endsIn } = useTimeTagStrings();
@@ -22,7 +16,7 @@ export const useTimeTag = (seconds: number, extended = false) => {
     return () => clearTimeout(timer);
   }, [remaining]);
 
-  const time = formatSeconds(remaining);
+  const time = formatHHMMSS(remaining);
   const displayTime = extended ? `${endsIn} ${time}` : time;
 
   return { displayTime };

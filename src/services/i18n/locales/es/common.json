@@ -50,6 +50,11 @@
       "socialDivider": "o",
       "googleSignIn": "Continuar con Google",
       "appleSignIn": "Continuar con Apple"
+    },
+    "required": {
+      "title": "Inicio de sesión requerido",
+      "body": "Debes iniciar sesión para continuar con esta acción.",
+      "continue": "Iniciar sesión"
     }
   },
   "messages": {
@@ -227,6 +232,7 @@
     "description": { "label": "Descripción", "placeholder": "Explica el problema con más detalle" },
     "submit": "Enviar reporte",
     "submitError": "No se pudo enviar el reporte. Intenta nuevamente.",
+    "submitSuccess": "Reporte enviado correctamente.",
     "errors": {
       "subjectRequired": "El asunto es obligatorio",
       "descriptionRequired": "La descripción es obligatoria"
@@ -367,5 +373,15 @@
       "title": "Notificaciones desactivadas",
       "body": "Para recibir estas notificaciones, habilitá los permisos en la configuración de tu dispositivo."
     }
+  },
+  "loader": {
+    "messages": [
+      "Clasificando tu ropa",
+      "Iniciando un ciclo",
+      "Verificando las máquinas",
+      "Secando en tambor",
+      "Doblando los resultados",
+      "Poniendo en marcha"
+    ]
   }
 }

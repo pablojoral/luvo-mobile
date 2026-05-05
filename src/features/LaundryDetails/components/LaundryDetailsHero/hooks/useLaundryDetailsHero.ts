@@ -12,7 +12,7 @@ export const useLaundryDetailsHero = () => {
   const visibility = useLaundriesStore(s => s.laundries.find(l => l.id === laundryId)?.visibility);
   const myLaundriesButton = useMyLaundriesButton(laundryId);
 
-  const showFavorite = visibility === 'public';
+  const showFavorite = visibility === 'public' && myLaundriesButton.isAuthenticated;
   const handleGoBack = () => navigation.goBack();
 
   return { handleGoBack, myLaundriesButton, showFavorite };

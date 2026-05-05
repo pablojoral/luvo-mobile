@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
-import { HERO_OVERLAP } from '../components/LaundryDetailsHero/theme/useLaundryDetailsHeroTheme';
+import { useLaundryDetailsHeroTheme } from '../components/LaundryDetailsHero/theme/useLaundryDetailsHeroTheme';
 
 export const useLaundryDetailsTheme = () => {
   const theme = useTheme();
+  const { heroOverlap } = useLaundryDetailsHeroTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -15,9 +16,10 @@ export const useLaundryDetailsTheme = () => {
       backgroundColor: theme.surfaceColor['surface-invert'],
       borderTopLeftRadius: theme.cornerRad['corner-rad-xxl'],
       borderTopRightRadius: theme.cornerRad['corner-rad-xxl'],
-      marginTop: -HERO_OVERLAP,
+      marginTop: -heroOverlap,
       gap: theme.spacing['spacing-md'],
-      padding: theme.spacing['spacing-md'],
+      paddingHorizontal: theme.spacing['spacing-md'],
+      paddingTop: theme.spacing['spacing-md'],
     },
   });
 

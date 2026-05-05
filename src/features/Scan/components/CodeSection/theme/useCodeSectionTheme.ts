@@ -8,6 +8,9 @@ export const useCodeSectionTheme = () => {
     container: {
       flex: 1,
     },
+    contentContainer: {
+      gap: theme.spacing['spacing-md'],
+    },
     description: {
       gap: theme.spacing['spacing-xs'],
     },

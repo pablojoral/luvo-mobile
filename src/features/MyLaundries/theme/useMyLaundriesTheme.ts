@@ -33,6 +33,7 @@ export const useMyLaundriesTheme = () => {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
     },
     // Item styles
     item: {

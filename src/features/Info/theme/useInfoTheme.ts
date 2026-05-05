@@ -54,6 +54,7 @@ export const useInfoTheme = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
     },
     errorContainer: {
       flex: 1,

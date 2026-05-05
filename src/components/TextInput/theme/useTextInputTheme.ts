@@ -28,13 +28,12 @@ export const useTextInputTheme = ({
       borderWidth: theme.borderWidth['border-width-xs'],
       borderRadius: theme.cornerRad['corner-rad-md'],
       backgroundColor: theme.surfaceColor['surface-primary'],
-      borderColor: error
-        ? theme.borderColor['border-error']
-        : theme.borderColor['border-primary'],
+      borderColor: error ? theme.borderColor['border-error'] : theme.borderColor['border-primary'],
       paddingHorizontal: theme.spacing['spacing-sm'],
     },
     input: {
       flex: 1,
+      // @eslint-disable-next-line dot-notation
       fontFamily: POPPINS_FAMILY['regular'],
       fontSize: theme.fontSize['font-size-md'],
       color: theme.fontColor[color],

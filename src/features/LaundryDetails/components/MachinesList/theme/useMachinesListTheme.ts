@@ -12,12 +12,8 @@ export const useMachinesListTheme = () => {
       backgroundColor: theme.surfaceColor['surface-invert'],
       gap: theme.spacing['spacing-sm'],
     },
-    typeSelectorContainer: {
-      paddingHorizontal: theme.spacing['spacing-md'],
-    },
     listContentContainerStyle: {
       flexGrow: 1,
-      padding: theme.spacing['spacing-md'],
       paddingBottom: bottom + 2 * theme.spacing['spacing-xxxl'],
     },
   });

@@ -18,6 +18,7 @@ export const useReportStrings = () => {
     descriptionRequired:       t('report.errors.descriptionRequired'),
     submit:                    t('report.submit'),
     submitError:               t('report.submitError'),
+    submitSuccess:             t('report.submitSuccess'),
     laundryNotFoundTitle:      t('report.messages.laundryNotFound.title'),
     laundryNotFoundBody:       t('report.messages.laundryNotFound.body'),
     machineNotFoundTitle:      t('report.messages.machineNotFound.title'),

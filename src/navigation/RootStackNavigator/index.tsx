@@ -14,6 +14,8 @@ import { Info } from 'features/Info/Info';
 import { Terms } from 'features/Info/Terms';
 import { FAQ } from 'features/Info/FAQ';
 import { About } from 'features/Info/About';
+import { AuthRequiredModal } from 'features/Auth/components/AuthRequiredModal/AuthRequiredModal';
+import { useAuthPendingEffect } from 'hooks/useAuthPendingEffect';
 import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -43,6 +45,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootStackNavigator = () => {
   const { styles } = useRootStackNavigatorTheme();
+  useAuthPendingEffect();
 
   return (
     <View style={styles.fill}>
@@ -65,6 +68,7 @@ export const RootStackNavigator = () => {
       </RootStack.Navigator>
       <QRScanner />
       <MessagesModal />
+      <AuthRequiredModal />
     </View>
   );
 };

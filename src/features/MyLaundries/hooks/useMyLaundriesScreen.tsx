@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { MyLaundry } from 'models/models';
 import { useFirebaseAuthState } from 'query/Auth/useAuth';
 import { useMyLaundries } from 'query/MyLaundries/useMyLaundries';
@@ -12,8 +12,9 @@ export const useMyLaundriesScreen = () => {
   const { title, authSubtitle } = useMyLaundriesStrings();
   const navigation = useRootStackNavigation();
   const { data: firebaseUser } = useFirebaseAuthState();
-  const { data, isLoading, isRefetching, refetch } = useMyLaundries();
+  const { data, isLoading, refetch } = useMyLaundries();
   const showLoader = isLoading && !data;
+  const [isManualRefreshing, setIsManualRefreshing] = useState(false);
   const { mutate: remove } = useRemoveMyLaundry();
 
   const laundries = data?.laundries ?? [];
@@ -49,12 +50,21 @@ export const useMyLaundriesScreen = () => {
 
   const keyExtractor = useCallback((item: MyLaundry) => String(item.id), []);
 
+  const handleRefresh = useCallback(async () => {
+    setIsManualRefreshing(true);
+    try {
+      await refetch();
+    } finally {
+      setIsManualRefreshing(false);
+    }
+  }, [refetch]);
+
   return {
     firebaseUser,
     laundries,
     showLoader,
-    isRefetching,
-    refetch,
+    isManualRefreshing,
+    handleRefresh,
     renderItem,
     keyExtractor,
     title,

@@ -36,7 +36,9 @@ export const Report = ({ route, navigation }: Props) => {
   } = useReportForm({
     laundryId,
     machineId,
-    onSuccess: () => navigation.goBack(),
+    onSuccess: () => {
+      navigation.goBack();
+    },
   });
 
   return (

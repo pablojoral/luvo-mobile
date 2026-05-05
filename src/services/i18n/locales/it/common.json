@@ -50,6 +50,11 @@
       "socialDivider": "o",
       "googleSignIn": "Continua con Google",
       "appleSignIn": "Continua con Apple"
+    },
+    "required": {
+      "title": "Accesso richiesto",
+      "body": "Devi effettuare l'accesso per continuare con questa azione.",
+      "continue": "Accedi"
     }
   },
   "messages": {
@@ -227,6 +232,7 @@
     "description": { "label": "Descrizione", "placeholder": "Spiega il problema in modo più dettagliato" },
     "submit": "Invia segnalazione",
     "submitError": "Impossibile inviare la segnalazione. Riprova.",
+    "submitSuccess": "Segnalazione inviata con successo.",
     "errors": {
       "subjectRequired": "L'oggetto è obbligatorio",
       "descriptionRequired": "La descrizione è obbligatoria"
@@ -373,5 +379,15 @@
       "title": "Notifiche disabilitate",
       "body": "Per ricevere queste notifiche, abilita i permessi nelle impostazioni del dispositivo."
     }
+  },
+  "loader": {
+    "messages": [
+      "Smistamento del bucato",
+      "Avvio di un ciclo",
+      "Controllo delle macchine",
+      "Asciugatura in corso",
+      "Piegatura in corso",
+      "Messa in moto"
+    ]
   }
 }

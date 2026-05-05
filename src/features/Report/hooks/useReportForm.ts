@@ -132,6 +132,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
         body.laundryId = selectedEntity.laundry.id;
       }
       await mutateAsync(body);
+      addMessage({ body: strings.submitSuccess as string });
       onSuccess();
     } catch {
       setError('root', { message: strings.submitError });

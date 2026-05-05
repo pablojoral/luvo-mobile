@@ -10,7 +10,7 @@ interface UseLaundryMapCardProps {
 export const useLaundryMapCard = ({ laundry }: UseLaundryMapCardProps) => {
   const { title, location, availabilityLabel } = useLabels(laundry);
   const myLaundriesButton = useMyLaundriesButton(laundry.id);
-  const showFavorite = laundry.visibility === 'public';
+  const showFavorite = laundry.visibility === 'public' && myLaundriesButton.isAuthenticated;
 
   return { title, location, availabilityLabel, myLaundriesButton, showFavorite };
 };

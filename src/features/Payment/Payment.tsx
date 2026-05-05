@@ -12,7 +12,7 @@ import { Button } from 'components/Button/Button';
 import { AvailabilityTag } from 'components/AvailabilityTag/AvailabilityTag';
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { Text } from 'components/Text/Text';
-import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
+import { Loader } from 'components/Loader/Loader';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
@@ -106,7 +106,7 @@ export const Payment = ({ route, navigation }: Props) => {
         {/* ── Loading ────────────────────────────────────────────────────── */}
         {isLoading && (
           <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
-            <ActivityIndicator size="large" />
+            <Loader />
             <Text fontSize={'font-size-md'} color={'font-secondary'} style={styles.statusMsg}>
               {strings.progressMsg || strings.processing}
             </Text>

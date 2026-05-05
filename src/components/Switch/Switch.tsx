@@ -9,8 +9,8 @@ interface SwitchProps {
 }
 
 export const Switch = ({ value, onValueChange, disabled = false }: SwitchProps) => {
-  const { styles, trackStyle } = useSwitchTheme(disabled);
-  const { translateX, trackOpacity } = useSwitchAnimation(value);
+  const { styles, trackStyle, thumbTravel } = useSwitchTheme(disabled);
+  const { translateX, trackOpacity } = useSwitchAnimation(value, thumbTravel);
 
   return (
     <Pressable onPress={() => !disabled && onValueChange(!value)} style={trackStyle}>

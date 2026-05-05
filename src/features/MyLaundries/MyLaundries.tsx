@@ -1,4 +1,4 @@
-import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
+import { Loader } from 'components/Loader/Loader';
 import { AuthRequiredScreen } from 'components/AuthRequiredScreen/AuthRequiredScreen';
 import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { FlatList, RefreshControl, View } from 'react-native';
@@ -9,7 +9,17 @@ import { useMyLaundriesTheme } from './theme/useMyLaundriesTheme';
 
 export const MyLaundries = () => {
   const { styles } = useMyLaundriesTheme();
-  const { firebaseUser, laundries, showLoader, isRefetching, refetch, renderItem, keyExtractor, title, authSubtitle } = useMyLaundriesScreen();
+  const {
+    firebaseUser,
+    laundries,
+    showLoader,
+    isManualRefreshing,
+    handleRefresh,
+    renderItem,
+    keyExtractor,
+    title,
+    authSubtitle,
+  } = useMyLaundriesScreen();
 
   return (
     <View style={styles.container}>
@@ -20,7 +30,7 @@ export const MyLaundries = () => {
           <AuthRequiredScreen subtitle={authSubtitle} />
         ) : showLoader ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size={'large'} />
+            <Loader size={'icon-size-128'} />
           </View>
         ) : (
           <FlatList
@@ -29,7 +39,7 @@ export const MyLaundries = () => {
             renderItem={renderItem}
             contentContainerStyle={laundries.length === 0 ? styles.emptyContainer : styles.listContent}
             ListEmptyComponent={<MyLaundryEmptyList />}
-            refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}
+            refreshControl={<RefreshControl refreshing={isManualRefreshing} onRefresh={handleRefresh} />}
           />
         )}
       </View>

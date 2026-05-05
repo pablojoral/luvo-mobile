@@ -1,8 +1,8 @@
 import { StyleSheet, useWindowDimensions } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
-export const HERO_HEIGHT = 200;
-export const HERO_OVERLAP = 32;
+const HERO_HEIGHT = 200;
+const HERO_OVERLAP = 32;
 
 export const useLaundryDetailsHeroTheme = () => {
   const theme = useTheme();
@@ -27,5 +27,5 @@ export const useLaundryDetailsHeroTheme = () => {
     },
   });
 
-  return { styles, heroImageWidth };
+  return { styles, heroImageWidth, heroHeight: HERO_HEIGHT, heroOverlap: HERO_OVERLAP };
 };

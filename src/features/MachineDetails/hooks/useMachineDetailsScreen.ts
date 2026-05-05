@@ -1,4 +1,6 @@
+import { useCallback } from 'react';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import { useAuthRequired } from 'hooks/useAuthRequired';
 import { MachineStatus } from 'models/models';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
@@ -42,16 +44,25 @@ export const useMachineDetailsScreen = () => {
   const showNotify = machine?.status === 'in_use';
   const cycleSeconds = machine?.cycleRemainingSeconds ?? 0;
 
-  const handleGoBack = () => navigation.goBack();
-  const handleStartWash = () => {
-    if (machine) navigation.navigate('Payment', { machineId: machine.id });
-  };
-  const handleReport = () => {
+  const { requireAuth } = useAuthRequired();
+
+  const handleGoBack = useCallback(() => navigation.goBack(), [navigation]);
+
+  const handleStartWash = useCallback(() => {
+    requireAuth(() => {
+      if (machine) navigation.navigate('Payment', { machineId: machine.id });
+    })();
+  }, [requireAuth, machine, navigation]);
+
+  const handleReport = useCallback(() => {
     if (machine && laundry) {
       navigation.navigate('Report', { laundryId: laundry.id, machineId: machine.id });
     }
-  };
-  const handleNotify = () => {};
+  }, [machine, laundry, navigation]);
+
+  const handleNotify = useCallback(() => {
+    requireAuth(() => {})();
+  }, [requireAuth]);
 
   return {
     machine,
