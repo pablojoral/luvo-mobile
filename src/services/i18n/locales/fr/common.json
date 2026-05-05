@@ -50,6 +50,11 @@
       "socialDivider": "ou",
       "googleSignIn": "Continuer avec Google",
       "appleSignIn": "Continuer avec Apple"
+    },
+    "required": {
+      "title": "Connexion requise",
+      "body": "Vous devez vous connecter pour continuer avec cette action.",
+      "continue": "Se connecter"
     }
   },
   "messages": {
@@ -227,6 +232,7 @@
     "description": { "label": "Description", "placeholder": "Décrivez le problème en détail" },
     "submit": "Envoyer le signalement",
     "submitError": "Impossible d'envoyer le signalement. Réessayez.",
+    "submitSuccess": "Signalement envoyé avec succès.",
     "errors": {
       "subjectRequired": "Le sujet est obligatoire",
       "descriptionRequired": "La description est obligatoire"
@@ -350,5 +356,15 @@
       "title": "Notifications désactivées",
       "body": "Pour recevoir ces notifications, activez les autorisations dans les paramètres de votre appareil."
     }
+  },
+  "loader": {
+    "messages": [
+      "Tri du linge",
+      "Démarrage d'un cycle",
+      "Vérification des machines",
+      "Séchage en cours",
+      "Pliage du linge",
+      "Mise en marche"
+    ]
   }
 }

@@ -15,7 +15,7 @@ type TabParamList = {
 const Tab = createBottomTabNavigator<TabParamList>();
 
 export const BottomTabNavigator = () => {
-  const { tabBarStyle, tabBarLabelStyle, tabBarIconStyle, theme, getTabBarIcon, tabTitles } =
+  const { tabBarStyle, tabBarLabelStyle, tabBarIconStyle, theme, getTabBarIcon, tabTitles, requireAuth } =
     useBottomTabNavigator();
 
   return (
@@ -41,11 +41,23 @@ export const BottomTabNavigator = () => {
         name="MyLaundries"
         component={MyLaundries}
         options={{ title: tabTitles.myLaundries, tabBarButtonTestID: 'tab-my-laundries' }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            requireAuth(() => navigation.navigate('MyLaundries'))();
+          },
+        })}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
         options={{ title: tabTitles.profile, tabBarButtonTestID: 'tab-profile' }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            requireAuth(() => navigation.navigate('Profile'))();
+          },
+        })}
       />
     </Tab.Navigator>
   );

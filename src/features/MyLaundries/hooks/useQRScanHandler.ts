@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { Linking } from 'react-native';
 
+import { useAuthRequired } from 'hooks/useAuthRequired';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useAddMyLaundry } from 'query/MyLaundries/useAddMyLaundry';
 import { useMyLaundries } from 'query/MyLaundries/useMyLaundries';
@@ -20,6 +21,7 @@ export const useQRScanHandler = () => {
   const { data: myLaundriesData } = useMyLaundries();
   const { mutate: addMyLaundry } = useAddMyLaundry();
   const { mutate: registerMyLaundry } = useRegisterMyLaundry();
+  const { requireAuth } = useAuthRequired();
 
   const handleScan = useCallback(() => {
     openScanner(raw => {
@@ -27,30 +29,32 @@ export const useQRScanHandler = () => {
 
       switch (result.type) {
         case 'access_code': {
-          const alreadyHasAccess = myLaundriesData?.laundries.some(
-            l => l.accessCode === result.code,
-          );
+          requireAuth(() => {
+            const alreadyHasAccess = myLaundriesData?.laundries.some(
+              l => l.accessCode === result.code,
+            );
 
-          if (alreadyHasAccess) {
-            addMessage({
-              title: strings.alreadyHasAccessTitle,
-              body: strings.alreadyHasAccessBody,
+            if (alreadyHasAccess) {
+              addMessage({
+                title: strings.alreadyHasAccessTitle,
+                body: strings.alreadyHasAccessBody,
+              });
+              return;
+            }
+
+            registerMyLaundry(result.code, {
+              onSuccess: () =>
+                addMessage({
+                  title: strings.registeredTitle,
+                  body: strings.registeredBody,
+                }),
+              onError: () =>
+                addMessage({
+                  title: strings.invalidCodeTitle,
+                  body: strings.invalidCodeBody,
+                }),
             });
-            break;
-          }
-
-          registerMyLaundry(result.code, {
-            onSuccess: () =>
-              addMessage({
-                title: strings.registeredTitle,
-                body: strings.registeredBody,
-              }),
-            onError: () =>
-              addMessage({
-                title: strings.invalidCodeTitle,
-                body: strings.invalidCodeBody,
-              }),
-          });
+          })();
           break;
         }
 
@@ -110,7 +114,7 @@ export const useQRScanHandler = () => {
         }
       }
     });
-  }, [strings, navigation, openScanner, addMessage, laundries, myLaundriesData, addMyLaundry, registerMyLaundry]);
+  }, [strings, navigation, openScanner, addMessage, laundries, myLaundriesData, addMyLaundry, registerMyLaundry, requireAuth]);
 
   return { handleScan };
 };

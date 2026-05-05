@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { Linking } from 'react-native';
 
+import { useAuthRequired } from 'hooks/useAuthRequired';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { parseQRCode } from 'utils/parseQRCode';
@@ -10,6 +11,7 @@ export const useScanQRHandler = () => {
   const strings = useScanQRHandlerStrings();
   const navigation = useRootStackNavigation();
   const { addMessage } = useMessagesStore();
+  const { requireAuth } = useAuthRequired();
 
   const handleCode = useCallback((raw: string) => {
     const result = parseQRCode(raw);
@@ -22,7 +24,7 @@ export const useScanQRHandler = () => {
         navigation.navigate('MachineDetails', { machineId: result.machineId });
         break;
       case 'access_code':
-        navigation.navigate('RegisterLaundry', { code: result.code });
+        requireAuth(() => navigation.navigate('RegisterLaundry', { code: result.code }))();
         break;
       case 'other_deeplink':
         Linking.openURL(result.url).catch(() =>
@@ -36,7 +38,7 @@ export const useScanQRHandler = () => {
         addMessage({ title: strings.unknownTitle, body: strings.unknownBody });
         break;
     }
-  }, [strings, navigation, addMessage]);
+  }, [strings, navigation, addMessage, requireAuth]);
 
   return { handleCode };
 };

@@ -17,15 +17,13 @@ export const MachinesList = ({ laundry }: MachinesListProps) => {
 
   return (
     <View style={styles.containerStyle}>
-      <View style={styles.typeSelectorContainer}>
-        <PillSelector
-          options={filterOptions}
-          value={filter}
-          onChange={setFilter}
-          backgroundColor="surface-surface"
-          thumbColor="surface-primary"
-        />
-      </View>
+      <PillSelector
+        options={filterOptions}
+        value={filter}
+        onChange={setFilter}
+        backgroundColor="surface-surface"
+        thumbColor="surface-primary"
+      />
       <Animated.FlatList
         data={filteredMachines}
         renderItem={renderItem}

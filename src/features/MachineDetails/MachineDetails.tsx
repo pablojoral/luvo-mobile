@@ -1,4 +1,4 @@
-import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
+import { Loader } from 'components/Loader/Loader';
 import { AvailabilityTag } from 'components/AvailabilityTag/AvailabilityTag';
 import { Button } from 'components/Button/Button';
 import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
@@ -37,7 +37,7 @@ export const MachineDetails = () => {
       <View style={styles.container}>
         <SafeScreenHeader title={screenTitle} onBack={handleGoBack} />
         <View style={styles.notFound}>
-          <ActivityIndicator size="large" />
+          <Loader />
         </View>
       </View>
     );

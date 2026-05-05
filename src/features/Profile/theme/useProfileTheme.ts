@@ -13,6 +13,7 @@ export const useProfileTheme = () => {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
     },
     contentContainer: {
       flex: 1,

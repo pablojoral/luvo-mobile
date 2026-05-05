@@ -25,9 +25,9 @@ export const useLaundriesScreen = () => {
       setCardKey(selectedLaundryId);
       setShowCard(true);
     } else {
+      setShowCard(false);
       fabBottom.value = withSpring(fabBaseBottom, SPRING);
       const timer = setTimeout(() => {
-        setShowCard(false);
         setCardHeight(0);
       }, CARD_EXIT_DURATION);
       return () => clearTimeout(timer);

@@ -50,6 +50,11 @@
       "socialDivider": "or",
       "googleSignIn": "Continue with Google",
       "appleSignIn": "Continue with Apple"
+    },
+    "required": {
+      "title": "Login required",
+      "body": "You need to log in to continue with this action.",
+      "continue": "Log in"
     }
   },
   "messages": {
@@ -227,6 +232,7 @@
     "description": { "label": "Description", "placeholder": "Explain the problem in more detail" },
     "submit": "Submit report",
     "submitError": "Could not send the report. Try again.",
+    "submitSuccess": "Report sent successfully.",
     "errors": {
       "subjectRequired": "Subject is required",
       "descriptionRequired": "Description is required"
@@ -350,5 +356,15 @@
       "title": "Notifications disabled",
       "body": "To receive these notifications, enable permissions in your device settings."
     }
+  },
+  "loader": {
+    "messages": [
+      "Sorting your laundry",
+      "Running a cycle",
+      "Checking the machines",
+      "Tumble drying",
+      "Folding the results",
+      "Spinning things up"
+    ]
   }
 }

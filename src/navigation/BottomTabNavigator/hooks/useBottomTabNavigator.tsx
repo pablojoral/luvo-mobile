@@ -1,6 +1,7 @@
 import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 import { IconName } from 'components/SvgIcon/types';
 import { FontColor } from 'theme/types/Theme';
+import { useAuthRequired } from 'hooks/useAuthRequired';
 import { useBottomTabNavigatorTheme } from '../theme/useBottomTabNavigatorTheme';
 import { useBottomTabNavigatorStrings } from './useBottomTabNavigatorStrings';
 
@@ -15,6 +16,7 @@ const iconMap: Record<TabRouteName, IconName> = {
 export const useBottomTabNavigator = () => {
   const { tabTitles } = useBottomTabNavigatorStrings();
   const { tabBarStyle, tabBarLabelStyle, tabBarIconStyle, theme } = useBottomTabNavigatorTheme();
+  const { requireAuth } = useAuthRequired();
 
   const getTabBarIcon = (routeName: string, focused: boolean) => {
     const colorName: FontColor = focused ? 'font-highlight' : 'font-light';
@@ -29,5 +31,6 @@ export const useBottomTabNavigator = () => {
     theme,
     getTabBarIcon,
     tabTitles,
+    requireAuth,
   };
 };

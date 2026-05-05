@@ -102,6 +102,13 @@ export interface IconSizeTheme {
   'icon-size-xl': number;
   'icon-size-xxl': number;
   'icon-size-xxxl': number;
+  'icon-size-xxxxl': number;
+  'icon-size-xxxxxl': number;
+  'icon-size-xxxxxxl': number;
+  'icon-size-128': number;
+  'icon-size-160': number;
+  'icon-size-192': number;
+  'icon-size-256': number;
 }
 
 // Font themes

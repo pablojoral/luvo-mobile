@@ -1,5 +1,6 @@
 import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
+import { Loader } from 'components/Loader/Loader';
 import { SectionList, RefreshControl, View } from 'react-native';
 import type { HistoryItem } from 'services/api/services/HistoryService';
 
@@ -31,7 +32,7 @@ export const History = () => {
       <View style={styles.body}>
         {isLoading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" />
+            <Loader />
           </View>
         ) : (
           <SectionList<HistoryItem, { title: string }>

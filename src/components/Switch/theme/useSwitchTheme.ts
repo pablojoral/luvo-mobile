@@ -2,11 +2,11 @@ import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
 
-export const TRACK_WIDTH = 48;
-export const TRACK_HEIGHT = 28;
-export const THUMB_SIZE = 22;
-export const THUMB_MARGIN = 3;
-export const THUMB_TRAVEL = TRACK_WIDTH - THUMB_SIZE - THUMB_MARGIN * 2;
+const TRACK_WIDTH = 48;
+const TRACK_HEIGHT = 28;
+const THUMB_SIZE = 22;
+const THUMB_MARGIN = 3;
+const THUMB_TRAVEL = TRACK_WIDTH - THUMB_SIZE - THUMB_MARGIN * 2;
 
 export const useSwitchTheme = (disabled: boolean) => {
   const theme = useTheme();
@@ -39,5 +39,5 @@ export const useSwitchTheme = (disabled: boolean) => {
     opacity: disabled ? 0.4 : 1,
   }), [disabled, theme]);
 
-  return { styles, trackStyle, theme };
+  return { styles, trackStyle, theme, thumbTravel: THUMB_TRAVEL };
 };

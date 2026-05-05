@@ -20,5 +20,5 @@ export const useProfile = () => {
     { label: strings.reportLabel,   iconName: 'AlertTriangle', onPress: handleReport },
   ];
 
-  return { firebaseUser, user, profileItems, isLoading: isLoadingMe, authSubtitle: strings.authSubtitle };
+  return { firebaseUser, user, profileItems, isLoading: isLoadingMe, title: strings.title, authSubtitle: strings.authSubtitle };
 };
