@@ -1,6 +1,7 @@
 import 'react-native-reanimated';
 import 'services/i18n';
 
+import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 import { Navigator } from 'navigation';
 import { QueryProvider } from 'query/provider';
 import { useNotifications } from 'services/firebase/hooks/useNotifications';
@@ -30,7 +31,9 @@ function AppContent() {
   useNotifications();
   return (
     <View style={styles.container}>
-      <Navigator />
+      <ErrorBoundary>
+        <Navigator />
+      </ErrorBoundary>
     </View>
   );
 }

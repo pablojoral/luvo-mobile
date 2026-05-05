@@ -1,7 +1,10 @@
 import { AppState } from 'react-native';
 
 import NetInfo from '@react-native-community/netinfo';
-import { focusManager, onlineManager, QueryClient } from '@tanstack/react-query';
+import { focusManager, onlineManager, QueryCache, QueryClient } from '@tanstack/react-query';
+
+import { useMessagesStore } from 'stores/useMessagesStore';
+import { classifyQueryError } from './classifyQueryError';
 
 onlineManager.setEventListener(setOnline => {
   const unsubscribe = NetInfo.addEventListener(state => {
@@ -18,6 +21,14 @@ focusManager.setEventListener(handleFocus => {
 });
 
 export const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError(error, query) {
+      if (query.meta?.suppressGlobalError) return;
+      const message = classifyQueryError(error);
+      if (message === null) return;
+      useMessagesStore.getState().addMessage({ body: message });
+    },
+  }),
   defaultOptions: {
     queries: {
       retry: 2,

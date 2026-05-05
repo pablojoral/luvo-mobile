@@ -5,7 +5,7 @@ import { useProfileStrings } from './useProfileStrings';
 
 export const useProfile = () => {
   const { data: firebaseUser } = useFirebaseAuthState();
-  const { data: user, isLoading: isLoadingMe } = useMe();
+  const { data: user, isLoading: isLoadingMe, isError: isErrorMe, refetch: refetchMe } = useMe();
   const rootNavigation = useRootStackNavigation();
   const strings = useProfileStrings();
 
@@ -20,5 +20,15 @@ export const useProfile = () => {
     { label: strings.reportLabel,   iconName: 'AlertTriangle', onPress: handleReport },
   ];
 
-  return { firebaseUser, user, profileItems, isLoading: isLoadingMe, title: strings.title, authSubtitle: strings.authSubtitle };
+  return {
+    firebaseUser,
+    user,
+    profileItems,
+    isLoading: isLoadingMe,
+    isError: isErrorMe,
+    refetch: refetchMe,
+    title: strings.title,
+    authSubtitle: strings.authSubtitle,
+    profileLoadError: strings.profileLoadError,
+  };
 };

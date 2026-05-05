@@ -9,6 +9,7 @@ export const useProfileStrings = () => {
     settingsLabel: t('profile.menu.settings'),
     infoLabel:     t('profile.menu.info'),
     reportLabel:   t('profile.menu.report'),
-    authSubtitle:  t('auth.defaultSubtitle'),
+    authSubtitle:     t('auth.defaultSubtitle'),
+    profileLoadError: t('errors.profileLoad.body'),
   };
 };

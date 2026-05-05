@@ -8,7 +8,7 @@ interface ReportEntityCardProps {
   iconName: IconName;
   typeLabel: string;
   name: string;
-  onClear: () => void;
+  onClear?: () => void;
 }
 
 export const ReportEntityCard = ({ iconName, typeLabel, name, onClear }: ReportEntityCardProps) => {

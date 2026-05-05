@@ -6,7 +6,7 @@ import { useReportScanButtonTheme } from './theme/useReportScanButtonTheme';
 interface ReportScanButtonProps {
   hint: string;
   label: string;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export const ReportScanButton = ({ hint, label, onPress }: ReportScanButtonProps) => {

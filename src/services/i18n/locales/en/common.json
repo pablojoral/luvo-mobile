@@ -9,7 +9,16 @@
   "errors": {
     "network": "Network error. Please check your connection.",
     "generic": "Something went wrong. Please try again.",
-    "timeout": "The request timed out. Please try again."
+    "timeout": "The request timed out. Please try again.",
+    "boundary": {
+      "title": "Something went wrong",
+      "body": "An unexpected error occurred. Please try again.",
+      "retry": "Try again"
+    },
+    "profileLoad": {
+      "body": "Could not load your profile.",
+      "retry": "Try again"
+    }
   },
   "auth": {
     "notSignedIn": "You're not signed in",
@@ -184,22 +193,22 @@
       "cancel": "Cancel"
     },
     "progress": {
-      "sending_command":     "Sending command…",
+      "sending_command": "Sending command…",
       "awaiting_controller": "Waiting for controller confirmation…",
       "creating_preference": "Creating payment preference…",
-      "opening_checkout":    "Opening checkout…",
-      "verifying_payment":   "Verifying payment…"
+      "opening_checkout": "Opening checkout…",
+      "verifying_payment": "Verifying payment…"
     },
     "errors": {
-      "relay_busy":            "The machine is busy. Please try again.",
-      "payment_failed":        "Payment failed. Please try again.",
-      "timeout":               "Request timed out. Check the machine status.",
-      "rejected":              "Payment was rejected.",
+      "relay_busy": "The machine is busy. Please try again.",
+      "payment_failed": "Payment failed. Please try again.",
+      "timeout": "Request timed out. Check the machine status.",
+      "rejected": "Payment was rejected.",
       "cancelled_or_rejected": "Payment was cancelled or rejected.",
-      "browser_unavailable":   "Cannot open browser on this device.",
-      "mp_deeplink_timeout":   "Timed out waiting for MercadoPago response.",
+      "browser_unavailable": "Cannot open browser on this device.",
+      "mp_deeplink_timeout": "Timed out waiting for MercadoPago response.",
       "stripe_not_configured": "Card payments are not available yet.",
-      "unknown":               "Something went wrong. Please try again."
+      "unknown": "Something went wrong. Please try again."
     },
     "comingSoon": "Coming soon",
     "strategies": {
@@ -228,8 +237,14 @@
       "laundry": "Laundry",
       "machine": "Machine"
     },
-    "subject": { "label": "Subject", "placeholder": "Select a subject..." },
-    "description": { "label": "Description", "placeholder": "Explain the problem in more detail" },
+    "subject": {
+      "label": "Subject",
+      "placeholder": "Select a subject..."
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Explain the problem in more detail"
+    },
     "submit": "Submit report",
     "submitError": "Could not send the report. Try again.",
     "submitSuccess": "Report sent successfully.",
@@ -238,14 +253,24 @@
       "descriptionRequired": "Description is required"
     },
     "messages": {
-      "laundryNotFound": { "title": "Laundry not found", "body": "No information found for this laundry." },
-      "machineNotFound": { "title": "Machine not found", "body": "No information found for this machine." },
-      "qrUnrecognized": { "title": "QR not recognized", "body": "Scan the QR of a laundry or machine." }
+      "laundryNotFound": {
+        "title": "Laundry not found",
+        "body": "No information found for this laundry."
+      },
+      "machineNotFound": {
+        "title": "Machine not found",
+        "body": "No information found for this machine."
+      },
+      "qrUnrecognized": {
+        "title": "QR not recognized",
+        "body": "Scan the QR of a laundry or machine."
+      }
     }
   },
   "myLaundries": {
     "title": "My laundries",
     "authSubtitle": "Sign in to see your laundries.",
+    "loadError": "Could not load your laundries.",
     "empty": {
       "title": "No laundries",
       "body": "Register a private laundry with your code or add a public one from the map."
@@ -264,21 +289,55 @@
     }
   },
   "qr": {
-    "alreadyHasAccess": { "title": "Already has access", "body": "You are already associated with the private laundry of this code." },
-    "registered": { "title": "Done!", "body": "You have been successfully associated with the private laundry." },
-    "invalidCode": { "title": "Invalid code", "body": "The access code is invalid or has expired." },
-    "privateLaundry": { "title": "Private laundry", "body": "This laundry is private. You need an access code to add it. Ask the local administrator." },
-    "alreadyAdded": { "body": "This laundry is already in your list." },
-    "added": { "title": "Done!", "body": "The laundry has been added to your list." },
-    "addFailed": { "title": "Could not add", "body": "An error occurred while adding the laundry. Try again." },
-    "deeplink": { "unrecognized": { "title": "Unrecognized link", "body": "Could not open the link associated with this QR code." } },
-    "unknown": { "title": "QR not recognized", "body": "This QR code is not compatible with Luvo." }
+    "alreadyHasAccess": {
+      "title": "Already has access",
+      "body": "You are already associated with the private laundry of this code."
+    },
+    "registered": {
+      "title": "Done!",
+      "body": "You have been successfully associated with the private laundry."
+    },
+    "invalidCode": {
+      "title": "Invalid code",
+      "body": "The access code is invalid or has expired."
+    },
+    "privateLaundry": {
+      "title": "Private laundry",
+      "body": "This laundry is private. You need an access code to add it. Ask the local administrator."
+    },
+    "alreadyAdded": {
+      "body": "This laundry is already in your list."
+    },
+    "added": {
+      "title": "Done!",
+      "body": "The laundry has been added to your list."
+    },
+    "addFailed": {
+      "title": "Could not add",
+      "body": "An error occurred while adding the laundry. Try again."
+    },
+    "deeplink": {
+      "unrecognized": {
+        "title": "Unrecognized link",
+        "body": "Could not open the link associated with this QR code."
+      }
+    },
+    "unknown": {
+      "title": "QR not recognized",
+      "body": "This QR code is not compatible with Luvo."
+    }
   },
   "info": {
     "title": "Information",
-    "about": { "title": "About" },
-    "faq": { "title": "FAQ" },
-    "terms": { "title": "Terms and conditions" },
+    "about": {
+      "title": "About"
+    },
+    "faq": {
+      "title": "FAQ"
+    },
+    "terms": {
+      "title": "Terms and conditions"
+    },
     "loading": "Loading...",
     "loadError": "Could not load content. Try again.",
     "menu": {

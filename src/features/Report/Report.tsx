@@ -61,14 +61,14 @@ export const Report = ({ route, navigation }: Props) => {
                   <ReportScanButton
                     hint={strings.entitySectionScanHint}
                     label={strings.entitySectionScan}
-                    onPress={onScanForEntity}
+                    onPress={isSubmitting ? undefined : onScanForEntity}
                   />
                 ) : (
                   <ReportEntityCard
                     iconName={entityIconName}
                     typeLabel={strings.entityTypeLabel(selectedEntity.type)}
                     name={entityName ?? ''}
-                    onClear={onClearEntity}
+                    onClear={isSubmitting ? undefined : onClearEntity}
                   />
                 )}
               </View>
@@ -85,6 +85,7 @@ export const Report = ({ route, navigation }: Props) => {
                     options={subjectOptions}
                     onChange={onChange}
                     error={errors.subject?.message}
+                    disabled={isSubmitting}
                   />
                 )}
               />
@@ -105,6 +106,7 @@ export const Report = ({ route, navigation }: Props) => {
                     value={value}
                     error={errors.description?.message}
                     style={styles.descriptionInput}
+                    editable={!isSubmitting}
                   />
                 )}
               />
@@ -117,7 +119,7 @@ export const Report = ({ route, navigation }: Props) => {
             </Pressable>
           </ScrollView>
           <View style={styles.footer}>
-            <Button fullWidth label={strings.submit} onPress={onSubmit} disabled={isSubmitting} />
+            <Button fullWidth label={strings.submit} onPress={onSubmit} submitting={isSubmitting} />
           </View>
         </KeyboardAvoidingView>
       </View>
