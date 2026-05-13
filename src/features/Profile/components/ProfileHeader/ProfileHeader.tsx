@@ -1,6 +1,5 @@
 import { Avatar } from 'features/Account/components/Avatar/Avatar';
-import { SvgImage } from 'components/SvgImage/SvgImage';
-import { Text } from 'components/Text/Text';
+import { SvgImage, Text } from '@luvo/ui';
 import { View } from 'react-native';
 
 import { useProfileHeaderStrings } from './hooks/useProfileHeaderStrings';

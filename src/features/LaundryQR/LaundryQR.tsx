@@ -1,5 +1,4 @@
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
-import { Text } from 'components/Text/Text';
+import { ScreenHeader, Text } from '@luvo/ui';
 import React from 'react';
 import { View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';

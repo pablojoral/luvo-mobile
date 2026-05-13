@@ -1,6 +1,6 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import { SvgIcon } from '@luvo/ui';
 import { IconName } from 'components/SvgIcon/types';
-import { FontColor } from 'theme/types/Theme';
+import type { FontColor } from '@luvo/ui';
 import { useAuthRequired } from 'hooks/useAuthRequired';
 import { useBottomTabNavigatorTheme } from '../theme/useBottomTabNavigatorTheme';
 import { useBottomTabNavigatorStrings } from './useBottomTabNavigatorStrings';

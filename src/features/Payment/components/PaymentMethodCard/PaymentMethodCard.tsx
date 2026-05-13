@@ -1,5 +1,4 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { Text } from 'components/Text/Text';
+import { SvgIcon, Text } from '@luvo/ui';
 import { TouchableOpacity, View } from 'react-native';
 
 import { PaymentStrategy } from '../../strategies/PaymentStrategy';

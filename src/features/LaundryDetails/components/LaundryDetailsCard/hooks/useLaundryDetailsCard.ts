@@ -9,7 +9,7 @@ interface UseLaundryDetailsCardProps {
 }
 
 export const useLaundryDetailsCard = ({ laundry }: UseLaundryDetailsCardProps) => {
-  const { title, location, directionsLabel } = useLabels(laundry);
+  const { title, location, directionsLabel, concurrencyLabels } = useLabels(laundry);
   const { available, total } = getAvailableMachines(laundry);
 
   const handleGetDirections = useCallback(() => {
@@ -24,5 +24,5 @@ export const useLaundryDetailsCard = ({ laundry }: UseLaundryDetailsCardProps) =
     );
   }, [laundry]);
 
-  return { title, location, available, total, directionsLabel, handleGetDirections };
+  return { title, location, available, total, directionsLabel, concurrencyLabels, handleGetDirections };
 };

@@ -1,6 +1,4 @@
-import { IconButton } from 'components/IconButton/IconButton';
-import { PillSelector } from 'components/PillSelector/PillSelector';
-import { Text } from 'components/Text/Text';
+import { IconButton, PillSelector, Text } from '@luvo/ui';
 import { View } from 'react-native';
 import { Camera } from 'react-native-vision-camera';
 

@@ -8,11 +8,7 @@
  *   error   → error message + retry button
  */
 
-import { Button } from 'components/Button/Button';
-import { AvailabilityTag } from 'components/AvailabilityTag/AvailabilityTag';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { Text } from 'components/Text/Text';
-import { Loader } from 'components/Loader/Loader';
+import { AvailabilityTag, Button, Loader, SvgIcon, Text } from '@luvo/ui';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
@@ -21,7 +17,7 @@ import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { PaymentMethodCard } from './components/PaymentMethodCard/PaymentMethodCard';
 import { usePaymentTheme } from './theme/usePaymentTheme';
 import { usePaymentScreen } from './hooks/usePaymentScreen';
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
+import { ScreenHeader } from '@luvo/ui';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Payment'>;
 
@@ -41,6 +37,7 @@ export const Payment = ({ route, navigation }: Props) => {
     isLoading,
     isSuccess,
     isError,
+    availabilityStatus,
     strings,
   } = usePaymentScreen({ machineId });
 
@@ -69,7 +66,7 @@ export const Payment = ({ route, navigation }: Props) => {
                   </Text>
                 ) : null}
               </View>
-              <AvailabilityTag status={machine.status} />
+              <AvailabilityTag status={availabilityStatus} labels={strings.availabilityLabels} />
             </View>
           </View>
         ) : null}

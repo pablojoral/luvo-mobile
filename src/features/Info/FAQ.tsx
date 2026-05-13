@@ -1,5 +1,4 @@
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
-import { Text } from 'components/Text/Text';
+import { SafeScreenHeader, Text } from '@luvo/ui';
 import { FlatList, View } from 'react-native';
 
 import { useFAQScreen } from './hooks/useFAQScreen';

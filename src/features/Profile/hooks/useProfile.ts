@@ -1,5 +1,5 @@
 import { useFirebaseAuthState, useMe } from 'query/Auth/useAuth';
-import type { SettingsMenuItemData } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
+import type { SettingsMenuItemData } from '@luvo/ui';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useProfileStrings } from './useProfileStrings';
 
@@ -29,6 +29,9 @@ export const useProfile = () => {
     refetch: refetchMe,
     title: strings.title,
     authSubtitle: strings.authSubtitle,
+    authDefaultSubtitle: strings.authDefaultSubtitle,
+    authTitle: strings.authTitle,
+    authSignInLabel: strings.authSignInLabel,
     profileLoadError: strings.profileLoadError,
   };
 };

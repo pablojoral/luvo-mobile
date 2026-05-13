@@ -1,9 +1,4 @@
-import { AuthModeToggle } from 'components/AuthModeToggle/AuthModeToggle';
-import { Button } from 'components/Button/Button';
-import { SocialAuth } from 'components/SocialAuth/SocialAuth';
-import { SvgImage } from 'components/SvgImage/SvgImage';
-import { Text } from 'components/Text/Text';
-import { TextInput } from 'components/TextInput/TextInput';
+import { AuthModeToggle, Button, SocialAuth, SvgImage, Text, TextInput } from '@luvo/ui';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import React from 'react';
 import { Controller } from 'react-hook-form';

@@ -1,4 +1,4 @@
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import { TextInput as RNTextInput } from 'react-native';
 import { View } from 'react-native';
 import { useAccountEditableRowTheme } from './theme/useAccountEditableRowTheme';

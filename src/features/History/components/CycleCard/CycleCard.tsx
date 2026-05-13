@@ -1,5 +1,4 @@
-import { Text } from 'components/Text/Text';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import { SvgIcon, Text } from '@luvo/ui';
 import { View } from 'react-native';
 import type { HistoryItem } from 'services/api/services/HistoryService';
 

@@ -1,4 +1,4 @@
-import { SelectorOption } from 'components/PillSelector/PillSelector';
+import type { SelectorOption } from '@luvo/ui';
 import { CreateReport, Laundry, Machine } from 'models/models';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';

@@ -1,6 +1,5 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import { SvgIcon, Text } from '@luvo/ui';
 import { IconName } from 'components/SvgIcon/types';
-import { Text } from 'components/Text/Text';
 import { TouchableOpacity } from 'react-native';
 import { useAccountActionRowTheme } from './theme/useAccountActionRowTheme';
 

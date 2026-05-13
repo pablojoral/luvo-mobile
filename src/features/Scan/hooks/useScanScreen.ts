@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import type { SelectorOption } from 'components/PillSelector/PillSelector';
+import type { SelectorOption } from '@luvo/ui';
 import { useCameraScanner } from './useCamera';
 import { useScanQRHandler } from './useScanQRHandler';
 import { useScanStrings } from './useScanStrings';

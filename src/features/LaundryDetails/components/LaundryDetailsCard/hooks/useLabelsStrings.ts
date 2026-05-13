@@ -7,5 +7,11 @@ export const useLabelsStrings = () => {
     availabilityLabel: (available: number, total: number) =>
       t('laundry.availability', { available, total }),
     directionsLabel: t('laundry.directions'),
+    concurrencyLabels: {
+      low:    t('laundry.concurrency.low'),
+      medium: t('laundry.concurrency.medium'),
+      high:   t('laundry.concurrency.high'),
+      none:   t('laundry.concurrency.none'),
+    },
   };
 };

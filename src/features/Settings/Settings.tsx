@@ -1,4 +1,4 @@
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
+import { SafeScreenHeader } from '@luvo/ui';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { ScrollView, View } from 'react-native';
 

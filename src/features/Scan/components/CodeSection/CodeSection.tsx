@@ -1,6 +1,4 @@
-import { Button } from 'components/Button/Button';
-import { Text } from 'components/Text/Text';
-import { TextInput } from 'components/TextInput/TextInput';
+import { Button, Text, TextInput } from '@luvo/ui';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Controller } from 'react-hook-form';
 import { useCodeSection } from './hooks/useCodeSection';

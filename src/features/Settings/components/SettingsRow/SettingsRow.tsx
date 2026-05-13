@@ -1,7 +1,5 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import { SvgIcon, Switch, Text } from '@luvo/ui';
 import { IconName } from 'components/SvgIcon/types';
-import { Switch } from 'components/Switch/Switch';
-import { Text } from 'components/Text/Text';
 import { TouchableOpacity, View } from 'react-native';
 import { useSettingsTheme } from 'features/Settings/theme/useSettingsTheme';
 

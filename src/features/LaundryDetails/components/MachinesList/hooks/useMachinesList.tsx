@@ -2,8 +2,8 @@ import { useCallback, useState } from 'react';
 import { Laundry, Machine } from 'models/models';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import type { ListRenderItem } from 'react-native';
-import { MachineCard } from 'components/MachineCard/MachineCard';
-import type { SelectorOption } from 'components/PillSelector/PillSelector';
+import { MachineCard } from '@luvo/ui';
+import type { SelectorOption } from '@luvo/ui';
 import { useMachinesListStrings } from './useMachinesListStrings';
 
 interface UseMachinesListProps {
@@ -11,7 +11,7 @@ interface UseMachinesListProps {
 }
 
 export const useMachinesList = ({ laundry }: UseMachinesListProps) => {
-  const { filterAll, filterWashingMachine, filterDryer } = useMachinesListStrings();
+  const { filterAll, filterWashingMachine, filterDryer, machineCardLabels } = useMachinesListStrings();
   const navigation = useRootStackNavigation();
   const [filter, setFilter] = useState('all');
 
@@ -28,10 +28,11 @@ export const useMachinesList = ({ laundry }: UseMachinesListProps) => {
     ({ item }) => (
       <MachineCard
         machine={item}
+        labels={machineCardLabels}
         onPress={() => navigation.navigate('MachineDetails', { machineId: item.id })}
       />
     ),
-    [navigation],
+    [navigation, machineCardLabels],
   );
 
   const keyExtractor = useCallback((item: Machine) => item.id.toString(), []);

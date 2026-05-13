@@ -1,10 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
-import { Text } from 'components/Text/Text';
+import { ActionModal, SafeScreenHeader, Text } from '@luvo/ui';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
-
-import { ActionModal } from 'components/ActionModal/ActionModal';
 import { AccountActionRow } from './components/AccountActionRow/AccountActionRow';
 import { AccountDetailRow } from './components/AccountDetailRow/AccountDetailRow';
 import { AccountEditableRow } from './components/AccountEditableRow/AccountEditableRow';

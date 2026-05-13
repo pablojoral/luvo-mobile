@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { SvgImage } from 'components/SvgImage/SvgImage';
+import { SvgImage } from '@luvo/ui';
 
 import { useAvatarTheme } from './theme/useAvatarTheme';
 

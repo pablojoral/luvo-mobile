@@ -14,5 +14,11 @@ export const useMachineDetailsStrings = () => {
       washing_machine: t('machines.type.washing_machine'),
       dryer:           t('machines.type.dryer'),
     } as Record<MachineType, string>,
+    availabilityLabels: {
+      available:      t('machines.status.available'),
+      'in-use':       t('machines.status.in_use'),
+      'out-of-order': t('machines.status.out_of_order'),
+      maintenance:    t('machines.status.maintenance'),
+    },
   };
 };

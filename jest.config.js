@@ -40,6 +40,15 @@ module.exports = {
     '^query/(.*)$': '<rootDir>/src/query/$1',
     '^navigation/(.*)$': '<rootDir>/src/navigation/$1',
   },
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/.claude/',
+  ],
+  // Exclude the Claude Code worktrees directory from haste-map scanning so
+  // it does not register duplicate manual mocks or stale test suites.
+  modulePathIgnorePatterns: [
+    '<rootDir>/.claude/',
+  ],
   transformIgnorePatterns: [
     // react-native-qrcode-svg: pure JS (JSX + react-native-svg only, no NativeModules
     // or TurboModuleRegistry at import time) — must be Babel-transformed for JSX.

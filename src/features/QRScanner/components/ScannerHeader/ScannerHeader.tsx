@@ -1,5 +1,4 @@
-import { IconButton } from 'components/IconButton/IconButton';
-import { PillSelector, SelectorOption } from 'components/PillSelector/PillSelector';
+import { IconButton, PillSelector, SelectorOption } from '@luvo/ui';
 import { View } from 'react-native';
 import { useScannerHeaderTheme } from './theme/useScannerHeaderTheme';
 

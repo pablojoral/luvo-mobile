@@ -1,61 +1,6 @@
-import {
-  AlertCircle,
-  Check,
-  ArrowLeftCircle,
-  ArrowRightCircle,
-  AlertTriangle,
-  Bell,
-  ChevronLeft,
-  ChevronRight,
-  Cross,
-  Clipboard,
-  Clock,
-  CreditCard,
-  Droplet,
-  Edit,
-  Gift,
-  Info,
-  LogOut,
-  LuvoCircle,
-  MapPin,
-  Map,
-  Profile,
-  QrCode,
-  Settings,
-  Star,
-  Tool,
-  User,
-  Wind,
-} from './icons/index';
+// Shim: IconName is derived from the SvgIconProps.name field exported by @luvo/ui.
+// The type is not separately exported at the @luvo/ui root, so we derive it here
+// to preserve the import path 'components/SvgIcon/types' used across the codebase.
+import type { SvgIconProps } from '@luvo/ui';
 
-export const icons = {
-  AlertCircle,
-  Check,
-  AlertTriangle,
-  ArrowLeftCircle,
-  ArrowRightCircle,
-  Bell,
-  ChevronLeft,
-  ChevronRight,
-  Cross,
-  Clipboard,
-  Clock,
-  CreditCard,
-  Droplet,
-  Edit,
-  Gift,
-  Info,
-  LogOut,
-  LuvoCircle,
-  MapPin,
-  Map,
-  Profile,
-  QrCode,
-  Settings,
-  Star,
-  Tool,
-  User,
-  Wind,
-};
-
-export type IconName = keyof typeof icons;
+export type IconName = SvgIconProps['name'];

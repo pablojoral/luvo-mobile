@@ -5,7 +5,7 @@ import { Vibration } from 'react-native';
 import { useQRScanner } from 'stores/useQRScanner';
 import { useMessagesStore } from 'stores/useMessagesStore';
 import { parseQRCode } from 'utils/parseQRCode';
-import type { SelectorOption } from 'components/PillSelector/PillSelector';
+import type { SelectorOption } from '@luvo/ui';
 
 export type ScannerMode = 'qr' | 'manual';
 

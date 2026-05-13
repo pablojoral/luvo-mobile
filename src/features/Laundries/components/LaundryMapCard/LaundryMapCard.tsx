@@ -1,8 +1,4 @@
-import { IconButton } from 'components/IconButton/IconButton';
-import { LocationLabel } from 'components/LocationLabel/LocationLabel';
-import { SvgImage } from 'components/SvgImage/SvgImage';
-import { Tag } from 'components/Tag/Tag';
-import { Text } from 'components/Text/Text';
+import { IconButton, LocationLabel, SvgImage, Tag, Text } from '@luvo/ui';
 import { Laundry } from 'models/models';
 import { TouchableOpacity, View } from 'react-native';
 

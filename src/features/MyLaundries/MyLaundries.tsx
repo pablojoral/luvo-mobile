@@ -1,7 +1,5 @@
-import { AuthRequiredScreen } from 'components/AuthRequiredScreen/AuthRequiredScreen';
+import { AuthRequiredScreen, Loader, SafeScreenHeader } from '@luvo/ui';
 import { LoadErrorState } from 'components/LoadErrorState/LoadErrorState';
-import { Loader } from 'components/Loader/Loader';
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
 import { FlatList, RefreshControl, View } from 'react-native';
 
 import { MyLaundryEmptyList } from './components/MyLaundryEmptyList/MyLaundryEmptyList';
@@ -21,6 +19,9 @@ export const MyLaundries = () => {
     keyExtractor,
     title,
     authSubtitle,
+    authDefaultSubtitle,
+    authTitle,
+    authSignInLabel,
     loadError,
   } = useMyLaundriesScreen();
 
@@ -30,7 +31,13 @@ export const MyLaundries = () => {
 
       <View style={styles.body}>
         {!firebaseUser ? (
-          <AuthRequiredScreen subtitle={authSubtitle} />
+          <AuthRequiredScreen
+              subtitle={authSubtitle}
+              defaultSubtitle={authDefaultSubtitle}
+              title={authTitle}
+              signInLabel={authSignInLabel}
+              onSignIn={() => {}}
+            />
         ) : showLoader ? (
           <View style={styles.loadingContainer}>
             <Loader size={'icon-size-128'} />

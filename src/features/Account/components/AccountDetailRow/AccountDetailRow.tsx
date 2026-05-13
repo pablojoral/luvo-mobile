@@ -1,4 +1,4 @@
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import { View } from 'react-native';
 import { useAccountDetailRowTheme } from './theme/useAccountDetailRowTheme';
 

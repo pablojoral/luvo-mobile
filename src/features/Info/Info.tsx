@@ -1,5 +1,4 @@
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
-import { SettingsMenu } from 'components/SettingsMenu/SettingsMenu';
+import { SafeScreenHeader, SettingsMenu } from '@luvo/ui';
 import { View } from 'react-native';
 
 import { useInfoScreen } from './hooks/useInfoScreen';

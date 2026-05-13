@@ -1,8 +1,5 @@
-import { AuthRequiredScreen } from 'components/AuthRequiredScreen/AuthRequiredScreen';
+import { AuthRequiredScreen, Loader, SafeScreenHeader, SettingsMenu } from '@luvo/ui';
 import { LoadErrorState } from 'components/LoadErrorState/LoadErrorState';
-import { Loader } from 'components/Loader/Loader';
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
-import { SettingsMenu } from 'components/SettingsMenu/SettingsMenu';
 import { View } from 'react-native';
 
 import { ProfileHeader } from './components/ProfileHeader/ProfileHeader';
@@ -10,13 +7,19 @@ import { useProfile } from './hooks/useProfile';
 import { useProfileTheme } from './theme/useProfileTheme';
 
 export const Profile = () => {
-  const { firebaseUser, user, profileItems, isLoading, isError, refetch, title, authSubtitle, profileLoadError } = useProfile();
+  const { firebaseUser, user, profileItems, isLoading, isError, refetch, title, authSubtitle, authDefaultSubtitle, authTitle, authSignInLabel, profileLoadError } = useProfile();
   const { styles } = useProfileTheme();
 
   return (
     <View style={styles.container}>
       {!firebaseUser ? (
-        <AuthRequiredScreen subtitle={authSubtitle} />
+        <AuthRequiredScreen
+          subtitle={authSubtitle}
+          defaultSubtitle={authDefaultSubtitle}
+          title={authTitle}
+          signInLabel={authSignInLabel}
+          onSignIn={() => {}}
+        />
       ) : isLoading ? (
         <>
           <SafeScreenHeader title={title} hideBack />

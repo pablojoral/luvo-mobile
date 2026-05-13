@@ -19,6 +19,7 @@
 | ADR-008 | 2026-05-13 | Design tokens are numeric primitives; CSS units added by a per-platform adapter | Accepted |
 | ADR-009 | 2026-05-13 | `@luvo/ui` is i18n-agnostic; all user-facing strings enter as props | Accepted |
 | ADR-010 | 2026-05-13 | Domain-heavy and platform-SDK-bound components stay in `apps/mobile` | Accepted |
+| ADR-011 | 2026-05-14 | `@luvo/ui` becomes canonical source for all shared UI components | Accepted |
 
 ## Entries
 
@@ -259,3 +260,24 @@ The following component categories are explicitly excluded from `@luvo/ui` Phase
 - `@luvo/ui` stays lean and installable in non-RN environments without pulling in RN-only native deps.
 - When the admin app needs a bottom sheet, a new ADR is required to pick the web engine (Radix, Vaul, etc.) and decide whether it merges into `@luvo/ui` or stays separate.
 - `luvo-mobile/src/components/` retains the excluded components; they are not deprecated or marked for migration until there is a real cross-app consumer.
+
+---
+
+### ADR-011: `@luvo/ui` becomes canonical source for all shared UI components
+**Date:** 2026-05-14
+**Status:** Accepted
+
+**Context:**
+`luvo-mobile` had local component implementations of `Text`, `Button`, `ActivityIndicator`, `Separator`, `TextInput`, and `Switch` under `src/components/`. A new Luvo admin web app needs to share the same design system components. `@luvo/ui` existed as a shared package (GitHub: `pablojoral/luvo-ui`) but had incomplete prop coverage — missing `iconName`, `alignLeft`, `onBlur`, `onFocus`, `autoCapitalize`, `keyboardType`, `multiline`, `style`, and `textStyle` on various components.
+
+**Decision:**
+`@luvo/ui` is the canonical, authoritative source for all shared UI components. The full prop surface, platform splits, headless hooks, and theme hooks from `luvo-mobile`'s implementations were ported into `@luvo/ui` to achieve parity. Components in `luvo-mobile` are now thin re-export shims pointing to `@luvo/ui` — they no longer contain any implementation. When props need to change, the change goes into `@luvo/ui` first; then consuming apps update their SHA pin. References: luvo-ui PR #2 (`https://github.com/pablojoral/luvo-ui/pull/2`), luvo-mobile PR #54 (`https://github.com/pablojoral/luvo-mobile/pull/54`). See also: luvo-ui `DECISIONS.md` entry 2026-05-14.
+
+**Rejected alternatives:**
+- Keeping components duplicated in each app: drift risk across mobile and web implementations defeats the purpose of a shared package.
+- Adapting `luvo-mobile` call sites to a reduced `@luvo/ui` API: would require extensive refactoring of all existing consumers with no benefit — the correct fix was to bring `@luvo/ui` up to the mobile prop surface.
+
+**Consequences:**
+- Any prop surface change to the 6 shared components (`Text`, `Button`, `ActivityIndicator`, `Separator`, `TextInput`, `Switch`) requires a `luvo-ui` PR + SHA bump in each consuming app.
+- The admin app can consume `@luvo/ui` directly with the same component API `luvo-mobile` uses — no per-app adaptation needed.
+- Mobile-only components (`BottomSheet`, `ScreenHeader`, `SvgIcon`, etc.) remain in their respective apps per ADR-010 and are not affected.

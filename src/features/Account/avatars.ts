@@ -1,4 +1,4 @@
-import { ImageName } from 'components/SvgImage/images';
+import type { ImageName } from 'components/SvgImage/images';
 
 export interface AvatarOption {
   id: number;

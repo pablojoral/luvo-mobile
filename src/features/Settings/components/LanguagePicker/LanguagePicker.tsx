@@ -1,5 +1,5 @@
 import { FlatList, Modal, TouchableOpacity, View } from 'react-native';
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import type { SupportedLanguage } from 'services/i18n/languages';
 import { useLanguagePicker } from './hooks/useLanguagePicker';
 import { useLanguagePickerTheme } from './theme/useLanguagePickerTheme';
