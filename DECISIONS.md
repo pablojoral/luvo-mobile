@@ -20,6 +20,7 @@
 | ADR-009 | 2026-05-13 | `@luvo/ui` is i18n-agnostic; all user-facing strings enter as props | Accepted |
 | ADR-010 | 2026-05-13 | Domain-heavy and platform-SDK-bound components stay in `apps/mobile` | Accepted |
 | ADR-011 | 2026-05-14 | `@luvo/ui` becomes canonical source for all shared UI components | Accepted |
+| ADR-012 | 2026-05-14 | luvo-mobile fully migrated to @luvo/ui — direct imports, no local component layer | Accepted |
 
 ## Entries
 
@@ -281,3 +282,22 @@ The following component categories are explicitly excluded from `@luvo/ui` Phase
 - Any prop surface change to the 6 shared components (`Text`, `Button`, `ActivityIndicator`, `Separator`, `TextInput`, `Switch`) requires a `luvo-ui` PR + SHA bump in each consuming app.
 - The admin app can consume `@luvo/ui` directly with the same component API `luvo-mobile` uses — no per-app adaptation needed.
 - Mobile-only components (`BottomSheet`, `ScreenHeader`, `SvgIcon`, etc.) remain in their respective apps per ADR-010 and are not affected.
+
+---
+
+### ADR-012: luvo-mobile fully migrated to @luvo/ui — direct imports, no local component layer
+**Date:** 2026-05-14
+**Status:** Accepted
+
+**Context:**
+After Phase 1 porting all luvo-mobile components into `@luvo/ui` (ADR-011), Phase 2 removed ALL local component implementations from `src/components/` (except `WsStatusIndicator` and `LoadErrorState`) and the full local theme (`src/theme/themes/`, `types/`, `constants/`). `src/theme/hooks/useTheme.ts` is now a one-line re-export shim to `@luvo/ui`. All import paths across `src/` were updated to reference `@luvo/ui` directly.
+
+**Decision:**
+`@luvo/ui` is the single source of truth for all shared UI components and the full theme (including `DefaultTheme`, `DarkTheme`, `useTheme`, and `MobileThemeExtras` like `topInset`/`bottomInset`). luvo-mobile has no local component layer — all shared components import directly from `@luvo/ui`. Only `WsStatusIndicator` and `LoadErrorState` remain as local components (explicitly excluded by user). When component or theme changes are needed, the change goes into `luvo-ui` first, then the `@luvo/ui` SHA is bumped in consuming apps. PR ref: luvo-mobile PR #54 (`https://github.com/pablojoral/luvo-mobile/pull/54`). See also: luvo-ui `DECISIONS.md` entry ADR-002 (2026-05-14).
+
+**Rejected alternatives:**
+- Shim layer (re-export files in luvo-mobile): removed in favor of direct imports to eliminate maintenance overhead and ensure type-level fidelity.
+
+**Consequences:**
+- Every luvo-ui update requires a SHA bump in luvo-mobile (and the future admin app).
+- `WsStatusIndicator` and `LoadErrorState` remain luvo-mobile-only; if they are ever needed in the admin app, they will need to be moved to `@luvo/ui` at that time.

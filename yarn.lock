@@ -1917,9 +1917,9 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@luvo/ui@pablojoral/luvo-ui#b56413313b8c498b29399b8359e795b3ac0711d7":
+"@luvo/ui@pablojoral/luvo-ui#16a65f68f64d305eb698360180b999ec377b8f88":
   version "0.1.0"
-  resolved "git+ssh://git@github.com/pablojoral/luvo-ui.git#b56413313b8c498b29399b8359e795b3ac0711d7"
+  resolved "git+ssh://git@github.com/pablojoral/luvo-ui.git#16a65f68f64d305eb698360180b999ec377b8f88"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"

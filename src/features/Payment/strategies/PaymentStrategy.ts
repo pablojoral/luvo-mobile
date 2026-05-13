@@ -1,5 +1,7 @@
-import { IconName } from 'components/SvgIcon/types';
+import type { SvgIconProps } from '@luvo/ui';
 import type { PaymentErrorCode, PaymentProgressCode } from './paymentCodes';
+
+type IconName = SvgIconProps['name'];
 
 export interface PaymentContext {
   machineId: number;

@@ -1,7 +1,8 @@
-import { SvgIcon, Switch, Text } from '@luvo/ui';
-import { IconName } from 'components/SvgIcon/types';
+import { SvgIcon, SvgIconProps, Switch, Text } from '@luvo/ui';
 import { TouchableOpacity, View } from 'react-native';
 import { useSettingsTheme } from 'features/Settings/theme/useSettingsTheme';
+
+type IconName = SvgIconProps['name'];
 
 type SettingsRowProps = {
   icon: IconName;

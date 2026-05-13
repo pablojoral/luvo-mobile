@@ -1,9 +1,10 @@
 import { SvgIcon } from '@luvo/ui';
-import { IconName } from 'components/SvgIcon/types';
-import type { FontColor } from '@luvo/ui';
+import type { FontColor, SvgIconProps } from '@luvo/ui';
 import { useAuthRequired } from 'hooks/useAuthRequired';
 import { useBottomTabNavigatorTheme } from '../theme/useBottomTabNavigatorTheme';
 import { useBottomTabNavigatorStrings } from './useBottomTabNavigatorStrings';
+
+type IconName = SvgIconProps['name'];
 
 type TabRouteName = 'Laundry' | 'MyLaundries' | 'Profile';
 

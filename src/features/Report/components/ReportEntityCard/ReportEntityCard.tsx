@@ -1,7 +1,8 @@
 import { Pressable, View } from 'react-native';
-import { SvgIcon, Text } from '@luvo/ui';
-import { IconName } from 'components/SvgIcon/types';
+import { SvgIcon, SvgIconProps, Text } from '@luvo/ui';
 import { useReportEntityCardTheme } from './theme/useReportEntityCardTheme';
+
+type IconName = SvgIconProps['name'];
 
 interface ReportEntityCardProps {
   iconName: IconName;

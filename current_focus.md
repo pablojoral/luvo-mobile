@@ -4,34 +4,35 @@
 **Linear:** none
 **Branch:** `docs/adr-006-010-luvo-ui-architecture` (PR #54)
 
-**Status:** Phase 2 complete — typecheck and lint both pass clean. Ready to push.
+**Active task:** Complete — luvo-mobile fully migrated to @luvo/ui
+
+**Attachments:**
+- luvo-ui PR #2: https://github.com/pablojoral/luvo-ui/pull/2
+- luvo-mobile PR #54: https://github.com/pablojoral/luvo-mobile/pull/54
+
+**Status:** in review
 
 **Blockers:** none
 
-**What was done this session (Phase 2 continuation):**
-- Pinned @luvo/ui to SHA `pablojoral/luvo-ui#b56413313b8c498b29399b8359e795b3ac0711d7`
-- Deleted all 33 local component folders now covered by @luvo/ui (kept WsStatusIndicator, LoadErrorState)
-- Replaced `src/theme/hooks/useTheme.ts` with a re-export shim; removed orphaned `themes/`, `types/`, `constants/` dirs
-- Rewrote all local-path imports to `@luvo/ui` across ~55 files
-- Updated Jest mock to stub all newly-imported components
-- Fixed all breaking API changes from new @luvo/ui SHA:
-  - `AvailabilityTag`: added `labels` prop; added `toAvailabilityStatus()` utility to map `MachineStatus` (underscores) → `AvailabilityStatus` (hyphens)
-  - `ConcurrencyTag`: added `labels` prop wired through `useLabelsStrings`
-  - `MachineCard`: added `labels.availability` wired through `useMachinesListStrings`
-  - `AuthRequiredScreen`: added `defaultSubtitle`, `title`, `signInLabel`, `onSignIn` to MyLaundries and Profile
-  - `ErrorBoundary`: added `title`, `body`, `retryLabel` props in `App.tsx` via `useTranslation`
-- `yarn typecheck`: ✅ 0 errors
-- `yarn lint`: ✅ 0 errors
-
-**Attachments:**
-  - @luvo/ui package source: `/home/pablitucks/Projects/luvo-ui/`
-  - luvo-mobile PR #54: https://github.com/pablojoral/luvo-mobile/pull/54
-  - luvo-ui PR #2: https://github.com/pablojoral/luvo-ui/pull/2
+**What was done this session:**
+- Ported `LaundryMapMarker` and `MachineCard` into luvo-ui with full RN + web stubs
+- Removed `LoadErrorState` from luvo-ui (user-explicit exclusion)
+- Ported full theme into luvo-ui: `DefaultTheme`, `DarkTheme`, `useTheme` (primary hook with `MobileThemeExtras`), web variant returns 0 for safe-area insets
+- Added `react-native-safe-area-context` and `@rnmapbox/maps` as optional peer deps in luvo-ui
+- Deleted ALL local component implementations from luvo-mobile `src/components/` (kept `WsStatusIndicator` and `LoadErrorState`)
+- Removed local theme layer (`themes/`, `types/`, `constants/`); `useTheme.ts` is now a one-line shim to `@luvo/ui`
+- Updated all import paths across luvo-mobile `src/` to `@luvo/ui`
+- Fixed call sites: `AuthRequiredScreen`, `AvailabilityTag`, `ConcurrencyTag`, `MachineCard`, `ErrorBoundary` required props
+- Added `toAvailabilityStatus` utility (`src/utils/Laundry/toAvailabilityStatus.ts`)
+- Extracted `useAppContentStrings` from `App.tsx` (component rule 10)
+- Updated Jest mock: `ErrorBoundary` stub added, `Colors` mock corrected to flat palette shape
+- Fixed nav `fonts` mock and circular `jest.requireMock` in `MachineList.test.tsx`
+- All 102 tests pass; typecheck + lint clean on both repos
 
 **Next session goal:**
-Push the current branch to update PR #54. After luvo-ui PR #2 merges, repin `@luvo/ui` in `package.json` to the merge-commit SHA and push again.
+After luvo-ui PR #2 merges into staging, run `cd /home/pablitucks/Projects/luvo-mobile && yarn add @luvo/ui@pablojoral/luvo-ui#<merge-commit-sha>` to repin to the merge SHA, update `yarn.lock`, and push to PR #54.
 
-**Last updated:** 2026-05-14
+**Last updated:** 2026-05-14 01:01
 
 ---
 

@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { HistoryItem } from 'services/api/services/HistoryService';
-import type { IconName } from 'components/SvgIcon/types';
+import type { SvgIconProps } from '@luvo/ui';
 import { formatAmount, formatDate, formatTime } from 'utils/History/formatHistoryItem';
+
+type IconName = SvgIconProps['name'];
 
 interface UseCycleCardProps {
   item: HistoryItem;
