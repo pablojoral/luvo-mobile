@@ -33,8 +33,7 @@ export const useTextInputTheme = ({
     },
     input: {
       flex: 1,
-      // @eslint-disable-next-line dot-notation
-      fontFamily: POPPINS_FAMILY['regular'],
+      fontFamily: POPPINS_FAMILY.regular,
       fontSize: theme.fontSize['font-size-md'],
       color: theme.fontColor[color],
     },

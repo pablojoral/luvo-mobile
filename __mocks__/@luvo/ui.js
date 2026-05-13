@@ -9,8 +9,6 @@
  *
  * Keep this in sync with the real @luvo/ui public API as exports are added.
  */
-const React = require('react');
-
 // ---------------------------------------------------------------------------
 // Theme stubs
 // A minimal BaseTheme-shaped object — enough for useTheme() spread to succeed
