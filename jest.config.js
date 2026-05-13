@@ -32,6 +32,8 @@ module.exports = {
     // react-native-inappbrowser-reborn: utils.js reads NativeModules.RNInAppBrowser
     // and AppState.currentState at module scope — cannot safely transform; stub entirely.
     '^react-native-inappbrowser-reborn$': '<rootDir>/__mocks__/react-native-inappbrowser-reborn.js',
+    // @luvo/ui is a file: dep that bundles RN components — mock entirely in Jest
+    '^@luvo/ui$': '<rootDir>/__mocks__/@luvo/ui.js',
     // Paths not covered by babel-plugin-module-resolver (root: ./src)
     '^models/(.*)$': '<rootDir>/src/models/$1',
     '^stores/(.*)$': '<rootDir>/src/stores/$1',
