@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: 22
           cache: yarn
+      - run: git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
@@ -31,6 +32,7 @@ jobs:
         with:
           node-version: 22
           cache: yarn
+      - run: git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
       - run: yarn install --frozen-lockfile
       - run: yarn typecheck
 
@@ -43,5 +45,6 @@ jobs:
         with:
           node-version: 22
           cache: yarn
+      - run: git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
       - run: yarn install --frozen-lockfile
       - run: yarn test --ci
