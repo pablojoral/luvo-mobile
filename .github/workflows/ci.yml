@@ -20,7 +20,9 @@ jobs:
           node-version: 22
           cache: yarn
       - name: Authenticate private GitHub packages
-        run: git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "git@github.com:"
+        run: |
+          git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "ssh://git@github.com/"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
@@ -34,7 +36,9 @@ jobs:
           node-version: 22
           cache: yarn
       - name: Authenticate private GitHub packages
-        run: git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "git@github.com:"
+        run: |
+          git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "ssh://git@github.com/"
       - run: yarn install --frozen-lockfile
       - run: yarn typecheck
 
@@ -48,6 +52,8 @@ jobs:
           node-version: 22
           cache: yarn
       - name: Authenticate private GitHub packages
-        run: git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "git@github.com:"
+        run: |
+          git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          git config --global url."https://${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "ssh://git@github.com/"
       - run: yarn install --frozen-lockfile
       - run: yarn test --ci
