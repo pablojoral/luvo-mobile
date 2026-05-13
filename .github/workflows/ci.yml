@@ -19,13 +19,6 @@ jobs:
         with:
           node-version: 22
           cache: yarn
-      - name: Authenticate private GitHub packages
-        env:
-          TOKEN: ${{ secrets.LUVO_UI_CI }}
-        run: |
-          git config --global url."https://github.com/".insteadOf "git@github.com:"
-          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
-          git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${TOKEN}" | base64 -w 0)"
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
@@ -38,13 +31,6 @@ jobs:
         with:
           node-version: 22
           cache: yarn
-      - name: Authenticate private GitHub packages
-        env:
-          TOKEN: ${{ secrets.LUVO_UI_CI }}
-        run: |
-          git config --global url."https://github.com/".insteadOf "git@github.com:"
-          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
-          git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${TOKEN}" | base64 -w 0)"
       - run: yarn install --frozen-lockfile
       - run: yarn typecheck
 
@@ -57,12 +43,5 @@ jobs:
         with:
           node-version: 22
           cache: yarn
-      - name: Authenticate private GitHub packages
-        env:
-          TOKEN: ${{ secrets.LUVO_UI_CI }}
-        run: |
-          git config --global url."https://github.com/".insteadOf "git@github.com:"
-          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
-          git config --global http.https://github.com/.extraheader "AUTHORIZATION: basic $(echo -n "x-access-token:${TOKEN}" | base64 -w 0)"
       - run: yarn install --frozen-lockfile
       - run: yarn test --ci
