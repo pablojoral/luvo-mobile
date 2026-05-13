@@ -21,7 +21,7 @@ jobs:
           cache: yarn
       - name: Authenticate private GitHub packages
         env:
-          TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          TOKEN: ${{ secrets.LUVO_UI_CI }}
         run: |
           echo "machine github.com login x-access-token password ${TOKEN}" > ~/.netrc
           chmod 600 ~/.netrc
@@ -41,7 +41,7 @@ jobs:
           cache: yarn
       - name: Authenticate private GitHub packages
         env:
-          TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          TOKEN: ${{ secrets.LUVO_UI_CI }}
         run: |
           echo "machine github.com login x-access-token password ${TOKEN}" > ~/.netrc
           chmod 600 ~/.netrc
@@ -61,7 +61,7 @@ jobs:
           cache: yarn
       - name: Authenticate private GitHub packages
         env:
-          TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          TOKEN: ${{ secrets.LUVO_UI_CI }}
         run: |
           echo "machine github.com login x-access-token password ${TOKEN}" > ~/.netrc
           chmod 600 ~/.netrc
