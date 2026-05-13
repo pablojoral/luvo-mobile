@@ -9,6 +9,9 @@ import { SvgIcon } from 'components/SvgIcon/SvgIcon';
 interface TagProps extends TextProps {
   surfaceColor?: SurfaceColor;
   borderColor?: BorderColor;
+  // Intentionally a ViewStyle (container), not a TextStyle. @luvo/ui TextProps
+  // has no `style` field, so there is no shadowing conflict — this prop is
+  // always applied to the wrapping View, never forwarded to <Text>.
   style?: StyleProp<ViewStyle>;
   fullWidth?: boolean;
   disabled?: boolean;

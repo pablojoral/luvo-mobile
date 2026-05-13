@@ -118,6 +118,22 @@ function useBaseTheme() {
 // ---------------------------------------------------------------------------
 // Component stubs — render nothing but satisfy import resolution
 // ---------------------------------------------------------------------------
+const React = require('react');
+
+// Use React.createElement with host primitives so react-test-renderer can
+// reconcile the tree without trying to call RN class-based mocks as functions.
+const Text = jest.fn(({ children }) => React.createElement('Text', null, children));
+Text.displayName = 'Text';
+
+const Button = jest.fn(({ label }) => React.createElement('View', null, React.createElement('Text', null, label)));
+Button.displayName = 'Button';
+
+const ActivityIndicator = jest.fn(() => React.createElement('View', null));
+ActivityIndicator.displayName = 'ActivityIndicator';
+
+const TextInput = jest.fn(() => React.createElement('TextInput', null));
+TextInput.displayName = 'TextInput';
+
 const Separator = jest.fn(() => null);
 Separator.displayName = 'Separator';
 
@@ -132,6 +148,10 @@ module.exports = {
   defaultTheme: MOCK_THEME,
   darkTheme: MOCK_THEME,
   useBaseTheme,
+  Text,
+  Button,
+  ActivityIndicator,
+  TextInput,
   Separator,
   StepIndicator,
   Switch,

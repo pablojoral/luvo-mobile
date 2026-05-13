@@ -9,6 +9,9 @@ interface TagButtonProps extends TextProps {
   onPress: () => void;
   surfaceColor?: SurfaceColor;
   borderColor?: BorderColor;
+  // Intentionally a ViewStyle (container), not a TextStyle. @luvo/ui TextProps
+  // has no `style` field, so there is no shadowing conflict — this prop is
+  // forwarded to <Tag style={...}> which applies it to the wrapping View.
   style?: StyleProp<ViewStyle>;
   fullWidth?: boolean;
   disabled?: boolean;
