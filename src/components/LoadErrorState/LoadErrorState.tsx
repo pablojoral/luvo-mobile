@@ -1,6 +1,4 @@
-import { Button } from 'components/Button/Button';
-import { SvgImage } from 'components/SvgImage/SvgImage';
-import { Text } from 'components/Text/Text';
+import { Button, SvgImage, Text } from '@luvo/ui';
 import { View } from 'react-native';
 
 import { useLoadErrorStateStrings } from './hooks/useLoadErrorStateStrings';

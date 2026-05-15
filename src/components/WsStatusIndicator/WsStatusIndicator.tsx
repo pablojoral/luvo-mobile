@@ -1,4 +1,4 @@
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { WsConnectionState } from 'stores/useLaundriesStore';

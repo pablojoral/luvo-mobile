@@ -17,39 +17,50 @@ jest.mock('../theme/useMachinesListTheme', () => ({
   }),
 }));
 
-// Renders machine name as testable text
-jest.mock('components/MachineCard/MachineCard', () => ({
-  MachineCard: ({ machine }: { machine: Machine }) => {
-    const R = require('react');
-    const { Text } = require('react-native');
-    return R.createElement(Text, { testID: `machine-${machine.id}` }, machine.name);
-  },
-}));
-
-// Renders pill buttons that call onChange
-jest.mock('components/PillSelector/PillSelector', () => ({
-  PillSelector: ({
-    options,
-    onChange,
-  }: {
-    options: { label: string; value: string }[];
-    onChange: (v: string) => void;
-  }) => {
-    const R = require('react');
-    const { View, Text, TouchableOpacity } = require('react-native');
-    return R.createElement(
-      View,
-      null,
-      ...options.map((opt: { label: string; value: string }) =>
-        R.createElement(
-          TouchableOpacity,
-          { key: opt.value, testID: `pill-${opt.value}`, onPress: () => onChange(opt.value) },
-          R.createElement(Text, null, opt.label),
+// MachineCard and PillSelector now come from @luvo/ui.
+// Provide test-specific implementations that render real DOM nodes for querying.
+// We cannot spread jest.requireMock('@luvo/ui') inside the factory (infinite recursion);
+// instead we return only the exports this test file needs directly.
+jest.mock('@luvo/ui', () => {
+  const R = require('react');
+  return {
+    // Renders machine name as testable text
+    MachineCard: ({ machine }: { machine: Machine }) => {
+      const { Text } = require('react-native');
+      return R.createElement(Text, { testID: `machine-${machine.id}` }, machine.name);
+    },
+    // Renders pill buttons that call onChange
+    PillSelector: ({
+      options,
+      onChange,
+    }: {
+      options: { label: string; value: string }[];
+      onChange: (v: string) => void;
+    }) => {
+      const { View, Text, TouchableOpacity } = require('react-native');
+      return R.createElement(
+        View,
+        null,
+        ...options.map((opt: { label: string; value: string }) =>
+          R.createElement(
+            TouchableOpacity,
+            { key: opt.value, testID: `pill-${opt.value}`, onPress: () => onChange(opt.value) },
+            R.createElement(Text, null, opt.label),
+          ),
         ),
-      ),
-    );
-  },
-}));
+      );
+    },
+    // Pass-through for other @luvo/ui exports used by dependencies of MachinesList
+    ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
+    useTheme: () => ({}),
+    Text: ({ children }: { children: React.ReactNode }) => {
+      const { Text: RNText } = require('react-native');
+      return R.createElement(RNText, null, children);
+    },
+    ActivityIndicator: () => null,
+    Separator: () => null,
+  };
+});
 
 const makeMachine = (id: number, type: Machine['type'], status: Machine['status'] = 'available'): Machine => ({
   id,

@@ -1,4 +1,4 @@
-import type { SettingsMenuItemData } from 'components/SettingsMenu/components/SettingsMenuItem/SettingsMenuItem';
+import type { SettingsMenuItemData } from '@luvo/ui';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useInfoStrings } from './useInfoStrings';
 

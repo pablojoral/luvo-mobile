@@ -1,5 +1,4 @@
-import { PillSelector } from 'components/PillSelector/PillSelector';
-import { Separator } from 'components/Separator/Separator';
+import { PillSelector, Separator } from '@luvo/ui';
 import { Laundry } from 'models/models';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';

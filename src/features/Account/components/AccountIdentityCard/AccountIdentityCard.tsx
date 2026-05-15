@@ -1,5 +1,5 @@
 import { Avatar } from 'features/Account/components/Avatar/Avatar';
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import { View } from 'react-native';
 import { useAccountIdentityCardTheme } from './theme/useAccountIdentityCardTheme';
 

@@ -2,9 +2,7 @@ import React, { memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { Tag } from 'components/Tag/Tag';
-import { Text } from 'components/Text/Text';
+import { SvgIcon, Tag, Text } from '@luvo/ui';
 import { MyLaundry } from 'models/models';
 import { useMyLaundriesTheme } from '../../theme/useMyLaundriesTheme';
 import { useMyLaundryItem } from './hooks/useMyLaundryItem';

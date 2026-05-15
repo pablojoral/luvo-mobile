@@ -1,6 +1,4 @@
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
-import { ActivityIndicator } from 'components/ActivityIndicator/ActivityIndicator';
-import { Loader } from 'components/Loader/Loader';
+import { ActivityIndicator, Loader, SafeScreenHeader } from '@luvo/ui';
 import { SectionList, RefreshControl, View } from 'react-native';
 import type { HistoryItem } from 'services/api/services/HistoryService';
 

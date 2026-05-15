@@ -1,8 +1,4 @@
-import { Button } from 'components/Button/Button';
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
-import { SelectInput } from 'components/SelectInput/SelectInput';
-import { Text } from 'components/Text/Text';
-import { TextInput } from 'components/TextInput/TextInput';
+import { Button, SafeScreenHeader, SelectInput, Text, TextInput } from '@luvo/ui';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { Controller } from 'react-hook-form';
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';

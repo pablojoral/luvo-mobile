@@ -1,4 +1,4 @@
-import { ActionModal } from 'components/ActionModal/ActionModal';
+import { ActionModal } from '@luvo/ui';
 import { useAuthRequiredModal } from './hooks/useAuthRequiredModal';
 
 export const AuthRequiredModal = () => {

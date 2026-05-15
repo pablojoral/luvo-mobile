@@ -1,5 +1,4 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { Text } from 'components/Text/Text';
+import { SvgIcon, Text } from '@luvo/ui';
 import { View } from 'react-native';
 
 import { useMyLaundryEmptyListTheme } from './theme/useMyLaundryEmptyListTheme';

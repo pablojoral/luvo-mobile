@@ -1,10 +1,12 @@
 import 'react-native-reanimated';
 import 'services/i18n';
 
-import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
+import { ThemeProvider, defaultTheme, darkTheme, ErrorBoundary } from '@luvo/ui';
 import { Navigator } from 'navigation';
 import { QueryProvider } from 'query/provider';
 import { useNotifications } from 'services/firebase/hooks/useNotifications';
+import { useAppContentStrings } from 'hooks/useAppContentStrings';
+import { useDarkModeStore } from 'stores/useDarkModeStore';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -14,24 +16,33 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 // LogBox.ignoreAllLogs(true);
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  const darkModePreference = useDarkModeStore((state) => state.darkMode);
+  const activeTheme = darkModePreference ? darkTheme : defaultTheme;
 
   return (
-    <QueryProvider>
-      <SafeAreaProvider>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <GestureHandlerRootView>
-          <AppContent />
-        </GestureHandlerRootView>
-      </SafeAreaProvider>
-    </QueryProvider>
+    <ThemeProvider theme={activeTheme}>
+      <QueryProvider>
+        <SafeAreaProvider>
+          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+          <GestureHandlerRootView>
+            <AppContent />
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </QueryProvider>
+    </ThemeProvider>
   );
 }
 
 function AppContent() {
   useNotifications();
+  const { errorBoundaryTitle, errorBoundaryBody, errorBoundaryRetry } = useAppContentStrings();
   return (
     <View style={styles.container}>
-      <ErrorBoundary>
+      <ErrorBoundary
+        title={errorBoundaryTitle}
+        body={errorBoundaryBody}
+        retryLabel={errorBoundaryRetry}
+      >
         <Navigator />
       </ErrorBoundary>
     </View>

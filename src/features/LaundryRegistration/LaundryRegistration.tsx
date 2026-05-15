@@ -1,6 +1,4 @@
-import { Button } from 'components/Button/Button';
-import { ScreenHeader } from 'components/ScreenHeader/ScreenHeader';
-import { Text } from 'components/Text/Text';
+import { Button, ScreenHeader, Text } from '@luvo/ui';
 import React from 'react';
 import { View } from 'react-native';
 import { useLaundryRegistrationScreen } from './hooks/useLaundryRegistrationScreen';

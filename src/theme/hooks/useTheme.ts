@@ -1,14 +1,5 @@
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useDarkModeStore } from 'stores/useDarkModeStore';
-
-import { DarkThemeConstants } from '../themes/DarkTheme';
-import { DefaultThemeConstants } from '../themes/DefaultTheme';
-import { Theme } from '../types/Theme';
-
-export const useTheme = () => {
-  const { top, bottom } = useSafeAreaInsets();
-  const darkMode = useDarkModeStore((state) => state.darkMode);
-  const constants = darkMode ? DarkThemeConstants : DefaultThemeConstants;
-  const theme: Theme = { ...constants, topInset: top, bottomInset: bottom };
-  return theme;
-};
+// useTheme and ThemeConstants now live in @luvo/ui.
+// This shim preserves the existing import path `theme/hooks/useTheme` for all
+// consumers using the module-resolver alias — no import rewrites needed.
+export { useTheme } from '@luvo/ui';
+export type { ThemeConstants } from '@luvo/ui';

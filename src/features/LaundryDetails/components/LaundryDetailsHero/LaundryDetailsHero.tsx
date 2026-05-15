@@ -1,5 +1,4 @@
-import { IconButton } from 'components/IconButton/IconButton';
-import { SvgImage } from 'components/SvgImage/SvgImage';
+import { IconButton, SvgImage } from '@luvo/ui';
 import { View } from 'react-native';
 
 import { useLaundryDetailsHero } from './hooks/useLaundryDetailsHero';

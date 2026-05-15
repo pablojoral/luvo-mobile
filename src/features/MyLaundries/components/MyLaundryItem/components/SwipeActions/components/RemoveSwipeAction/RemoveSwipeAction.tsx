@@ -1,5 +1,4 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { Text } from 'components/Text/Text';
+import { SvgIcon, Text } from '@luvo/ui';
 import { TouchableOpacity } from 'react-native';
 import { useSwipeActionsStrings } from '../../hooks/useSwipeActionsStrings';
 import { useRemoveSwipeActionTheme } from './theme/useRemoveSwipeActionTheme';

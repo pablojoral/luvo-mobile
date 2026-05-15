@@ -1,7 +1,4 @@
-import { Button } from 'components/Button/Button';
-import { ConcurrencyTag } from 'components/ConcurrencyTag/ConcurrencyTag';
-import { LocationLabel } from 'components/LocationLabel/LocationLabel';
-import { Text } from 'components/Text/Text';
+import { Button, ConcurrencyTag, LocationLabel, Text } from '@luvo/ui';
 import { Laundry } from 'models/models';
 import { StyleProp, View, ViewStyle } from 'react-native';
 
@@ -15,7 +12,7 @@ interface LaundryDetailsCardProps {
 
 export const LaundryDetailsCard = ({ laundry, style }: LaundryDetailsCardProps) => {
   const { styles } = useLaundryDetailsCardTheme();
-  const { title, location, available, total, directionsLabel, handleGetDirections } = useLaundryDetailsCard({ laundry });
+  const { title, location, available, total, directionsLabel, concurrencyLabels, handleGetDirections } = useLaundryDetailsCard({ laundry });
 
   if (!laundry) return null;
 
@@ -26,7 +23,7 @@ export const LaundryDetailsCard = ({ laundry, style }: LaundryDetailsCardProps) 
         {location ? <LocationLabel location={location} style={styles.addressFlex} /> : null}
         <Button variant="link" size="sm" label={directionsLabel} onPress={handleGetDirections} />
       </View>
-      <ConcurrencyTag available={available} total={total} />
+      <ConcurrencyTag available={available} total={total} labels={concurrencyLabels} />
     </View>
   );
 };

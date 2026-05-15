@@ -32,12 +32,23 @@ module.exports = {
     // react-native-inappbrowser-reborn: utils.js reads NativeModules.RNInAppBrowser
     // and AppState.currentState at module scope — cannot safely transform; stub entirely.
     '^react-native-inappbrowser-reborn$': '<rootDir>/__mocks__/react-native-inappbrowser-reborn.js',
+    // @luvo/ui is a file: dep that bundles RN components — mock entirely in Jest
+    '^@luvo/ui$': '<rootDir>/__mocks__/@luvo/ui.js',
     // Paths not covered by babel-plugin-module-resolver (root: ./src)
     '^models/(.*)$': '<rootDir>/src/models/$1',
     '^stores/(.*)$': '<rootDir>/src/stores/$1',
     '^query/(.*)$': '<rootDir>/src/query/$1',
     '^navigation/(.*)$': '<rootDir>/src/navigation/$1',
   },
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/.claude/',
+  ],
+  // Exclude the Claude Code worktrees directory from haste-map scanning so
+  // it does not register duplicate manual mocks or stale test suites.
+  modulePathIgnorePatterns: [
+    '<rootDir>/.claude/',
+  ],
   transformIgnorePatterns: [
     // react-native-qrcode-svg: pure JS (JSX + react-native-svg only, no NativeModules
     // or TurboModuleRegistry at import time) — must be Babel-transformed for JSX.

@@ -1,5 +1,4 @@
-import { Text } from 'components/Text/Text';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
+import { SvgIcon, Text } from '@luvo/ui';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import type { FAQItem } from 'services/api/services/ContentService';
 import { useInfoTheme } from '../../theme/useInfoTheme';

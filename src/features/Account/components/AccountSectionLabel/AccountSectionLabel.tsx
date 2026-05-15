@@ -1,4 +1,4 @@
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import { useAccountSectionLabelTheme } from './theme/useAccountSectionLabelTheme';
 
 interface AccountSectionLabelProps {

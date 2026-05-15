@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
-import { Colors } from 'theme/constants/colors';
+import { Colors } from '@luvo/ui';
 
 export const useLanguagePickerTheme = () => {
   const theme = useTheme();

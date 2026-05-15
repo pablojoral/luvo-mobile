@@ -1,4 +1,4 @@
-import { BottomSheet } from 'components/BottomSheet/BottomSheet';
+import { BottomSheet } from '@luvo/ui';
 import { FlatList } from 'react-native';
 import { AVATARS } from '../../avatars';
 

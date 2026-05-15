@@ -1,8 +1,8 @@
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { IconName } from 'components/SvgIcon/types';
-import { Text } from 'components/Text/Text';
+import { SvgIcon, SvgIconProps, Text } from '@luvo/ui';
 import { TouchableOpacity } from 'react-native';
 import { useAccountActionRowTheme } from './theme/useAccountActionRowTheme';
+
+type IconName = SvgIconProps['name'];
 
 interface AccountActionRowProps {
   icon: IconName;

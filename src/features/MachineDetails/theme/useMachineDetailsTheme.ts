@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
-import type { SurfaceColor } from 'theme/types/Theme';
+import type { SurfaceColor } from '@luvo/ui';
 
 export const useMachineDetailsTheme = (statusSurfaceColor: SurfaceColor) => {
   const theme = useTheme();

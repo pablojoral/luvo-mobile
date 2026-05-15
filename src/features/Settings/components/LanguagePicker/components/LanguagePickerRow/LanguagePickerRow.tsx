@@ -1,4 +1,4 @@
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import { TouchableOpacity, View } from 'react-native';
 import type { LanguageOption, SupportedLanguage } from 'services/i18n/languages';
 import { useLanguagePickerTheme } from '../../theme/useLanguagePickerTheme';

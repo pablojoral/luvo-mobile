@@ -5,7 +5,8 @@ import { MachineStatus } from 'models/models';
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { useLaundriesStore } from 'stores/useLaundriesStore';
-import type { SurfaceColor } from 'theme/types/Theme';
+import type { SurfaceColor } from '@luvo/ui';
+import { toAvailabilityStatus } from 'utils/Laundry/toAvailabilityStatus';
 import { useMachineDetailsStrings } from './useMachineDetailsStrings';
 
 const STATUS_SURFACE: Record<MachineStatus, SurfaceColor> = {
@@ -22,6 +23,7 @@ export const useMachineDetailsScreen = () => {
   const {
     screenTitle, notFoundText, goBackLabel,
     startWashLabel, notifyLabel, reportProblemLabel, typeLabels,
+    availabilityLabels,
   } = useMachineDetailsStrings();
 
   const connectionState = useLaundriesStore(s => s.connectionState);
@@ -39,6 +41,7 @@ export const useMachineDetailsScreen = () => {
   const isConnecting = connectionState === 'idle' || connectionState === 'connecting';
   const typeLabel = machine ? typeLabels[machine.type] : '';
   const statusSurfaceColor: SurfaceColor = machine ? STATUS_SURFACE[machine.status] : 'surface-background';
+  const availabilityStatus = machine ? toAvailabilityStatus(machine.status) : 'available';
 
   const showPay    = machine?.status === 'available';
   const showNotify = machine?.status === 'in_use';
@@ -73,6 +76,8 @@ export const useMachineDetailsScreen = () => {
     showNotify,
     cycleSeconds,
     typeLabel,
+    availabilityStatus,
+    availabilityLabels,
     screenTitle,
     notFoundText,
     goBackLabel,

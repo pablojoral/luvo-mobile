@@ -1,4 +1,5 @@
 import { useLaundriesStore } from 'stores/useLaundriesStore';
+import { toAvailabilityStatus } from 'utils/Laundry/toAvailabilityStatus';
 import { usePayment } from './usePayment';
 import { usePaymentStrings } from './usePaymentStrings';
 
@@ -23,6 +24,8 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
 
   const strings = usePaymentStrings(progressCode, result?.error);
 
+  const availabilityStatus = machine ? toAvailabilityStatus(machine.status) : 'available';
+
   return {
     machine,
     laundry,
@@ -36,6 +39,7 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
     isLoading,
     isSuccess,
     isError,
+    availabilityStatus,
     strings,
   };
 }

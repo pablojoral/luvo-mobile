@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from 'react-native';
-import { Text } from 'components/Text/Text';
+import { Text } from '@luvo/ui';
 import { Avatar } from '../Avatar/Avatar';
 
 import { useAvatarPickerItemTheme } from './theme/useAvatarPickerItemTheme';

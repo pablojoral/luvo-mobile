@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme } from 'theme/hooks/useTheme';
-import { Colors } from 'theme/constants/colors';
+import { Colors } from '@luvo/ui';
 import type { WsConnectionState } from 'stores/useLaundriesStore';
 
 const colorMap: Record<WsConnectionState, string> = {

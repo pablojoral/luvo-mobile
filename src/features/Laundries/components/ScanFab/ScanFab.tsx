@@ -1,4 +1,4 @@
-import { IconButton } from 'components/IconButton/IconButton';
+import { IconButton } from '@luvo/ui';
 
 import { useScanFabTheme } from './theme/useScanFabTheme';
 

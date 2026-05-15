@@ -9,7 +9,7 @@ import { MyLaundryItem } from '../components/MyLaundryItem/MyLaundryItem';
 import { useMyLaundriesStrings } from './useMyLaundriesStrings';
 
 export const useMyLaundriesScreen = () => {
-  const { title, authSubtitle, loadError } = useMyLaundriesStrings();
+  const { title, authSubtitle, authDefaultSubtitle, authTitle, authSignInLabel, loadError } = useMyLaundriesStrings();
   const navigation = useRootStackNavigation();
   const { data: firebaseUser } = useFirebaseAuthState();
   const { data, isLoading, isError, refetch } = useMyLaundries();
@@ -70,6 +70,9 @@ export const useMyLaundriesScreen = () => {
     keyExtractor,
     title,
     authSubtitle,
+    authDefaultSubtitle,
+    authTitle,
+    authSignInLabel,
     loadError,
   };
 };

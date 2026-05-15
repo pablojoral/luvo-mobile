@@ -1,6 +1,5 @@
 import { Pressable, View } from 'react-native';
-import { SvgIcon } from 'components/SvgIcon/SvgIcon';
-import { Text } from 'components/Text/Text';
+import { SvgIcon, Text } from '@luvo/ui';
 import { useReportScanButtonTheme } from './theme/useReportScanButtonTheme';
 
 interface ReportScanButtonProps {

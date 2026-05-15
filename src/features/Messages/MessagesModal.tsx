@@ -1,6 +1,4 @@
-import { Button } from 'components/Button/Button';
-import { StepIndicator } from 'components/StepIndicator/StepIndicator';
-import { Text } from 'components/Text/Text';
+import { Button, StepIndicator, Text } from '@luvo/ui';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
 

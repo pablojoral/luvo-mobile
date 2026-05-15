@@ -1,4 +1,4 @@
-import { LaundryMapMarker } from 'components/LaundryMapMarker/LaundryMapMarker';
+import { LaundryMapMarker } from '@luvo/ui';
 import React from 'react';
 import { View } from 'react-native';
 import Config from 'react-native-config';

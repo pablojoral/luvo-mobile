@@ -1,10 +1,4 @@
-import { Loader } from 'components/Loader/Loader';
-import { AvailabilityTag } from 'components/AvailabilityTag/AvailabilityTag';
-import { Button } from 'components/Button/Button';
-import { SafeScreenHeader } from 'components/SafeScreenHeader/SafeScreenHeader';
-import { SvgImage } from 'components/SvgImage/SvgImage';
-import { Text } from 'components/Text/Text';
-import { TimeTag } from 'components/TimeTag/TimeTag';
+import { AvailabilityTag, Button, Loader, SafeScreenHeader, SvgImage, Text, TimeTag } from '@luvo/ui';
 import { ScrollView, View } from 'react-native';
 import { useMachineDetailsTheme } from './theme/useMachineDetailsTheme';
 import { useMachineDetailsScreen } from './hooks/useMachineDetailsScreen';
@@ -19,6 +13,8 @@ export const MachineDetails = () => {
     showNotify,
     cycleSeconds,
     typeLabel,
+    availabilityStatus,
+    availabilityLabels,
     screenTitle,
     notFoundText,
     goBackLabel,
@@ -68,7 +64,7 @@ export const MachineDetails = () => {
             <Text fontSize="font-size-md" color="font-secondary">
               {typeLabel} · 10 Kgs
             </Text>
-            <AvailabilityTag status={machine.status} />
+            <AvailabilityTag status={availabilityStatus} labels={availabilityLabels} />
             {showNotify && <TimeTag seconds={cycleSeconds} extended />}
           </View>
 

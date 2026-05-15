@@ -14,6 +14,13 @@
 | ADR-003 | 2026-04-26 | Translation boundary lives at the React layer; services and strategies stay i18n-agnostic | Accepted |
 | ADR-004 | 2026-04-26 | Cross-boundary user-facing strings emitted as codes, resolved via co-located registry at React boundary | Accepted |
 | ADR-005 | 2026-04-27 | Promote fr and pt to fully-translated tier; only it remains picker-only | Accepted |
+| ADR-006 | 2026-05-13 | `@luvo/ui` as a standalone package (not monorepo) | Accepted |
+| ADR-007 | 2026-05-13 | Platform split via headless hooks + `.tsx`/`.web.tsx` shells | Accepted |
+| ADR-008 | 2026-05-13 | Design tokens are numeric primitives; CSS units added by a per-platform adapter | Accepted |
+| ADR-009 | 2026-05-13 | `@luvo/ui` is i18n-agnostic; all user-facing strings enter as props | Accepted |
+| ADR-010 | 2026-05-13 | Domain-heavy and platform-SDK-bound components stay in `apps/mobile` | Accepted |
+| ADR-011 | 2026-05-14 | `@luvo/ui` becomes canonical source for all shared UI components | Accepted |
+| ADR-012 | 2026-05-14 | luvo-mobile fully migrated to @luvo/ui — direct imports, no local component layer | Accepted |
 
 ## Entries
 
@@ -138,3 +145,159 @@ Reclassify locale tiers. **Fully translated:** `en`, `es`, `fr`, `pt` (197 keys 
 - Adding a string now requires updating four bundles (en/es/fr/pt) instead of two.
 - Only `it` remains picker-only; when it lands, the fallback policy reduces to a safety net.
 - A CI key-parity check (proposed as follow-up in ADR-002) should now cover all four fully-translated locales.
+
+---
+
+### ADR-006: `@luvo/ui` as a standalone package (not monorepo)
+**Date:** 2026-05-13
+**Status:** Accepted
+
+**Context:**
+The team wanted to share base UI components and the design system between `luvo-mobile` (React Native) and a future Luvo admin web app. Two structural options were considered: converting the `luvo-mobile` repo into a workspace monorepo (`apps/mobile` + `packages/ui`) or creating a standalone `@luvo/ui` package in a separate repo.
+
+**Decision:**
+Create `@luvo/ui` as a standalone package in its own repo at `/home/pablitucks/Projects/luvo-ui/`. Mobile consumes it via `"@luvo/ui": "file:../luvo-ui"` during development and as a GitHub Packages release in production. The monorepo restructure (moving existing `src/` to `apps/mobile/`) was rejected to minimize blast radius on an active project.
+
+**Rejected alternatives:**
+- Monorepo (`apps/mobile` + `packages/ui` in the same repo): tightest dev loop and type coherence, but moving `luvo-mobile`'s `src/` to `apps/mobile/` would require updating all CI, deployment configs, and import path aliases at once.
+- Local `packages/ui` subfolder inside `luvo-mobile` without moving `apps/`: cleaner than full restructure but still conflates the app repo with the design-system package.
+
+**Consequences:**
+- `@luvo/ui` has its own versioning (semver + changesets); breaking changes require a coordinated dep bump in mobile.
+- Metro configuration in `luvo-mobile` needs `watchFolders` and `resolver.nodeModulesPaths` pointing to `../luvo-ui/src` for the local file-link to hot-reload correctly.
+- Admin app (when created) joins by consuming `@luvo/ui` as a normal npm/GitHub Packages dep — no structural coupling to the mobile repo.
+
+---
+
+### ADR-007: Platform split via headless hooks + `.tsx`/`.web.tsx` shells
+**Date:** 2026-05-13
+**Status:** Accepted
+
+**Context:**
+`@luvo/ui` must export components that work in both React Native (which uses `StyleSheet`, `View`, `Text` etc.) and a React web app (which uses HTML/CSS). Three approaches were considered.
+
+**Decision:**
+Each component is split into:
+- `hooks/use<Component>.ts` — shared logic, no platform imports
+- `<Component>.tsx` — RN shell (uses RN primitives + `StyleSheet`)
+- `<Component>.web.tsx` — web shell (uses HTML elements + plain style objects)
+- `theme/use<Component>Theme.ts` — RN style hook
+- `theme/use<Component>Theme.web.ts` — web style hook
+
+Bundlers (Metro, webpack, Vite) resolve the `.web.tsx` variant for web targets automatically. This mirrors the existing `use<Component>` hook pattern already enforced in `luvo-mobile`'s `.claude/rules/components.md`.
+
+**Rejected alternatives:**
+- `react-native-web` as compat layer: single component file, but adds ~50 kB to the web bundle and constrains web styling to RN's subset. Hover/focus states still require additional CSS-in-JS. Rejected.
+- Platform-suffixed files without headless hooks: same bundle resolution, but would duplicate logic across `.tsx` and `.web.tsx` rather than sharing it via the hook.
+
+**Consequences:**
+- Logic hooks (`hooks/use<Component>.ts`) must never import from `react-native` or DOM types. Enforceable via `eslint no-restricted-imports` scoped to that path pattern.
+- Adding a new component always requires two shell files, two style hooks, one logic hook, one types file. This is the trade for clean platform separation.
+- `react-native-web` is now explicitly ruled out; a future reversal requires its own ADR.
+
+---
+
+### ADR-008: Design tokens are numeric primitives; CSS units are added by a per-platform adapter
+**Date:** 2026-05-13
+**Status:** Accepted
+
+**Context:**
+Spacing, font sizes, and radii in `luvo-mobile`'s theme system are numeric (e.g. `spacing['spacing-sm'] = 8`). RN's `StyleSheet` consumes numbers directly. A web consumer needs CSS units (e.g. `'8px'`). Two options: store tokens as numbers and convert at the style-hook layer, or store them as strings with `px` already baked in.
+
+**Decision:**
+Tokens stay as numbers throughout `@luvo/ui`. A thin adapter at `src/web/cssAdapter.ts` exports `toPx(n: number): string` for use inside web style hooks. RN style hooks use the number directly. Token files never contain `'8px'`-style strings.
+
+**Rejected alternatives:**
+- String tokens with `px` baked in: RN would need to strip the `px` suffix everywhere it reads a spacing value — implicit silent breakage if a developer forgets.
+- Separate number and string token maps: doubles the token surface area and creates a synchronization maintenance burden.
+
+**Consequences:**
+- All `BaseTheme` numeric fields (spacing, fontSize, cornerRad, etc.) are `number`, not `string | number`.
+- Web style hooks in `@luvo/ui` call `toPx()` when passing sizes to CSS properties.
+- Adding a new token must be a number. PRs that introduce `'16px'`-style token values are a review-time violation.
+
+---
+
+### ADR-009: `@luvo/ui` is i18n-agnostic; all user-facing strings enter as props
+**Date:** 2026-05-13
+**Status:** Accepted — extends ADR-003 and ADR-004
+
+**Context:**
+`luvo-mobile` enforces via ADR-003 that the translation boundary lives at the React layer, and via ADR-004 that cross-boundary strings are emitted as codes and resolved at the React boundary. `@luvo/ui` is a new React layer that ships components to both mobile and a future admin app.
+
+**Decision:**
+`@luvo/ui` contains zero `useTranslation` calls and zero `i18next` imports. Every user-facing string a component needs to display (labels, placeholders, error messages) is received as a typed prop. Consumers (mobile hooks, future admin hooks) are responsible for passing already-translated strings.
+
+**Rejected alternatives:**
+- Bundle `i18next` into `@luvo/ui` with a shared namespace: creates a translation synchronization contract between mobile and admin app; both would need to ship the same locale keys. Too tight a coupling.
+- Ship raw English strings as defaults: better than the above but still leaks language choices into a shared dependency.
+
+**Consequences:**
+- Extends ADR-003's translation boundary principle explicitly to the package boundary. Reviewers should reject any `useTranslation` import inside `packages/luvo-ui/src/`.
+- Component props interfaces include `string` fields for all visible copy (e.g. `Button.label`, `TextInput.placeholder`, `TextInput.error`).
+- Consistent with ADR-004: components that emit events with user-facing feedback should emit codes, not translated strings, if they have internal error states.
+
+---
+
+### ADR-010: Domain-heavy and platform-SDK-bound components stay in `apps/mobile`
+**Date:** 2026-05-13
+**Status:** Accepted
+
+**Context:**
+When designing `@luvo/ui`, some existing `luvo-mobile` components were candidates for extraction. Components that depend on platform-specific SDKs or contain business domain logic specific to the laundry machine use case were flagged.
+
+**Decision:**
+The following component categories are explicitly excluded from `@luvo/ui` Phase 1–2 and remain in `apps/mobile` until the admin app has a concrete consumer:
+- **RN-only runtime deps:** `BottomSheet`, `ActionModal`, `SelectInput` (depend on `react-native-reanimated` + `react-native-gesture-handler`; web equivalents need a different engine).
+- **Navigation-coupled:** `ScreenHeader`, `SafeScreenHeader`, `SettingsMenu` (depend on `@react-navigation/native` APIs).
+- **Auth-SDK-bound:** `SocialAuth`, `GoogleSignInButton`, `AppleSignInButton`, `AuthRequiredScreen`, `AuthModeToggle` (depend on `@react-native-google-signin/google-signin` and `@invertase/react-native-apple-authentication`).
+- **Domain-specific:** `MachineCard`, `LaundryMapMarker`, `WsStatusIndicator`, `LocationLabel` (tightly coupled to laundry-machine data models; no current web consumer).
+
+**Rejected alternatives:**
+- Migrate everything immediately: forces speculative cross-platform abstractions for components with no current web consumer; BottomSheet's web equivalent requires a sheet-management library choice that hasn't been made.
+- Create RN-only entry point in `@luvo/ui` for excluded components: splits the package's consumer contract and makes the "which entry do I import from?" question harder to answer.
+
+**Consequences:**
+- `@luvo/ui` stays lean and installable in non-RN environments without pulling in RN-only native deps.
+- When the admin app needs a bottom sheet, a new ADR is required to pick the web engine (Radix, Vaul, etc.) and decide whether it merges into `@luvo/ui` or stays separate.
+- `luvo-mobile/src/components/` retains the excluded components; they are not deprecated or marked for migration until there is a real cross-app consumer.
+
+---
+
+### ADR-011: `@luvo/ui` becomes canonical source for all shared UI components
+**Date:** 2026-05-14
+**Status:** Accepted
+
+**Context:**
+`luvo-mobile` had local component implementations of `Text`, `Button`, `ActivityIndicator`, `Separator`, `TextInput`, and `Switch` under `src/components/`. A new Luvo admin web app needs to share the same design system components. `@luvo/ui` existed as a shared package (GitHub: `pablojoral/luvo-ui`) but had incomplete prop coverage — missing `iconName`, `alignLeft`, `onBlur`, `onFocus`, `autoCapitalize`, `keyboardType`, `multiline`, `style`, and `textStyle` on various components.
+
+**Decision:**
+`@luvo/ui` is the canonical, authoritative source for all shared UI components. The full prop surface, platform splits, headless hooks, and theme hooks from `luvo-mobile`'s implementations were ported into `@luvo/ui` to achieve parity. Components in `luvo-mobile` are now thin re-export shims pointing to `@luvo/ui` — they no longer contain any implementation. When props need to change, the change goes into `@luvo/ui` first; then consuming apps update their SHA pin. References: luvo-ui PR #2 (`https://github.com/pablojoral/luvo-ui/pull/2`), luvo-mobile PR #54 (`https://github.com/pablojoral/luvo-mobile/pull/54`). See also: luvo-ui `DECISIONS.md` entry 2026-05-14.
+
+**Rejected alternatives:**
+- Keeping components duplicated in each app: drift risk across mobile and web implementations defeats the purpose of a shared package.
+- Adapting `luvo-mobile` call sites to a reduced `@luvo/ui` API: would require extensive refactoring of all existing consumers with no benefit — the correct fix was to bring `@luvo/ui` up to the mobile prop surface.
+
+**Consequences:**
+- Any prop surface change to the 6 shared components (`Text`, `Button`, `ActivityIndicator`, `Separator`, `TextInput`, `Switch`) requires a `luvo-ui` PR + SHA bump in each consuming app.
+- The admin app can consume `@luvo/ui` directly with the same component API `luvo-mobile` uses — no per-app adaptation needed.
+- Mobile-only components (`BottomSheet`, `ScreenHeader`, `SvgIcon`, etc.) remain in their respective apps per ADR-010 and are not affected.
+
+---
+
+### ADR-012: luvo-mobile fully migrated to @luvo/ui — direct imports, no local component layer
+**Date:** 2026-05-14
+**Status:** Accepted
+
+**Context:**
+After Phase 1 porting all luvo-mobile components into `@luvo/ui` (ADR-011), Phase 2 removed ALL local component implementations from `src/components/` (except `WsStatusIndicator` and `LoadErrorState`) and the full local theme (`src/theme/themes/`, `types/`, `constants/`). `src/theme/hooks/useTheme.ts` is now a one-line re-export shim to `@luvo/ui`. All import paths across `src/` were updated to reference `@luvo/ui` directly.
+
+**Decision:**
+`@luvo/ui` is the single source of truth for all shared UI components and the full theme (including `DefaultTheme`, `DarkTheme`, `useTheme`, and `MobileThemeExtras` like `topInset`/`bottomInset`). luvo-mobile has no local component layer — all shared components import directly from `@luvo/ui`. Only `WsStatusIndicator` and `LoadErrorState` remain as local components (explicitly excluded by user). When component or theme changes are needed, the change goes into `luvo-ui` first, then the `@luvo/ui` SHA is bumped in consuming apps. PR ref: luvo-mobile PR #54 (`https://github.com/pablojoral/luvo-mobile/pull/54`). See also: luvo-ui `DECISIONS.md` entry ADR-002 (2026-05-14).
+
+**Rejected alternatives:**
+- Shim layer (re-export files in luvo-mobile): removed in favor of direct imports to eliminate maintenance overhead and ensure type-level fidelity.
+
+**Consequences:**
+- Every luvo-ui update requires a SHA bump in luvo-mobile (and the future admin app).
+- `WsStatusIndicator` and `LoadErrorState` remain luvo-mobile-only; if they are ever needed in the admin app, they will need to be moved to `@luvo/ui` at that time.

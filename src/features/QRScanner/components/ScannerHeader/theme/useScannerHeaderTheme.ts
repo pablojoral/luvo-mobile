@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'theme/hooks/useTheme';
-import type { FontColor } from 'theme/types/Theme';
+import type { FontColor } from '@luvo/ui';
 
 export const useScannerHeaderTheme = (isQR: boolean) => {
   const theme = useTheme();
