@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 
+import { logger } from 'services/logger';
 import { notificationsService } from '../../api/services/NotificationsService';
 import {
   checkNotificationPermission,
@@ -33,9 +34,11 @@ export function useNotifications() {
       if (status !== 'granted') return;
 
       const token = await getFCMToken();
-      console.log('FCM Token:', token);
       if (token) {
-        notificationsService.registerToken(token).catch(() => {});
+        logger.debug('Notifications', 'FCM token obtained', token);
+        notificationsService.registerToken(token).catch(err => {
+          logger.error('Notifications', 'failed to register FCM token', err);
+        });
       }
 
       // Handle notification that opened the app from quit/background state
@@ -70,7 +73,9 @@ export function useNotifications() {
 
     // Token refresh — re-register with server
     const unsubRefresh = onTokenRefreshListener(newToken => {
-      notificationsService.registerToken(newToken).catch(() => {});
+      notificationsService.registerToken(newToken).catch(err => {
+        logger.error('Notifications', 'failed to re-register refreshed FCM token', err);
+      });
     });
 
     return () => {
