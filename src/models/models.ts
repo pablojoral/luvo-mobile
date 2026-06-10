@@ -10,7 +10,8 @@ export interface UserSettings {
 export type PatchUserSettings = Partial<Pick<UserSettings, 'ownerMode' | 'language' | 'notifyEndOfCycle' | 'notifyPromotions' | 'notifyMaintenance'>>;
 
 // ---------- Enums as unions ----------
-export type UserRole = 'superadmin' | 'admin' | 'maintainer' | 'public';
+// Stored on users table — superadmin vs public only.
+export type UserRole = 'superadmin' | 'user';
 export type LaundryVisibility = 'public' | 'private';
 export type MachineType = 'washing_machine' | 'dryer';
 export type MachineStatus = 'available' | 'in_use' | 'out_of_order' | 'maintenance';
@@ -41,13 +42,6 @@ export interface User {
   name: string;
   email: string;
   role: UserRole;
-  createdAt: Date;
-}
-
-export interface Organization {
-  id: number;
-  name: string;
-  ownerId: number;
   createdAt: Date;
 }
 
@@ -84,14 +78,8 @@ export interface Machine {
   cycleRemainingSeconds?: number;
 }
 
-export interface MaintainerOrganization {
-  userId: number;
-  organizationId: number;
-}
-
 // ---------- Insert shapes ----------
 export type NewUser = Omit<User, 'id' | 'createdAt'> & { createdAt?: Date };
-export type NewOrganization = Omit<Organization, 'id' | 'createdAt'> & { createdAt?: Date };
 export type NewLocation = Omit<Location, 'id' | 'createdAt'> & { createdAt?: Date };
 export type NewLaundry = Omit<Laundry, 'id' | 'createdAt' | 'visibility' | 'machines'> & {
   visibility?: LaundryVisibility;
@@ -101,8 +89,6 @@ export type NewMachine = Omit<Machine, 'id' | 'createdAt' | 'status'> & {
   status?: MachineStatus;
   createdAt?: Date;
 };
-export type NewMaintainerOrganization = MaintainerOrganization;
-
 // ---------- My Laundries ----------
 
 /** Single entry in the user's saved laundry list */
@@ -143,7 +129,6 @@ export interface CreateReport {
 
 // ---------- ID aliases ----------
 export type UserId = User['id'];
-export type OrganizationId = Organization['id'];
 export type LocationId = Location['id'];
 export type LaundryId = Laundry['id'];
 export type MachineId = Machine['id'];

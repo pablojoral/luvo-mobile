@@ -4,13 +4,15 @@
   "exclude": ["**/node_modules", "**/Pods", "ai/**"],
 
   "compilerOptions": {
+    "jsx": "react-native",
     "baseUrl": "src",
     "paths": {
       "components/*": ["components/*"],
       "features/*": ["features/*"],
       "services/*": ["services/*"],
       "theme/*": ["theme/*"],
-      "utils/*": ["utils/*"]
+      "utils/*": ["utils/*"],
+      "@rnmapbox/maps": ["../node_modules/@rnmapbox/maps"]
     },
     "typeRoots": ["./node_modules/@types", "./"],
     "strict": true,

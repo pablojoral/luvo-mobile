@@ -21,6 +21,7 @@ export const Laundries = () => {
     connectionState,
     showCard,
     cardKey,
+    setSelectedLaundryId,
     clearSelectedLaundry,
     fabAnimatedStyle,
     handleScan,
@@ -41,6 +42,7 @@ export const Laundries = () => {
               laundry={laundry}
               key={`${laundry.id ?? 'idx'}-${index}`}
               uniqueId={`laundry-${laundry.id ?? `idx-${index}`}`}
+              onPress={() => setSelectedLaundryId(laundry.id)}
             />
           ))}
         </MapView>

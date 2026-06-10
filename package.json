@@ -17,12 +17,14 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@luvo/ui": "pablojoral/luvo-ui#16a65f68f64d305eb698360180b999ec377b8f88",
+    "@invertase/react-native-apple-authentication": "^2.5.1",
+    "@luvo/ui": "github:pablojoral/luvo-ui#staging",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/netinfo": "^11.3.3",
     "@react-native-firebase/app": "^23.0.1",
     "@react-native-firebase/auth": "^23.0.1",
     "@react-native-firebase/messaging": "^24.0.0",
+    "@react-native-google-signin/google-signin": "^16.1.2",
     "@react-native/new-app-screen": "0.84.0",
     "@react-navigation/bottom-tabs": "^7.4.6",
     "@react-navigation/native": "^7.1.14",

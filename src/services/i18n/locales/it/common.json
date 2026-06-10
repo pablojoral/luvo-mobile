@@ -99,7 +99,14 @@
     },
     "linkedAccounts": {
       "sectionTitle": "Account collegati",
-      "linkedBadge": "Collegato"
+      "linkedBadge": "Collegato",
+      "link": "Collega",
+      "unlinkTitle": "Scollega Apple",
+      "unlinkBody": "Scollegare il tuo account Apple? Non potrai più accedere con Apple.",
+      "unlinkConfirm": "Scollega",
+      "unlinkGoogleTitle": "Scollega Google",
+      "unlinkGoogleBody": "Scollegare il tuo account Google? Non potrai più accedere con Google.",
+      "unlinkGoogleConfirm": "Scollega"
     },
     "providers": {
       "password": "Email",
@@ -126,7 +133,11 @@
       "passwordResetSentBody": "Abbiamo inviato un link per reimpostare la password a {{email}}.",
       "passwordResetFailed": "Impossibile inviare l'email. Riprova.",
       "deleteFailed": "Impossibile eliminare l'account. Riprova.",
-      "signOutFailed": "Impossibile effettuare il logout. Riprova."
+      "signOutFailed": "Impossibile effettuare il logout. Riprova.",
+      "linkFailed": "Impossibile collegare l'account Apple. Riprova.",
+      "unlinkFailed": "Impossibile scollegare l'account Apple. Riprova.",
+      "linkGoogleFailed": "Impossibile collegare l'account Google. Riprova.",
+      "unlinkGoogleFailed": "Impossibile scollegare l'account Google. Riprova."
     }
   },
   "machines": {

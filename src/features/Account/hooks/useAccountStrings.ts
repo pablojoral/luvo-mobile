@@ -8,6 +8,7 @@ export const useAccountStrings = (isDeleting: boolean) => {
     namePlaceholder:          t('account.profile.namePlaceholder'),
     nameRequired:             t('account.profile.nameRequired'),
     emailLabel:               t('account.emailLabel'),
+    linkedAccountsSection:    t('account.linkedAccounts.sectionTitle'),
     clientLabel:              t('account.clientLabel'),
     securitySection:          t('account.security.sectionTitle'),
     resetPassword:            t('account.security.resetPassword'),

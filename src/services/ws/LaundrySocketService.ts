@@ -8,6 +8,7 @@
  *   • Forwards `snapshot` and `machine_update` events to the caller via callbacks
  */
 
+import { logger } from 'services/logger';
 import { MachineDelta, WsConnectionState } from 'stores/useLaundriesStore';
 import { Laundry } from 'models/models';
 
@@ -85,7 +86,7 @@ export class LaundrySocketService {
     try {
       this.ws = new WebSocket(this.url);
     } catch (err) {
-      if (__DEV__) console.warn('[WS] connection error:', err);
+      logger.warn('WS', 'connection error', err);
       this.callbacks.onStateChange('error');
       this._scheduleReconnect();
       return;
@@ -93,7 +94,7 @@ export class LaundrySocketService {
 
     this.ws.onopen = () => {
       this.reconnectDelay = RECONNECT_BASE_MS;
-      if (__DEV__) console.log('[WS] connected:', this.url);
+      logger.debug('WS', 'connected', this.url);
       this.callbacks.onStateChange('connected');
     };
 
@@ -102,21 +103,21 @@ export class LaundrySocketService {
       try {
         msg = JSON.parse(event.data as string);
       } catch {
-        if (__DEV__) console.warn('[WS] malformed message:', event.data);
+        logger.warn('WS', 'malformed message', event.data);
         return;
       }
-      if (__DEV__) console.log('[WS ←]', msg.type, msg);
+      logger.debug('WS', `← ${msg.type}`, msg);
       this._dispatch(msg);
     };
 
     this.ws.onerror = err => {
-      if (__DEV__) console.warn('[WS] error:', err);
+      logger.warn('WS', 'error', err);
       this.callbacks.onStateChange('error');
     };
 
     this.ws.onclose = event => {
       this.ws = null;
-      if (__DEV__) console.log('[WS] closed — code:', event.code, 'intentional:', this.intentionalClose);
+      logger.debug('WS', 'closed', { code: event.code, intentional: this.intentionalClose });
       if (!this.intentionalClose) {
         this.callbacks.onStateChange('reconnecting');
         this._scheduleReconnect();

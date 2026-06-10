@@ -7,6 +7,8 @@ import { AccountDetailRow } from './components/AccountDetailRow/AccountDetailRow
 import { AccountEditableRow } from './components/AccountEditableRow/AccountEditableRow';
 import { AccountIdentityCard } from './components/AccountIdentityCard/AccountIdentityCard';
 import { AccountSectionLabel } from './components/AccountSectionLabel/AccountSectionLabel';
+import { AccountAppleLink } from './components/AccountAppleLink/AccountAppleLink';
+import { AccountGoogleLink } from './components/AccountGoogleLink/AccountGoogleLink';
 import { AvatarPicker } from './components/AvatarPicker/AvatarPicker';
 import { useAccountScreen } from './hooks/useAccountScreen';
 import { useAccountTheme } from './theme/useAccountTheme';
@@ -68,6 +70,10 @@ export const Account = () => {
           )}
         />
         <AccountDetailRow label={strings.emailLabel} value={user?.email ?? ''} />
+
+        <AccountSectionLabel title={strings.linkedAccountsSection} />
+        <AccountGoogleLink />
+        <AccountAppleLink />
 
         <AccountSectionLabel title={strings.securitySection} />
         <AccountActionRow
