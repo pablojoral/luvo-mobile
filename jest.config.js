@@ -34,6 +34,10 @@ module.exports = {
     '^react-native-inappbrowser-reborn$': '<rootDir>/__mocks__/react-native-inappbrowser-reborn.js',
     // @luvo/ui is a file: dep that bundles RN components — mock entirely in Jest
     '^@luvo/ui$': '<rootDir>/__mocks__/@luvo/ui.js',
+    // @invertase/react-native-apple-authentication ships ESM and requires native — mock entirely
+    '^@invertase/react-native-apple-authentication$': '<rootDir>/__mocks__/@invertase/react-native-apple-authentication.js',
+    // @react-native-google-signin/google-signin requires native GoogleSignIn SDK — mock entirely
+    '^@react-native-google-signin/google-signin$': '<rootDir>/__mocks__/@react-native-google-signin/google-signin.js',
     // Paths not covered by babel-plugin-module-resolver (root: ./src)
     '^models/(.*)$': '<rootDir>/src/models/$1',
     '^stores/(.*)$': '<rootDir>/src/stores/$1',
