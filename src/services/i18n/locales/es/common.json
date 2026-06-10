@@ -99,7 +99,14 @@
     },
     "linkedAccounts": {
       "sectionTitle": "Cuentas vinculadas",
-      "linkedBadge": "Vinculada"
+      "linkedBadge": "Vinculada",
+      "link": "Vincular",
+      "unlinkTitle": "Desvincular Apple",
+      "unlinkBody": "¿Desvincular tu cuenta de Apple? Ya no podrás iniciar sesión con Apple.",
+      "unlinkConfirm": "Desvincular",
+      "unlinkGoogleTitle": "Desvincular Google",
+      "unlinkGoogleBody": "¿Desvincular tu cuenta de Google? Ya no podrás iniciar sesión con Google.",
+      "unlinkGoogleConfirm": "Desvincular"
     },
     "providers": {
       "password": "Correo electrónico",
@@ -126,7 +133,11 @@
       "passwordResetSentBody": "Te enviamos un enlace para restablecer tu contraseña a {{email}}.",
       "passwordResetFailed": "No se pudo enviar el correo. Intentá de nuevo.",
       "deleteFailed": "No se pudo eliminar la cuenta. Intentá de nuevo.",
-      "signOutFailed": "No se pudo cerrar la sesión. Intentá de nuevo."
+      "signOutFailed": "No se pudo cerrar la sesión. Intentá de nuevo.",
+      "linkFailed": "No se pudo vincular la cuenta de Apple. Intentá de nuevo.",
+      "unlinkFailed": "No se pudo desvincular la cuenta de Apple. Intentá de nuevo.",
+      "linkGoogleFailed": "No se pudo vincular la cuenta de Google. Intentá de nuevo.",
+      "unlinkGoogleFailed": "No se pudo desvincular la cuenta de Google. Intentá de nuevo."
     }
   },
   "machines": {

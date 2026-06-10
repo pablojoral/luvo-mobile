@@ -99,7 +99,14 @@
     },
     "linkedAccounts": {
       "sectionTitle": "Comptes liés",
-      "linkedBadge": "Lié"
+      "linkedBadge": "Lié",
+      "link": "Lier",
+      "unlinkTitle": "Délier Apple",
+      "unlinkBody": "Dissocier votre compte Apple ? Vous ne pourrez plus vous connecter avec Apple.",
+      "unlinkConfirm": "Délier",
+      "unlinkGoogleTitle": "Délier Google",
+      "unlinkGoogleBody": "Dissocier votre compte Google ? Vous ne pourrez plus vous connecter avec Google.",
+      "unlinkGoogleConfirm": "Délier"
     },
     "providers": {
       "password": "E-mail",
@@ -126,7 +133,11 @@
       "passwordResetSentBody": "Nous avons envoyé un lien pour réinitialiser votre mot de passe à {{email}}.",
       "passwordResetFailed": "Impossible d'envoyer l'e-mail. Veuillez réessayer.",
       "deleteFailed": "Impossible de supprimer le compte. Veuillez réessayer.",
-      "signOutFailed": "Impossible de se déconnecter. Veuillez réessayer."
+      "signOutFailed": "Impossible de se déconnecter. Veuillez réessayer.",
+      "linkFailed": "Impossible de lier le compte Apple. Veuillez réessayer.",
+      "unlinkFailed": "Impossible de délier le compte Apple. Veuillez réessayer.",
+      "linkGoogleFailed": "Impossible de lier le compte Google. Veuillez réessayer.",
+      "unlinkGoogleFailed": "Impossible de délier le compte Google. Veuillez réessayer."
     }
   },
   "machines": {
