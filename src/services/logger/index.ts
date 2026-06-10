@@ -1,10 +1,3 @@
-import { logger } from './logger';
-import { consolePlugin } from './plugins/consolePlugin';
-
-if (__DEV__) {
-  logger.addPlugin(consolePlugin);
-}
-
-export { logger };
+export { logger } from './logger';
 export type { LogLevel, LogPlugin } from './logger';
-export { consolePlugin };
+export { consolePlugin } from './plugins/consolePlugin';
