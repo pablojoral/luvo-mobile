@@ -12,6 +12,12 @@
 				<string>luvo</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.333933437173-87sbp485dst4tsd9fb917lc7rsju5p6j</string>
+			</array>
+		</dict>
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
