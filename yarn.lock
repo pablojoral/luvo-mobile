@@ -1939,9 +1939,9 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@luvo/ui@link:../luvo-ui":
-  version "0.0.0"
-  uid ""
+"@luvo/ui@github:pablojoral/luvo-ui#staging":
+  version "0.1.0"
+  resolved "https://codeload.github.com/pablojoral/luvo-ui/tar.gz/e35f04349b9c0be0b6a46da2b9b9766fb838b007"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
