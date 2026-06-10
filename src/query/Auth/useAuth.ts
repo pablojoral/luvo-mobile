@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { getAuth, onAuthStateChanged, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { authService } from 'services/api/services/AuthService';
 import { userService } from 'services/api/services/UserService';
-import { deleteCurrentUser } from 'services/firebase/firebaseAuth';
+import { deleteCurrentUser, getLinkedProviders, linkWithApple, linkWithGoogle, unlinkProvider } from 'services/firebase/firebaseAuth';
 import { AuthUser } from 'models/models';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -80,6 +80,45 @@ export function useUpdateProfile() {
       if (context?.previous) qc.setQueryData(qk.auth.me(), context.previous);
     },
     onSettled: () => qc.invalidateQueries({ queryKey: qk.auth.me() }),
+  });
+}
+
+export function useLinkedProviders() {
+  return useQuery({
+    queryKey: qk.auth.linkedProviders(),
+    queryFn: () => getLinkedProviders(),
+  });
+}
+
+export function useLinkGoogle() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => linkWithGoogle(),
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.auth.linkedProviders() }),
+  });
+}
+
+export function useUnlinkGoogle() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => unlinkProvider('google.com'),
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.auth.linkedProviders() }),
+  });
+}
+
+export function useLinkApple() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => linkWithApple(),
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.auth.linkedProviders() }),
+  });
+}
+
+export function useUnlinkApple() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => unlinkProvider('apple.com'),
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.auth.linkedProviders() }),
   });
 }
 

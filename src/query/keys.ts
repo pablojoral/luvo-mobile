@@ -7,6 +7,7 @@ export const qk = {
     root: ['auth'] as const,
     me: () => ['auth', 'me'] as const,
     firebaseUser: () => ['auth', 'firebaseUser'] as const,
+    linkedProviders: () => ['auth', 'linkedProviders'] as const,
   },
   laundries: {
     root: ['laundries'] as const,
