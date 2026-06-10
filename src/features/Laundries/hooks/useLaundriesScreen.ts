@@ -10,7 +10,7 @@ const CARD_EXIT_DURATION = 400;
 
 export const useLaundriesScreen = () => {
   const { fabBaseBottom, cardBottom } = useLaundriesTheme();
-  const { selectedLaundryId, clearSelectedLaundry } = useSelectedLaundry();
+  const { selectedLaundryId, setSelectedLaundryId, clearSelectedLaundry } = useSelectedLaundry();
   const laundries = useLaundriesStore(s => s.laundries);
   const connectionState = useLaundriesStore(s => s.connectionState);
   const { handleScan } = useQRScanHandler();
@@ -47,6 +47,7 @@ export const useLaundriesScreen = () => {
     laundries,
     connectionState,
     selectedLaundryId,
+    setSelectedLaundryId,
     showCard,
     cardKey,
     clearSelectedLaundry,
