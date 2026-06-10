@@ -13,6 +13,8 @@ if (__DEV__) {
 }
 
 // Must be registered before AppRegistry — runs when app is in background/quit
-setBackgroundMessageHandler(getMessaging(), async (_message) => {});
+setBackgroundMessageHandler(getMessaging(), async message => {
+  logger.debug('Notifications', 'background message received', message.notification?.title ?? '');
+});
 
 AppRegistry.registerComponent(appName, () => App);

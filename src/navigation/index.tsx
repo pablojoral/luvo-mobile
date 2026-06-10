@@ -4,6 +4,7 @@ import { useTheme } from 'theme/hooks/useTheme';
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 
 import { RootStackNavigator, RootStackParamList } from './RootStackNavigator';
+import { navigationRef } from './navigationRef';
 
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: ['luvo://'],
@@ -36,7 +37,7 @@ export const Navigator = () => {
         barStyle={isDark ? 'light-content' : 'dark-content'}
         backgroundColor={theme.navigation.colors.background}
       />
-      <NavigationContainer linking={linking} theme={theme.navigation}>
+      <NavigationContainer ref={navigationRef} linking={linking} theme={theme.navigation}>
         <RootStackNavigator />
       </NavigationContainer>
     </>
