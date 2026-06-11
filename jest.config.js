@@ -38,6 +38,8 @@ module.exports = {
     '^@invertase/react-native-apple-authentication$': '<rootDir>/__mocks__/@invertase/react-native-apple-authentication.js',
     // @react-native-google-signin/google-signin requires native GoogleSignIn SDK — mock entirely
     '^@react-native-google-signin/google-signin$': '<rootDir>/__mocks__/@react-native-google-signin/google-signin.js',
+    // @react-native-firebase/crashlytics requires native module — mock entirely
+    '^@react-native-firebase/crashlytics$': '<rootDir>/__mocks__/@react-native-firebase/crashlytics.js',
     // Paths not covered by babel-plugin-module-resolver (root: ./src)
     '^models/(.*)$': '<rootDir>/src/models/$1',
     '^stores/(.*)$': '<rootDir>/src/stores/$1',
