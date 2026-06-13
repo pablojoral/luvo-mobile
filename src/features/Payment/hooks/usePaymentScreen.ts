@@ -15,16 +15,32 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
     s => s.laundries.find(l => l.machines?.some(m => m.id === machineId)) ?? null,
   );
 
-  const { strategies, selectedStrategy, setSelectedStrategy, paymentState, progressCode, result, execute, reset } =
-    usePayment(machineId);
+  const {
+    strategies,
+    selectedStrategy,
+    setSelectedStrategy,
+    selectedProgram,
+    setSelectedProgram,
+    programs,
+    coinCosts,
+    programsLoading,
+    paymentState,
+    progressCode,
+    result,
+    execute,
+    reset,
+  } = usePayment(machineId);
 
   const isLoading = paymentState === 'loading';
   const isSuccess = paymentState === 'success';
-  const isError = paymentState === 'error';
+  const isError   = paymentState === 'error';
 
   const strings = usePaymentStrings(progressCode, result?.error);
 
   const availabilityStatus = machine ? toAvailabilityStatus(machine.status) : 'available';
+  const machineLabel = machine
+    ? `${strings.typeLabels[machine.type]} #${machine.number}`
+    : '';
 
   return {
     machine,
@@ -32,6 +48,11 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
     strategies,
     selectedStrategy,
     setSelectedStrategy,
+    selectedProgram,
+    setSelectedProgram,
+    programs,
+    coinCosts,
+    programsLoading,
     paymentState,
     result,
     execute,
@@ -40,6 +61,7 @@ export function usePaymentScreen({ machineId }: UsePaymentScreenParams) {
     isSuccess,
     isError,
     availabilityStatus,
+    machineLabel,
     strings,
   };
 }

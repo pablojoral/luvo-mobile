@@ -141,7 +141,7 @@ export const useReportForm = ({ laundryId, machineId, onSuccess }: Options) => {
 
   const entityName =
     selectedEntity?.type === 'machine'
-      ? `${selectedEntity.machine.name} — ${selectedEntity.laundry.name}`
+      ? `${strings.typeLabels[selectedEntity.machine.type]} #${selectedEntity.machine.number} — ${selectedEntity.laundry.name}`
       : selectedEntity?.laundry.name;
 
   const entityIconName: 'Wind' | 'Droplet' | 'MapPin' =

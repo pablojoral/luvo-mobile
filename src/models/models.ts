@@ -14,7 +14,7 @@ export type PatchUserSettings = Partial<Pick<UserSettings, 'ownerMode' | 'langua
 export type UserRole = 'superadmin' | 'user';
 export type LaundryVisibility = 'public' | 'private';
 export type MachineType = 'washing_machine' | 'dryer';
-export type MachineStatus = 'available' | 'in_use' | 'out_of_order' | 'maintenance';
+export type MachineStatus = 'available' | 'in_use' | 'out_of_order' | 'maintenance' | 'offline';
 export type PaymentStatus = 'pending' | 'executed' | 'failed' | 'relay_busy' | 'cancelled';
 
 // ---------- Payment ----------
@@ -69,7 +69,7 @@ export interface Laundry {
 export interface Machine {
   id: number;
   laundryId: number;
-  name: string;
+  number: number;
   type: MachineType;
   status: MachineStatus;
   modelNumber: string | null;
@@ -125,6 +125,20 @@ export interface CreateReport {
   description: string;
   laundryId?: number;
   machineId?: number;
+}
+
+// ---------- Programs ----------
+export interface Program {
+  id:              number;
+  name:            string;
+  coins:           number;
+  durationSeconds: number;
+}
+
+// ---------- Coin Costs ----------
+export interface CoinCost {
+  currency:  string;
+  coinValue: number;
 }
 
 // ---------- ID aliases ----------

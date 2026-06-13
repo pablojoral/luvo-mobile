@@ -14,6 +14,7 @@ const STATUS_SURFACE: Record<MachineStatus, SurfaceColor> = {
   in_use:       'surface-status-in-use-subtle',
   out_of_order: 'surface-status-out-of-order-subtle',
   maintenance:  'surface-status-maintenance-subtle',
+  offline:      'surface-status-out-of-order-subtle', // offline displays as unavailable
 };
 
 export const useMachineDetailsScreen = () => {

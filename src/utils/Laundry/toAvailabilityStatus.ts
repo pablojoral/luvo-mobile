@@ -11,6 +11,7 @@ export const toAvailabilityStatus = (status: MachineStatus): AvailabilityStatus 
     in_use:       'in-use',
     out_of_order: 'out-of-order',
     maintenance:  'maintenance',
+    offline:      'out-of-order', // offline machines display as unavailable
   };
   return map[status];
 };

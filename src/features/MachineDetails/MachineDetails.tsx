@@ -55,7 +55,7 @@ export const MachineDetails = () => {
 
   return (
     <View style={styles.container}>
-      <SafeScreenHeader title={machine.name} subtitle={laundry?.name} onBack={handleGoBack} />
+      <SafeScreenHeader title={`${typeLabel} #${machine.number}`} subtitle={laundry?.name} onBack={handleGoBack} />
 
       <View style={styles.body}>
         <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} bounces={false}>

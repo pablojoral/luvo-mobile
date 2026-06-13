@@ -25,5 +25,9 @@ export const useReportStrings = () => {
     machineNotFoundBody:       t('report.messages.machineNotFound.body'),
     qrUnrecognizedTitle:       t('report.messages.qrUnrecognized.title'),
     qrUnrecognizedBody:        t('report.messages.qrUnrecognized.body'),
+    typeLabels: {
+      washing_machine: t('machines.type.washing_machine'),
+      dryer:           t('machines.type.dryer'),
+    },
   };
 };

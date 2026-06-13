@@ -11,6 +11,7 @@ export const usePaymentStrings = (
 
   return {
     title:           t('payment.title'),
+    programPicker:   t('payment.programPicker'),
     methodPicker:    t('payment.methodPicker'),
     confirm:         t('payment.confirm'),
     processing:      t('payment.processing'),
@@ -32,6 +33,10 @@ export const usePaymentStrings = (
       'in-use':       t('machines.status.in_use'),
       'out-of-order': t('machines.status.out_of_order'),
       maintenance:    t('machines.status.maintenance'),
+    },
+    typeLabels: {
+      washing_machine: t('machines.type.washing_machine'),
+      dryer:           t('machines.type.dryer'),
     },
   };
 };

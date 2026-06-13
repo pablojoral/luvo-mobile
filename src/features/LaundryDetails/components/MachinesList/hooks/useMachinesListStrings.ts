@@ -14,6 +14,10 @@ export const useMachinesListStrings = () => {
         'out-of-order': t('machines.status.out_of_order'),
         maintenance:    t('machines.status.maintenance'),
       },
+      typeLabels: {
+        washing_machine: t('machines.type.washing_machine'),
+        dryer:           t('machines.type.dryer'),
+      },
     },
   };
 };
