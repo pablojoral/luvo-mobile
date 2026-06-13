@@ -3,6 +3,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
       android:name=".MainApplication"
@@ -32,6 +34,17 @@
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="luvo" />
+        </intent-filter>
+        <!-- App Links: https://luvolaundries.com/machine/* and /laundry/* open the app
+             directly. autoVerify makes Android fetch /.well-known/assetlinks.json
+             from the domain at install time. -->
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="luvolaundries.com" />
+            <data android:pathPrefix="/machine/" />
+            <data android:pathPrefix="/laundry/" />
         </intent-filter>
       </activity>
     </application>
