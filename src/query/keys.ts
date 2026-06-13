@@ -43,4 +43,12 @@ export const qk = {
     root: ['reportSubjects'] as const,
     list: () => ['reportSubjects', 'list'] as const,
   },
+  programs: {
+    root: ['programs'] as const,
+    list: () => ['programs', 'list'] as const,
+  },
+  coinCosts: {
+    root: ['coinCosts'] as const,
+    list: () => ['coinCosts', 'list'] as const,
+  },
 };

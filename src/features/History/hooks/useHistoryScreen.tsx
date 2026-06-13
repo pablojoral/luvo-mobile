@@ -4,7 +4,6 @@ import { useHistoryStrings } from './useHistoryStrings';
 import { useHistory } from 'query/History/useHistory';
 import type { HistoryItem } from 'services/api/services/HistoryService';
 import type { SectionListData, SectionListRenderItem } from 'react-native';
-import { useRootStackNavigation } from 'navigation/RootStackNavigator/hooks/useRootStackNavigation';
 import { CycleCard } from '../components/CycleCard/CycleCard';
 import { MonthHeader } from '../components/MonthHeader/MonthHeader';
 import { formatMonth } from 'utils/History/formatHistoryItem';
@@ -14,9 +13,9 @@ export type HistorySection = { title: string; data: HistoryItem[] };
 export const useHistoryScreen = () => {
   const { i18n } = useTranslation('common');
   const { title } = useHistoryStrings();
-  const navigation = useRootStackNavigation();
   const { data, isLoading, isRefetching, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useHistory();
   const items = useMemo<HistoryItem[]>(() => data?.pages.flatMap(p => p.data) ?? [], [data]);
+  const hasItems = items.length > 0;
 
   const sections = useMemo<HistorySection[]>(() => {
     const result: HistorySection[] = [];
@@ -31,8 +30,6 @@ export const useHistoryScreen = () => {
     }
     return result;
   }, [items, i18n.language]);
-
-  const handleGoBack = useCallback(() => navigation.goBack(), [navigation]);
 
   const handleEndReached = useCallback(() => {
     if (hasNextPage) fetchNextPage();
@@ -58,7 +55,8 @@ export const useHistoryScreen = () => {
     isRefetching,
     refetch,
     isFetchingNextPage,
-    handleGoBack,
+    hasNextPage,
+    hasItems,
     handleEndReached,
     renderItem,
     renderSectionHeader,

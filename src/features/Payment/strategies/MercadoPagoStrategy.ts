@@ -3,45 +3,21 @@
  *
  * Flow:
  *   POST /payments { machineId, provider: 'mercadopago' }
- *   → opens MP hosted checkout in SFSafariViewController / Chrome Custom Tab
+ *   → opens MP hosted checkout via openAuth (ASWebAuthenticationSession / Chrome Custom Tab)
  *   → MP redirects to luvo://payment?result=success&external_reference=<paymentId>
+ *   → openAuth returns the redirect URL directly — no Linking.addEventListener needed
  *   → poll GET /payments/:id until status ≠ 'pending' (IPN has already fired on backend)
  */
 
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-import { Linking } from 'react-native';
 import { paymentService } from 'services/api/services/PaymentService';
+import { logger } from 'services/logger';
 import { PaymentContext, PaymentResult, PaymentStrategy } from './PaymentStrategy';
 
+const TAG = 'MercadoPago';
+
 const POLL_INTERVAL_MS = 2_000;
-const POLL_TIMEOUT_MS  = 60_000; // longer than mqtt_relay — IPN adds round-trip latency
-const DEEP_LINK_TIMEOUT_MS = 5 * 60 * 1000; // 5 min — user may take time on checkout page
-
-function waitForDeepLink(paymentId: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      subscription.remove();
-      reject(new Error('mp_deeplink_timeout'));
-    }, DEEP_LINK_TIMEOUT_MS);
-
-    const subscription = Linking.addEventListener('url', ({ url }) => {
-      try {
-        const parsed = new URL(url);
-        if (
-          parsed.protocol === 'luvo:' &&
-          parsed.hostname === 'payment' &&
-          parsed.searchParams.get('external_reference') === paymentId
-        ) {
-          clearTimeout(timeout);
-          subscription.remove();
-          resolve(parsed.searchParams.get('result') ?? 'unknown');
-        }
-      } catch {
-        // ignore malformed URLs
-      }
-    });
-  });
-}
+const POLL_TIMEOUT_MS  = 60_000;
 
 async function pollUntilSettled(paymentId: string): Promise<PaymentResult> {
   const deadline = Date.now() + POLL_TIMEOUT_MS;
@@ -49,14 +25,18 @@ async function pollUntilSettled(paymentId: string): Promise<PaymentResult> {
   while (Date.now() < deadline) {
     await new Promise<void>(resolve => setTimeout(() => resolve(), POLL_INTERVAL_MS));
     const payment = await paymentService.getStatus(paymentId);
+    logger.debug(TAG, 'poll status', { paymentId, status: payment.status });
     if (payment.status === 'executed') {
+      logger.info(TAG, 'payment executed', { paymentId });
       return { success: true, paymentId: payment.paymentId };
     }
     if (payment.status === 'failed' || payment.status === 'cancelled') {
+      logger.warn(TAG, 'payment rejected', { paymentId, status: payment.status });
       return { success: false, paymentId: payment.paymentId, error: 'rejected' };
     }
   }
 
+  logger.warn(TAG, 'poll timed out', { paymentId });
   return { success: false, error: 'timeout' };
 }
 
@@ -67,55 +47,71 @@ export const mercadoPagoStrategy: PaymentStrategy = {
   icon:        'CreditCard',
   isAvailable: true,
 
-  async execute({ machineId, onProgress }: PaymentContext): Promise<PaymentResult> {
+  async execute({ machineId, programId, onProgress }: PaymentContext): Promise<PaymentResult> {
+    logger.info(TAG, 'initiating payment', { machineId });
     onProgress?.('creating_preference');
 
-    const payment = await paymentService.initiate(machineId, 'mercadopago');
+    let payment;
+    try {
+      payment = await paymentService.initiate(machineId, 'mercadopago', programId);
+    } catch (e) {
+      logger.error(TAG, 'failed to create preference', e);
+      return { success: false, error: 'unknown' };
+    }
     const { initPoint } = payment.clientData as { initPoint: string };
+    logger.debug(TAG, 'preference created', { paymentId: payment.paymentId });
 
     const available = await InAppBrowser.isAvailable();
     if (!available) {
+      logger.error(TAG, 'InAppBrowser unavailable');
       return { success: false, error: 'browser_unavailable' };
     }
 
     onProgress?.('opening_checkout');
+    logger.debug(TAG, 'opening checkout browser', { paymentId: payment.paymentId });
 
-    // Register listener BEFORE opening browser to avoid race condition
-    const deepLinkPromise = waitForDeepLink(payment.paymentId);
-
-    await InAppBrowser.open(initPoint, {
+    // openAuth monitors for a redirect to the luvo:// scheme and returns the full URL
+    // as the result — no Linking.addEventListener race conditions.
+    // On iOS this uses ASWebAuthenticationSession; on Android, Chrome Custom Tab.
+    const authResult = await InAppBrowser.openAuth(initPoint, 'luvo://payment', {
       // iOS
       dismissButtonStyle:        'cancel',
       preferredBarTintColor:     '#6B46C1',
       preferredControlTintColor: '#FFFFFF',
       animated:                  true,
-      enableBarCollapsing:       false,
+      ephemeralWebSession:       false,
       // Android
       showTitle:                  true,
       toolbarColor:               '#6B46C1',
       enableUrlBarHiding:         true,
       enableDefaultShare:         false,
-      forceCloseOnRedirection:    true,
     });
 
-    let result: string;
-    try {
-      result = await deepLinkPromise;
-    } catch (e: unknown) {
-      // The reject path in waitForDeepLink always rejects with 'mp_deeplink_timeout' as the message.
-      // Any other unexpected throw maps to 'unknown'.
-      const code = e instanceof Error && e.message === 'mp_deeplink_timeout'
-        ? 'mp_deeplink_timeout' as const
-        : 'unknown' as const;
-      return { success: false, error: code };
+    logger.debug(TAG, 'auth result', { type: authResult.type, paymentId: payment.paymentId });
+
+    if (authResult.type !== 'success') {
+      logger.info(TAG, 'browser closed by user without completing payment', { paymentId: payment.paymentId });
+      return { success: false, error: 'cancelled_by_user' };
     }
 
+    const qs = authResult.url.includes('?') ? authResult.url.split('?')[1] : '';
+    const params = new URLSearchParams(qs);
+    const result = params.get('result') ?? 'unknown';
+
+    logger.debug(TAG, 'redirect received', {
+      paymentId: payment.paymentId,
+      result,
+      external_reference: params.get('external_reference'),
+    });
+
     if (result === 'failure' || result === 'cancelled' || result === 'unknown') {
+      logger.warn(TAG, 'checkout cancelled or rejected', { paymentId: payment.paymentId, result });
       return { success: false, error: 'cancelled_or_rejected' };
     }
 
     // result === 'success' or 'pending' — wait for backend IPN to confirm
     onProgress?.('verifying_payment');
+    logger.debug(TAG, 'verifying payment via poll', { paymentId: payment.paymentId });
     return pollUntilSettled(payment.paymentId);
   },
 };

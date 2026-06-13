@@ -4,7 +4,8 @@ import type { PaymentErrorCode, PaymentProgressCode } from './paymentCodes';
 type IconName = SvgIconProps['name'];
 
 export interface PaymentContext {
-  machineId: number;
+  machineId:  number;
+  programId?: number | null;
   onProgress?: (code: PaymentProgressCode) => void;
 }
 

@@ -61,8 +61,6 @@ export const usePaymentTheme = () => {
       paddingHorizontal: theme.spacing['spacing-xl'],
     },
     actionButton: {
-      // marginTop intentional: asymmetric spacing before the primary action,
-      // larger than the container gap to visually separate it from status text.
       marginTop: theme.spacing['spacing-lg'],
       width: '100%',
     },

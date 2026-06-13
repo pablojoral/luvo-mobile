@@ -16,15 +16,15 @@ export const PAYMENT_PROGRESS_CODES = {
 export type PaymentProgressCode = keyof typeof PAYMENT_PROGRESS_CODES;
 
 export const PAYMENT_ERROR_CODES = {
-  relay_busy:             'relay_busy',
-  payment_failed:         'payment_failed',
-  timeout:                'timeout',
-  rejected:               'rejected',
-  cancelled_or_rejected:  'cancelled_or_rejected',
-  browser_unavailable:    'browser_unavailable',
-  mp_deeplink_timeout:    'mp_deeplink_timeout',
-  stripe_not_configured:  'stripe_not_configured',
-  unknown:                'unknown',
+  relay_busy:            'relay_busy',
+  payment_failed:        'payment_failed',
+  timeout:               'timeout',
+  rejected:              'rejected',
+  cancelled_or_rejected: 'cancelled_or_rejected',
+  cancelled_by_user:     'cancelled_by_user',
+  browser_unavailable:   'browser_unavailable',
+  mp_deeplink_timeout:   'mp_deeplink_timeout',
+  unknown:               'unknown',
 } as const satisfies Record<string, string>;
 
 export type PaymentErrorCode = keyof typeof PAYMENT_ERROR_CODES;
@@ -51,8 +51,8 @@ export const PAYMENT_ERROR_KEYS: Record<PaymentErrorCode, string> = {
   timeout:               'payment.errors.timeout',
   rejected:              'payment.errors.rejected',
   cancelled_or_rejected: 'payment.errors.cancelled_or_rejected',
+  cancelled_by_user:     'payment.errors.cancelled_by_user',
   browser_unavailable:   'payment.errors.browser_unavailable',
   mp_deeplink_timeout:   'payment.errors.mp_deeplink_timeout',
-  stripe_not_configured: 'payment.errors.stripe_not_configured',
   unknown:               'payment.errors.unknown',
 };

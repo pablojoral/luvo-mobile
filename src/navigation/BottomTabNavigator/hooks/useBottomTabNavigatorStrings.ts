@@ -6,7 +6,8 @@ export const useBottomTabNavigatorStrings = () => {
   return {
     tabTitles: {
       laundry: t('tabs.laundry'),
-      myLaundries: t('tabs.myLaundries'),
+      history: t('tabs.history'),
+      scan:    t('tabs.scan'),
       profile: t('tabs.profile'),
     },
   };

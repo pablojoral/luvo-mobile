@@ -8,8 +8,6 @@ export const usePaymentMethodCardStrings = () => {
     mercadopagoDescription: t('payment.strategies.mercadopago.description'),
     mqttRelayLabel: t('payment.strategies.mqtt_relay.label'),
     mqttRelayDescription: t('payment.strategies.mqtt_relay.description'),
-    stripeLabel: t('payment.strategies.stripe.label'),
-    stripeDescription: t('payment.strategies.stripe.description'),
     comingSoon: t('payment.comingSoon'),
   };
 };

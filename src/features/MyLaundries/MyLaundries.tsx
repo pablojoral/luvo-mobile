@@ -15,6 +15,7 @@ export const MyLaundries = () => {
     isError,
     isManualRefreshing,
     handleRefresh,
+    handleGoBack,
     renderItem,
     keyExtractor,
     title,
@@ -27,7 +28,7 @@ export const MyLaundries = () => {
 
   return (
     <View style={styles.container}>
-      <SafeScreenHeader title={title} hideBack={true} />
+      <SafeScreenHeader title={title} onBack={handleGoBack} />
 
       <View style={styles.body}>
         {!firebaseUser ? (

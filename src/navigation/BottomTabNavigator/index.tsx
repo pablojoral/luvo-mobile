@@ -1,5 +1,6 @@
 import { Laundries } from 'features/Laundries/Laundries';
-import { MyLaundries } from 'features/MyLaundries/MyLaundries';
+import { History } from 'features/History/History';
+import { QRScanScreen } from 'features/QRScanner/QRScanScreen';
 import { Profile } from 'features/Profile/Profile';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,9 +8,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useBottomTabNavigator } from './hooks/useBottomTabNavigator';
 
 type TabParamList = {
-  Laundry: undefined;
-  MyLaundries: undefined;
-  Profile: undefined;
+  Laundry:  undefined;
+  History:  undefined;
+  QRScan:   undefined;
+  Profile:  undefined;
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -38,15 +40,20 @@ export const BottomTabNavigator = () => {
         options={{ title: tabTitles.laundry, tabBarButtonTestID: 'tab-laundry' }}
       />
       <Tab.Screen
-        name="MyLaundries"
-        component={MyLaundries}
-        options={{ title: tabTitles.myLaundries, tabBarButtonTestID: 'tab-my-laundries' }}
+        name="History"
+        component={History}
+        options={{ title: tabTitles.history, tabBarButtonTestID: 'tab-history' }}
         listeners={({ navigation }) => ({
           tabPress: (e) => {
             e.preventDefault();
-            requireAuth(() => navigation.navigate('MyLaundries'))();
+            requireAuth(() => navigation.navigate('History'))();
           },
         })}
+      />
+      <Tab.Screen
+        name="QRScan"
+        component={QRScanScreen}
+        options={{ title: tabTitles.scan, tabBarButtonTestID: 'tab-qrscan' }}
       />
       <Tab.Screen
         name="Profile"

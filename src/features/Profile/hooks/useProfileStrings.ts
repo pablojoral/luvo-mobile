@@ -5,7 +5,7 @@ export const useProfileStrings = () => {
   return {
     title:               t('tabs.profile'),
     accountLabel:        t('profile.menu.account'),
-    historyLabel:        t('profile.menu.history'),
+    myLaundriesLabel:    t('profile.menu.myLaundries'),
     settingsLabel:       t('profile.menu.settings'),
     infoLabel:           t('profile.menu.info'),
     reportLabel:         t('profile.menu.report'),

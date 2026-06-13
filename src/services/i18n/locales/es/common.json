@@ -76,12 +76,12 @@
     },
     "menu": {
       "account": "Cuenta",
-      "history": "Historial",
       "settings": "Configuración",
       "info": "Información",
       "report": "Reportar",
       "signOut": "Cerrar Sesión",
-      "signingOut": "Cerrando sesión..."
+      "signingOut": "Cerrando sesión...",
+      "myLaundries": "Mis lavanderías"
     }
   },
   "account": {
@@ -183,6 +183,7 @@
       "cyclesCompleted": "{{count}} ciclos completados"
     },
     "empty": "No tenés ciclos registrados aún.",
+    "endOfList": "No hay más actividad",
     "cycleCard": {
       "sharedBilling": "Facturación compartida"
     }
@@ -218,7 +219,7 @@
       "cancelled_or_rejected": "El pago fue cancelado o rechazado.",
       "browser_unavailable": "No se puede abrir el navegador en este dispositivo.",
       "mp_deeplink_timeout": "Tiempo de espera agotado esperando respuesta de MercadoPago.",
-      "stripe_not_configured": "Los pagos con tarjeta no están disponibles aún.",
+      "cancelled_by_user": "Pago cancelado",
       "unknown": "Algo salió mal. Intenta nuevamente."
     },
     "comingSoon": "Próximamente",
@@ -230,11 +231,11 @@
       "mqtt_relay": {
         "label": "Pago Directo",
         "description": "La máquina se activa inmediatamente después de la confirmación."
-      },
-      "stripe": {
-        "label": "Tarjeta de crédito",
-        "description": "Pagá con Visa, Mastercard u otras tarjetas."
       }
+    },
+    "programPicker": "Programa",
+    "program": {
+      "coins": "{{count}} monedas"
     }
   },
   "report": {
@@ -359,8 +360,9 @@
   },
   "tabs": {
     "laundry": "Locales",
-    "myLaundries": "Mis lavanderías",
-    "profile": "Perfil"
+    "profile": "Perfil",
+    "history": "Historial",
+    "scan": "Escanear"
   },
   "laundryRegistration": {
     "title": "Agregar lavandería",

@@ -19,6 +19,8 @@ export const useMyLaundriesScreen = () => {
 
   const laundries = data?.laundries ?? [];
 
+  const handleGoBack = useCallback(() => navigation.goBack(), [navigation]);
+
   const handlePress = useCallback(
     (laundry: MyLaundry) => {
       navigation.navigate('LaundryDetails', { laundryId: laundry.id });
@@ -66,6 +68,7 @@ export const useMyLaundriesScreen = () => {
     isError,
     isManualRefreshing,
     handleRefresh,
+    handleGoBack,
     renderItem,
     keyExtractor,
     title,

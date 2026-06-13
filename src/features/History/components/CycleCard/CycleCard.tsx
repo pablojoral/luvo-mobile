@@ -10,7 +10,7 @@ interface CycleCardProps {
 }
 
 export const CycleCard = ({ item }: CycleCardProps) => {
-  const { icon, formattedAmount, subtitle, machineName, machineType } = useCycleCard({ item });
+  const { icon, formattedAmount, subtitle, machineLabel, machineType } = useCycleCard({ item });
   const { styles, iconBoxStyle } = useCycleCardTheme(machineType);
 
   return (
@@ -20,7 +20,7 @@ export const CycleCard = ({ item }: CycleCardProps) => {
       </View>
 
       <View style={styles.info}>
-        <Text fontSize="font-size-md" fontWeight="semibold">{machineName}</Text>
+        <Text fontSize="font-size-md" fontWeight="semibold">{machineLabel}</Text>
         <Text fontSize="font-size-xs" color="font-placeholder">{subtitle}</Text>
       </View>
 
