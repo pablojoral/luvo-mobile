@@ -6,11 +6,12 @@ import { useBottomTabNavigatorStrings } from './useBottomTabNavigatorStrings';
 
 type IconName = SvgIconProps['name'];
 
-type TabRouteName = 'Laundry' | 'MyLaundries' | 'Profile';
+type TabRouteName = 'Laundry' | 'History' | 'QRScan' | 'Profile';
 
 const iconMap: Record<TabRouteName, IconName> = {
   Laundry: 'MapPin',
-  MyLaundries: 'Star',
+  History: 'Clock',
+  QRScan:  'QrCode',
   Profile: 'Profile',
 };
 

@@ -27,7 +27,7 @@ export const LaundryMapCard = ({ laundry, onPress }: LaundryMapCardProps) => {
           </Tag>
           {showFavorite && (
             <IconButton
-              iconName="Star"
+              iconName={myLaundriesButton.iconName}
               iconSize="icon-size-lg"
               iconColor={myLaundriesButton.color}
               onPress={myLaundriesButton.onPress}
