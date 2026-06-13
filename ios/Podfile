@@ -21,6 +21,8 @@ $RNFirebaseAsStaticFramework = true
 target 'luvomobile' do
   config = use_native_modules!
 
+  pod 'nanopb', :modular_headers => true
+
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
@@ -33,10 +35,11 @@ target 'luvomobile' do
 
     firebase_static = %w[
       FirebaseCore FirebaseCoreInternal FirebaseInstallations
-      GoogleUtilities GoogleAppMeasurement
-      FirebaseAnalytics FirebaseCrashlytics FirebaseMessaging 
+      GoogleUtilities GoogleAppMeasurement GoogleDataTransport
+      FirebaseAnalytics FirebaseCrashlytics FirebaseMessaging
       FirebaseAuth FirebaseAppCheck FirebaseCoreExtension
       FirebaseAuthInterop RecaptchaInterop FirebaseAppCheckInterop
+      nanopb
     ]
       
     installer.pod_targets.each do |pod|

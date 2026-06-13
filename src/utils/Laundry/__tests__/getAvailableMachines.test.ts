@@ -4,7 +4,7 @@ import { Laundry, Machine } from 'models/models';
 const makeMachine = (id: number, overrides: Partial<Machine> = {}): Machine => ({
   id,
   laundryId: 1,
-  name: `Machine ${id}`,
+  number: id,
   type: 'washing_machine',
   status: 'available',
   modelNumber: null,

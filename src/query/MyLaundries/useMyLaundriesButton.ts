@@ -30,7 +30,8 @@ export function useMyLaundriesButton(laundryId: number) {
     isSaved,
     isPending,
     disabled: isPrivate,
-    color: isSaved ? 'font-highlight' : 'font-light',
+    color:    isSaved ? 'font-highlight' : 'font-light',
+    iconName: isSaved ? 'HeartFilled'   : 'Heart',
     isAuthenticated,
   } as const;
 }

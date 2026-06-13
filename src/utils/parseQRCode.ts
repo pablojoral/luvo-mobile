@@ -6,6 +6,7 @@ export type QRCodeResult =
   | { type: 'unknown' };
 
 const SCHEME = 'luvo://';
+const WEB_PREFIX = 'https://luvolaundries.com/';
 
 /**
  * Extracts { host, path, query } from a luvo:// URL using plain string ops.
@@ -52,20 +53,27 @@ const getQueryParam = (query: string, key: string): string | null => {
 /**
  * Parses a raw QR code string into a typed result.
  *
- * Known luvo:// URL patterns:
+ * Known URL patterns (luvo:// scheme or https://luvolaundries.com web links):
  *   luvo://register-access?code=:code   → access_code
  *   luvo://laundry/:laundryId           → laundry
  *   luvo://machine/:machineId           → machine
+ *   https://luvolaundries.com/laundry/:laundryId → laundry
+ *   https://luvolaundries.com/machine/:machineId → machine
  *   luvo://<anything else>              → other_deeplink
- *   <non-luvo string>                   → unknown
+ *   <anything else>                     → unknown
  */
 export const parseQRCode = (raw: string): QRCodeResult => {
-  if (!raw.startsWith(SCHEME)) {
+  // Normalize Universal/App Links to the luvo:// form so both parse identically
+  const normalized = raw.startsWith(WEB_PREFIX)
+    ? SCHEME + raw.slice(WEB_PREFIX.length)
+    : raw;
+
+  if (!normalized.startsWith(SCHEME)) {
     const result: QRCodeResult = { type: 'unknown' };
     return result;
   }
 
-  const { host, path, query } = parseLuvoURL(raw);
+  const { host, path, query } = parseLuvoURL(normalized);
 
   // 'register' kept for backward compatibility with QR codes generated before the rename
   if (host === 'register-access' || host === 'register') {

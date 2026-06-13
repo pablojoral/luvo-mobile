@@ -2,13 +2,11 @@ import { LaundryMapMarker } from '@luvo/ui';
 import React from 'react';
 import { View } from 'react-native';
 import Config from 'react-native-config';
-import Animated from 'react-native-reanimated';
 
-import { Camera, MapView, setAccessToken } from '@rnmapbox/maps';
+import { Camera, MapView, UserLocation, setAccessToken } from '@rnmapbox/maps';
 
 import { WsStatusIndicator } from '../../components/WsStatusIndicator/WsStatusIndicator';
 import { LaundryCard } from './components/LaundryCard/LaundryCard';
-import { ScanFab } from './components/ScanFab/ScanFab';
 import { useLaundriesScreen } from './hooks/useLaundriesScreen';
 import { useLaundriesTheme } from './theme/useLaundriesTheme';
 
@@ -23,9 +21,7 @@ export const Laundries = () => {
     cardKey,
     setSelectedLaundryId,
     clearSelectedLaundry,
-    fabAnimatedStyle,
-    handleScan,
-    handleCardLayout,
+    locationGranted,
   } = useLaundriesScreen();
 
   return (
@@ -37,6 +33,7 @@ export const Laundries = () => {
           styleURL="mapbox://styles/joralpablo/cmhmbja3z00ah01sh2suuflc2"
         >
           <Camera zoomLevel={12} centerCoordinate={[-56.1645, -34.9011]} />
+          <UserLocation visible={locationGranted} animated />
           {laundries.map((laundry, index) => (
             <LaundryMapMarker
               laundry={laundry}
@@ -52,11 +49,7 @@ export const Laundries = () => {
         <WsStatusIndicator state={connectionState} />
       </View>
 
-      <Animated.View style={[styles.scanFab, fabAnimatedStyle]}>
-        <ScanFab onPress={handleScan} />
-      </Animated.View>
-
-      {showCard && cardKey !== null && <LaundryCard key={cardKey} laundryId={cardKey} onLayout={handleCardLayout} />}
+      {showCard && cardKey !== null && <LaundryCard key={cardKey} laundryId={cardKey} />}
     </View>
   );
 };

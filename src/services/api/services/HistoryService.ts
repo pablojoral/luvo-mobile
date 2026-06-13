@@ -2,7 +2,7 @@ import { BaseService } from '../BaseService';
 
 export interface HistoryItem {
   id: string;
-  machineName: string;
+  machineNumber: number;
   machineType: 'washing_machine' | 'dryer';
   laundryName: string;
   amount: number | null;

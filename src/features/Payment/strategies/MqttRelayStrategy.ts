@@ -41,9 +41,9 @@ export const mqttRelayStrategy: PaymentStrategy = {
   icon:        'CreditCard',
   isAvailable: true,
 
-  async execute({ machineId, onProgress }: PaymentContext): Promise<PaymentResult> {
+  async execute({ machineId, programId, onProgress }: PaymentContext): Promise<PaymentResult> {
     onProgress?.('sending_command');
-    const payment = await paymentService.initiate(machineId, 'mqtt_relay');
+    const payment = await paymentService.initiate(machineId, 'mqtt_relay', programId);
 
     onProgress?.('awaiting_controller');
     return pollUntilSettled(payment.paymentId);

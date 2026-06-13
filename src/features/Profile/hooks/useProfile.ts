@@ -13,11 +13,11 @@ export const useProfile = () => {
   const handleReport = () => rootNavigation.navigate('Report');
 
   const profileItems: SettingsMenuItemData[] = [
-    { label: strings.accountLabel,  iconName: 'User',          onPress: () => rootNavigation.navigate('Account') },
-    { label: strings.historyLabel,  iconName: 'Clock',         onPress: () => rootNavigation.navigate('History') },
-    { label: strings.settingsLabel, iconName: 'Settings',      onPress: () => rootNavigation.navigate('Settings') },
-    { label: strings.infoLabel,     iconName: 'Info',          onPress: handleInfo },
-    { label: strings.reportLabel,   iconName: 'AlertTriangle', onPress: handleReport },
+    { label: strings.accountLabel,     iconName: 'User',          onPress: () => rootNavigation.navigate('Account') },
+    { label: strings.myLaundriesLabel, iconName: 'Heart',         onPress: () => rootNavigation.navigate('MyLaundries') },
+    { label: strings.settingsLabel,    iconName: 'Settings',      onPress: () => rootNavigation.navigate('Settings') },
+    { label: strings.infoLabel,        iconName: 'Info',          onPress: handleInfo },
+    { label: strings.reportLabel,      iconName: 'AlertTriangle', onPress: handleReport },
   ];
 
   return {

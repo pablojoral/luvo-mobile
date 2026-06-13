@@ -10,7 +10,7 @@ export const MyLaundryEmptyList = () => {
 
   return (
     <View style={styles.container}>
-      <SvgIcon name={'Star'} size="icon-size-xxxl" />
+      <SvgIcon name={'Heart'} size="icon-size-xxxl" />
       <Text fontSize="font-size-lg" fontWeight="semibold">
         {title}
       </Text>

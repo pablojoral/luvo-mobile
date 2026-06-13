@@ -27,7 +27,7 @@ jest.mock('@luvo/ui', () => {
     // Renders machine name as testable text
     MachineCard: ({ machine }: { machine: Machine }) => {
       const { Text } = require('react-native');
-      return R.createElement(Text, { testID: `machine-${machine.id}` }, machine.name);
+      return R.createElement(Text, { testID: `machine-${machine.id}` }, machine.number);
     },
     // Renders pill buttons that call onChange
     PillSelector: ({
@@ -65,7 +65,7 @@ jest.mock('@luvo/ui', () => {
 const makeMachine = (id: number, type: Machine['type'], status: Machine['status'] = 'available'): Machine => ({
   id,
   laundryId: 1,
-  name: `Machine ${id}`,
+  number: id,
   type,
   status,
   modelNumber: null,

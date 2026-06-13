@@ -7,7 +7,10 @@ import { RootStackNavigator, RootStackParamList } from './RootStackNavigator';
 import { navigationRef } from './navigationRef';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: ['luvo://'],
+  // luvo:// = custom scheme (QR scans in-app, MP redirects).
+  // https://luvolaundries.com = Universal Links (iOS) / App Links (Android) —
+  // verified against /.well-known/ files served by luvo-server.
+  prefixes: ['luvo://', 'https://luvolaundries.com'],
   config: {
     screens: {
       Tabs: '',

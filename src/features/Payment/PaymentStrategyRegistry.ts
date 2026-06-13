@@ -7,15 +7,11 @@
  *   3. It will automatically appear in the payment method picker
  */
 
-import { PaymentStrategy }        from './strategies/PaymentStrategy';
-import { mqttRelayStrategy }      from './strategies/MqttRelayStrategy';
-import { mercadoPagoStrategy }    from './strategies/MercadoPagoStrategy';
-import { stripeStrategy }         from './strategies/StripeStrategy';
+import { PaymentStrategy }     from './strategies/PaymentStrategy';
+import { mercadoPagoStrategy } from './strategies/MercadoPagoStrategy';
 
 const registry: PaymentStrategy[] = [
   mercadoPagoStrategy,
-  mqttRelayStrategy,
-  stripeStrategy,
 ];
 
 export function getAllStrategies(): PaymentStrategy[] {

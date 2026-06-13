@@ -15,6 +15,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { RootStackParamList } from 'navigation/RootStackNavigator';
 import { PaymentMethodCard } from './components/PaymentMethodCard/PaymentMethodCard';
+import { ProgramCard } from './components/ProgramCard/ProgramCard';
 import { usePaymentTheme } from './theme/usePaymentTheme';
 import { usePaymentScreen } from './hooks/usePaymentScreen';
 import { ScreenHeader } from '@luvo/ui';
@@ -31,6 +32,10 @@ export const Payment = ({ route, navigation }: Props) => {
     strategies,
     selectedStrategy,
     setSelectedStrategy,
+    selectedProgram,
+    setSelectedProgram,
+    programs,
+    coinCosts,
     paymentState,
     execute,
     reset,
@@ -38,6 +43,7 @@ export const Payment = ({ route, navigation }: Props) => {
     isSuccess,
     isError,
     availabilityStatus,
+    machineLabel,
     strings,
   } = usePaymentScreen({ machineId });
 
@@ -58,7 +64,7 @@ export const Payment = ({ route, navigation }: Props) => {
               />
               <View style={styles.machineInfo}>
                 <Text fontSize={'font-size-lg'} fontWeight={'semibold'}>
-                  {machine.name}
+                  {machineLabel}
                 </Text>
                 {laundry ? (
                   <Text fontSize={'font-size-sm'} color={'font-light'}>
@@ -74,6 +80,20 @@ export const Payment = ({ route, navigation }: Props) => {
         {/* ── Idle / method picker ───────────────────────────────────────── */}
         {paymentState === 'idle' && (
           <Animated.View style={styles.idleContent} entering={FadeIn} exiting={FadeOut}>
+            <Text fontSize={'font-size-md'} fontWeight={'semibold'}>
+              {strings.programPicker}
+            </Text>
+
+            {programs.map(program => (
+              <ProgramCard
+                key={program.id}
+                program={program}
+                coinCosts={coinCosts}
+                selected={selectedProgram?.id === program.id}
+                onSelect={() => setSelectedProgram(program)}
+              />
+            ))}
+
             <Text fontSize={'font-size-md'} fontWeight={'semibold'}>
               {strings.methodPicker}
             </Text>
@@ -91,9 +111,11 @@ export const Payment = ({ route, navigation }: Props) => {
               <Button
                 label={strings.confirm}
                 variant="primary"
-                size="xl"
+                size="md"
+                iconName="CreditCard"
+                alignLeft
                 fullWidth
-                disabled={!selectedStrategy.isAvailable}
+                disabled={!selectedProgram || !selectedStrategy.isAvailable}
                 onPress={execute}
               />
             </View>
@@ -125,7 +147,7 @@ export const Payment = ({ route, navigation }: Props) => {
             <Button
               label={strings.done}
               variant="primary"
-              size="xl"
+              size="md"
               fullWidth
               style={styles.actionButton}
               onPress={() => navigation.goBack()}
@@ -148,12 +170,12 @@ export const Payment = ({ route, navigation }: Props) => {
             <Button
               label={strings.retry}
               variant="primary"
-              size="xl"
+              size="md"
               fullWidth
               style={styles.actionButton}
               onPress={reset}
             />
-            <Button label={strings.cancel} variant="tertiary" size="md" fullWidth onPress={() => navigation.goBack()} />
+            <Button label={strings.cancel} variant="link" size="md" fullWidth onPress={() => navigation.goBack()} />
           </Animated.View>
         )}
       </ScrollView>

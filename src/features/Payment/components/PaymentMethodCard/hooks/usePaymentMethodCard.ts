@@ -18,9 +18,6 @@ export function usePaymentMethodCard({ strategy }: UsePaymentMethodCardParams) {
   } else if (strategy.id === 'mqtt_relay') {
     label = strings.mqttRelayLabel;
     localizedDescription = strings.mqttRelayDescription;
-  } else if (strategy.id === 'stripe') {
-    label = strings.stripeLabel;
-    localizedDescription = strings.stripeDescription;
   } else {
     label = strategy.label;
     localizedDescription = strategy.description;

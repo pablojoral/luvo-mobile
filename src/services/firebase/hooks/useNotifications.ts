@@ -34,9 +34,6 @@ function navigateFromNotification(data: Record<string, string> | undefined) {
         navigationRef.navigate('LaundryDetails', { laundryId: Number(data.laundryId) });
       }
       break;
-    case 'History':
-      navigationRef.navigate('History');
-      break;
   }
 }
 

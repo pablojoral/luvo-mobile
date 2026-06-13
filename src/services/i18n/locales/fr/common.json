@@ -76,12 +76,12 @@
     },
     "menu": {
       "account": "Compte",
-      "history": "Historique",
       "settings": "Paramètres",
       "info": "Informations",
       "report": "Signaler",
       "signOut": "Se déconnecter",
-      "signingOut": "Déconnexion…"
+      "signingOut": "Déconnexion…",
+      "myLaundries": "Mes laveries"
     }
   },
   "account": {
@@ -183,6 +183,7 @@
       "cyclesCompleted": "{{count}} cycles terminés"
     },
     "empty": "Vous n'avez aucun cycle enregistré pour l'instant.",
+    "endOfList": "Plus d'activité",
     "cycleCard": {
       "sharedBilling": "Facturation partagée"
     }
@@ -218,8 +219,8 @@
       "cancelled_or_rejected": "Le paiement a été annulé ou refusé.",
       "browser_unavailable": "Impossible d'ouvrir le navigateur sur cet appareil.",
       "mp_deeplink_timeout": "Délai expiré en attente de la réponse de MercadoPago.",
-      "stripe_not_configured": "Les paiements par carte ne sont pas encore disponibles.",
-      "unknown": "Quelque chose s'est mal passé. Veuillez réessayer."
+      "unknown": "Quelque chose s'est mal passé. Veuillez réessayer.",
+      "cancelled_by_user": "Paiement annulé"
     },
     "comingSoon": "Bientôt disponible",
     "strategies": {
@@ -230,11 +231,11 @@
       "mqtt_relay": {
         "label": "Paiement direct",
         "description": "La machine s'active immédiatement après la confirmation."
-      },
-      "stripe": {
-        "label": "Carte de crédit",
-        "description": "Payez avec Visa, Mastercard ou Amex."
       }
+    },
+    "programPicker": "Programme",
+    "program": {
+      "coins": "{{count}} pièces"
     }
   },
   "report": {
@@ -359,8 +360,9 @@
   },
   "tabs": {
     "laundry": "Laveries",
-    "myLaundries": "Mes laveries",
-    "profile": "Profil"
+    "profile": "Profil",
+    "history": "Historique",
+    "scan": "Scanner"
   },
   "laundryRegistration": {
     "title": "Ajouter une laverie",

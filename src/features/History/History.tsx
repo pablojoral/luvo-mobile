@@ -3,6 +3,7 @@ import { SectionList, RefreshControl, View } from 'react-native';
 import type { HistoryItem } from 'services/api/services/HistoryService';
 
 import { HistoryEmptyState } from './components/HistoryEmptyState/HistoryEmptyState';
+import { HistoryListFooter } from './components/HistoryListFooter/HistoryListFooter';
 import { StatsHeader } from './components/StatsHeader/StatsHeader';
 import { useHistoryScreen } from './hooks/useHistoryScreen';
 import { useHistoryTheme } from './theme/useHistoryTheme';
@@ -16,7 +17,8 @@ export const History = () => {
     isRefetching,
     refetch,
     isFetchingNextPage,
-    handleGoBack,
+    hasNextPage,
+    hasItems,
     handleEndReached,
     renderItem,
     renderSectionHeader,
@@ -25,7 +27,7 @@ export const History = () => {
 
   return (
     <View style={styles.container}>
-      <SafeScreenHeader title={title} onBack={handleGoBack} />
+      <SafeScreenHeader title={title} hideBack />
 
       <View style={styles.body}>
         {isLoading ? (
@@ -40,7 +42,13 @@ export const History = () => {
             renderSectionHeader={renderSectionHeader}
             ListHeaderComponent={StatsHeader}
             ListEmptyComponent={HistoryEmptyState}
-            ListFooterComponent={isFetchingNextPage ? <ActivityIndicator size="small" /> : null}
+            ListFooterComponent={
+              isFetchingNextPage
+                ? <ActivityIndicator size="small" />
+                : hasItems && !hasNextPage
+                ? <HistoryListFooter />
+                : null
+            }
             onEndReached={handleEndReached}
             onEndReachedThreshold={0.3}
             refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={refetch} />}

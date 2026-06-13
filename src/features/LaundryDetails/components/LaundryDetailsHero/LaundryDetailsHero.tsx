@@ -16,7 +16,7 @@ export const LaundryDetailsHero = () => {
       <IconButton iconName="ChevronLeft" style={styles.backButton} onPress={handleGoBack} />
       {showFavorite && (
         <IconButton
-          iconName="Star"
+          iconName={myLaundriesButton.iconName}
           iconColor={myLaundriesButton.color}
           style={styles.starButton}
           onPress={myLaundriesButton.onPress}
