@@ -20,12 +20,6 @@ export const useHistoryTheme = () => {
       paddingTop: theme.spacing['spacing-lg'],
       paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
     },
-    loadingContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingBottom: theme.navBarHeight + theme.spacing['spacing-xl'],
-    },
   });
 
   return { styles, theme };

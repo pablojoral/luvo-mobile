@@ -46,13 +46,6 @@ export const useQRScannerContent = () => {
     [onScan, close, addMessage, strings],
   );
 
-  const handleManualCode = useCallback(
-    (code: string) => {
-      onScan?.(`luvo://register-access?code=${code}`);
-    },
-    [onScan],
-  );
-
   const { hasPermission, codeScanner } = useCameraScanner(handleCodeScanned);
 
   const modeOptions: SelectorOption[] = strings.showCodeTab
@@ -78,7 +71,6 @@ export const useQRScannerContent = () => {
     mode,
     scanned,
     handleModeChange,
-    handleManualCode,
     modeOptions,
     strings,
   };

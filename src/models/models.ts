@@ -131,6 +131,7 @@ export interface CreateReport {
 export interface Program {
   id:              number;
   name:            string;
+  nameKey:         string | null;
   coins:           number;
   durationSeconds: number;
 }

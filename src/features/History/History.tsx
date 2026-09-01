@@ -1,10 +1,11 @@
-import { ActivityIndicator, Loader, SafeScreenHeader } from '@luvo/ui';
+import { ActivityIndicator, SafeScreenHeader } from '@luvo/ui';
 import { SectionList, RefreshControl, View } from 'react-native';
 import type { HistoryItem } from 'services/api/services/HistoryService';
 
 import { HistoryEmptyState } from './components/HistoryEmptyState/HistoryEmptyState';
 import { HistoryListFooter } from './components/HistoryListFooter/HistoryListFooter';
-import { StatsHeader } from './components/StatsHeader/StatsHeader';
+import { HistorySkeleton } from './components/HistorySkeleton/HistorySkeleton';
+// import { StatsHeader } from './components/StatsHeader/StatsHeader';
 import { useHistoryScreen } from './hooks/useHistoryScreen';
 import { useHistoryTheme } from './theme/useHistoryTheme';
 
@@ -31,23 +32,21 @@ export const History = () => {
 
       <View style={styles.body}>
         {isLoading ? (
-          <View style={styles.loadingContainer}>
-            <Loader />
-          </View>
+          <HistorySkeleton />
         ) : (
           <SectionList<HistoryItem, { title: string }>
             sections={sections}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
             renderSectionHeader={renderSectionHeader}
-            ListHeaderComponent={StatsHeader}
+            // ListHeaderComponent={StatsHeader}
             ListEmptyComponent={HistoryEmptyState}
             ListFooterComponent={
-              isFetchingNextPage
-                ? <ActivityIndicator size="small" />
-                : hasItems && !hasNextPage
-                ? <HistoryListFooter />
-                : null
+              isFetchingNextPage ? (
+                <ActivityIndicator size="small" />
+              ) : hasItems && !hasNextPage ? (
+                <HistoryListFooter />
+              ) : null
             }
             onEndReached={handleEndReached}
             onEndReachedThreshold={0.3}

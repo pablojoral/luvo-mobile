@@ -194,8 +194,8 @@
     "confirm": "Confirmer le paiement",
     "processing": "Traitement du paiement…",
     "success": {
-      "title": "Machine activée !",
-      "subtitle": "La machine démarrera sous peu.",
+      "title": "Paiement confirmé !",
+      "subtitle": "Appuyez sur le bouton de démarrage de la machine pour commencer votre lavage.",
       "done": "Terminé"
     },
     "error": {
@@ -438,5 +438,10 @@
       "Pliage du linge",
       "Mise en marche"
     ]
+  },
+  "programs": {
+    "long": "Long",
+    "medium": "Moyen",
+    "short": "Court"
   }
 }

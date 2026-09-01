@@ -8,17 +8,17 @@
  *   error   → error message + retry button
  */
 
-import { AvailabilityTag, Button, Loader, SvgIcon, Text } from '@luvo/ui';
+import { ScreenHeader } from '@luvo/ui';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, View } from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { RootStackParamList } from 'navigation/RootStackNavigator';
-import { PaymentMethodCard } from './components/PaymentMethodCard/PaymentMethodCard';
-import { ProgramCard } from './components/ProgramCard/ProgramCard';
+import { PaymentMachineCard } from './components/PaymentMachineCard/PaymentMachineCard';
+import { PaymentMethodPicker } from './components/PaymentMethodPicker/PaymentMethodPicker';
+import { PaymentLoadingState } from './components/PaymentLoadingState/PaymentLoadingState';
+import { PaymentResultState } from './components/PaymentResultState/PaymentResultState';
 import { usePaymentTheme } from './theme/usePaymentTheme';
 import { usePaymentScreen } from './hooks/usePaymentScreen';
-import { ScreenHeader } from '@luvo/ui';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Payment'>;
 
@@ -33,9 +33,9 @@ export const Payment = ({ route, navigation }: Props) => {
     selectedStrategy,
     setSelectedStrategy,
     selectedProgram,
-    setSelectedProgram,
-    programs,
-    coinCosts,
+    programOptions,
+    selectedProgramId,
+    selectProgramById,
     paymentState,
     execute,
     reset,
@@ -49,134 +49,57 @@ export const Payment = ({ route, navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <ScreenHeader title={strings.title} onBack={() => navigation.goBack()} />
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Machine info card */}
         {machine ? (
-          <View style={styles.machineCard}>
-            <View style={styles.machineRow}>
-              <SvgIcon
-                name={machine.type === 'dryer' ? 'Droplet' : 'Wind'}
-                size={'icon-size-xxxl'}
-                color={'font-highlight'}
-              />
-              <View style={styles.machineInfo}>
-                <Text fontSize={'font-size-lg'} fontWeight={'semibold'}>
-                  {machineLabel}
-                </Text>
-                {laundry ? (
-                  <Text fontSize={'font-size-sm'} color={'font-light'}>
-                    {laundry.name}
-                  </Text>
-                ) : null}
-              </View>
-              <AvailabilityTag status={availabilityStatus} labels={strings.availabilityLabels} />
-            </View>
-          </View>
+          <PaymentMachineCard
+            machine={machine}
+            laundry={laundry}
+            machineLabel={machineLabel}
+            availabilityStatus={availabilityStatus}
+            availabilityLabels={strings.availabilityLabels}
+          />
         ) : null}
 
-        {/* ── Idle / method picker ───────────────────────────────────────── */}
         {paymentState === 'idle' && (
-          <Animated.View style={styles.idleContent} entering={FadeIn} exiting={FadeOut}>
-            <Text fontSize={'font-size-md'} fontWeight={'semibold'}>
-              {strings.programPicker}
-            </Text>
-
-            {programs.map(program => (
-              <ProgramCard
-                key={program.id}
-                program={program}
-                coinCosts={coinCosts}
-                selected={selectedProgram?.id === program.id}
-                onSelect={() => setSelectedProgram(program)}
-              />
-            ))}
-
-            <Text fontSize={'font-size-md'} fontWeight={'semibold'}>
-              {strings.methodPicker}
-            </Text>
-
-            {strategies.map(strategy => (
-              <PaymentMethodCard
-                key={strategy.id}
-                strategy={strategy}
-                selected={selectedStrategy.id === strategy.id}
-                onSelect={() => setSelectedStrategy(strategy)}
-              />
-            ))}
-
-            <View style={styles.confirmWrap}>
-              <Button
-                label={strings.confirm}
-                variant="primary"
-                size="md"
-                iconName="CreditCard"
-                alignLeft
-                fullWidth
-                disabled={!selectedProgram || !selectedStrategy.isAvailable}
-                onPress={execute}
-              />
-            </View>
-          </Animated.View>
+          <PaymentMethodPicker
+            programOptions={programOptions}
+            selectedProgramId={selectedProgramId}
+            selectProgramById={selectProgramById}
+            selectedProgram={selectedProgram}
+            strategies={strategies}
+            selectedStrategy={selectedStrategy}
+            setSelectedStrategy={setSelectedStrategy}
+            programPickerLabel={strings.programPicker}
+            methodPickerLabel={strings.methodPicker}
+            confirmLabel={strings.confirm}
+            onConfirm={execute}
+          />
         )}
 
-        {/* ── Loading ────────────────────────────────────────────────────── */}
-        {isLoading && (
-          <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
-            <Loader />
-            <Text fontSize={'font-size-md'} color={'font-secondary'} style={styles.statusMsg}>
-              {strings.progressMsg || strings.processing}
-            </Text>
-          </Animated.View>
-        )}
+        {isLoading && <PaymentLoadingState message={strings.progressMsg || strings.processing} />}
 
-        {/* ── Success ───────────────────────────────────────────────────── */}
         {isSuccess && (
-          <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
-            <View style={[styles.resultIcon, styles.resultIconSuccess]}>
-              <SvgIcon name={'Star'} size={'icon-size-xxxl'} color={'font-success'} />
-            </View>
-            <Text fontSize={'font-size-xl'} fontWeight={'semibold'} style={styles.statusMsg}>
-              {strings.successTitle}
-            </Text>
-            <Text fontSize={'font-size-sm'} color={'font-light'} style={styles.statusSub}>
-              {strings.successSubtitle}
-            </Text>
-            <Button
-              label={strings.done}
-              variant="primary"
-              size="md"
-              fullWidth
-              style={styles.actionButton}
-              onPress={() => navigation.goBack()}
-            />
-          </Animated.View>
+          <PaymentResultState
+            variant="success"
+            title={strings.successTitle}
+            subtitle={strings.successSubtitle}
+            primaryLabel={strings.done}
+            onPrimary={() => navigation.goBack()}
+          />
         )}
 
-        {/* ── Error ─────────────────────────────────────────────────────── */}
         {isError && (
-          <Animated.View style={styles.centeredState} entering={FadeIn} exiting={FadeOut}>
-            <View style={[styles.resultIcon, styles.resultIconError]}>
-              <SvgIcon name={'AlertCircle'} size={'icon-size-xxxl'} color={'font-error'} />
-            </View>
-            <Text fontSize={'font-size-xl'} fontWeight={'semibold'} style={styles.statusMsg}>
-              {strings.errorTitle}
-            </Text>
-            <Text fontSize={'font-size-sm'} color={'font-light'} style={styles.statusSub}>
-              {strings.errorMsg}
-            </Text>
-            <Button
-              label={strings.retry}
-              variant="primary"
-              size="md"
-              fullWidth
-              style={styles.actionButton}
-              onPress={reset}
-            />
-            <Button label={strings.cancel} variant="link" size="md" fullWidth onPress={() => navigation.goBack()} />
-          </Animated.View>
+          <PaymentResultState
+            variant="error"
+            title={strings.errorTitle}
+            subtitle={strings.errorMsg}
+            primaryLabel={strings.retry}
+            onPrimary={reset}
+            secondaryLabel={strings.cancel}
+            onSecondary={() => navigation.goBack()}
+          />
         )}
       </ScrollView>
     </View>

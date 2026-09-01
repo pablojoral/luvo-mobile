@@ -194,8 +194,8 @@
     "confirm": "Confirm payment",
     "processing": "Processing payment…",
     "success": {
-      "title": "Machine activated!",
-      "subtitle": "The machine will start shortly.",
+      "title": "Payment confirmed!",
+      "subtitle": "Press the start button on the machine to begin your wash.",
       "done": "Done"
     },
     "error": {
@@ -438,5 +438,10 @@
       "Folding the results",
       "Spinning things up"
     ]
+  },
+  "programs": {
+    "long": "Long",
+    "medium": "Medium",
+    "short": "Short"
   }
 }

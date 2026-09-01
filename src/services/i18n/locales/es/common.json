@@ -194,8 +194,8 @@
     "confirm": "Confirmar pago",
     "processing": "Procesando pago…",
     "success": {
-      "title": "¡Máquina activada!",
-      "subtitle": "La máquina comenzará en breve.",
+      "title": "¡Pago confirmado!",
+      "subtitle": "Presioná el botón de inicio en la máquina para comenzar el lavado.",
       "done": "Listo"
     },
     "error": {
@@ -438,5 +438,10 @@
       "Doblando los resultados",
       "Poniendo en marcha"
     ]
+  },
+  "programs": {
+    "long": "Largo",
+    "medium": "Medio",
+    "short": "Corto"
   }
 }

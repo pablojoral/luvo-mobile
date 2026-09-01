@@ -17,11 +17,11 @@ export function usePayment(machineId: number) {
     () => strategies.find(s => s.isAvailable) ?? strategies[0]!,
   );
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
-  const [paymentState,    setPaymentState]    = useState<PaymentState>('idle');
-  const [progressCode,    setProgressCode]    = useState<PaymentProgressCode | null>(null);
-  const [result,          setResult]          = useState<PaymentResult | null>(null);
+  const [paymentState, setPaymentState] = useState<PaymentState>('idle');
+  const [progressCode, setProgressCode] = useState<PaymentProgressCode | null>(null);
+  const [result, setResult] = useState<PaymentResult | null>(null);
 
-  const { data: programs = [],  isLoading: programsLoading }  = usePrograms();
+  const { data: programs = [], isLoading: programsLoading } = usePrograms();
   const { data: coinCosts = [], isLoading: coinCostsLoading } = useCoinCosts();
 
   const execute = async () => {
@@ -34,7 +34,7 @@ export function usePayment(machineId: number) {
     try {
       const res = await selectedStrategy.execute({
         machineId,
-        programId:  selectedProgram.id,
+        programId: selectedProgram.id,
         onProgress: code => setProgressCode(code),
       });
       setResult(res);

@@ -1,13 +1,27 @@
-import { AuthRequiredScreen, Loader, SafeScreenHeader, SettingsMenu } from '@luvo/ui';
+import { AuthRequiredScreen, SafeScreenHeader, SettingsMenu } from '@luvo/ui';
 import { LoadErrorState } from 'components/LoadErrorState/LoadErrorState';
 import { View } from 'react-native';
 
 import { ProfileHeader } from './components/ProfileHeader/ProfileHeader';
+import { ProfileSkeleton } from './components/ProfileSkeleton/ProfileSkeleton';
 import { useProfile } from './hooks/useProfile';
 import { useProfileTheme } from './theme/useProfileTheme';
 
 export const Profile = () => {
-  const { firebaseUser, user, profileItems, isLoading, isError, refetch, title, authSubtitle, authDefaultSubtitle, authTitle, authSignInLabel, profileLoadError } = useProfile();
+  const {
+    firebaseUser,
+    user,
+    profileItems,
+    isLoading,
+    isError,
+    refetch,
+    title,
+    authSubtitle,
+    authDefaultSubtitle,
+    authTitle,
+    authSignInLabel,
+    profileLoadError,
+  } = useProfile();
   const { styles } = useProfileTheme();
 
   return (
@@ -21,12 +35,7 @@ export const Profile = () => {
           onSignIn={() => {}}
         />
       ) : isLoading ? (
-        <>
-          <SafeScreenHeader title={title} hideBack />
-          <View style={styles.loadingContainer}>
-            <Loader size={'icon-size-128'} />
-          </View>
-        </>
+        <ProfileSkeleton />
       ) : isError ? (
         <>
           <SafeScreenHeader title={title} hideBack />

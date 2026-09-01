@@ -14,56 +14,6 @@ export const usePaymentTheme = () => {
       paddingBottom: theme.bottomInset + theme.spacing['spacing-xl'],
       gap: theme.spacing['spacing-lg'],
     },
-    machineCard: {
-      backgroundColor: theme.surfaceColor['surface-secondary'],
-      borderRadius: theme.cornerRad['corner-rad-lg'],
-      padding: theme.spacing['spacing-md'],
-    },
-    machineRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: theme.spacing['spacing-sm'],
-    },
-    machineInfo: {
-      flex: 1,
-      gap: theme.spacing['spacing-xxxs'],
-    },
-    idleContent: {
-      gap: theme.spacing['spacing-xs'],
-    },
-    confirmWrap: {
-      paddingTop: theme.spacing['spacing-xl'],
-    },
-    centeredState: {
-      flex: 1,
-      alignItems: 'center',
-      paddingTop: theme.spacing['spacing-xxxl'],
-      gap: theme.spacing['spacing-sm'],
-    },
-    resultIcon: {
-      width: theme.spacing['spacing-xxxl'] + theme.spacing['spacing-xxl'],
-      height: theme.spacing['spacing-xxxl'] + theme.spacing['spacing-xxl'],
-      borderRadius: theme.cornerRad['corner-rad-full'],
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    resultIconSuccess: {
-      backgroundColor: theme.surfaceColor['surface-success'],
-    },
-    resultIconError: {
-      backgroundColor: theme.surfaceColor['surface-error'],
-    },
-    statusMsg: {
-      textAlign: 'center',
-    },
-    statusSub: {
-      textAlign: 'center',
-      paddingHorizontal: theme.spacing['spacing-xl'],
-    },
-    actionButton: {
-      marginTop: theme.spacing['spacing-lg'],
-      width: '100%',
-    },
   });
 
   return { styles, theme };

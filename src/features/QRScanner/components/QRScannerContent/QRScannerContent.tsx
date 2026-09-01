@@ -2,7 +2,6 @@ import React from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { Camera } from 'react-native-vision-camera';
-import { CodeSection } from 'features/Scan/components/CodeSection/CodeSection';
 import { QRScanView } from '../QRScanView/QRScanView';
 import { ScannerHeader } from '../ScannerHeader/ScannerHeader';
 import { useQRScannerTheme } from '../../theme/useQRScannerTheme';
@@ -13,7 +12,7 @@ import { useQRScannerContent } from './hooks/useQRScannerContent';
  * exiting animation plays before unmount when isOpen flips to false.
  */
 export const QRScannerContent: React.FC = () => {
-  const { hasPermission, codeScanner, close, mode, scanned, handleModeChange, handleManualCode, modeOptions, strings } = useQRScannerContent();
+  const { hasPermission, codeScanner, close, mode, scanned, handleModeChange, modeOptions, strings } = useQRScannerContent();
   const { styles } = useQRScannerTheme(mode);
   const isQR = mode === 'qr';
 
@@ -27,7 +26,7 @@ export const QRScannerContent: React.FC = () => {
           codeScanner={codeScanner}
         />
       )}
-      {isQR ? <View style={styles.dimmer} /> : <View style={styles.codeCover} />}
+      <View style={styles.dimmer} />
 
       <ScannerHeader
         modeOptions={modeOptions}
@@ -37,15 +36,11 @@ export const QRScannerContent: React.FC = () => {
         isQR={isQR}
       />
 
-      {isQR ? (
-        <QRScanView
-          scanned={scanned}
-          title={strings.qrTitle}
-          subtitle={strings.qrSubtitle}
-        />
-      ) : (
-        <CodeSection onSubmit={handleManualCode} />
-      )}
+      <QRScanView
+        scanned={scanned}
+        title={strings.qrTitle}
+        subtitle={strings.qrSubtitle}
+      />
     </Animated.View>
   );
 };

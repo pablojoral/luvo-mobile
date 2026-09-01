@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>333933437173-87sbp485dst4tsd9fb917lc7rsju5p6j.apps.googleusercontent.com</string>
+	<string>333933437173-22t49eq7tbfr5955pl5imeek1h6c8cej.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.333933437173-87sbp485dst4tsd9fb917lc7rsju5p6j</string>
+	<string>com.googleusercontent.apps.333933437173-22t49eq7tbfr5955pl5imeek1h6c8cej</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAKHZYZJ5UWNWX1BJP6qhHq41j_3Z8VRFE</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.luvomobile</string>
+	<string>com.luvomobile</string>
 	<key>PROJECT_ID</key>
 	<string>luvo-dev-b95e3</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:333933437173:ios:0013faa4450a28c97fe5bc</string>
+	<string>1:333933437173:ios:d948c0f09899ef847fe5bc</string>
 </dict>
 </plist>

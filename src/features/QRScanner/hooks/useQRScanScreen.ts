@@ -16,16 +16,16 @@ import type { SelectorOption } from '@luvo/ui';
 const SCAN_RESET_MS = 1_500;
 
 export const useQRScanScreen = () => {
-  const navigation    = useRootStackNavigation();
+  const navigation = useRootStackNavigation();
   const { addMessage } = useMessagesStore();
   const { data: myLaundriesData } = useMyLaundries();
   const { mutate: registerMyLaundry } = useRegisterMyLaundry();
   const { requireAuth } = useAuthRequired();
-  const isFocused     = useIsFocused();
-  const handledRef    = useRef(false);
+  const isFocused = useIsFocused();
+  const handledRef = useRef(false);
   const [scanned, setScanned] = useState(false);
-  const [mode, setMode]       = useState<ScannerMode>('qr');
-  const strings       = useScanStrings('general');
+  const [mode, setMode] = useState<ScannerMode>('qr');
+  const strings = useScanStrings('general');
   const handlerStrings = useQRScanHandlerStrings();
 
   const resetScan = useCallback(() => {
@@ -57,9 +57,7 @@ export const useQRScanScreen = () => {
 
         case 'access_code':
           requireAuth(() => {
-            const alreadyHasAccess = myLaundriesData?.laundries.some(
-              l => l.accessCode === result.code,
-            );
+            const alreadyHasAccess = myLaundriesData?.laundries.some(l => l.accessCode === result.code);
             if (alreadyHasAccess) {
               addMessage({ title: handlerStrings.alreadyHasAccessTitle, body: handlerStrings.alreadyHasAccessBody });
               resetScan();
@@ -81,7 +79,10 @@ export const useQRScanScreen = () => {
 
         case 'other_deeplink':
           Linking.openURL(result.url).catch(() =>
-            addMessage({ title: handlerStrings.deeplinkUnrecognizedTitle, body: handlerStrings.deeplinkUnrecognizedBody }),
+            addMessage({
+              title: handlerStrings.deeplinkUnrecognizedTitle,
+              body: handlerStrings.deeplinkUnrecognizedBody,
+            }),
           );
           resetScan();
           break;
@@ -99,7 +100,7 @@ export const useQRScanScreen = () => {
   const modeOptions: SelectorOption[] = strings.showCodeTab
     ? [
         { label: strings.modeCode, value: 'manual' },
-        { label: strings.modeQR,   value: 'qr' },
+        { label: strings.modeQR, value: 'qr' },
       ]
     : [];
 
@@ -112,13 +113,6 @@ export const useQRScanScreen = () => {
     setMode(newMode);
   }, []);
 
-  const handleManualCode = useCallback(
-    (code: string) => {
-      handleCodeScanned(`luvo://register-access?code=${code}`);
-    },
-    [handleCodeScanned],
-  );
-
   return {
     hasPermission,
     codeScanner,
@@ -127,7 +121,6 @@ export const useQRScanScreen = () => {
     mode,
     modeOptions,
     handleModeChange,
-    handleManualCode,
     strings,
   };
 };

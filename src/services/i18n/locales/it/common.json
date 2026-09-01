@@ -194,8 +194,8 @@
     "confirm": "Conferma pagamento",
     "processing": "Elaborazione pagamento…",
     "success": {
-      "title": "Macchina attivata!",
-      "subtitle": "La macchina si avvierà a breve.",
+      "title": "Pagamento confermato!",
+      "subtitle": "Premi il pulsante di avvio sulla macchina per iniziare il lavaggio.",
       "done": "Fine"
     },
     "error": {
@@ -438,5 +438,10 @@
       "Piegatura in corso",
       "Messa in moto"
     ]
+  },
+  "programs": {
+    "long": "Lungo",
+    "medium": "Medio",
+    "short": "Corto"
   }
 }
