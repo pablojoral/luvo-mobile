@@ -1,26 +1,11 @@
-// metro.config.js
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { getDefaultConfig } = require('expo/metro-config');
 
-const defaultConfig = getDefaultConfig(__dirname);
+const config = getDefaultConfig(__dirname);
 
-// Exclude SVGs from the asset pipeline and treat them as source files instead
-const { assetExts, sourceExts } = defaultConfig.resolver;
+// Treat SVGs as source files (react-native-svg-transformer)
+const { assetExts, sourceExts } = config.resolver;
+config.transformer.babelTransformerPath = require.resolve('react-native-svg-transformer/expo');
+config.resolver.assetExts = assetExts.filter(ext => ext !== 'svg');
+config.resolver.sourceExts = [...sourceExts, 'svg'];
 
-const config = {
-  transformer: {
-    // Use the SVG transformer
-    babelTransformerPath: require.resolve('react-native-svg-transformer'),
-  },
-  resolver: {
-    assetExts: assetExts.filter(ext => ext !== 'svg'),
-    sourceExts: [...sourceExts, 'svg'],
-  },
-};
-
-/**
- * Metro configuration
- * https://reactnative.dev/docs/metro
- *
- * @type {import('@react-native/metro-config').MetroConfig}
- */
-module.exports = mergeConfig(defaultConfig, config);
+module.exports = config;

@@ -1,7 +1,7 @@
 import axios, { AxiosHeaders, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
 import { getAuth, getIdToken } from '@react-native-firebase/auth';
-import { Config } from 'react-native-config';
+import { Config } from 'config/env';
 
 const API_BASE_URL = Config.API_BASE_URL;
 const HTTP_TIMEOUT_MS = 15_000;
@@ -10,6 +10,8 @@ const HTTP_TIMEOUT_MS = 15_000;
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: HTTP_TIMEOUT_MS,
+  // Pin XHR (RN's native networking); axios's fetch adapter clashes with Expo's stream polyfill
+  adapter: 'xhr',
   headers: { 'Content-Type': 'application/json' },
 });
 

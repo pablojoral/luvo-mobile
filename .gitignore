@@ -81,3 +81,10 @@ yarn-error.log
 
 # Local status
 ./current_focus.md
+
+# Expo (continuous native generation)
+/ios
+/android
+.expo/
+dist/
+expo-env.d.ts

@@ -1,4 +1,4 @@
-import Ionicon from 'react-native-vector-icons/Ionicons';
+import Ionicon from '@expo/vector-icons/Ionicons';
 import { useTheme } from 'theme/hooks/useTheme';
 import { FontColor, FontSize } from 'theme/types/Theme';
 

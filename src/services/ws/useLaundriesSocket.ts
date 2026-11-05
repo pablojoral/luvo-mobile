@@ -12,7 +12,7 @@
 
 import { useEffect, useRef } from 'react';
 
-import Config from 'react-native-config';
+import { Config } from 'config/env';
 
 import { getIdToken } from 'services/firebase/firebaseAuth';
 import { LaundrySocketService } from './LaundrySocketService';

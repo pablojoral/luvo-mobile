@@ -62,11 +62,12 @@ jobs:
           java-version: 17
       - name: Write .env
         run: |
-          echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
-          echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
-          echo "MP_PUBLIC_KEY=${{ secrets.MP_PUBLIC_KEY }}" >> .env
-          echo "MP_ACCESS_TOKEN=${{ secrets.MP_ACCESS_TOKEN }}" >> .env
+          echo "EXPO_PUBLIC_API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
+          echo "EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
+          echo "EXPO_PUBLIC_MP_PUBLIC_KEY=${{ secrets.MP_PUBLIC_KEY }}" >> .env
       - run: yarn install --frozen-lockfile
+      - name: Generate native project (expo prebuild)
+        run: npx expo prebuild --platform android --no-install
       - name: Build debug APK
         working-directory: android
         run: ./gradlew assembleDebug

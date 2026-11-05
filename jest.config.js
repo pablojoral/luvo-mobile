@@ -1,5 +1,5 @@
 module.exports = {
-  preset: 'react-native',
+  preset: 'jest-expo',
   // setupFiles runs before the test framework is installed.
   // Only put mocks here that must intercept at module-evaluation time
   // (e.g. AsyncStorage, which Zustand reads when its store module is first imported).
@@ -20,8 +20,8 @@ module.exports = {
     '^react-native-localize$': '<rootDir>/__mocks__/react-native-localize.js',
     // react-native-safe-area-context requires native values — mock with zero insets
     '^react-native-safe-area-context$': '<rootDir>/__mocks__/react-native-safe-area-context.js',
-    // react-native-config is a native module with no JS fallback
-    '^react-native-config$': '<rootDir>/__mocks__/react-native-config.js',
+    // Env config reads process.env at import — pin a deterministic value
+    '^config/env$': '<rootDir>/__mocks__/config-env.js',
     // react-native-gesture-handler native setup chain breaks in Jest (root + sub-paths)
     '^react-native-gesture-handler$': '<rootDir>/__mocks__/react-native-gesture-handler.js',
     '^react-native-gesture-handler/(.*)$': '<rootDir>/__mocks__/react-native-gesture-handler.js',
@@ -29,9 +29,7 @@ module.exports = {
     '^react-native-vision-camera$': '<rootDir>/__mocks__/react-native-vision-camera.js',
     // @react-native-community/netinfo requires native module at init time
     '^@react-native-community/netinfo$': '<rootDir>/__mocks__/@react-native-community/netinfo.js',
-    // react-native-inappbrowser-reborn: utils.js reads NativeModules.RNInAppBrowser
-    // and AppState.currentState at module scope — cannot safely transform; stub entirely.
-    '^react-native-inappbrowser-reborn$': '<rootDir>/__mocks__/react-native-inappbrowser-reborn.js',
+    '^expo-web-browser$': '<rootDir>/__mocks__/expo-web-browser.js',
     // Paths not covered by babel-plugin-module-resolver (root: ./src)
     '^models/(.*)$': '<rootDir>/src/models/$1',
     '^stores/(.*)$': '<rootDir>/src/stores/$1',
@@ -41,6 +39,6 @@ module.exports = {
   transformIgnorePatterns: [
     // react-native-qrcode-svg: pure JS (JSX + react-native-svg only, no NativeModules
     // or TurboModuleRegistry at import time) — must be Babel-transformed for JSX.
-    'node_modules/(?!(react-native|@react-native/.*|@react-native-firebase|@react-native-community|@rnmapbox|react-native-vision-camera|react-native-safe-area-context|react-native-screens|@react-navigation|firebase|@firebase|react-native-vector-icons|react-native-qrcode-svg)/)',
+    'node_modules/(?!((jest-)?react-native|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|expo-.*|@react-native/.*|@react-native-firebase|@react-native-community|@rnmapbox|react-native-vision-camera|react-native-safe-area-context|react-native-screens|@react-navigation|firebase|@firebase|react-native-qrcode-svg)/)',
   ],
 };

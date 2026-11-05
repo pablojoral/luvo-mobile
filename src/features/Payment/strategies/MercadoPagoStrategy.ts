@@ -8,7 +8,7 @@
  *   → poll GET /payments/:id until status ≠ 'pending' (IPN has already fired on backend)
  */
 
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import * as WebBrowser from 'expo-web-browser';
 import { Linking } from 'react-native';
 import { paymentService } from 'services/api/services/PaymentService';
 import { PaymentContext, PaymentResult, PaymentStrategy } from './PaymentStrategy';
@@ -73,34 +73,25 @@ export const mercadoPagoStrategy: PaymentStrategy = {
     const payment = await paymentService.initiate(machineId, 'mercadopago');
     const { initPoint } = payment.clientData as { initPoint: string };
 
-    const available = await InAppBrowser.isAvailable();
-    if (!available) {
-      return { success: false, error: 'browser_unavailable' };
-    }
-
     onProgress?.('opening_checkout');
 
     // Register listener BEFORE opening browser to avoid race condition
     const deepLinkPromise = waitForDeepLink(payment.paymentId);
 
-    await InAppBrowser.open(initPoint, {
-      // iOS
-      dismissButtonStyle:        'cancel',
-      preferredBarTintColor:     '#6B46C1',
-      preferredControlTintColor: '#FFFFFF',
-      animated:                  true,
-      enableBarCollapsing:       false,
-      // Android
-      showTitle:                  true,
-      toolbarColor:               '#6B46C1',
-      enableUrlBarHiding:         true,
-      enableDefaultShare:         false,
-      forceCloseOnRedirection:    true,
+    await WebBrowser.openBrowserAsync(initPoint, {
+      toolbarColor:        '#6B46C1',
+      controlsColor:       '#FFFFFF',
+      showTitle:           true,
+      enableBarCollapsing: false,
+      enableDefaultShareMenuItem: false,
+      dismissButtonStyle:  'cancel',
     });
 
     let result: string;
     try {
       result = await deepLinkPromise;
+      // Close the checkout tab once MP redirects back (replaces forceCloseOnRedirection)
+      WebBrowser.dismissBrowser();
     } catch (e: unknown) {
       // The reject path in waitForDeepLink always rejects with 'mp_deeplink_timeout' as the message.
       // Any other unexpected throw maps to 'unknown'.
